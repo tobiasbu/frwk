@@ -1,0 +1,17 @@
+# Top-most EditorConfig file
+root = true
+
+# Configuration for all files
+[*]
+charset = utf-8
+# Unix line ending
+end_of_line = lf
+# Indent by 4 characters
+indent_style = tab
+indent_size = 4
+tab_width = 4
+# Remove whitespace characters at the end of line
+trim_trailing_whitespace = true
+# End files with new line
+insert_final_newline = true
+
