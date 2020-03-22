@@ -2,14 +2,15 @@ cmake_minimum_required(VERSION 3.9)
 
 # Project Name
 project (
-		PurpurinaEngine
+		purpurina
 		VERSION 0.0.1
 		DESCRIPTION "Purpurina Game Engine"
 		LANGUAGES CXX
 )
 
-# Include the configuration file
+# Include the CMake Configuration and Utils file
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/Config.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/Utils.cmake)
 
 
 # we use the paths from the cmake GNUInstallDirs module as defaults
@@ -24,18 +25,17 @@ if(PURPURINA_OS_WINDOWS)
 endif()
 
 # Set paths for source files
-set(PURPURINA_SOURCES_PATH "${CMAKE_CURRENT_SOURCE_DIR}/src/purpurina")
-set(PURPURINA_INCLUDES_PATH "${CMAKE_CURRENT_SOURCE_DIR}/include/purpurina")
+set(PURPURINA_PACKAGES_DIR "${CMAKE_CURRENT_SOURCE_DIR}/purpurina")
 
-add_subdirectory(${PURPURINA_SOURCES_PATH})
+add_subdirectory(${PURPURINA_PACKAGES_DIR})
 
 # Get Headers
-file(GLOB PURPURINA_HEADERS RELATIVE ${PROJECT_SOURCE_DIR} "${PURPURINA_INCLUDES_PATH}/*")
+# file(GLOB PURPURINA_HEADERS RELATIVE ${PROJECT_SOURCE_DIR} "${PURPURINA_INCLUDES_PATH}/*")
 
-add_library(Purpurina SHARED ${PURPURINA_HEADERS})
+# add_library(Purpurina SHARED ${PURPURINA_HEADERS})
 
 # C++ standrad libraries
-set_target_properties(Purpurina PROPERTIES LINKER_LANGUAGE CXX)
+# set_target_properties(Purpurina PROPERTIES LINKER_LANGUAGE CXX)
 
 # set_target_properties(PurpurinaCore
 #    PROPERTIES
@@ -60,3 +60,4 @@ set_target_properties(Purpurina PROPERTIES LINKER_LANGUAGE CXX)
 # set_target_properties(mylib PROPERTIES PUBLIC_HEADER include/mylib.h)
 
 
+export_targets()

@@ -1,0 +1,6 @@
+
+# Set Library Output path
+set(LIBRARY_OUTPUT_PATH "${PROJECT_BINARY_DIR}/lib")
+
+# Purpurina Core
+add_subdirectory("${PURPURINA_PACKAGES_DIR}/purpurina-core")
