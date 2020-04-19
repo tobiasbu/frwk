@@ -1,0 +1,6 @@
+{
+	"cmake.configureSettings": {
+		"PURPURINA_SANDBOX": true,
+		"PURPURINA_SANDBOX_POSTCOMMAND": "exe_to_bin"
+	}
+}

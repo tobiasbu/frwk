@@ -3,7 +3,7 @@
 #define _PURPURINA_CONFIG_HPP_
 
 	////////////////////////////////////////////////////////////
-	// PURPURINA CORE version
+	// PURPURINA version
 	////////////////////////////////////////////////////////////
 	#define PURPURINA_VERSION_MAJOR 0
 	#define PURPURINA_VERSION_MINOR 0
@@ -24,7 +24,7 @@
 	#elif defined(__APPLE__) && defined(__MACH__)
 
 		// Apple platform, see which one it is
-		// #include "TargetConditionals.h"
+		#include "TargetConditionals.h"
 
 		#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 
@@ -84,4 +84,21 @@
 
 	#endif
 
+	////////////////////////////////////////////////////////////
+	// Define import / export macros for each module
+	////////////////////////////////////////////////////////////
+	#ifndef PURPURINA_STATIC
+
+		#ifdef PURPURINA_OS_WINDOWS
+
+			#define PURPURINA_API_EXPORT __declspec(dllexport)
+        	#define PURPURINA_API_IMPORT __declspec(dllimport)
+
+		#endif
+
+	#endif
+
 #endif
+
+
+

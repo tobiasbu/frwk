@@ -1,10 +1,8 @@
 
-
-
 #include <cstdarg>
 #include <stdio.h>
 
-// #include <purpurina/Core/Debug.hpp>
+
 #include <purpurina/Core/Debug/Logger.hpp>
 
 namespace ppr {
@@ -13,7 +11,11 @@ namespace ppr {
 
 		}
 
-		void Logger::print(const char* message, const char & argptr) {
+		void Logger::print(const char* message) {
+			printf(message);
+		}
+
+		/*void Logger::print(const char* message, const char & argptr) {
 			
 		}
 
@@ -30,6 +32,6 @@ namespace ppr {
 		}
 		void Logger::info(const char* message, ...) {
 
-		}
+		}*/
 	
 }
