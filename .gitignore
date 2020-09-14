@@ -45,6 +45,7 @@ CTestTestfile.cmake
 _deps
 
 # Purpurina
+_bkp
 out/
 build/
 .vs

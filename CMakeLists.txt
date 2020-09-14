@@ -1,3 +1,5 @@
+
+
 cmake_minimum_required(VERSION 3.9)
 
 # Project Name
@@ -19,6 +21,11 @@ include(GNUInstallDirs)
 # set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 
+# Set paths for purpurina packages files
+set(PURPURINA_PACKAGES_DIR "${CMAKE_CURRENT_SOURCE_DIR}/purpurina")
+# third-party
+set(PURPURINA_EXTLIBS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/thirdparty")
+
 #############################################
 ####		    COMMON OPTIONS			 ####
 #############################################
@@ -39,22 +46,6 @@ if(PURPURINA_OS_WINDOWS AND BUILD_SHARED_LIBS AND PURPURINA_SANDBOX)
 This is necessary to link executables with dynamic libraries.
  * exe_to_bin = Build executables in the same folder of libraries
  * bin_to_exe = Make a copy of libraries to the executable folders.")
-endif()
-
-
-#############################################
-####		  COMMON DIRECTORIES		 ####
-#############################################
-
-# Set paths for source files
-set(PURPURINA_PACKAGES_DIR "${CMAKE_CURRENT_SOURCE_DIR}/purpurina")
-
-# Set output folders for libraries
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
-
-if (PURPURINA_OS_WINDOWS AND PURPURINA_SANDBOX_POSTCOMMAND STREQUAL "exe_to_bin")
-	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 endif()
 
 #############################################

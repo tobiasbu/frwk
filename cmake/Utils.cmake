@@ -99,14 +99,18 @@ macro(ppr_add_library target)
 			ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT dev
 			FRAMEWORK DESTINATION "." COMPONENT bin)
 
-
-
 	# Add <purpurina/include/../../> as public include directory
 	target_include_directories(${target}
 							PUBLIC "$<BUILD_INTERFACE:${PURPURINA_PACKAGES_DIR}/${target}/include>"
 							PRIVATE "${PURPURINA_PACKAGES_DIR}/${target}/src")
 
 	target_include_directories(${target} INTERFACE $<INSTALL_INTERFACE:include>)
+
+	# For static builds we need to define the static flag to proper compilation
+	if(NOT BUILD_SHARED_LIBS)
+		target_compile_definitions(${target} PUBLIC "PURPURINA_STATIC")
+	endif()
+
 endmacro()
 
 #
@@ -128,8 +132,8 @@ macro(ppr_add_executable target)
 	set(target_input ${ARGS_SOURCES})
 
 	# With Win32 with don't have a main file
+	# add_executable(${target} WIN32 ${target_input})
 	add_executable(${target} ${target_input})
-	target_link_libraries(${target} PRIVATE purpurina-core)
 
 	# Set the target folder for Visual Studio
 	set_target_properties(${target} PROPERTIES FOLDER "purpurina")
@@ -140,8 +144,13 @@ macro(ppr_add_executable target)
 	# Set the Visual Studio startup path for debugging
 	set_target_properties(${target} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
+	# Set target libraries
+	 # Core
+
 	if(ARGS_DEPENDS)
-		target_link_libraries(${target} PRIVATE ${ARGS_DEPENDS})
+		target_link_libraries(${target} PRIVATE purpurina-core ${ARGS_DEPENDS})
+	else()
+		target_link_libraries(${target} PRIVATE purpurina-core)
 	endif()
 
 	if(PURPURINA_OS_WINDOWS AND BUILD_SHARED_LIBS)
@@ -189,8 +198,9 @@ function(ppr_export_targets)
 	endif()
 	# Create Target - (export symbols config)
 	set(TARGET_CONFIG_FILENAME "Purpurina${BUILD_CONFIG_NAME}Targets.cmake")
-	export(EXPORT PupurinaConfigExport
-		   FILE "${CMAKE_CURRENT_BINARY_DIR}/${TARGET_CONFIG_FILENAME}")
+	export(EXPORT
+		PupurinaConfigExport
+		FILE "${CMAKE_CURRENT_BINARY_DIR}/${TARGET_CONFIG_FILENAME}")
 
 	set(CONFIG_PACKAGE_DIR ${CMAKE_INSTALL_LIBDIR}/cmake/purpurina)
 	# configure_package_config_file("${CURRENT_DIR}/PurpurinaConfig.cmake.in" "${CMAKE_CURRENT_BINARY_DIR}/PurpurinaConfig.cmake"
@@ -203,8 +213,7 @@ function(ppr_export_targets)
 
 	# Add installation rule which adds PurpurinaVersionConfig
 	# TODO: "${CMAKE_CURRENT_BINARY_DIR}/PurpurinaConfig.cmake"
-	install(FILES
-				  "${CMAKE_CURRENT_BINARY_DIR}/PurpurinaVersionConfig.cmake"
+	install(FILES "${CMAKE_CURRENT_BINARY_DIR}/PurpurinaVersionConfig.cmake"
             DESTINATION ${CONFIG_PACKAGE_DIR}
             COMPONENT development)
 
