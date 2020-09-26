@@ -1,3 +1,16 @@
+////////////////////////////////////////////////////////////
+// Purpurina Engine
+//
+// \todo Copyright notice
+//
+////////////////////////////////////////////////////////////
+///
+/// \ingroup purpurina-core
+/// \file Assert.hpp
+/// \author Tobias Ulrich <flamenco.bluegrass@gmail.com>
+/// \date September 25, 2020
+///
+////////////////////////////////////////////////////////////
 
 #ifndef _PURPURINA_ASSERT_HPP_
 #define _PURPURINA_ASSERT_HPP_
@@ -43,8 +56,6 @@
 #define PURPURINA_HAS_ONE_ARGUMENT(...) PURPURINA_APPLY_VA_ARGS(PURPURINA_ASSERT_NARG_, PPR_ASSERT_NO_MACRO, ##__VA_ARGS__,\
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, PPR_ASSERT_NO_MACRO)
-
-// #define assert(e, msg, ...) (!!e) ? (void)0 : priv::handleAssert(#e, PURPURINA_ASSERT_FILE, PURPURINA_ASSERT_LINE, msg, ##__VA_ARGS__)
 
 ////////////////////////////////////////////////////////////
 /// \brief Assert given expression
