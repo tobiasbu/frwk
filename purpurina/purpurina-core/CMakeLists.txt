@@ -2,12 +2,14 @@
 set(INCPATH "${PURPURINA_PACKAGES_DIR}/purpurina-core/include/purpurina")
 set(SRCPATH "${PURPURINA_PACKAGES_DIR}/purpurina-core/src/purpurina")
 
+# Root folder
 set(CORE_INC_CONFIG
 	"${INCPATH}/Config.hpp"
 	"${INCPATH}/Export.hpp"
-	"${PURPURINA_PACKAGES_DIR}/purpurina-core/include/purpurina/Purpurina.hpp"
+	"${INCPATH}/Purpurina.hpp"
 )
 
+# Sub-folders
 file(GLOB_RECURSE CORE_INC
 	"${INCPATH}/Macros/HelperMacros.hpp"
 	"${INCPATH}/Error/Exception.hpp"
@@ -25,11 +27,6 @@ set(CORE_SRC
 	"${SRCPATH}/Debug/Assert/AssertHandler.cpp"
 	"${SRCPATH}/Debug/Assert/AssertionException.cpp"
 )
-
-# file(GLOB_RECURSE CORE_SRC
-# 	"${SRCPATH}/**/*.cpp"
-# )
-
 
 source_group("Header Files/" FILES ${CORE_INC_CONFIG})
 

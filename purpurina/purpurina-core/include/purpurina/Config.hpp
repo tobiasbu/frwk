@@ -1,9 +1,22 @@
+////////////////////////////////////////////////////////////
+// Purpurina Engine
+//
+// \todo Copyright notice
+//
+////////////////////////////////////////////////////////////
+///
+/// \ingroup purpurina-core
+/// \file Config.hpp
+/// \author Tobias Ulrich <flamenco.bluegrass@gmail.com>
+/// \date March 7, 2020
+///
+////////////////////////////////////////////////////////////
 
 #ifndef _PURPURINA_CONFIG_HPP_
 #define _PURPURINA_CONFIG_HPP_
 
 	////////////////////////////////////////////////////////////
-	// PURPURINA version
+	// Purpurina version
 	////////////////////////////////////////////////////////////
 	#define PURPURINA_VERSION_MAJOR 0
 	#define PURPURINA_VERSION_MINOR 0
@@ -79,21 +92,17 @@
 	// Define a portable debug macro
 	////////////////////////////////////////////////////////////
 	#if !defined(NDEBUG)
-
 		#define PPR_DEBUG
-
 	#endif
 
 	////////////////////////////////////////////////////////////
 	// Define import / export macros for each module
 	////////////////////////////////////////////////////////////
 	#ifndef PURPURINA_STATIC
-
 		#ifdef PPR_OS_WINDOWS
 			#define PURPURINA_API_EXPORT __declspec(dllexport)
         	#define PURPURINA_API_IMPORT __declspec(dllimport)
 		#endif
-
 	#endif
 
 	#if (defined (__cplusplus) && (__cplusplus > 199711L)) || (defined(_MSC_FULL_VER) && (_MSC_FULL_VER >= 150020706))
@@ -109,7 +118,9 @@
 	#endif
 
 
-// Purpurina namespace
+///
+/// Purpurina namespace
+///
 namespace ppr
 {
 	////////////////////////////////////////////////////////////
