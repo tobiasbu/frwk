@@ -8,18 +8,28 @@ set(CORE_INC_CONFIG
 	"${PURPURINA_PACKAGES_DIR}/purpurina-core/include/purpurina/Purpurina.hpp"
 )
 
+file(GLOB_RECURSE CORE_INC
+	"${INCPATH}/Macros/HelperMacros.hpp"
+	"${INCPATH}/Error/Exception.hpp"
+	"${INCPATH}/Debug/Assert/Assert.hpp"
+	"${INCPATH}/Debug/Assert/AssertHandler.hpp"
+	"${INCPATH}/Debug/Assert/AssertionException.hpp"
+	"${INCPATH}/Debug/Break.hpp"
+	"${INCPATH}/**/*.hpp"
+)
+
+
 set(CORE_SRC
-	"${SRCPATH}/Debug/Assert.cpp"
+	"${SRCPATH}/Error/Exception.cpp"
 	"${SRCPATH}/Debug/Logger.cpp"
+	"${SRCPATH}/Debug/Assert/AssertHandler.cpp"
+	"${SRCPATH}/Debug/Assert/AssertionException.cpp"
 )
 
 # file(GLOB_RECURSE CORE_SRC
 # 	"${SRCPATH}/**/*.cpp"
 # )
 
-file(GLOB_RECURSE CORE_INC
-	"${INCPATH}/**/*.hpp"
-)
 
 source_group("Header Files/" FILES ${CORE_INC_CONFIG})
 
