@@ -16,7 +16,7 @@
 	#if defined(_WIN32)
 
 		// Windows
-		#define PURPURINA_OS_WINDOWS
+		#define PPR_OS_WINDOWS
 		#ifndef NOMINMAX
 			#define NOMINMAX
 		#endif
@@ -29,12 +29,12 @@
 		#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 
 		// iOS
-		#define PURPURINA_OS_IOS
+		#define PPR_OS_IOS
 
 		#elif TARGET_OS_MAC
 
 		// MacOS
-		#define PURPURINA_OS_MACOS
+		#define PPR_OS_MACOS
 
 		#else
 
@@ -49,17 +49,17 @@
 		#if defined(__ANDROID__)
 
 			// Android
-			#define PURPURINA_OS_ANDROID
+			#define PPR_OS_ANDROID
 
 		#elif defined(__linux__)
 
 			// Linux
-			#define PURPURINA_OS_LINUX
+			#define PPR_OS_LINUX
 
 		#elif defined(__FreeBSD__) || defined(__FreeBSD_kernel__)
 
 			// FreeBSD
-			#define PURPURINA_OS_FREEBSD
+			#define PPR_OS_FREEBSD
 
 		#else
 
@@ -80,7 +80,7 @@
 	////////////////////////////////////////////////////////////
 	#if !defined(NDEBUG)
 
-		#define PURPURINA_DEBUG
+		#define PPR_DEBUG
 
 	#endif
 
@@ -89,29 +89,43 @@
 	////////////////////////////////////////////////////////////
 	#ifndef PURPURINA_STATIC
 
-		#ifdef PURPURINA_OS_WINDOWS
+		#ifdef PPR_OS_WINDOWS
 			#define PURPURINA_API_EXPORT __declspec(dllexport)
         	#define PURPURINA_API_IMPORT __declspec(dllimport)
 		#endif
 
 	#endif
 
+	#if (defined (__cplusplus) && (__cplusplus > 199711L)) || (defined(_MSC_FULL_VER) && (_MSC_FULL_VER >= 150020706))
+		#define PURPURINA_CXX11
+	#endif
 
-////////////////////////////////////////////////////////////
-// Define portable fixed-size types
-////////////////////////////////////////////////////////////
+	#if defined(PURPURINA_CXX11)
+		// Null pointer
+		#define PPR_NULLPTR nullptr
+	#else
+		// Null pointer
+		#define PPR_NULLPTR 0
+	#endif
+
+
+// Purpurina namespace
 namespace ppr
 {
+	////////////////////////////////////////////////////////////
+	// Define portable fixed-size types
+	////////////////////////////////////////////////////////////
+
 	// All "common" platforms use the same size for char, short and int
 	// (basically there are 3 types for 3 sizes, so no other match is possible),
 	// we can use them without doing any kind of check
 
+	/// C-string
+	typedef const char * cstr;
+
 	// 8 bits integer types
 	typedef signed   char int8;
 	typedef unsigned char uint8;
-
-	// type alias for byte
-	typedef int8 byte;
 
 	// 16 bits integer types
 	typedef signed   short int16;

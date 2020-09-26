@@ -14,8 +14,5 @@ int main(int argc, char* argv[]) {
 
 	log.log("Using", "variadic", "templates");
 
-	int i = 0;
-
-
 	return 0;
 }
