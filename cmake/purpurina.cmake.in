@@ -1,0 +1,9 @@
+set(targets_config_file "${CMAKE_CURRENT_LIST_DIR}/Purpurina${config_name}Targets.cmake")
+
+# Generate imported targets for SFML and its dependencies
+if (EXISTS "${targets_config_file}")
+
+	include("${targets_config_file}")
+	# include("${CMAKE_CURRENT_LIST_DIR}/SFMLConfigDependencies.cmake")
+
+endif();

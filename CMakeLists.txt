@@ -1,6 +1,6 @@
-
-
 cmake_minimum_required(VERSION 3.9)
+
+set (CMAKE_CXX_STANDARD 11)
 
 # Project Name
 project (purpurina
@@ -8,22 +8,23 @@ project (purpurina
 		DESCRIPTION "Purpurina Game Engine"
 		LANGUAGES CXX)
 
+
 # Include the CMake Configuration and Utils files
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/Config.cmake)
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/Utils.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/config.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/macros.cmake)
 
 # we use the paths from the cmake GNUInstallDirs module as defaults
 # you can override these if you like
 # https://cmake.org/cmake/help/v3.0/module/GNUInstallDirs.html
 include(GNUInstallDirs)
 
-# enable project folders
-# set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+# enable folders
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 
 # Set paths for purpurina packages files
-set(PURPURINA_PACKAGES_DIR "${CMAKE_CURRENT_SOURCE_DIR}/purpurina")
-# third-party
+set(PURPURINA_SRC "${PROJECT_SOURCE_DIR}/src/purpur")
+set(PURPURINA_INC "${PROJECT_SOURCE_DIR}/include/purpur")
 set(PURPURINA_EXTLIBS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/thirdparty")
 
 #############################################
@@ -73,30 +74,38 @@ if(PURPURINA_OS_WINDOWS)
 	endif()
 endif()
 
+# [MACOSX] Setup
+if(PURPURINA_OS_MACOSX)
+	set(XCODE_TEMPLATES_ARCH "\$(NATIVE_ARCH_ACTUAL)")
+endif()
+
 #############################################
 ####		     ADD PACAKGES 			 ####
 #############################################
 
-add_subdirectory(${PURPURINA_PACKAGES_DIR})
+add_subdirectory(${PURPURINA_SRC})
+
+# Sandbox
+if (PURPURINA_SANDBOX)
+	add_subdirectory("${PROJECT_SOURCE_DIR}/sandbox")
+endif()
+
 
 #############################################
 ####		       INSTALL    			 ####
 #############################################
 
 # Install all packages includes
-file(GLOB PACKAGE_PATHS "${PURPURINA_PACKAGES_DIR}/**/include/purpurina")
+file(GLOB PACKAGE_PATHS "${PURPURINA_INCLUDE}/**")
 foreach(ITEM ${PACKAGE_PATHS})
 	if(IS_DIRECTORY ${ITEM})
 		list( APPEND DIRS_TO_DEPLOY "${ITEM}" )
-    else()
-      list( APPEND FILES_TO_DEPLOY "${ITEM}" )
     endif()
 endforeach()
 
 install(DIRECTORY ${DIRS_TO_DEPLOY}
-            DESTINATION include
-            COMPONENT devel
-            FILES_MATCHING PATTERN "*.hpp" PATTERN "*.inl")
-
+        DESTINATION include
+        COMPONENT devel
+        FILES_MATCHING PATTERN "*.hpp" PATTERN "*.inl")
 
 ppr_export_targets()

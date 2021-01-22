@@ -44,6 +44,11 @@ compile_commands.json
 CTestTestfile.cmake
 _deps
 
+# Mac OS
+.DS_Store
+*.build/
+*.xcodeproj/
+
 # Purpurina
 _bkp
 out/
