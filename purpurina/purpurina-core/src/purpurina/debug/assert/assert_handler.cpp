@@ -1,5 +1,5 @@
 
-#include <purpurina/Debug/Assert/AssertHandler.hpp>
+#include <purpurina/debug/assert/assert_handler.hpp>
 
 #include <stdarg.h>
 #include <stdio.h>

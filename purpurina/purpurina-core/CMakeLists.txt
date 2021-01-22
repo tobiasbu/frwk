@@ -4,28 +4,28 @@ set(SRCPATH "${PURPURINA_PACKAGES_DIR}/purpurina-core/src/purpurina")
 
 # Root folder
 set(CORE_INC_CONFIG
-	"${INCPATH}/Config.hpp"
-	"${INCPATH}/Export.hpp"
-	"${INCPATH}/Purpurina.hpp"
+	"${INCPATH}/config.hpp"
+	"${INCPATH}/export.hpp"
+	"${INCPATH}/purpur.hpp"
 )
 
 # Sub-folders
 file(GLOB_RECURSE CORE_INC
-	"${INCPATH}/Macros/HelperMacros.hpp"
-	"${INCPATH}/Error/Exception.hpp"
-	"${INCPATH}/Debug/Assert/Assert.hpp"
-	"${INCPATH}/Debug/Assert/AssertHandler.hpp"
-	"${INCPATH}/Debug/Assert/AssertionException.hpp"
-	"${INCPATH}/Debug/Break.hpp"
+	"${INCPATH}/macros/helper_macros.hpp"
+	"${INCPATH}/error/exception.hpp"
+	"${INCPATH}/debug/assert/assert.hpp"
+	"${INCPATH}/debug/assert/assert_handler.hpp"
+	"${INCPATH}/debug/assert/assertion_exception.hpp"
+	"${INCPATH}/debug/break.hpp"
 	"${INCPATH}/**/*.hpp"
 )
 
 
 set(CORE_SRC
-	"${SRCPATH}/Error/Exception.cpp"
-	"${SRCPATH}/Debug/Logger.cpp"
-	"${SRCPATH}/Debug/Assert/AssertHandler.cpp"
-	"${SRCPATH}/Debug/Assert/AssertionException.cpp"
+	"${SRCPATH}/error/exception.cpp"
+	"${SRCPATH}/debug/logger.cpp"
+	"${SRCPATH}/debug/assert/assert_handler.cpp"
+	"${SRCPATH}/debug/assert/assertion_exception.cpp"
 )
 
 source_group("Header Files/" FILES ${CORE_INC_CONFIG})

@@ -2,7 +2,7 @@
 #ifndef _PURPURINA_DEBUG_BREAK_HPP_
 #define _PURPURINA_DEBUG_BREAK_HPP_
 
-#include <purpurina/Config.hpp>
+#include <purpurina/config.hpp>
 
 #ifdef PPR_DEBUG
 	#if defined(PPR_OS_WINDOWS)

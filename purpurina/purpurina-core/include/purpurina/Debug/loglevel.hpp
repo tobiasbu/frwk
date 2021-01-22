@@ -2,7 +2,7 @@
 #ifndef _PURPURINA_LOG_LEVEL_HPP_
 #define _PURPURINA_LOG_LEVEL_HPP_
 
-#include <purpurina/Config.hpp>
+#include <purpurina/config.hpp>
 
 namespace ppr {
 

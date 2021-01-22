@@ -15,10 +15,10 @@
 #ifndef _PURPURINA_ASSERTION_EXCEPTION_HPP_
 #define _PURPURINA_ASSERTION_EXCEPTION_HPP_
 
-#include <purpurina/Config.hpp>
-#include <purpurina/Export.hpp>
+#include <purpurina/config.hpp>
+#include <purpurina/export.hpp>
 
-#include <purpurina/Error/Exception.hpp>
+#include <purpurina/error/exception.hpp>
 
 namespace ppr {
 

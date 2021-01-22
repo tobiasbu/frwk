@@ -103,7 +103,6 @@ macro(ppr_add_library target)
 	target_include_directories(${target}
 							PUBLIC "$<BUILD_INTERFACE:${PURPURINA_PACKAGES_DIR}/${target}/include>"
 							PRIVATE "${PURPURINA_PACKAGES_DIR}/${target}/src")
-
 	target_include_directories(${target} INTERFACE $<INSTALL_INTERFACE:include>)
 
 	# For static builds we need to define the static flag to proper compilation
@@ -125,10 +124,6 @@ macro(ppr_add_executable target)
 	# Parse arguments
 	cmake_parse_arguments(ARGS "" "" "SOURCES;DEPENDS" ${ARGN})
 
-	# if (NOT "${ARGS_UNPARSED_ARGUMENTS}" STREQUAL "")
-	# 	message(FATAL_ERROR "Extra unparsed arguments when calling sfml_add_library: ${THIS_UNPARSED_ARGUMENTS}")
-	# endif()
-
 	set(target_input ${ARGS_SOURCES})
 
 	# With Win32 with don't have a main file
@@ -144,14 +139,17 @@ macro(ppr_add_executable target)
 	# Set the Visual Studio startup path for debugging
 	set_target_properties(${target} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
-	# Set target libraries
-	 # Core
-
+	# Set target libraries - Core
 	if(ARGS_DEPENDS)
 		target_link_libraries(${target} PRIVATE purpurina-core ${ARGS_DEPENDS})
 	else()
 		target_link_libraries(${target} PRIVATE purpurina-core)
 	endif()
+
+	target_include_directories(${target}
+	PUBLIC "$<BUILD_INTERFACE:${PURPURINA_PACKAGES_DIR}/${target}/include>")
+	# PRIVATE "${PURPURINA_PACKAGES_DIR}/${target}/src")
+	# target_include_directories(${target} INTERFACE $<INSTALL_INTERFACE:include>)
 
 	if(PURPURINA_OS_WINDOWS AND BUILD_SHARED_LIBS)
 		if(PURPURINA_SANDBOX_POSTCOMMAND STREQUAL "exe_to_bin")

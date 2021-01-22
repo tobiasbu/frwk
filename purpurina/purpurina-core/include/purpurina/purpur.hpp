@@ -15,10 +15,10 @@
 #ifndef _PURPURINA_HPP_
 #define _PURPURINA_HPP_
 
-#include <purpurina/Config.hpp>
+#include <purpurina/config.hpp>
 
-#include <purpurina/Debug/Logger.hpp>
-#include <purpurina/Debug/Assert/AssertionException.hpp>
-#include <purpurina/Debug/Assert/Assert.hpp>
+#include <purpurina/debug/logger.hpp>
+#include <purpurina/debug/assert/assertion_exception.hpp>
+#include <purpurina/debug/assert/assert.hpp>
 
 #endif

@@ -1,30 +1,21 @@
 
-set(INCPATH "${PURPURINA_PACKAGES_DIR}/sandbox/include/purpurina/Sandbox")
-set(SRCPATH "${PURPURINA_PACKAGES_DIR}/sandbox/src/purpurina/Sandbox")
+set(INCPATH "${PURPURINA_PACKAGES_DIR}/sandbox/include/purpurina/sandbox")
+set(SRCPATH "${PURPURINA_PACKAGES_DIR}/sandbox/src/purpurina/sandbox")
 
 
-
-file(GLOB_RECURSE SANDBOX_SRC
-	"${SRCPATH}/*.cpp"
+set(SANDBOX_SRC
+	"${SRCPATH}/main.cpp"
 )
 
-file(GLOB_RECURSE SANDBOX_INC
-	"${INCPATH}/**/*.hpp"
-)
-
-ppr_make_source_groups(INCLUDES ${SANDBOX_INC}
-					   INCLUDE_DIR ${INCPATH}
-					   SOURCES ${SANDBOX_SRC}
-)
+ppr_make_source_groups(SOURCES ${SANDBOX_SRC})
 
 # Create sandbox executable
 ppr_add_executable(sandbox
-				   SOURCES ${SANDBOX_SRC} ${SANDBOX_INC}
+				   SOURCES ${SANDBOX_SRC}
 				   DEPENDS ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY})
 
-message("${OPENGL_glu_LIBRARY}")
-
-target_include_directories(sandbox PUBLIC ${OPENGL_INCLUDE_DIR})
+# message("${OPENGL_glu_LIBRARY}")
+# target_include_directories(sandbox PUBLIC ${OPENGL_INCLUDE_DIR})
 # ppr_link(sandbox ${OPENGL_LIBRARIES} ${OPENGL_INCLUDE_DIR})
 
 # target_link_directories(sandbox ${OPENGL_INCLUDE_DIR})

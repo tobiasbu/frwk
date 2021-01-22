@@ -15,7 +15,7 @@
 #ifndef _PURPURINA_CORE_EXPORTS_HPP_
 #define _PURPURINA_CORE_EXPORTS_HPP_
 
-#include <purpurina/Config.hpp>
+#include <purpurina/config.hpp>
 
 #ifdef PURPURINA_CORE_EXPORTS
     #define PURPURINA_CORE_API PURPURINA_API_EXPORT

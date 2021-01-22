@@ -4,8 +4,8 @@
 
 #include <iostream>
 
-#include <purpurina/Export.hpp>
-#include <purpurina/Debug/LogLevel.hpp>
+#include <purpurina/export.hpp>
+#include <purpurina/debug/loglevel.hpp>
 
 namespace ppr {
 

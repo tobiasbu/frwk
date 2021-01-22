@@ -15,8 +15,8 @@
 #ifndef _PURPURINA_ASSERT_HANDLER_HPP_
 #define _PURPURINA_ASSERT_HANDLER_HPP_
 
-#include <purpurina/Export.hpp>
-#include <purpurina/Config.hpp>
+#include <purpurina/export.hpp>
+#include <purpurina/config.hpp>
 
 #if defined(_MSC_VER) && !defined(_CPPUNWIND)
 	#ifndef (PURPURINA_ASSERT_CUSTOM_THROW)

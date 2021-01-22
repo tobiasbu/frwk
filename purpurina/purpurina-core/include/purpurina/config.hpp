@@ -28,7 +28,7 @@
 	////////////////////////////////////////////////////////////
 	#if defined(_WIN32)
 
-		// Windows
+		/// Windows OS
 		#define PPR_OS_WINDOWS
 		#ifndef NOMINMAX
 			#define NOMINMAX

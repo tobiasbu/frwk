@@ -1,6 +1,6 @@
 
-#include <purpurina/Debug/Assert/AssertionException.hpp>
-#include <purpurina/Macros/HelperMacros.hpp>
+#include <purpurina/debug/assert/assertion_exception.hpp>
+#include <purpurina/macros/helper_macros.hpp>
 
 namespace ppr {
 
