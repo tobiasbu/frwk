@@ -1,0 +1,4 @@
+
+
+void checkAutoreleasePool(void);
+

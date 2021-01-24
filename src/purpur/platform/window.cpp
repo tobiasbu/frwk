@@ -13,27 +13,28 @@
 
 namespace ppr {
 
-	PlatformWindowType * createWindow(uint32 width, uint32 height, const char * title) {
-		return new PlatformWindowType(width, height, title);
+	PlatformWindowType * createWindow(uint32 width, uint32 height, cstr title, uint32 style) {
+		return new PlatformWindowType(width, height, title, style);
 	}
 
 
-	Window::Window(uint32 width, uint32 height, const char * title) {
-		platformWindow = createWindow(width, height, title);
+	Window::Window(uint32 width, uint32 height, cstr title, uint32 style) {
+		platformWindow = createWindow(width, height, title, style);
 	}
 
 	Window::~Window() {
-		if (platformWindow != nullptr) {
+		if (platformWindow) {
 			delete platformWindow;
+			platformWindow = NULLPTR;
 		}
 	}
 
 	bool Window::isVisible() {
-		return platformWindow != nullptr && platformWindow->isVisible();
+		return platformWindow && platformWindow->isVisible();
 	}
 
 	void Window::setVisible(bool visible) {
-		if (platformWindow != nullptr) {
+		if (platformWindow) {
 			platformWindow->setVisible(visible);
 		}
 	}
