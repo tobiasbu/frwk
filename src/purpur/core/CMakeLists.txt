@@ -32,4 +32,4 @@ source_group("Header Files/" FILES ${CORE_INC_CONFIG})
 source_group(TREE ${INCPATH} FILES ${CORE_INC} PREFIX "Header Files")
 source_group(TREE ${SRCPATH} FILES ${CORE_SRC} PREFIX "Source Files")
 
-ppr_add_library(purpurina-core SOURCES ${CORE_INC_CONFIG} ${CORE_INC} ${CORE_SRC})
+ppr_add_library(purpurina_core SOURCES ${CORE_INC_CONFIG} ${CORE_INC} ${CORE_SRC})

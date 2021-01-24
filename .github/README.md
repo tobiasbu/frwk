@@ -1,9 +1,18 @@
 # purpurina-engine
 
-## Packages
+Work in progress
+## Framework Packages
 
-```
-purpur/
-------- core/
-------- platform/
+- core
+- platform
+
+
+## Build
+
+Mac OS:
+
+- Generate for Xcode
+
+````
+cmake . -B project -GXcode
 ```

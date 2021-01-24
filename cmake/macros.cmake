@@ -19,6 +19,7 @@ function (ppr_multi_options variable default options docstring)
 	set_property(CACHE ${variable} PROPERTY STRINGS ${options})
 endfunction()
 
+
 #
 # Create Purpurina CMake property
 #
@@ -36,10 +37,19 @@ function(ppr_set_prop variable default type docstring)
     set(${variable} ${default} CACHE ${type} ${docstring} FORCE)
 endfunction()
 
+#
+# Create source groups for given sources
+#
+# Usage: ppr_set_prop(SOURCE_DIR 					# source directory
+#					  INCLUDE_DIR					# include directory
+# 					  SOURCES						# source files
+# 					  INCLUDES  					# include files
+# 					  )
+#
 macro(ppr_make_source_groups)
 
 	# Parse arguments
-	cmake_parse_arguments(ARGS "SOURCE_DIR" "INCLUDE_DIR" "SOURCES;INCLUDES" ${ARGN})
+	cmake_parse_arguments(ARGS "SOURCE_DIR" "INCLUDE_DIR" "SOURCES;" ${ARGN})
 
 	if(ARGS_INCLUDE_DIR AND ARGS_INC)
 		source_group(TREE ${ARGS_INCLUDE_DIR} FILES ${ARGS_INCLUDES} PREFIX "Header Files")
@@ -55,6 +65,18 @@ macro(ppr_make_source_groups)
 endmacro()
 
 #
+# Set Xcode property
+#
+# Usage: ppr_set_xcode_prop(target 					# target
+#					  		xcode_prop				# property name
+# 					  		xcode_value				# property value
+# 					  		)
+#
+macro (ppr_set_xcode_prop target xcode_prop xcode_value)
+    set_property (TARGET ${TARGET} PROPERTY XCODE_ATTRIBUTE_${xcode_prop} ${xcode_value})
+endmacro ()
+
+#
 # Add Purpurina library
 #
 # Usage: ppr_add_library(target
@@ -64,9 +86,9 @@ endmacro()
 macro(ppr_add_library target)
 
 	# Parse arguments
-	cmake_parse_arguments(ARGS "" "" "SOURCES" ${ARGN})
-	if (NOT "${ARGS_UNPARSED_ARGUMENTS}" STREQUAL "")
-        message(FATAL_ERROR "Extra unparsed arguments when calling sfml_add_library: ${THIS_UNPARSED_ARGUMENTS}")
+	cmake_parse_arguments(ARGS "" "" "SOURCES;DEPENDS" ${ARGN})
+	if (NOT "${ARGS_UNPARSED_ARGUMENTS}" STREQUAL "" AND NOT ${ARGS_UNPARSED_ARGUMENTS} STREQUAL "LINK")
+        message(FATAL_ERROR "Extra unparsed arguments when calling ppr_add_library: ${ARGS_UNPARSED_ARGUMENTS}")
     endif()
 
 	# Create library target
@@ -76,8 +98,6 @@ macro(ppr_add_library target)
 	string(REPLACE "-" "_" EXPORT_SYMBOL_NAME "${target}")
 	string(TOUPPER "${EXPORT_SYMBOL_NAME}" EXPORT_SYMBOL_NAME)
 	set_target_properties(${target} PROPERTIES DEFINE_SYMBOL "${EXPORT_SYMBOL_NAME}_EXPORTS")
-
-	set_target_properties(${target} PROPERTIES LINKER_LANGUAGE CXX)
 
 	# Set libray output files names
 	if(PURPURINA_STATIC)
@@ -95,14 +115,14 @@ macro(ppr_add_library target)
 		endif()
 	endif()
 
-	# [MACOS]
-	if(SFML_OS_MACOSX AND BUILD_SHARED_LIBS)
-
-	endif()
-
-	# Set the target folder for Visual Studio
+	# [WIN32] Set the target folder for Visual Studio
 	set_target_properties(${target} PROPERTIES FOLDER "purpurina")
 	set_target_properties(${target} PROPERTIES PROJECT_LABEL "${target}")
+
+	# [MACOS] Set Xcode properties
+	if(PURPURINA_OS_MACOSX AND BUILD_SHARED_LIBS)
+
+	endif()
 
 	# Add rule for export symbol
 	install(TARGETS ${target} EXPORT PurpurinaConfigExport
@@ -112,12 +132,16 @@ macro(ppr_add_library target)
 			FRAMEWORK DESTINATION "." COMPONENT bin)
 
 	# Add <purpur/../../> as public include directory
-	string(REGEX MATCH "^[a-z]*-([a-z]*)$" MATCHED "${target}")
-
+	# string(REGEX MATCH "^[a-z]*-([a-z]*)$" MATCHED "${target}")
 	target_include_directories(${target}
 							PUBLIC "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
 							PRIVATE "${PROJECT_SOURCE_DIR}/src")
 	target_include_directories(${target} INTERFACE $<INSTALL_INTERFACE:include>)
+
+	# Link libraries libs
+	if(ARGS_DEPENDS)
+		target_link_libraries(${target} PRIVATE ${ARGS_DEPENDS})
+	endif()
 
 	# For static builds we need to define the static flag to proper compilation
 	if(NOT BUILD_SHARED_LIBS)
@@ -155,13 +179,13 @@ macro(ppr_add_executable target)
 
 	# Set target libraries - Core
 	if(ARGS_DEPENDS)
-		target_link_libraries(${target} PRIVATE purpurina-core ${ARGS_DEPENDS})
+		target_link_libraries(${target} PRIVATE purpurina_core ${ARGS_DEPENDS})
 	else()
-		target_link_libraries(${target} PRIVATE purpurina-core)
+		target_link_libraries(${target} PRIVATE purpurina_core)
 	endif()
 
 	target_include_directories(${target}
-	PUBLIC "$<BUILD_INTERFACE:${PURPURINA_PACKAGES_DIR}/${target}/include>")
+	PUBLIC "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/${target}/include>")
 	# PRIVATE "${PURPURINA_PACKAGES_DIR}/${target}/src")
 	# target_include_directories(${target} INTERFACE $<INSTALL_INTERFACE:include>)
 

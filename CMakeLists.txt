@@ -1,6 +1,12 @@
 cmake_minimum_required(VERSION 3.9)
 
-set (CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+if(NOT CMAKE_OSX_ARCHITECTURES)
+    set(CMAKE_OSX_ARCHITECTURES "x86_64" CACHE STRING "macOS architecture to build; 64-bit is expected" FORCE)
+endif()
 
 # Project Name
 project (purpurina
@@ -96,7 +102,7 @@ endif()
 #############################################
 
 # Install all packages includes
-file(GLOB PACKAGE_PATHS "${PURPURINA_INCLUDE}/**")
+file(GLOB PACKAGE_PATHS "${PURPURINA_INC}/**")
 foreach(ITEM ${PACKAGE_PATHS})
 	if(IS_DIRECTORY ${ITEM})
 		list( APPEND DIRS_TO_DEPLOY "${ITEM}" )
