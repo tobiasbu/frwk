@@ -2,6 +2,8 @@
 #ifndef _PURPURINA_PLATFORM_WINDOW_HPP_
 #define _PURPURINA_PLATFORM_WINDOW_HPP_
 
+#include <purpur/core/config.hpp>
+
 	namespace ppr {
 
 		namespace internal {
@@ -11,8 +13,6 @@
 				int y;
 			};
 
-			typedef int WindowHandle;
-
 			////////////////////////////////////////////////////////////
 			/// \brief Represents abstraction for OS-specifc window class
 			///
@@ -21,10 +21,13 @@
 
 				public:
 
-					virtual ~PlatformWindow();
-					virtual WindowHandle getHandle() {};
+					// virtual WindowHandle getHandle() {};
+					virtual ~PlatformWindow() {}
+					virtual PlatformWindow * create(uint32 width, uint32 height, cstr title) const = 0;
 					virtual bool isVisible() = 0;
 					virtual void setVisible(bool visible) = 0;
+					virtual void pool() = 0;
+
 
 			};
 
