@@ -23,7 +23,7 @@
 
 					// virtual WindowHandle getHandle() {};
 					virtual ~PlatformWindow() {}
-					virtual PlatformWindow * create(uint32 width, uint32 height, cstr title) const = 0;
+					virtual PlatformWindow * create(uint32 width, uint32 height, cstr title, uint32 style) const = 0;
 					virtual bool isVisible() = 0;
 					virtual void setVisible(bool visible) = 0;
 					virtual void pool() = 0;

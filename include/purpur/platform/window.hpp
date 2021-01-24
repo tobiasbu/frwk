@@ -5,7 +5,6 @@
 	#include <purpur/core/config.hpp>
 	#include <purpur/platform/export.hpp>
 
-
 	namespace ppr {
 
 		namespace internal {
@@ -20,7 +19,7 @@
 
 			public:
 
-				Window(uint32 width, uint32 height, const char * title);
+				Window(uint32 width, uint32 height, const char * title, uint32 style);
 				~Window();
 
 				bool isVisible();
