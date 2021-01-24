@@ -19,13 +19,6 @@
 #include <purpur/core/config.hpp>
 #include <purpur/core/export.hpp>
 
-#if defined(_MSC_VER) && !defined(_CPPUNWIND)
-	#ifndef (PURPURINA_ASSERT_CUSTOM_THROW)
-		#define PURPURINA_ASSERT_CUSTOM_THROW
-	#endif
-#endif
-
-
 namespace ppr {
 	namespace internal {
 		namespace Assert {
@@ -45,7 +38,7 @@ namespace ppr {
 				Fatal = 64
 			};
 
-			PURPURINA_CORE_API Action getAction(Level level = Level::Error, bool* ignore = PPR_NULLPTR);
+			PURPURINA_CORE_API Action getAction(Level level = Level::Error, bool* ignore = NULLPTR);
 
 			PURPURINA_CORE_API cstr handle(cstr file,
 										   int32 line,
