@@ -18,7 +18,6 @@
 #include <purpur/core/config.hpp>
 
 #include <purpur/core/debug/logger.hpp>
-// #include <purpur/core/debug/assert/assertion_exception.hpp>
-// #include <purpur/core/debug/assert/assert.hpp>
+
 
 #endif
