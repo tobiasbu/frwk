@@ -15,6 +15,8 @@
 #ifndef _PURPURINA_CONFIG_HPP_
 #define _PURPURINA_CONFIG_HPP_
 
+	#include <purpur/core/compiler_features.hpp>
+
 	////////////////////////////////////////////////////////////
 	// Purpurina version
 	////////////////////////////////////////////////////////////
@@ -41,13 +43,13 @@
 
 		#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 
-		// iOS
-		#define PPR_OS_IOS
+			// iOS
+			#define PPR_OS_IOS
 
 		#elif TARGET_OS_MAC
 
-		// MacOS
-		#define PPR_OS_MACOS
+			// MacOS
+			#define PPR_OS_MACOS
 
 		#else
 
@@ -91,7 +93,7 @@
 	////////////////////////////////////////////////////////////
 	// Define a portable debug macro
 	////////////////////////////////////////////////////////////
-	#if !defined(NDEBUG)
+	#ifndef NDEBUG
 		#define PPR_DEBUG
 	#endif
 
@@ -122,19 +124,6 @@
 		#define PURPURINA_API_EXPORT
 		#define PURPURINA_API_IMPORT
 	#endif
-
-	#if (defined (__cplusplus) && (__cplusplus > 199711L)) || (defined(_MSC_FULL_VER) && (_MSC_FULL_VER >= 150020706))
-		#define PURPURINA_CXX11
-	#endif
-
-	#if defined(PURPURINA_CXX11)
-		// Null pointer
-		#define PPR_NULLPTR nullptr
-	#else
-		// Null pointer
-		#define PPR_NULLPTR 0
-	#endif
-
 
 ///
 /// Purpurina namespace
