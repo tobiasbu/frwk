@@ -13,6 +13,6 @@ Mac OS:
 
 - Generate for Xcode
 
-````
+```
 cmake . -B project -GXcode
 ```
