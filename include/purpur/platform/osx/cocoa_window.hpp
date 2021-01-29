@@ -3,7 +3,7 @@
 #define _PURPURINA_COCOA_WINDOW_HPP_
 
 #include <purpur/core/config.hpp>
-#include <purpur/platform/platform_window.hpp>
+#include <purpur/platform/native_window.hpp>
 
 #ifdef __OBJC__
 	#import <AppKit/AppKit.h>
@@ -17,7 +17,9 @@
 
 namespace ppr {
 	namespace internal {
-		class CocoaWindow : public PlatformWindow {
+		class CocoaWindow : public NativeWindow {
+
+		private:
 
 			WindowHandle handle;
 			WindowDelegate delegate;
@@ -41,7 +43,6 @@ namespace ppr {
 
 
 			void pool();
-			CocoaWindow * create(uint32 width, uint32 height, cstr title, uint32 style) const;
 		};
 
 	}

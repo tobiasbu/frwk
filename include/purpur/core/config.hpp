@@ -32,6 +32,7 @@
 
 		/// Windows OS
 		#define PPR_OS_WINDOWS
+		#define PPR_OS_WIN32
 		#ifndef NOMINMAX
 			#define NOMINMAX
 		#endif

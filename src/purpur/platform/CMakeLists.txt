@@ -4,16 +4,34 @@ set(SRCPATH "${PURPURINA_SRC}/platform")
 
 set(PLATFORM_INC
 	${INCPATH}/export.hpp
-	${INCPATH}/window_style.hpp
 	${INCPATH}/window.hpp
-	${INCPATH}/platform_window.hpp
+	${INCPATH}/window_style.hpp
+	${INCPATH}/window_handle.hpp
+	${INCPATH}/native_window.hpp
 )
 
 set(PLATFORM_SRC
 	"${SRCPATH}/window.cpp"
 )
 
-if(PURPURINA_OS_MACOSX)
+if(PPR_OS_WINDOWS)
+	set(INC_OS_PATH "${INCPATH}/win32")
+	set(SRC_OS_PATH "${SRCPATH}/win32")
+
+	set(PLATFORM_INC
+		${PLATFORM_INC}
+		${INC_OS_PATH}/win32_platform.hpp
+		${INC_OS_PATH}/win32_window.hpp
+	)
+
+	set(PLATFORM_SRC
+		${PLATFORM_SRC}
+		${SRC_OS_PATH}/win32_window.cpp
+	)
+
+
+elseif(PPR_OS_MACOSX)
+
 	set(INC_OS_PATH "${INCPATH}/osx")
 	set(SRC_OS_PATH "${SRCPATH}/osx")
 	set(LINK_LIBS "-framework Foundation" "-framework AppKit" "-framework IOKit" "-framework Carbon")
@@ -51,6 +69,6 @@ ppr_add_library(purpurina_platform
 				DEPENDS ${LINK_LIBS}
 )
 
-if ((NOT BUILD_SHARED_LIBS) AND PURPURINA_OS_MACOSX)
+if ((NOT BUILD_SHARED_LIBS) AND PPR_OS_MACOSX)
     target_link_libraries(purpurina_platform PRIVATE -ObjC)
 endif()

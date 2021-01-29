@@ -1,10 +1,13 @@
 
 #include <purpur/core/config.hpp>
 
-#include <purpur/platform/platform_window.hpp>
+#include <purpur/platform/native_window.hpp>
 #include <purpur/platform/window.hpp>
 
-#ifdef PPR_OS_MACOS
+#ifdef PPR_OS_WIN32
+	#include <purpur/platform/win32/win32_window.hpp>
+    typedef ppr::internal::Win32Window PlatformWindowType;
+#elif PPR_OS_MACOS
     #include <purpur/platform/osx/cocoa_window.hpp>
     typedef ppr::internal::CocoaWindow PlatformWindowType;
 #endif
@@ -19,29 +22,33 @@ namespace ppr {
 
 
 	Window::Window(uint32 width, uint32 height, cstr title, uint32 style) {
-		platformWindow = createWindow(width, height, title, style);
+		nativeWindow = createWindow(width, height, title, style);
 	}
 
 	Window::~Window() {
-		if (platformWindow) {
-			delete platformWindow;
-			platformWindow = NULLPTR;
+		if (nativeWindow) {
+			delete nativeWindow;
+			nativeWindow = NULLPTR;
 		}
 	}
 
 	bool Window::isVisible() {
-		return platformWindow && platformWindow->isVisible();
+		return nativeWindow && nativeWindow->isVisible();
+	}
+
+	WindowHandle Window::getHandle() {
+		return nativeWindow ? nativeWindow->getHandle() : NULLPTR;
 	}
 
 	void Window::setVisible(bool visible) {
-		if (platformWindow) {
-			platformWindow->setVisible(visible);
+		if (nativeWindow) {
+			nativeWindow->setVisible(visible);
 		}
 	}
 
 	void Window::process() {
-		if (platformWindow) {
-			platformWindow->pool();
+		if (nativeWindow) {
+			nativeWindow->pool();
 		}
 	}
 
