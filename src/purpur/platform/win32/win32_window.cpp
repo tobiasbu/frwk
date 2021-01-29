@@ -151,7 +151,7 @@ namespace ppr {
 				return;
 			}
 
-			handle = CreateWindowExW(0,
+			handle = CreateWindowExW(WS_EX_APPWINDOW,
 				__PPR_WNDCLASSNAME,
 				titleWchar,
 				parseStyle(style),
@@ -183,6 +183,10 @@ namespace ppr {
 
 		Win32Window::~Win32Window() {
 			dispose();
+
+			if (windowCount == 0) {
+				UnregisterClassW(__PPR_WNDCLASSNAME, GetModuleHandleW(NULL));
+			}
 		}
 
 		void Win32Window::setVisible(bool visible) {
@@ -219,6 +223,9 @@ namespace ppr {
 				RemovePropW(handle, L"PPR");
         		DestroyWindow(handle);
 				handle = nullptr;
+
+				windowCount -= 1;
+
 			}
 		}
 

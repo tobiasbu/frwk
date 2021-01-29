@@ -9,10 +9,9 @@ int main(int argc, char* argv[]) {
 
 	Logger log = Logger();
 
-	log.log("hello");
+	log.log("purpurina framework", PPR_FRWK_VERSION);
 
-	Window win = Window(480, 300, "teste", WindowStyle::Close | WindowStyle::Title | WindowStyle::Miniaturizable | WindowStyle::Resize);
-
+	Window win(480, 300, "teste", WindowStyle::make(false, true, true, true, false));
 	win.setVisible(true);
 
 	while (win.isVisible()) {

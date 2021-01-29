@@ -1,7 +1,6 @@
 
-#include <purpur/core/config.hpp>
+#include <purpur/core/config/platform.hpp>
 
-#include <purpur/platform/native_window.hpp>
 #include <purpur/platform/window.hpp>
 
 #ifdef PPR_OS_WIN32
@@ -12,6 +11,7 @@
     typedef ppr::internal::CocoaWindow PlatformWindowType;
 #endif
 
+
 #include <iostream>
 
 namespace ppr {
@@ -20,6 +20,11 @@ namespace ppr {
 		return new PlatformWindowType(width, height, title, style);
 	}
 
+
+	Window::Window(internal::NativeWindow * nativeWindow)
+	:
+	nativeWindow(nativeWindow)
+	{}
 
 	Window::Window(uint32 width, uint32 height, cstr title, uint32 style) {
 		nativeWindow = createWindow(width, height, title, style);

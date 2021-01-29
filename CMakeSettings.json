@@ -17,12 +17,12 @@
           "type": "BOOL"
         },
         {
-          "name": "PURPURINA_SANDBOX",
+          "name": "PURPUR_EXAMPLES",
           "value": "True",
           "type": "BOOL"
         },
         {
-          "name": "PURPURINA_SANDBOX_POSTCOMMAND",
+          "name": "PURPUR_EXAMPLES_POSTCOMMAND",
           "value": "exe_to_bin",
           "type": "STRING"
         }

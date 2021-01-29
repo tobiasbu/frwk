@@ -1,33 +1,37 @@
 
-#ifndef _PURPURINA_WINDOW_HANDLE_HPP_
-#define _PURPURINA_WINDOW_HANDLE_HPP_
+#ifndef _PURPURINA_FRWK_WINDOW_HANDLE_HPP_
+#define _PURPURINA_FRWK_WINDOW_HANDLE_HPP_
 
-#include <purpur/core/config.hpp>
+#include <purpur/core/types.hpp>
 
-#ifdef PPR_OS_WIN32
-	struct HWND__;
+#ifdef PPR_OS_WINDOWS
+	 struct HWND__;
 #endif
 
 namespace ppr {
 
-	#ifdef PPR_OS_WIN32
+#if defined(PPR_OS_WINDOWS)
 
-		typedef HWND__ * WindowHandle;
+	typedef HWND__ * WindowHandle;
 
-	#elif PPR_OS_MACOS
+#elif defined(PPR_OS_MACOS)
 
-		#ifdef __OBJC__
-			#import <AppKit/AppKit.h>
-			#import <purpur/platform/osx/ppr_window_delegate.h>
-			typedef NSWindow* WindowHandle;
-			typedef PPRWindowDelegate* WindowDelegate;
-		#else
-			typedef void * WindowHandle;
-			typedef void * WindowDelegate;
-		#endif
-
+	#ifdef __OBJC__
+		#import <AppKit/AppKit.h>
+		#import <purpur/platform/osx/ppr_window_delegate.h>
+		typedef NSWindow* WindowHandle;
+		typedef PPRWindowDelegate* WindowDelegate;
+	#else
+		typedef void * WindowHandle;
+		typedef void * WindowDelegate;
 	#endif
 
+#else
+	typedef void* WindowHandle;
+#endif
+
 }
+
+
 
 #endif

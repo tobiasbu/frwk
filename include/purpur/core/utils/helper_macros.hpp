@@ -5,24 +5,33 @@
 ///
 ////////////////////////////////////////////////////////////
 ///
-/// \ingroup purpurina-core
-/// \file HelperMacros.hpp
+/// \ingroup purpurina_core
+/// \file helper_macros.hpp
 /// \author Tobias Ulrich <flamenco.bluegrass@gmail.com>
 /// \date September 14, 2020
 ///
 ////////////////////////////////////////////////////////////
 
-#ifndef _PURPURINA_HELPER_MACROS_
-#define _PURPURINA_HELPER_MACROS_
+#ifndef _PURPURINA_FRWK_HELPER_MACROS_
+#define _PURPURINA_FRWK_HELPER_MACROS_
+
+///
+/// \brief No Macro
+///
+#define PPR_NO_MACRO
 
 /////////////////////////////////////////////////
 /// \brief Convert macro parameter to string literal.
+///
+/// \code
+/// 	auto a = PPR_STRINGER(3);
+/// \endcode
 ///
 /// \param X Value to be stringized
 /// \return Stringized value
 ///
 /////////////////////////////////////////////////
-#define PPR_STRINGER(X) __PPR_EXPAND_STRINGER(X)
+#define PPR_STRINGER(X) __PPR_DO_STRINGER(X)
 #define __PPR_DO_STRINGER(X) #X
 
 ////////////////////////////////////////////////////////////
@@ -31,8 +40,6 @@
 /// \param X First argument
 /// \param Y Second argument
 /// \return Joined values
-///
-/// \code auto a = PPR_STRINGIFY(3);
 ///
 ////////////////////////////////////////////////////////////
 #define PPR_JOIN(X, Y) __PPR_DO_JOIN(X, Y)

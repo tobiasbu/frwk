@@ -1,5 +1,5 @@
 
-set(SRCPATH "${PROJECT_SOURCE_DIR}/sandbox")
+set(SRCPATH "${PROJECT_SOURCE_DIR}/examples")
 
 
 set(SANDBOX_SRC

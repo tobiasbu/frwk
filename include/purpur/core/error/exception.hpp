@@ -1,8 +1,10 @@
 
-#ifndef _PURPURINA_EXCEPTION_HPP_
-#define _PURPURINA_EXCEPTION_HPP_
+#ifndef _PURPURINA_FRWK_EXCEPTION_HPP_
+#define _PURPURINA_FRWK_EXCEPTION_HPP_
 
 #include <purpur/core/config.hpp>
+
+#include <purpur/core/types.hpp>
 #include <purpur/core/export.hpp>
 
 namespace ppr {
