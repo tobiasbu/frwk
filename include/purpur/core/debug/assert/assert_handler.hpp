@@ -13,9 +13,10 @@
 ////////////////////////////////////////////////////////////
 
 
-#ifndef _PURPURINA_ASSERT_HANDLER_HPP_
-#define _PURPURINA_ASSERT_HANDLER_HPP_
+#ifndef _PURPURINA_FRWK_ASSERT_HANDLER_HPP_
+#define _PURPURINA_FRWK_ASSERT_HANDLER_HPP_
 
+#include <purpur/core/types.hpp>
 #include <purpur/core/config.hpp>
 #include <purpur/core/export.hpp>
 

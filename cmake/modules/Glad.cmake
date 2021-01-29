@@ -12,4 +12,4 @@ if(NOT OPENGL_GLU_FOUND)
 endif()
 
 
-set(GLAD "${PURPURINA_EXTLIBS_DIR}/glad/include")
+set(GLAD "${PURPUR_EXTLIBS_DIR}/glad/include")

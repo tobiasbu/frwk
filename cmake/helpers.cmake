@@ -100,13 +100,13 @@ macro(ppr_add_library target)
 	set_target_properties(${target} PROPERTIES DEFINE_SYMBOL "${EXPORT_SYMBOL_NAME}_EXPORTS")
 
 	# Set libray output files names
-	if(PURPURINA_STATIC)
+	if(PPR_STATIC)
 		set_target_properties(${target} PROPERTIES DEBUG_POSTFIX -${purpurina_VERSION}-s.dev)
 		set_target_properties(${target} PROPERTIES RELEASE_POSTFIX -${purpurina_VERSION}-s)
 		set_target_properties(${target} PROPERTIES MINSIZEREL_POSTFIX -${purpurina_VERSION}-min-s)
 		set_target_properties(${target} PROPERTIES RELWITHDEBINFO_POSTFIX -${purpurina_VERSION}-s)
 	else()
-		if(PURPURINA_OS_WINDOWS)
+		if(PPR_OS_WINDOWS)
 			# include the major version number in Windows shared library names (but not import library names)
 			set_target_properties(${target} PROPERTIES DEBUG_POSTFIX "-debug")
 			set_target_properties(${target} PROPERTIES SUFFIX "${CMAKE_SHARED_LIBRARY_SUFFIX}")
@@ -120,7 +120,7 @@ macro(ppr_add_library target)
 	set_target_properties(${target} PROPERTIES PROJECT_LABEL "${target}")
 
 	# [MACOS] Set Xcode properties
-	if(PURPURINA_OS_MACOSX AND BUILD_SHARED_LIBS)
+	if(PPR_OS_MACOSX AND BUILD_SHARED_LIBS)
 
 	endif()
 
@@ -134,8 +134,8 @@ macro(ppr_add_library target)
 	# Add <purpur/../../> as public include directory
 	# string(REGEX MATCH "^[a-z]*-([a-z]*)$" MATCHED "${target}")
 	target_include_directories(${target}
-							PUBLIC "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
-							PRIVATE "${PROJECT_SOURCE_DIR}/src")
+							PUBLIC "$<BUILD_INTERFACE:${PURPUR_FRWK_PATH}/include>"
+							PRIVATE "${PURPUR_FRWK_PATH}/src")
 	target_include_directories(${target} INTERFACE $<INSTALL_INTERFACE:include>)
 
 	# Link libraries libs
@@ -145,7 +145,7 @@ macro(ppr_add_library target)
 
 	# For static builds we need to define the static flag to proper compilation
 	if(NOT BUILD_SHARED_LIBS)
-		target_compile_definitions(${target} PUBLIC "PURPURINA_STATIC")
+		target_compile_definitions(${target} PUBLIC "PPR_STATIC")
 	endif()
 
 endmacro()
@@ -186,18 +186,16 @@ macro(ppr_add_executable target)
 
 	target_include_directories(${target}
 	PUBLIC "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/${target}/include>")
-	# PRIVATE "${PURPURINA_PACKAGES_DIR}/${target}/src")
-	# target_include_directories(${target} INTERFACE $<INSTALL_INTERFACE:include>)
 
 	# [WIN32]
-	if(PURPURINA_OS_WINDOWS AND BUILD_SHARED_LIBS)
-		if(PURPURINA_SANDBOX_POSTCOMMAND STREQUAL "exe_to_bin")
+	if(PPR_OS_WINDOWS AND BUILD_SHARED_LIBS)
+		if(PURPUR_EXAMPLES_POSTCOMMAND STREQUAL "exe_to_bin")
 			# Set output folders
 			set_target_properties(${target}
 						  	  	  PROPERTIES
 						 	  	  RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
 								  )
-		elseif(PURPURINA_SANDBOX_POSTCOMMAND STREQUAL "lib_to_exe")
+		elseif(PURPUR_EXAMPLES_POSTCOMMAND STREQUAL "lib_to_exe")
 			get_property(VAR TARGET ${target} PROPERTY RUNTIME_OUTPUT_DIRECTORY)
 			message(" ____________________ out: " ${VAR})
 			# set_target_properties(${target}

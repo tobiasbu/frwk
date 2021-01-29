@@ -1,6 +1,6 @@
 
-#ifndef _PURPURINA_LOGGER_HPP_
-#define _PURPURINA_LOGGER_HPP_
+#ifndef _PURPURINA_FRWK_LOGGER_HPP_
+#define _PURPURINA_FRWK_LOGGER_HPP_
 
 #include <iostream>
 

@@ -12,7 +12,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 set(LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}/lib")
 
-if (PURPURINA_OS_WINDOWS AND PURPURINA_SANDBOX_POSTCOMMAND STREQUAL "exe_to_bin")
+if (PPR_OS_WINDOWS AND PURPUR_EXAMPLES_POSTCOMMAND STREQUAL "exe_to_bin")
 	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 endif()
 
@@ -24,6 +24,8 @@ include(Glad)
 #############################################
 
 # Purpurina Core
-add_subdirectory("${PURPURINA_SRC}/core")
+add_subdirectory("${PURPUR_SRC}/core")
 
-add_subdirectory("${PURPURINA_SRC}/platform")
+add_subdirectory("${PURPUR_SRC}/platform")
+
+add_subdirectory("${PURPUR_SRC}/render")

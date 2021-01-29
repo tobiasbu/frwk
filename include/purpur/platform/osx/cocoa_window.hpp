@@ -1,8 +1,8 @@
 
-#ifndef _PURPURINA_COCOA_WINDOW_HPP_
-#define _PURPURINA_COCOA_WINDOW_HPP_
+#ifndef _PURPURINA_FRWK_COCOA_WINDOW_HPP_
+#define _PURPURINA_FRWK_COCOA_WINDOW_HPP_
 
-#include <purpur/core/config.hpp>
+#include <purpur/core/types.hpp>
 #include <purpur/platform/native_window.hpp>
 
 #ifdef __OBJC__

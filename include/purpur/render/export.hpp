@@ -12,15 +12,15 @@
 ///
 ////////////////////////////////////////////////////////////
 
-#ifndef _PURPURINA_FRWK_PLATFORM_EXPORTS_HPP_
-#define _PURPURINA_FRWK_PLATFORM_EXPORTS_HPP_
+#ifndef _PURPURINA_FRWK_RENDER_EXPORTS_HPP_
+#define _PURPURINA_FRWK_RENDER_EXPORTS_HPP_
 
-#include <purpur/core/config.hpp>
+#include <purpur/core/config/api.hpp>
 
-#ifdef PURPURINA_PLATFORM_EXPORTS
-    #define PPR_PLATFORM_API PPR_API_EXPORT
+#ifdef PURPURINA_RENDER_EXPORTS
+    #define PPR_RENDER_API PPR_API_EXPORT
 #else
-    #define PPR_PLATFORM_API PPR_API_IMPORT
+    #define PPR_RENDER_API PPR_API_IMPORT
 #endif
 
 

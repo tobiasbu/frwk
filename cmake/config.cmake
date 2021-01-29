@@ -1,7 +1,7 @@
 
 # Detect OS
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
-	set(PURPURINA_OS_WINDOWS 1)
+	set(PPR_OS_WINDOWS 1)
 
 	 # detect the architecture (note: this test won't work for cross-compilation)
 	#  check_type_size(void* SIZEOF_VOID_PTR)
@@ -14,12 +14,12 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
 	# 	 return()
 	#  endif()
 elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
-	set(PURPURINA_OS_LINUX 1)
+	set(PPR_OS_LINUX 1)
 elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
-	set(PURPURINA_OS_MACOSX 1)
+	set(PPR_OS_MACOSX 1)
 endif()
 
 # Check compiler
 if (MSVC)
-	set(PURPURINA_MSVC 1)
+	set(PPR_COMPILER_MSVC 1)
 endif()

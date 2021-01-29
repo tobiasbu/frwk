@@ -12,12 +12,12 @@
 ///
 ////////////////////////////////////////////////////////////
 
-#ifndef _PURPURINA_ASSERTION_EXCEPTION_HPP_
-#define _PURPURINA_ASSERTION_EXCEPTION_HPP_
+#ifndef _PURPURINA_FRWK_ASSERTION_EXCEPTION_HPP_
+#define _PURPURINA_FRWK_ASSERTION_EXCEPTION_HPP_
 
-#include <purpur/core/config.hpp>
+#include <purpur/core/types.hpp>
+
 #include <purpur/core/export.hpp>
-
 #include <purpur/core/error/exception.hpp>
 
 namespace ppr {

@@ -1,8 +1,6 @@
 
-#ifndef _PURPURINA_PLATFORM_WINDOW_HPP_
-#define _PURPURINA_PLATFORM_WINDOW_HPP_
-
-#include <purpur/core/config.hpp>
+#ifndef _PURPURINA_FRWK_NATIVE_WINDOW_HPP_
+#define _PURPURINA_FRWK_NATIVE_WINDOW_HPP_
 
 #include <purpur/platform/window_handle.hpp>
 

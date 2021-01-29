@@ -1,10 +1,10 @@
 
-#ifndef _PURPURINA_WIN32_WINDOW_HPP_
-#define _PURPURINA_WIN32_WINDOW_HPP_
+#ifndef _PURPURINA_FRWK_WIN32_WINDOW_HPP_
+#define _PURPURINA_FRWK_WIN32_WINDOW_HPP_
 
 #include <windows.h>
 
-#include <purpur/core/config.hpp>
+#include <purpur/core/types.hpp>
 #include <purpur/platform/native_window.hpp>
 
 namespace ppr {

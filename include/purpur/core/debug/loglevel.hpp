@@ -1,12 +1,11 @@
 
-#ifndef _PURPURINA_LOG_LEVEL_HPP_
-#define _PURPURINA_LOG_LEVEL_HPP_
+#ifndef _PURPURINA_FRWK_LOG_LEVEL_HPP_
+#define _PURPURINA_FRWK_LOG_LEVEL_HPP_
 
-#include <purpur/core/config.hpp>
-
+#include <purpur/core/types.hpp>
 namespace ppr {
 
-	enum class LogLevel {
+	enum LogLevel: uint32 {
 		Log = 32,
 		Debug = 64,
 		Warning = 128,

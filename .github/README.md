@@ -1,15 +1,16 @@
-# purpurina-engine
+# purpurina_frwk
 
 Work in progress
-## Framework Packages
+
+## Packages
 
 - core
 - platform
+- render
 
+## Getting started
 
-## Build
-
-Mac OS:
+### Mac OS:
 
 - Generate for Xcode
 

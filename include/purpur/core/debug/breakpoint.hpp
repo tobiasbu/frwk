@@ -1,36 +1,36 @@
 
 
-#ifndef _PURPURINA_DEBUG_BREAK_HPP_
-#define _PURPURINA_DEBUG_BREAK_HPP_
+#ifndef _PURPURINA_FRWK_BREAKPOINT_HPP_
+#define _PURPURINA_FRWK_BREAKPOINT_HPP_
 
-#include <purpur/core/config.hpp>
+#include <purpur/core/config/platform.hpp>
 
 #ifdef PPR_DEBUG
-	#if defined(PPR_OS_WINDOWS)
+	#if defined(_MSC_VER)
 		extern void __cdecl __debugbreak(void);
-		#define PPR_DEBUGBREAK() __debugbreak()
+		#define PPR_BREAKPOINT() __debugbreak()
 	#else
 		#if defined(__APPLE__)
 			#include <TargetConditionals.h>
 		#endif
 
 		#if defined(__clang__) && !TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-			#define PPR_DEBUGBREAK() __builtin_debugtrap()
+			#define PPR_BREAKPOINT() __builtin_debugtrap()
 
 		#elif defined(linux) || defined(__linux) || defined(__linux__) || defined(__APPLE__)
 			#include <signal.h>
-			#define PPR_DEBUGBREAK() raise(SIGTRAP)
+			#define PPR_BREAKPOINT() raise(SIGTRAP)
 
 		#elif defined(__GNUC__)
-			#define PPR_DEBUGBREAK() __builtin_trap()
+			#define PPR_BREAKPOINT() __builtin_trap()
 
 		#else
-			#define PPR_DEBUGBREAK() ((void)0)
+			#define PPR_BREAKPOINT() ((void)0)
 			#error "Platform doesn't support debugbreak!"
 		#endif
 	#endif
 #else
-	#define PPR_DEBUGBREAK()
+	#define PPR_BREAKPOINT()
 #endif
 
 #endif

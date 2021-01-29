@@ -1,6 +1,6 @@
 
-set(INCPATH "${PURPURINA_INC}/platform")
-set(SRCPATH "${PURPURINA_SRC}/platform")
+set(INCPATH "${PURPUR_INC}/platform")
+set(SRCPATH "${PURPUR_SRC}/platform")
 
 set(PLATFORM_INC
 	${INCPATH}/export.hpp
@@ -11,21 +11,20 @@ set(PLATFORM_INC
 )
 
 set(PLATFORM_SRC
-	"${SRCPATH}/window.cpp"
+	${SRCPATH}/window.cpp
+	${SRCPATH}/window_style.cpp
 )
 
 if(PPR_OS_WINDOWS)
 	set(INC_OS_PATH "${INCPATH}/win32")
 	set(SRC_OS_PATH "${SRCPATH}/win32")
 
-	set(PLATFORM_INC
-		${PLATFORM_INC}
+	set(PLATFORM_SUB_INC
 		${INC_OS_PATH}/win32_platform.hpp
 		${INC_OS_PATH}/win32_window.hpp
 	)
 
-	set(PLATFORM_SRC
-		${PLATFORM_SRC}
+	set(PLATFORM_SUB_SRC
 		${SRC_OS_PATH}/win32_window.cpp
 	)
 
@@ -36,8 +35,7 @@ elseif(PPR_OS_MACOSX)
 	set(SRC_OS_PATH "${SRCPATH}/osx")
 	set(LINK_LIBS "-framework Foundation" "-framework AppKit" "-framework IOKit" "-framework Carbon")
 
-	set(PLATFORM_INC
-		${PLATFORM_INC}
+	set(PLATFORM_SUB_INC
 		${INC_OS_PATH}/cocoa_window.hpp
 		${INC_OS_PATH}/cocoa_window_controller.h
 		${INC_OS_PATH}/ppr_window.h
@@ -48,8 +46,7 @@ elseif(PPR_OS_MACOSX)
 
 	)
 
-	set(PLATFORM_SRC
-		${PLATFORM_SRC}
+	set(PLATFORM_SUB_SRC
 		${SRC_OS_PATH}/cocoa_window.mm
 		${SRC_OS_PATH}/ppr_window.mm
 		${SRC_OS_PATH}/ppr_window_delegate.mm
@@ -60,12 +57,19 @@ elseif(PPR_OS_MACOSX)
 
 endif()
 
-source_group(TREE ${INCPATH} FILES ${PLATFORM_INC} PREFIX "Header Files")
-source_group(TREE ${SRCPATH} FILES ${PLATFORM_SRC} PREFIX "Source Files")
+
+# root folder
+source_group("Header Files/" FILES ${PLATFORM_INC})
+source_group("Source Files/" FILES ${PLATFORM_SRC})
+
+
+# sub-folders
+source_group(TREE ${INCPATH} FILES ${PLATFORM_SUB_INC} PREFIX "Header Files")
+source_group(TREE ${SRCPATH} FILES ${PLATFORM_SUB_SRC} PREFIX "Source Files")
 
 
 ppr_add_library(purpurina_platform
-				SOURCES ${PLATFORM_INC} ${PLATFORM_SRC}
+				SOURCES ${PLATFORM_INC} ${PLATFORM_SRC} ${PLATFORM_SUB_INC} ${PLATFORM_SUB_SRC}
 				DEPENDS ${LINK_LIBS}
 )
 

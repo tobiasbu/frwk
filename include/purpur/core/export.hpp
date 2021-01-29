@@ -12,16 +12,16 @@
 ///
 ////////////////////////////////////////////////////////////
 
-#ifndef _PURPURINA_CORE_EXPORTS_HPP_
-#define _PURPURINA_CORE_EXPORTS_HPP_
+#ifndef _PURPURINA_FRWK_CORE_EXPORTS_HPP_
+#define _PURPURINA_FRWK_CORE_EXPORTS_HPP_
 
-#include <purpur/core/config.hpp>
+#include <purpur/core/config/api.hpp>
+
 
 #ifdef PURPURINA_CORE_EXPORTS
-    #define PURPURINA_CORE_API PURPURINA_API_EXPORT
+    #define PURPURINA_CORE_API PPR_API_EXPORT
 #else
-    #define PURPURINA_CORE_API PURPURINA_API_IMPORT
+    #define PURPURINA_CORE_API PPR_API_IMPORT
 #endif
-
 
 #endif

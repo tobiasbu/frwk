@@ -1,7 +1,7 @@
 {
 	"cmake.configureSettings": {
-		"PURPURINA_SANDBOX": true,
-		"PURPURINA_SANDBOX_POSTCOMMAND": "exe_to_bin"
+		"PURPUR_EXAMPLES": true,
+		"PURPUR_EXAMPLES_POSTCOMMAND": "exe_to_bin"
 	},
 	"files.associations": {
 		"cstddef": "cpp",
