@@ -196,10 +196,6 @@ namespace ppr {
 			}
 		}
 
-		CocoaWindow * CocoaWindow::create(uint32 width, uint32 height, cstr title, uint32 style) const {
-			return new CocoaWindow(width, height, title, style);
-		}
-
 		void CocoaWindow::pool() {
 			/// TODO: improve event pool
 			[PPRApplication processEvents];
