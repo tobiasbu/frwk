@@ -6,7 +6,7 @@ set(SANDBOX_SRC
 	"${SRCPATH}/main.cpp"
 )
 
-ppr_make_source_groups(SOURCES ${SANDBOX_SRC})
+source_group("Source Files/" FILES ${SANDBOX_SRC})
 
 # Create sandbox executable
 ppr_add_executable(sandbox

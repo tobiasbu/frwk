@@ -38,33 +38,6 @@ function(ppr_set_prop variable default type docstring)
 endfunction()
 
 #
-# Create source groups for given sources
-#
-# Usage: ppr_set_prop(SOURCE_DIR 					# source directory
-#					  INCLUDE_DIR					# include directory
-# 					  SOURCES						# source files
-# 					  INCLUDES  					# include files
-# 					  )
-#
-macro(ppr_make_source_groups)
-
-	# Parse arguments
-	cmake_parse_arguments(ARGS "SOURCE_DIR" "INCLUDE_DIR" "SOURCES;" ${ARGN})
-
-	if(ARGS_INCLUDE_DIR AND ARGS_INC)
-		source_group(TREE ${ARGS_INCLUDE_DIR} FILES ${ARGS_INCLUDES} PREFIX "Header Files")
-	elseif(ARGS_INCLUDES)
-		source_group("Header Files/" FILES ${ARGS_INCLUDES})
-	endif()
-
-	if (ARGS_SOURCE_DIR AND ARGS_SOURCES)
-		source_group(TREE ${ARGS_SOURCE_DIR} FILES ${ARGS_SOURCES} PREFIX "Source Files")
-	elseif(ARGS_SOURCES)
-		source_group("Source Files/" FILES ${ARGS_SOURCES})
-	endif()
-endmacro()
-
-#
 # Set Xcode property
 #
 # Usage: ppr_set_xcode_prop(target 					# target
@@ -116,8 +89,7 @@ macro(ppr_add_library target)
 	endif()
 
 	# [WIN32] Set the target folder for Visual Studio
-	set_target_properties(${target} PROPERTIES FOLDER "purpurina")
-	set_target_properties(${target} PROPERTIES PROJECT_LABEL "${target}")
+	set_target_properties(${target} PROPERTIES FOLDER "purpurina_frwk")
 
 	# [MACOS] Set Xcode properties
 	if(PPR_OS_MACOSX AND BUILD_SHARED_LIBS)
@@ -153,7 +125,7 @@ endmacro()
 #
 # Add a new Sandbox executable target
 #
-# Usage: ppr_add_sandbox(example
+# Usage: ppr_add_executable(example
 # 						 SOURCES file.cpp...
 #						 DEPENDS purpurina-analytics)
 #
@@ -162,14 +134,12 @@ macro(ppr_add_executable target)
 	# Parse arguments
 	cmake_parse_arguments(ARGS "" "" "SOURCES;DEPENDS" ${ARGN})
 
-	set(target_input ${ARGS_SOURCES})
-
 	# With Win32 with don't have a main file
-	# add_executable(${target} WIN32 ${target_input})
-	add_executable(${target} ${target_input})
+	# add_executable(${target} WIN32 ${ARGS_SOURCES})
+	add_executable(${target} ${ARGS_SOURCES})
 
 	# Set the target folder for Visual Studio
-	set_target_properties(${target} PROPERTIES FOLDER "purpurina")
+	set_target_properties(${target} PROPERTIES FOLDER "examples")
 
 	# Set the dev suffix
 	set_target_properties(${target} PROPERTIES DEBUG_POSTFIX "-debug")
@@ -184,8 +154,9 @@ macro(ppr_add_executable target)
 		target_link_libraries(${target} PRIVATE purpurina_core)
 	endif()
 
-	target_include_directories(${target}
-	PUBLIC "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/${target}/include>")
+	# target_include_directories(${target}
+	# PUBLIC "$<BUILD_INTERFACE:${PURPUR_FRWK_PATH}/>")
+	# // ${PROJECT_SOURCE_DIR}/${target}/include
 
 	# [WIN32]
 	if(PPR_OS_WINDOWS AND BUILD_SHARED_LIBS)
@@ -197,22 +168,39 @@ macro(ppr_add_executable target)
 								  )
 		elseif(PURPUR_EXAMPLES_POSTCOMMAND STREQUAL "lib_to_exe")
 			get_property(VAR TARGET ${target} PROPERTY RUNTIME_OUTPUT_DIRECTORY)
-			message(" ____________________ out: " ${VAR})
-			# set_target_properties(${target}
-			# 			  	  	  PROPERTIES
-			# 			 	  	  RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
-			# 					  )
 			add_custom_command(TARGET ${target}
 							  POST_BUILD        										# Adds a post-build event to MyTest
 							  COMMAND ${CMAKE_COMMAND} -E copy_if_different  			# which executes "cmake - E copy_if_different..."
 							  "${CMAKE_BINARY_DIR}/bin/purpurina-core-debug.dll"        # <--this is in-file
 							  $<TARGET_FILE_DIR:${target}>)                 			# <--this is out-file path
 		else()
-			# message(AUTHOR_WARNING "PURPURINA_SANDOBOX_POSTCOMMAND is not set correctly.\ The '${target}' target will be placed in CMAKE_BINARY_DIR")
+			message(AUTHOR_WARNING "PURPURINA_SANDOBOX_POSTCOMMAND is not set correctly.\ The '${target}' target will be placed in ${CMAKE_BINARY_DIR}")
 		endif()
 	endif()
-
 endmacro()
+
+#
+# Add a new Sandbox executable target
+#
+# Usage: ppr_add_test(example
+# 					  SOURCES file.cpp...
+#					  DEPENDS purpurina-analytics)
+#
+function(ppr_add_test target SOURCES DEPENDS)
+
+	add_executable(${target} ${SOURCES})
+
+	set_target_properties(${target} PROPERTIES FOLDER "tests")
+
+	if(DEPENDS)
+        target_link_libraries(${target} PRIVATE ${DEPENDS})
+	endif()
+
+	target_include_directories(${target} PUBLIC "${PURPUR_EXTLIBS_PATH}/headers")
+
+	add_test(NAME purpurina_tests COMMAND ${target})
+
+endfunction()
 
 function(ppr_export_targets)
 	set(CURRENT_DIR "${PROJECT_SOURCE_DIR}/cmake")
