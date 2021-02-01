@@ -1,9 +1,5 @@
 cmake_minimum_required(VERSION 3.9)
 
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_C_STANDARD 11)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
-
 if(NOT CMAKE_OSX_ARCHITECTURES)
     set(CMAKE_OSX_ARCHITECTURES "x86_64" CACHE STRING "macOS architecture to build; 64-bit is expected" FORCE)
 endif()
@@ -14,19 +10,36 @@ project (purpurina
 		DESCRIPTION "Purpurina Game Engine"
 		LANGUAGES CXX)
 
-
 include(CMakeDependentOption)
-# we use the paths from the cmake GNUInstallDirs module as defaults
-# you can override these if you like
-# https://cmake.org/cmake/help/v3.0/module/GNUInstallDirs.html
 include(GNUInstallDirs)
 
 # Include the CMake Configuration and Utils files
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/config.cmake)
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/helpers.cmake)
 
-# enable folders
-set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+#############################################
+####		     BASE CONFIG  			 ####
+#############################################
+
+# C/C++ version
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+# Check for clang-tidy
+set(ENABLE_CLANG_TIDY True CACHE BOOL "Add clang-tidy automatically to builds")
+if (ENABLE_CLANG_TIDY)
+	find_program(CLANG_TIDY_EXE NAMES "clang-tidy" PATHS /usr/local/opt/llvm/bin)
+	if (CLANG_TIDY_EXE)
+		set(CMAKE_CXX_CLANG_TIDY "clang-tidy" CACHE STRING "" FORCE)
+		message(STATUS "clang-tidy found: ${CLANG_TIDY_EXE}")
+	else()
+		set(CMAKE_CXX_CLANG_TIDY "" CACHE STRING "" FORCE) # delete it
+		message(AUTHOR_WARNING "clang-tidy not found!")
+	endif()
+endif()
+
+set_property(GLOBAL PROPERTY USE_FOLDERS ON) # enable folders
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 
 # Set paths for purpurina packages files

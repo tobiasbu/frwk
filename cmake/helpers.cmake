@@ -92,9 +92,8 @@ macro(ppr_add_library target)
 	set_target_properties(${target} PROPERTIES FOLDER "purpurina_frwk")
 
 	# [MACOS] Set Xcode properties
-	if(PPR_OS_MACOSX AND BUILD_SHARED_LIBS)
-
-	endif()
+	# if(PPR_OS_MACOSX AND BUILD_SHARED_LIBS)
+	# endif()
 
 	# Add rule for export symbol
 	install(TARGETS ${target} EXPORT PurpurinaConfigExport
@@ -104,7 +103,6 @@ macro(ppr_add_library target)
 			FRAMEWORK DESTINATION "." COMPONENT bin)
 
 	# Add <purpur/../../> as public include directory
-	# string(REGEX MATCH "^[a-z]*-([a-z]*)$" MATCHED "${target}")
 	target_include_directories(${target}
 							PUBLIC "$<BUILD_INTERFACE:${PURPUR_FRWK_PATH}/include>"
 							PRIVATE "${PURPUR_FRWK_PATH}/src")
@@ -191,12 +189,14 @@ function(ppr_add_test target SOURCES DEPENDS)
 	add_executable(${target} ${SOURCES})
 
 	set_target_properties(${target} PROPERTIES FOLDER "tests")
+	set_target_properties(${target} PROPERTIES CMAKE_CXX_CLANG_TIDY "")
 
 	if(DEPENDS)
         target_link_libraries(${target} PRIVATE ${DEPENDS})
 	endif()
 
-	target_include_directories(${target} PUBLIC "${PURPUR_EXTLIBS_PATH}/headers")
+	# add catch header as SYSTEM to avoid clang-tidy
+	target_include_directories(${target} SYSTEM PRIVATE "${PURPUR_EXTLIBS_PATH}/headers")
 
 	add_test(NAME purpurina_tests COMMAND ${target})
 

@@ -1,4 +1,4 @@
-{
+﻿{
   "configurations": [
     {
       "name": "x64-Debug",
@@ -28,6 +28,16 @@
         },
         {
           "name": "PURPUR_TESTS",
+          "value": "True",
+          "type": "BOOL"
+        },
+        {
+          "name": "PURPUR_BUILD_TESTS",
+          "value": "true",
+          "type": "BOOL"
+        },
+        {
+          "name": "ENABLE_CLANG_TIDY",
           "value": "True",
           "type": "BOOL"
         }
