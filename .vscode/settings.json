@@ -1,7 +1,8 @@
 {
 	"cmake.configureSettings": {
 		"PURPUR_EXAMPLES": true,
-		"PURPUR_EXAMPLES_POSTCOMMAND": "exe_to_bin"
+		"PURPUR_TESTS": true,
+		"PURPUR_EXAMPLES_POSTCOMMAND": "exe_to_bin",
 	},
 	"files.associations": {
 		"cstddef": "cpp",

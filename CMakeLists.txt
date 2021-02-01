@@ -15,14 +15,15 @@ project (purpurina
 		LANGUAGES CXX)
 
 
-# Include the CMake Configuration and Utils files
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/config.cmake)
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/helpers.cmake)
-
+include(CMakeDependentOption)
 # we use the paths from the cmake GNUInstallDirs module as defaults
 # you can override these if you like
 # https://cmake.org/cmake/help/v3.0/module/GNUInstallDirs.html
 include(GNUInstallDirs)
+
+# Include the CMake Configuration and Utils files
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/config.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/helpers.cmake)
 
 # enable folders
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
@@ -32,17 +33,17 @@ set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 set(PURPUR_FRWK_PATH "${PROJECT_SOURCE_DIR}")
 set(PURPUR_SRC "${PURPUR_FRWK_PATH}/src/purpur")
 set(PURPUR_INC "${PURPUR_FRWK_PATH}/include/purpur")
-set(PURPUR_EXTLIBS_DIR "${PROJECT_SOURCE_DIR}/thirdparty")
+set(PURPUR_EXTLIBS_PATH "${PURPUR_FRWK_PATH}/thirdparty")
 
 #############################################
-####		    COMMON OPTIONS			 ####
+####		       OPTIONS     			 ####
 #############################################
 
 # Define BUILD_SHARED_LIBS property
 option(BUILD_SHARED_LIBS "TRUE = Build Purpurina as shared libraries; FALSE = Build as static libraries" TRUE)
 
 # Should build sandox examples?
-option(PURPUR_EXAMPLES "TRUE = Build the Purpurina Sandbox; FALSE = Don't build Sandbox" TRUE)
+option(PURPUR_EXAMPLES "TRUE = Build the Purpurina examples; FALSE = Don't build examples" TRUE)
 
 # [WINDOWS] Make a multi options for executables
 if(PPR_OS_WINDOWS AND BUILD_SHARED_LIBS AND PURPUR_EXAMPLES)
@@ -50,11 +51,14 @@ if(PPR_OS_WINDOWS AND BUILD_SHARED_LIBS AND PURPUR_EXAMPLES)
 		PURPUR_EXAMPLES_POSTCOMMAND
 		"exe_to_bin"
 		"exe_to_bin;bin_to_exe"
-"Defines post build command for executables.
-This is necessary to link executables with dynamic libraries.
- * exe_to_bin = Build executables in the same folder of libraries
- * bin_to_exe = Make a copy of libraries to the executable folders.")
+		"Defines post build command for executables.
+		This is necessary to link executables with dynamic libraries.
+		* exe_to_bin = Build executables in the same folder of libraries
+		* bin_to_exe = Make a copy of libraries to the executable folders.")
 endif()
+
+# tests
+option(PURPUR_TESTS "Build tests")
 
 #############################################
 ####		      OS OPTIONS			 ####
@@ -92,9 +96,14 @@ endif()
 
 add_subdirectory(${PURPUR_SRC})
 
-# Sandbox
+# examples
 if (PURPUR_EXAMPLES)
-	add_subdirectory("${PROJECT_SOURCE_DIR}/examples")
+	add_subdirectory("${PURPUR_FRWK_PATH}/examples")
+endif()
+
+# tests
+if(PURPUR_TESTS)
+	add_subdirectory("${PURPUR_FRWK_PATH}/tests")
 endif()
 
 
@@ -103,15 +112,8 @@ endif()
 #############################################
 
 # Install all packages includes
-# file(GLOB PACKAGE_PATHS "${PURPUR_INC}/**")
-# foreach(ITEM ${PACKAGE_PATHS})
-# 	if(IS_DIRECTORY ${ITEM})
-# 		list( APPEND DIRS_TO_DEPLOY "${ITEM}" )
-#     endif()
-# endforeach()
-
 install(DIRECTORY "${PURPUR_INC}"
-        DESTINATION include
+		DESTINATION include
         COMPONENT devel
         FILES_MATCHING PATTERN "*.hpp" PATTERN "*.inl")
 
