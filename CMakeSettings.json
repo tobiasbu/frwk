@@ -25,6 +25,11 @@
           "name": "PURPUR_EXAMPLES_POSTCOMMAND",
           "value": "exe_to_bin",
           "type": "STRING"
+        },
+        {
+          "name": "PURPUR_TESTS",
+          "value": "True",
+          "type": "BOOL"
         }
       ]
     }
