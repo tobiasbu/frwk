@@ -23,8 +23,8 @@
 		#if __GNUC__ >= 4
 			// GCC 4 has special keywords for showing/hidding symbols,
 			// the same keyword is used for both importing and exporting
-			#define PPR_API_EXPORT __attribute__ ((__visibility__ ("default")))
-			#define PPR_API_IMPORT __attribute__ ((__visibility__ ("default")))
+			#define PPR_API_EXPORT __attribute__((__visibility__("default")))
+			#define PPR_API_IMPORT __attribute__((__visibility__("default")))
 		#else
 			// GCC < 4 has no mechanism to explicitely hide symbols, everything's exported
 			#define PPR_API_EXPORT

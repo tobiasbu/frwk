@@ -147,7 +147,7 @@ Standard: Latest
 StatementMacros:
  - Q_UNUSED
  - QT_REQUIRE_VERSION
-TabWidth: 1
+TabWidth: 4
 # skipped - TypenameMacros:
 UseCRLF: false
 UseTab: ForIndentation

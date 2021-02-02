@@ -10,16 +10,13 @@ namespace ppr {
 	 * \brief Represents abstract OpenGL context
 	 */
 	class GlContext {
-
 	public:
-
 		/**
 		 * \brief Create OpenGL context
 		 */
 		static std::unique_ptr<GlContext> create();
-
 	};
 
-}
+}// namespace ppr
 
 #endif

@@ -1,16 +1,14 @@
 
 #include <purpur/core/config/platform.hpp>
-
 #include <purpur/platform/window.hpp>
 
 #if defined(PPR_OS_WIN32)
 	#include <purpur/platform/win32/win32_window.hpp>
-    typedef ppr::internal::Win32Window PlatformWindowType;
+typedef ppr::internal::Win32Window PlatformWindowType;
 #elif defined(PPR_OS_MACOS)
-    #include <purpur/platform/osx/cocoa_window.hpp>
-    typedef ppr::internal::CocoaWindow PlatformWindowType;
+	#include <purpur/platform/osx/cocoa_window.hpp>
+typedef ppr::internal::CocoaWindow PlatformWindowType;
 #endif
-
 
 #include <iostream>
 
@@ -20,11 +18,7 @@ namespace ppr {
 		return new PlatformWindowType(width, height, title, style);
 	}
 
-
-	Window::Window(internal::NativeWindow * nativeWindow)
-	:
-	nativeWindow(nativeWindow)
-	{}
+	Window::Window(internal::NativeWindow * nativeWindow) : nativeWindow(nativeWindow) {}
 
 	Window::Window(uint32 width, uint32 height, cstr title, uint32 style) {
 		nativeWindow = createWindow(width, height, title, style);
@@ -57,4 +51,4 @@ namespace ppr {
 		}
 	}
 
-}
+}// namespace ppr

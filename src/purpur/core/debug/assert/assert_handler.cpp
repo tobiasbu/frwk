@@ -1,11 +1,10 @@
 
+#include <cstdarg>// va_start() and va_end()
+#include <iostream>
 #include <purpur/core/debug/assert/assert_handler.hpp>
-
+#include <sstream>
 #include <stdarg.h>
 #include <stdio.h>
-#include <cstdarg> // va_start() and va_end()
-#include <sstream>
-#include <iostream>
 
 #define PURPURINA_ASSERT_BUFFER_SIZE 1024
 
@@ -25,31 +24,29 @@ namespace ppr {
 				return ignoreAll;
 			}
 
-			Action getAction(Level level, bool* ignore) {
+			Action getAction(Level level, bool * ignore) {
 				if (ignoreAll) {
 					return Action::Ignore;
 				}
-				switch(level) {
+				switch (level) {
 					case Level::Error: return Action::Throw;
 					case Level::Fatal: return Action::Abort;
 					case Level::Debug: return Action::Break;
 					case Level::Warning:
-					default:
-						return Action::Ignore;
+					default: return Action::Ignore;
 				}
 			}
 
 			cstr handle(cstr file,
-						int32 line,
-						cstr function,
-						cstr expression,
-						bool* ignore,
-						cstr message, ...) {
-
+			            int32 line,
+			            cstr function,
+			            cstr expression,
+			            bool * ignore,
+			            cstr message,
+			            ...) {
 				char messageBuffer[PURPURINA_ASSERT_BUFFER_SIZE] = {0};
 
-				if (!!message)
-				{
+				if (! ! message) {
 					va_list argptr;
 					va_start(argptr, message);
 					vsnprintf(messageBuffer, PURPURINA_ASSERT_BUFFER_SIZE, message, argptr);
@@ -62,12 +59,12 @@ namespace ppr {
 				ss << "File: " << file << '\n';
 				ss << "Line: " << line << '\n';
 
-				if (!!function) {
+				if (! ! function) {
 					ss << "Function: " << function << '\n';
 				}
 
 				ss << "Expression: " << expression << '\n';
-				if (!!message) {
+				if (! ! message) {
 					ss << "Message: " << messageBuffer << '\n';
 				}
 
@@ -75,6 +72,6 @@ namespace ppr {
 
 				return message;
 			}
-		}
-	}
-}
+		}// namespace Assert
+	}    // namespace internal
+}// namespace ppr

@@ -15,8 +15,8 @@
 #ifndef _PURPURINA_FRWK_CONFIG_HPP_
 #define _PURPURINA_FRWK_CONFIG_HPP_
 
-	#include <purpur/core/config/api.hpp>
-	#include <purpur/core/config/platform.hpp>
-	#include <purpur/core/config/compiler_features.hpp>
+#include <purpur/core/config/api.hpp>
+#include <purpur/core/config/compiler_features.hpp>
+#include <purpur/core/config/platform.hpp>
 
 #endif

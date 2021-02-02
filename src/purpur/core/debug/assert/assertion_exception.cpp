@@ -1,35 +1,28 @@
 
-#include <purpur/core/utils/helper_macros.hpp>
-
 #include <purpur/core/debug/assert/assertion_exception.hpp>
-
+#include <purpur/core/utils/helper_macros.hpp>
 
 namespace ppr {
 
-	AssertionException::AssertionException(
-	cstr file,
-	int32 line,
-	cstr function,
-	cstr expression,
-	cstr message) noexcept
-	:
-	_file(file),
-	_line(line),
-	_function(function),
-	_expression(expression),
-	Exception(message)
-	{}
+	AssertionException::AssertionException(cstr file,
+	                                       int32 line,
+	                                       cstr function,
+	                                       cstr expression,
+	                                       cstr message) noexcept
+	 : _file(file),
+	   _line(line),
+	   _function(function),
+	   _expression(expression),
+	   Exception(message) {}
 
-	AssertionException::AssertionException(const AssertionException& rhs) noexcept
-	:
-	_file(rhs._file),
-	_line(rhs._line),
-	_function(rhs._function),
-	_expression(rhs._expression),
-	Exception(rhs._message)
-	{}
+	AssertionException::AssertionException(const AssertionException & rhs) noexcept
+	 : _file(rhs._file),
+	   _line(rhs._line),
+	   _function(rhs._function),
+	   _expression(rhs._expression),
+	   Exception(rhs._message) {}
 
-	AssertionException& AssertionException::operator=(AssertionException const& rhs) noexcept {
+	AssertionException & AssertionException::operator=(AssertionException const & rhs) noexcept {
 		_file = rhs._file;
 		_line = rhs._line;
 		_function = rhs._function;
@@ -54,4 +47,4 @@ namespace ppr {
 		return this->_expression;
 	}
 
-}
+}// namespace ppr

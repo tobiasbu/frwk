@@ -18,10 +18,9 @@
 #include <purpur/core/config/api.hpp>
 
 #ifdef PURPURINA_RENDER_EXPORTS
-    #define PPR_RENDER_API PPR_API_EXPORT
+	#define PPR_RENDER_API PPR_API_EXPORT
 #else
-    #define PPR_RENDER_API PPR_API_IMPORT
+	#define PPR_RENDER_API PPR_API_IMPORT
 #endif
-
 
 #endif

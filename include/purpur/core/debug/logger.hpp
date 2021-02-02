@@ -3,16 +3,13 @@
 #define _PURPURINA_FRWK_LOGGER_HPP_
 
 #include <iostream>
-
-#include <purpur/core/export.hpp>
 #include <purpur/core/debug/loglevel.hpp>
+#include <purpur/core/export.hpp>
 
 namespace ppr {
 
 	class PURPURINA_CORE_API Logger {
-
 	private:
-
 		void printLevel(LogLevel level);
 
 		template<typename T>
@@ -32,7 +29,6 @@ namespace ppr {
 		}
 
 	public:
-
 		Logger();
 
 		void log() {
@@ -47,14 +43,8 @@ namespace ppr {
 			std::cout << std::endl;
 		}
 
-
-
-
-
-
-		void error(const char* message, ...);
+		void error(const char * message, ...);
 	};
-}
-
+}// namespace ppr
 
 #endif

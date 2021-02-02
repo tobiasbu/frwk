@@ -4,7 +4,7 @@
 
 #ifdef PPR_OS_WIN32
 	#include <purpur/render/opengl/wgl_context.hpp>
-	typedef  ppr::internal::WglContext GlContextType;
+typedef ppr::internal::WglContext GlContextType;
 #endif
 
 namespace ppr {
@@ -15,16 +15,13 @@ namespace ppr {
 	 * \brief Create OpenGL context
 	 */
 	std::unique_ptr<GlContext> GlContext::create() {
-
-		GlContext* context = nullptr;
+		GlContext * context = nullptr;
 
 		context = new GlContextType();
 
 		return std::unique_ptr<GlContext>(context);
-
 	}
 
 #endif
 
-
-}
+}// namespace ppr
