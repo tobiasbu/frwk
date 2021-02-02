@@ -9,6 +9,7 @@
 
 namespace ppr {
 
+#ifndef PPR_OS_MACOS
 
 	/**
 	 * \brief Create OpenGL context
@@ -23,6 +24,7 @@ namespace ppr {
 
 	}
 
+#endif
 
 
 }

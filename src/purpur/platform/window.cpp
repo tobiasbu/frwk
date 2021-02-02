@@ -3,10 +3,10 @@
 
 #include <purpur/platform/window.hpp>
 
-#ifdef PPR_OS_WIN32
+#if defined(PPR_OS_WIN32)
 	#include <purpur/platform/win32/win32_window.hpp>
     typedef ppr::internal::Win32Window PlatformWindowType;
-#elif PPR_OS_MACOS
+#elif defined(PPR_OS_MACOS)
     #include <purpur/platform/osx/cocoa_window.hpp>
     typedef ppr::internal::CocoaWindow PlatformWindowType;
 #endif

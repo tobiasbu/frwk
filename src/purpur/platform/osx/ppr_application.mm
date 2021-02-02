@@ -16,9 +16,10 @@
 		// custom OpenGL view. See -[SFOpenGLView sfKeyUp:] for more details.
 
 		id firstResponder = [[anEvent window] firstResponder];
-		if (([anEvent type] != NSEventTypeKeyUp) || (![firstResponder tryToPerform:@selector(sfKeyUp:) with:anEvent]))
+		if ([anEvent type] != NSEventTypeKeyUp)
+//            || (![firstResponder tryToPerform:@selector(sfKeyUp:) with:anEvent]))
 		{
-			// It's either not a key up event or no responder has a sfKeyUp
+			// It's either not a key up event or no responder has a KeyUp
 			// message implemented.
 			[super sendEvent:anEvent];
 		}

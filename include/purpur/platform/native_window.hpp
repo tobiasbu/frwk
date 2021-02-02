@@ -14,14 +14,20 @@ namespace ppr {
 		////////////////////////////////////////////////////////////
 		class NativeWindow {
 
-			public:
+        public:
 
-				virtual ~NativeWindow() {}
-				virtual bool isVisible() const = 0;
-				virtual WindowHandle getHandle() const = 0;
-				virtual void setVisible(bool visible) = 0;
-				// virtual PlatformWindow * create(int32 width, int32 height, cstr title, uint32 style) const = 0;
-				virtual void pool() = 0;
+            virtual ~NativeWindow() {}
+        
+            ////////////////////////////////////////////////////////////
+            /// @brief Tell wheter or not the window is visible onscreen
+            ///
+            /// @return True if the window is visible otherwise false
+            ///
+            ////////////////////////////////////////////////////////////
+            virtual bool isVisible() const = 0;
+            virtual WindowHandle getHandle() const = 0;
+            virtual void setVisible(bool visible) = 0;
+            virtual void pool() = 0;
 
 
 		};
