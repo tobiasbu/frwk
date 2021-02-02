@@ -15,5 +15,5 @@ Work in progress
 - Generate for Xcode
 
 ```
-cmake . -B project -GXcode
+cmake . -B build/xcode -GXcode
 ```

@@ -15,4 +15,6 @@ namespace ppr {
 
 - (instancetype)initWith:(ppr::internal::CocoaWindow *)window;
 
+- (BOOL)windowShouldClose:(id)sender;
+
 @end

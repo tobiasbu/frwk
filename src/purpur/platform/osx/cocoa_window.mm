@@ -62,7 +62,7 @@ namespace ppr {
 				styleMask |= NSWindowStyleMaskResizable;
 			}
 
-			if (style & WindowStyle::Miniaturizable) {
+			if (style & WindowStyle::Minimize) {
 				styleMask |= NSWindowStyleMaskMiniaturizable;
 			}
 
@@ -98,7 +98,6 @@ namespace ppr {
 			[PPRApplication createMenuBar];
 
 			isPlatformInited = true;
-			printf("isPlatformInited");
 			return 0;
 		}
 
@@ -129,11 +128,11 @@ namespace ppr {
 					printf("[purpur] ERROR: Failed to create PPRWindow at platform::CocoaWindow.");
 				}
 
-				GradientView * myView = [[[GradientView alloc] initWithFrame:contentRect] autorelease];
-				if (myView == nil) {
-					printf("[purpur] ERROR: Failed to create PPRWindow at platform::CocoaWindow.");
-				}
-				[window setContentView:myView];
+//				GradientView * myView = [[[GradientView alloc] initWithFrame:contentRect] autorelease];
+//				if (myView == nil) {
+//					printf("[purpur] ERROR: Failed to create PPRWindow at platform::CocoaWindow.");
+//				}
+//				[window setContentView:myView];
 
 				// set window config
 				[window setOpaque:YES];
@@ -158,21 +157,21 @@ namespace ppr {
 
 
 		CocoaWindow::~CocoaWindow() {
-			// TODO: clean-up
-    		// [this->delegate release];
-			// [this->handle close];
+            [handle setDelegate:nil];
+            [delegate release];
+            delegate = nullptr;
+            [handle release];
+            handle = nullptr;
 		}
 
-		bool CocoaWindow::isVisible() {
+		bool CocoaWindow::isVisible() const {
 			@autoreleasepool {
-				// TODO: recreate this function has `isOpened`
-				// In macOS, is visible means "is this window visible in screen"
-				// If user minimizes the window it will consider not visible
-
     			return [handle isVisible];
-
-
     		}
+		}
+
+		WindowHandle CocoaWindow::getHandle() const {
+			return handle;
 		}
 
 		void CocoaWindow::setVisible(bool visible) {

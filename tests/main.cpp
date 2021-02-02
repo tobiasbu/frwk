@@ -7,7 +7,7 @@ int main(int argc, char* argv[])
 
 	 // Now pass the new composite back to Catch so it uses that
 
-	char* args[] = { argv[0], "-s" , "-r", "compact" };
+	const char* args[] = { argv[0], "-s" , "-r", "compact" };
 
 	int returnCode = session.applyCommandLine(4, args);
 	if (returnCode != 0) {// Indicates a command line error
@@ -15,7 +15,7 @@ int main(int argc, char* argv[])
 		return returnCode;
 	}
 
-	// writing to session.configData() or session.Config() here 
+	// writing to session.configData() or session.Config() here
 	// overrides command line args
 	// only do this if you know you need to
 

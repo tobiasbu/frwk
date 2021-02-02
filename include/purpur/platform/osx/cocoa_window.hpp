@@ -37,7 +37,9 @@ namespace ppr {
 			////////////////////////////////////////////////////////////
 			~CocoaWindow();
 
-			bool isVisible();
+			bool isVisible() const;
+			WindowHandle getHandle() const;
+
 			void setVisible(bool visible);
 			void focus();
 

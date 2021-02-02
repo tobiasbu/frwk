@@ -6,7 +6,7 @@
 #include <purpur/core/utils/noncopyable.hpp>
 
 #include <purpur/platform/window_handle.hpp>
-// #include <purpur/platform/window_style.hpp>
+#include <purpur/platform/window_style.hpp>
 #include <purpur/platform/export.hpp>
 
 namespace ppr {
@@ -24,7 +24,7 @@ namespace ppr {
 		public:
 
 			Window(internal::NativeWindow * nativeWindow);
-			Window(uint32 width, uint32 height, cstr title, uint32 style);
+			Window(uint32 width, uint32 height, cstr title, uint32 style = WindowStyle::Default);
 			~Window();
 
 			bool isVisible();

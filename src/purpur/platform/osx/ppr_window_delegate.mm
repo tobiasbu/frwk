@@ -12,4 +12,10 @@
 	return self;
 }
 
+- (BOOL)windowShouldClose:(id)sender
+{
+    return YES;
+}
+
+
 @end
