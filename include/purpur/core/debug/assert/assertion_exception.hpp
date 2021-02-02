@@ -15,10 +15,9 @@
 #ifndef _PURPURINA_FRWK_ASSERTION_EXCEPTION_HPP_
 #define _PURPURINA_FRWK_ASSERTION_EXCEPTION_HPP_
 
-#include <purpur/core/types.hpp>
-
-#include <purpur/core/export.hpp>
 #include <purpur/core/error/exception.hpp>
+#include <purpur/core/export.hpp>
+#include <purpur/core/types.hpp>
 
 namespace ppr {
 
@@ -30,7 +29,6 @@ namespace ppr {
 	///
 	////////////////////////////////////////////////////////////
 	class PURPURINA_CORE_API AssertionException : Exception {
-
 	private:
 		cstr _file;
 		int32 _line;
@@ -38,7 +36,6 @@ namespace ppr {
 		cstr _expression;
 
 	public:
-
 		///
 		/// \brief Constructor
 		///
@@ -48,24 +45,23 @@ namespace ppr {
 		/// \param expression Assert expression
 		/// \param message Optional message
 		///
-		explicit AssertionException(
-			cstr file,
-			int32 line,
-			cstr function,
-			cstr expression,
-			cstr message = "unknown") noexcept;
+		explicit AssertionException(cstr file,
+		                            int32 line,
+		                            cstr function,
+		                            cstr expression,
+		                            cstr message = "unknown") noexcept;
 
 		///
 		/// \brief Copy constructor
 		///
 		/// \param rhs AssertionException to copy
 		///
-		AssertionException(const AssertionException& rhs) noexcept;
+		AssertionException(const AssertionException & rhs) noexcept;
 
 		///
 		/// \brief Copy exception
 		///
-		AssertionException& operator=(AssertionException const& rhs) noexcept;
+		AssertionException & operator=(AssertionException const & rhs) noexcept;
 
 		///
 		/// \brief Get file path which has generated this exception
@@ -94,11 +90,8 @@ namespace ppr {
 		/// \return A pointer to c-string representing the expression
 		///
 		cstr expression() const;
-
 	};
 
-}
+} // namespace ppr
 
 #endif
-
-

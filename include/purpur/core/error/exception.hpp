@@ -3,9 +3,8 @@
 #define _PURPURINA_FRWK_EXCEPTION_HPP_
 
 #include <purpur/core/config.hpp>
-
-#include <purpur/core/types.hpp>
 #include <purpur/core/export.hpp>
+#include <purpur/core/types.hpp>
 
 namespace ppr {
 
@@ -15,13 +14,10 @@ namespace ppr {
 	///
 	////////////////////////////////////////////////////////////
 	class PURPURINA_CORE_API Exception {
-
-		protected:
-
+	protected:
 		cstr _message;
 
-		public:
-
+	public:
 		////////////////////////////////////////////////////////////
 		/// \brief Default Constructor
 		/// \param message Description of this message
@@ -33,7 +29,7 @@ namespace ppr {
 		/// \brief Copy constructor
 		///
 		////////////////////////////////////////////////////////////
-		Exception(const Exception &rhs) NOEXCEPT;
+		Exception(const Exception & rhs) NOEXCEPT;
 
 		////////////////////////////////////////////////////////////
 		/// \brief Destructor
@@ -51,9 +47,9 @@ namespace ppr {
 		///
 		/// \brief Copy exception
 		///
-		Exception operator=(const Exception& rhs) NOEXCEPT;
+		Exception operator=(const Exception & rhs) NOEXCEPT;
 	};
 
-}
+} // namespace ppr
 
 #endif

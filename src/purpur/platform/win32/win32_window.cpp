@@ -1,15 +1,12 @@
 
-#include <purpur/platform/window_style.hpp>
-
+#include <iostream>
 #include <purpur/platform/win32/win32_platform.hpp>
 #include <purpur/platform/win32/win32_window.hpp>
-
-#include <iostream>
+#include <purpur/platform/window_style.hpp>
 
 namespace ppr {
 
 	namespace internal {
-
 
 		////////////////////////////////////////////////////////////
 		/// Internal Apis
@@ -27,7 +24,7 @@ namespace ppr {
 		/// \param lParam Second message parameter
 		///
 		//////////////////////////////////////////////////////////
-		LRESULT CALLBACK MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)  {
+		LRESULT CALLBACK MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 			// if (uMsg == WM_CREATE) {
 			// 	LONG_PTR window = (LONG_PTR)reinterpret_cast<CREATESTRUCT*>(lParam)->lpCreateParams;
 			// 	SetWindowLongPtrW(hWnd, GWLP_USERDATA, window);
@@ -36,7 +33,7 @@ namespace ppr {
 			HANDLE windowProp = GetPropW(hWnd, L"PPR");
 
 			// Get the Window instance corresponding to the window handle
-			Win32Window* window = windowProp ? (Win32Window*)windowProp : NULL;
+			Win32Window * window = windowProp ? (Win32Window *)windowProp : NULL;
 
 			if (window) {
 				// window->onEvent(uMsg, wParam, lParam);
@@ -61,16 +58,19 @@ namespace ppr {
 		bool registerWindowsClass() {
 			WNDCLASSEXW wndclass;
 			wndclass.cbSize = sizeof(wndclass); // The size, in bytes, of this structure
-			wndclass.style = CS_VREDRAW | CS_HREDRAW | CS_OWNDC; // class style(s)  // ;
+			wndclass.style = CS_VREDRAW | CS_HREDRAW | CS_OWNDC; // class style(s)
 			wndclass.lpfnWndProc = (WNDPROC)MainWndProc; // A pointer to the window procedure.
+			// clang-format off
 			wndclass.cbClsExtra = 0; // The number of extra bytes to allocate following the window-class structure.
 			wndclass.cbWndExtra = 0; // The number of extra bytes to allocate following the window instance.
 			wndclass.hInstance = GetModuleHandleW(NULL); // A handle to the instance that contains the window procedure for the class.
+			// clang-format on
 			wndclass.hIcon = NULL; // class icon.
 			wndclass.hIconSm = NULL;
-			wndclass.hCursor = LoadCursor(NULL, IDC_ARROW); // class cursor.
+			wndclass.hCursor = LoadCursor(NULL, IDC_ARROW);      // class cursor.
 			wndclass.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1); // class background brush.
-			// wndclass.lpszMenuName = __PPR_WNDCLASSNAME; //  specifies the resource name of the class menu, as the name appears in the resource file
+			// specifies the resource name of the class menu, as the name appears in the resource
+			// file wndclass.lpszMenuName = __PPR_WNDCLASSNAME;
 			wndclass.lpszClassName = __PPR_WNDCLASSNAME;
 			wndclass.lpszMenuName = NULL;
 			if (!RegisterClassExW(&wndclass)) {
@@ -79,8 +79,6 @@ namespace ppr {
 			}
 			return true;
 		}
-
-
 
 		const wchar_t * toWchar(cstr buffer) {
 			int buffer_size = MultiByteToWideChar(CP_ACP, 0, buffer, -1, NULL, 0);
@@ -114,13 +112,12 @@ namespace ppr {
 				if (style & WindowStyle::Close || shouldBeClosable) {
 					dwStyle |= WS_SYSMENU;
 				}
-
 			}
 			return dwStyle;
 		}
 
-		Win32Window::Win32Window(uint32 width, uint32 height, cstr title, uint32 style) {
-
+		Win32Window::Win32Window(uint32 width, uint32 height, cstr title, uint32 style)
+		: handle(nullptr) {
 			// Register window class only for first window
 			if (windowCount == 0) {
 				if (!registerWindowsClass()) {
@@ -128,10 +125,10 @@ namespace ppr {
 				}
 			}
 
-
 			bool isFullscreen = false;
 
-			// Retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen
+			// Retrieves a handle to a device context (DC) for the client area of a specified window
+			// or for the entire screen
 			HDC screenDC = GetDC(NULL);
 			// Compute window position and size
 			int32 left = (GetDeviceCaps(screenDC, HORZRES) - static_cast<int>(width)) / 2;
@@ -145,12 +142,13 @@ namespace ppr {
 			// 	height = rect.bottom - rect.top;
 			// }
 
-			const wchar_t* titleWchar = toWchar(title);
+			const wchar_t * titleWchar = toWchar(title);
 			if (!titleWchar) {
 				std::cerr << "Invalid title" << std::endl;
 				return;
 			}
 
+			// clang-format off
 			handle = CreateWindowExW(WS_EX_APPWINDOW,
 				__PPR_WNDCLASSNAME,
 				titleWchar,
@@ -163,6 +161,7 @@ namespace ppr {
 				NULL,
 				GetModuleHandle(NULL),
 				NULL);
+			// clang-format on
 
 			if (!handle) {
 				std::cerr << "Could no create window" << std::endl;
@@ -178,7 +177,6 @@ namespace ppr {
 			SetPropW(handle, L"PPR", this);
 
 			windowCount += 1;
-
 		}
 
 		Win32Window::~Win32Window() {
@@ -193,7 +191,7 @@ namespace ppr {
 			ShowWindow(handle, visible ? SW_SHOW : SW_HIDE);
 		}
 
-		HWND Win32Window::getHandle() const {
+		WindowHandle Win32Window::getHandle() const {
 			return handle;
 		}
 
@@ -221,18 +219,14 @@ namespace ppr {
 			if (handle) {
 				std::cout << "Window disposed" << std::endl;
 				RemovePropW(handle, L"PPR");
-        		DestroyWindow(handle);
+				DestroyWindow(handle);
 				handle = nullptr;
 
 				windowCount -= 1;
-
 			}
 		}
 
-
-
-
-
-		// LRESULT CALLBACK Win32Window::MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
-	}
-}
+		// LRESULT CALLBACK Win32Window::MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM
+		// lParam)
+	} // namespace internal
+} // namespace ppr

@@ -7,33 +7,30 @@
 namespace ppr {
 
 	class NonCopyable {
-
 	protected:
-
-	#if defined(PPR_CXX11_DEFAULT_FUNCTIONS)
+#if defined(PPR_CXX11_DEFAULT_FUNCTIONS)
 		constexpr NonCopyable() = default;
 		~NonCopyable() = default;
-	#else
+#else
 		NonCopyable() {}
 		~NonCopyable() {}
-	#endif
+#endif
 
-	#if defined(PPR_CXX11_DELETE_FUNCTIONS)
+#if defined(PPR_CXX11_DELETE_FUNCTIONS)
 		///
 		/// @brief Non copyable
 		///
-		NonCopyable(const NonCopyable&) = delete;
+		NonCopyable(const NonCopyable &) = delete;
 		///
 		/// @brief Copy assignment is not permited
 		///
-		NonCopyable& operator=(const NonCopyable&) = delete;
-	#else
-		private:
-			NonCopyable(const NonCopyable&);
-			NonCopyable& operator=(const NonCopyable&);
-	#endif
-
+		NonCopyable & operator=(const NonCopyable &) = delete;
+#else
+	private:
+		NonCopyable(const NonCopyable &);
+		NonCopyable & operator=(const NonCopyable &);
+#endif
 	};
-}
+} // namespace ppr
 
 #endif

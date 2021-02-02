@@ -5,7 +5,8 @@
 #include <purpur/core/types.hpp>
 namespace ppr {
 
-	enum LogLevel: uint32 {
+	enum class LogLevel : uint32
+	{
 		Log = 32,
 		Debug = 64,
 		Warning = 128,
@@ -14,13 +15,11 @@ namespace ppr {
 	};
 
 	const char * getLogLevelName(LogLevel level) {
-		switch (level)
-		{
+		switch (level) {
 			case LogLevel::Debug: return "Debug";
 			default: return "Log";
 		}
 	}
-}
-
+} // namespace ppr
 
 #endif

@@ -21,12 +21,7 @@ int main(int argc, char* argv[]) {
 
     bool isVisible = win.isVisible();
     bool current = isVisible;
-    printf("is visible %d", current);
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    
-    win.setVisible(false);
-    printf("is visible %d", win.isVisible());
-    
+
 	while (isVisible) {
 
 		win.process();

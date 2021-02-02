@@ -43,9 +43,8 @@
 ///
 ////////////////////////////////////////////////////////////
 #define PPR_JOIN(X, Y) __PPR_DO_JOIN(X, Y)
-#define __PPR_DO_JOIN(X, Y) __PPR_DO_JOIN2(X,Y)
+#define __PPR_DO_JOIN(X, Y) __PPR_DO_JOIN2(X, Y)
 #define __PPR_DO_JOIN2(X, Y) X##Y
-
 
 #if defined(_MSC_VER)
 	#define PPR_ASSERT_ALWAYS_INLINE __forceinline

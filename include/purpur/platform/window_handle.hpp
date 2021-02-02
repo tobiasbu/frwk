@@ -5,7 +5,7 @@
 #include <purpur/core/types.hpp>
 
 #ifdef PPR_OS_WINDOWS
-	 struct HWND__;
+struct HWND__;
 #endif
 
 namespace ppr {
@@ -19,19 +19,17 @@ namespace ppr {
 	#ifdef __OBJC__
 		#import <AppKit/AppKit.h>
 		#import <purpur/platform/osx/ppr_window_delegate.h>
-		typedef NSWindow* WindowHandle;
-		typedef PPRWindowDelegate* WindowDelegate;
+	typedef NSWindow * WindowHandle;
+	typedef PPRWindowDelegate * WindowDelegate;
 	#else
-		typedef void * WindowHandle;
-		typedef void * WindowDelegate;
+	typedef void * WindowHandle;
+	typedef void * WindowDelegate;
 	#endif
 
 #else
-	typedef void* WindowHandle;
+	typedef void * WindowHandle;
 #endif
 
-}
-
-
+} // namespace ppr
 
 #endif
