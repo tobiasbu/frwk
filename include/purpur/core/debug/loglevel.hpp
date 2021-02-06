@@ -3,6 +3,7 @@
 #define _PURPURINA_FRWK_LOG_LEVEL_HPP_
 
 #include <purpur/core/types.hpp>
+
 namespace ppr {
 
 	enum class LogLevel : uint32

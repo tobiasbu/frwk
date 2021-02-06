@@ -69,8 +69,13 @@ namespace ppr {
 		 */
 		constexpr uint32 Default = Title | Close | Resize | Minimize;
 
-		PPR_PLATFORM_API uint32
-		make(bool bordeless, bool titleBar, bool resizable, bool closable, bool minimizable);
+		PPR_PLATFORM_API uint32 make(
+			bool bordeless,
+		 	bool titleBar,
+		 	bool resizable,
+		 	bool closable,
+		 	bool minimizable);
+
 	}; // namespace WindowStyle
 
 } // namespace ppr

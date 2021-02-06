@@ -1,5 +1,5 @@
 
-#include <purpur/core/debug/assert/assertion_exception.hpp>
+#include <purpur/core/assert/assertion_exception.hpp>
 #include <purpur/core/utils/helper_macros.hpp>
 
 namespace ppr {
@@ -9,18 +9,18 @@ namespace ppr {
 	                                       cstr function,
 	                                       cstr expression,
 	                                       cstr message) noexcept
-	: _file(file),
+	: Exception(message),
+	  _file(file),
 	  _line(line),
 	  _function(function),
-	  _expression(expression),
-	  Exception(message) {}
+	  _expression(expression) {}
 
 	AssertionException::AssertionException(const AssertionException & rhs) noexcept
-	: _file(rhs._file),
+	: Exception(rhs._message),
+	  _file(rhs._file),
 	  _line(rhs._line),
 	  _function(rhs._function),
-	  _expression(rhs._expression),
-	  Exception(rhs._message) {}
+	  _expression(rhs._expression) {}
 
 	AssertionException & AssertionException::operator=(AssertionException const & rhs) noexcept {
 		_file = rhs._file;

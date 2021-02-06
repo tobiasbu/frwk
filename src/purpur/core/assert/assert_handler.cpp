@@ -1,7 +1,7 @@
 
 #include <cstdarg> // va_start() and va_end()
 #include <iostream>
-#include <purpur/core/debug/assert/assert_handler.hpp>
+#include <purpur/core/assert/assert_handler.hpp>
 #include <sstream>
 #include <stdarg.h>
 #include <stdio.h>

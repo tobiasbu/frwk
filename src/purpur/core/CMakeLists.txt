@@ -33,9 +33,9 @@ set(CORE_SUB_INC
 	${INCPATH}/utils/helper_macros.hpp
 
 	${INCPATH}/error/exception.hpp
-	${INCPATH}/debug/assert/assert.hpp
-	${INCPATH}/debug/assert/assert_handler.hpp
-	${INCPATH}/debug/assert/assertion_exception.hpp
+	${INCPATH}/assert/assert.hpp
+	${INCPATH}/assert/assert_handler.hpp
+	${INCPATH}/assert/assertion_exception.hpp
 	${INCPATH}/debug/breakpoint.hpp
 
 )
@@ -43,8 +43,8 @@ set(CORE_SUB_INC
 set(CORE_SUB_SRC
 	${SRCPATH}/error/exception.cpp
 	${SRCPATH}/debug/logger.cpp
-	${SRCPATH}/debug/assert/assert_handler.cpp
-	${SRCPATH}/debug/assert/assertion_exception.cpp
+	${SRCPATH}/assert/assert_handler.cpp
+	${SRCPATH}/assert/assertion_exception.cpp
 )
 
 # root folder

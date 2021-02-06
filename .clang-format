@@ -75,6 +75,9 @@ ForEachMacros:
   - BOOST_FOREACH
 IncludeBlocks: Regroup
 IncludeCategories:
+  - Regex: '^(<|"(purpur))/'
+    Priority: 4
+    SortPriority: 0
   - Regex: '^"(llvm|llvm-c|clang|clang-c)/'
     Priority: 2
     SortPriority: 0

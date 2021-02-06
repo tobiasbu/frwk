@@ -15,8 +15,8 @@
 #ifndef _PURPUR_HPP_
 #define _PURPUR_HPP_
 
+#include <purpur/core/assert/assert.hpp>
 #include <purpur/core/config.hpp>
-#include <purpur/core/debug/assert/assert.hpp>
 #include <purpur/core/debug/logger.hpp>
 #include <purpur/core/types.hpp>
 #include <purpur/core/version.hpp>

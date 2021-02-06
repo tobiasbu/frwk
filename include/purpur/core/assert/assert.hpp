@@ -15,8 +15,8 @@
 #ifndef _PURPURINA_FRWK_ASSERT_HPP_
 #define _PURPURINA_FRWK_ASSERT_HPP_
 
-#include <purpur/core/debug/assert/assert_handler.hpp>
-#include <purpur/core/debug/assert/assertion_exception.hpp>
+#include <purpur/core/assert/assert_handler.hpp>
+#include <purpur/core/assert/assertion_exception.hpp>
 #include <purpur/core/debug/breakpoint.hpp>
 #include <purpur/core/utils/helper_macros.hpp>
 
