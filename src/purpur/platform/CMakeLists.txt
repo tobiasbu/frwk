@@ -1,6 +1,7 @@
 
 set(INCPATH "${PURPUR_INC}/platform")
 set(SRCPATH "${PURPUR_SRC}/platform")
+set(LINK_LIBS "")
 
 set(PLATFORM_INC
 	${INCPATH}/export.hpp
@@ -8,6 +9,7 @@ set(PLATFORM_INC
 	${INCPATH}/window_style.hpp
 	${INCPATH}/window_handle.hpp
 	${INCPATH}/native_window.hpp
+	${INCPATH}/native_window_type.hpp
 )
 
 set(PLATFORM_SRC
@@ -73,6 +75,6 @@ ppr_add_library(purpurina_platform
 				DEPENDS ${LINK_LIBS}
 )
 
-if ((NOT BUILD_SHARED_LIBS) AND PPR_OS_MACOSX)
+if (PPR_OS_MACOSX AND (NOT BUILD_SHARED_LIBS))
     target_link_libraries(purpurina_platform PRIVATE -ObjC)
 endif()
