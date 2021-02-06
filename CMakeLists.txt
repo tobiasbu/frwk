@@ -21,10 +21,19 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/helpers.cmake)
 ####		     BASE CONFIG  			 ####
 #############################################
 
+# Set paths for purpurina packages files
+set(PURPUR_FRWK_PATH "${PROJECT_SOURCE_DIR}")
+set(PURPUR_SRC "${PURPUR_FRWK_PATH}/src/purpur")
+set(PURPUR_INC "${PURPUR_FRWK_PATH}/include/purpur")
+set(PURPUR_EXTLIBS_PATH "${PURPUR_FRWK_PATH}/thirdparty")
+
 # C/C++ version
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+set_property(GLOBAL PROPERTY USE_FOLDERS ON) # enable folders
+set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 
 # Check for clang-tidy
 set(ENABLE_CLANG_TIDY True CACHE BOOL "Add clang-tidy automatically to builds")
@@ -38,15 +47,6 @@ if (ENABLE_CLANG_TIDY)
 		message(AUTHOR_WARNING "clang-tidy not found!")
 	endif()
 endif()
-
-set_property(GLOBAL PROPERTY USE_FOLDERS ON) # enable folders
-set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
-
-# Set paths for purpurina packages files
-set(PURPUR_FRWK_PATH "${PROJECT_SOURCE_DIR}")
-set(PURPUR_SRC "${PURPUR_FRWK_PATH}/src/purpur")
-set(PURPUR_INC "${PURPUR_FRWK_PATH}/include/purpur")
-set(PURPUR_EXTLIBS_PATH "${PURPUR_FRWK_PATH}/thirdparty")
 
 #############################################
 ####		       OPTIONS     			 ####

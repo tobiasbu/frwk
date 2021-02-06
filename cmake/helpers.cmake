@@ -81,10 +81,10 @@ macro(ppr_add_library target)
 	else()
 		if(PPR_OS_WINDOWS)
 			# include the major version number in Windows shared library names (but not import library names)
-			set_target_properties(${target} PROPERTIES DEBUG_POSTFIX "-debug")
+			set_target_properties(${target} PROPERTIES DEBUG_POSTFIX "-dbg")
 			set_target_properties(${target} PROPERTIES SUFFIX "${CMAKE_SHARED_LIBRARY_SUFFIX}")
 		else()
-			set_target_properties(${target} PROPERTIES DEBUG_POSTFIX "-debug")
+			set_target_properties(${target} PROPERTIES DEBUG_POSTFIX "-dbg")
 		endif()
 	endif()
 
@@ -110,7 +110,7 @@ macro(ppr_add_library target)
 
 	# Link libraries libs
 	if(ARGS_DEPENDS)
-		target_link_libraries(${target} PRIVATE ${ARGS_DEPENDS})
+		target_link_libraries(${target} PUBLIC ${ARGS_DEPENDS})
 	endif()
 
 	# For static builds we need to define the static flag to proper compilation
@@ -140,16 +140,15 @@ macro(ppr_add_executable target)
 	set_target_properties(${target} PROPERTIES FOLDER "examples")
 
 	# Set the dev suffix
-	set_target_properties(${target} PROPERTIES DEBUG_POSTFIX "-debug")
+	set_target_properties(${target} PROPERTIES DEBUG_POSTFIX "-dbg")
 
 	# Set the Visual Studio startup path for debugging
 	set_target_properties(${target} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
-	# Set target libraries - Core
+	# Set target libraries
+	target_link_libraries(${target} PRIVATE purpurina_core)
 	if(ARGS_DEPENDS)
-		target_link_libraries(${target} PRIVATE purpurina_core ${ARGS_DEPENDS})
-	else()
-		target_link_libraries(${target} PRIVATE purpurina_core)
+		target_link_libraries(${target} PRIVATE ${ARGS_DEPENDS})
 	endif()
 
 	# target_include_directories(${target}

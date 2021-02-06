@@ -33,7 +33,7 @@
         },
         {
           "name": "PURPUR_BUILD_TESTS",
-          "value": "true",
+          "value": "True",
           "type": "BOOL"
         },
         {
