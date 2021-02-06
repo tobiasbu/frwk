@@ -1,7 +1,6 @@
 
 #include <purpur/purpur.hpp>
-#include <purpur/platform/window.hpp>
-#include <purpur/platform/window_style.hpp>
+#include <purpur/render/render_window.hpp>
 
 #include <chrono>
 #include <thread>
@@ -13,24 +12,14 @@ int main(int argc, char* argv[]) {
 
 	Logger log = Logger();
 
-	log.log("purpurina framework", PPR_FRWK_VERSION);
+	log.log("purpurina frwk", PPR_FRWK_VERSION);
 
-	Window win(480, 300, "teste");
-    printf("is visible %d", win.isVisible());
-	win.setVisible(true);
+	RenderWidow * win = RenderWidow::create();
+	win->setVisible(true);
 
-    bool isVisible = win.isVisible();
-    bool current = isVisible;
-
+    bool isVisible = win->isVisible();
 	while (isVisible) {
-
-		win.process();
-
-        current = win.isVisible();
-        if (current != isVisible) {
-            isVisible = current;
-            printf("is visible %d", current);
-        }
+		win->process();
 	}
 
 	return 0;
