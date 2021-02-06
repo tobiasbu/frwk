@@ -7,17 +7,19 @@ BasedOnStyle: LLVM
 AccessModifierOffset: -4
 AlignAfterOpenBracket: Align
 AlignConsecutiveAssignments: false
+# does not work in msvc: AlignConsecutiveBitFields
 AlignConsecutiveBitFields: false
 AlignConsecutiveDeclarations: false
 AlignConsecutiveMacros: false
 AlignEscapedNewlines: Left
-AlignOperands: Align
+AlignOperands: true
 AlignTrailingComments: true
 AllowAllArgumentsOnNextLine: false
 AllowAllConstructorInitializersOnNextLine: false
 AllowAllParametersOfDeclarationOnNextLine: false
 AllowShortBlocksOnASingleLine: Never
 AllowShortCaseLabelsOnASingleLine: true
+# does not work in msvc - AllowShortEnumsOnASingleLine
 AllowShortEnumsOnASingleLine: false
 AllowShortFunctionsOnASingleLine: Empty
 AllowShortIfStatementsOnASingleLine: Never
@@ -43,7 +45,9 @@ BraceWrapping:
   AfterExternBlock: false
   BeforeCatch: false
   BeforeElse: false
+  # does not work in msvc: BeforeLambdaBody
   BeforeLambdaBody: false
+  # does not work in msvc: IndentBraces
   BeforeWhile: false
   IndentBraces: false
   SplitEmptyFunction: false
@@ -89,13 +93,16 @@ IncludeCategories:
     SortPriority: 0
 IncludeIsMainRegex: '(Test)?$'
 IncludeIsMainSourceRegex: ''
+# does not work in msvc: IndentCaseBlocks
 IndentCaseBlocks: false
 IndentCaseLabels: true
+# does not work in msvc: IndentExternBlock
 IndentExternBlock: Indent
 IndentGotoLabels: true
 IndentPPDirectives: BeforeHash
 IndentWidth: 4
 IndentWrappedFunctionNames: false
+# does not work in msvc: InsertTrailingCommas
 InsertTrailingCommas: None
 # JavaImportGroups:
 JavaScriptQuotes: Leave
@@ -108,6 +115,7 @@ NamespaceIndentation: All
 # NamespaceMacros:
 ObjCBinPackProtocolList: Auto
 ObjCBlockIndentWidth: 4
+# does not work in msvc: ObjCBreakBeforeNestedBlockParam
 ObjCBreakBeforeNestedBlockParam: true
 ObjCSpaceBeforeProtocolList: true
 ObjCSpaceAfterProperty: false
@@ -133,6 +141,7 @@ SpaceBeforeAssignmentOperators: true
 SpaceBeforeCpp11BracedList: true
 SpaceBeforeCtorInitializerColon: true
 SpaceBeforeInheritanceColon: true
+# does not work in msvc: SpaceBeforeParens
 SpaceBeforeParens: ControlStatementsExceptForEachMacros
 SpaceBeforeRangeBasedForLoopColon: false
 SpaceBeforeSquareBrackets: false
@@ -154,6 +163,7 @@ TabWidth: 4
 # skipped - TypenameMacros:
 UseCRLF: false
 UseTab: ForIndentation
+# does not work in msvc: WhitespaceSensitiveMacros
 WhitespaceSensitiveMacros:
   - STRINGIZE
   - PPR_STRINGIZE

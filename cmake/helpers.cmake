@@ -81,15 +81,15 @@ macro(ppr_add_library target)
 	else()
 		if(PPR_OS_WINDOWS)
 			# include the major version number in Windows shared library names (but not import library names)
-			set_target_properties(${target} PROPERTIES DEBUG_POSTFIX "-debug")
+			set_target_properties(${target} PROPERTIES DEBUG_POSTFIX "-dbg")
 			set_target_properties(${target} PROPERTIES SUFFIX "${CMAKE_SHARED_LIBRARY_SUFFIX}")
 		else()
-			set_target_properties(${target} PROPERTIES DEBUG_POSTFIX "-debug")
+			set_target_properties(${target} PROPERTIES DEBUG_POSTFIX "-dbg")
 		endif()
 	endif()
 
 	# [WIN32] Set the target folder for Visual Studio
-	set_target_properties(${target} PROPERTIES FOLDER "purpurina_frwk")
+	set_target_properties(${target} PROPERTIES FOLDER "frwk")
 
 	# [MACOS] Set Xcode properties
 	# if(PPR_OS_MACOSX AND BUILD_SHARED_LIBS)
@@ -110,7 +110,7 @@ macro(ppr_add_library target)
 
 	# Link libraries libs
 	if(ARGS_DEPENDS)
-		target_link_libraries(${target} PRIVATE ${ARGS_DEPENDS})
+		target_link_libraries(${target} PUBLIC ${ARGS_DEPENDS})
 	endif()
 
 	# For static builds we need to define the static flag to proper compilation
@@ -140,16 +140,15 @@ macro(ppr_add_executable target)
 	set_target_properties(${target} PROPERTIES FOLDER "examples")
 
 	# Set the dev suffix
-	set_target_properties(${target} PROPERTIES DEBUG_POSTFIX "-debug")
+	set_target_properties(${target} PROPERTIES DEBUG_POSTFIX "-dbg")
 
 	# Set the Visual Studio startup path for debugging
 	set_target_properties(${target} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
-	# Set target libraries - Core
+	# Set target libraries
+	target_link_libraries(${target} PRIVATE purpurina_core)
 	if(ARGS_DEPENDS)
-		target_link_libraries(${target} PRIVATE purpurina_core ${ARGS_DEPENDS})
-	else()
-		target_link_libraries(${target} PRIVATE purpurina_core)
+		target_link_libraries(${target} PRIVATE ${ARGS_DEPENDS})
 	endif()
 
 	# target_include_directories(${target}
@@ -169,7 +168,7 @@ macro(ppr_add_executable target)
 			add_custom_command(TARGET ${target}
 							  POST_BUILD        										# Adds a post-build event to MyTest
 							  COMMAND ${CMAKE_COMMAND} -E copy_if_different  			# which executes "cmake - E copy_if_different..."
-							  "${CMAKE_BINARY_DIR}/bin/purpurina-core-debug.dll"        # <--this is in-file
+							  "${CMAKE_BINARY_DIR}/bin/purpurina-core-dbg.dll"        # <--this is in-file
 							  $<TARGET_FILE_DIR:${target}>)                 			# <--this is out-file path
 		else()
 			message(AUTHOR_WARNING "PURPURINA_SANDOBOX_POSTCOMMAND is not set correctly.\ The '${target}' target will be placed in ${CMAKE_BINARY_DIR}")

@@ -56,6 +56,7 @@
 		"memory_resource": "cpp",
 		"optional": "cpp",
 		"string_view": "cpp",
-		"fstream": "cpp"
+		"fstream": "cpp",
+		"functional": "cpp"
 	}
 }
