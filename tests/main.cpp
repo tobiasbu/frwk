@@ -1,19 +1,23 @@
 #define CATCH_CONFIG_RUNNER
 #include <catch2/catch.hpp>
 
+#define COMPACT_OUTPUT 0
+
 int main(int argc, char* argv[])
 {
 	Catch::Session session; // There must be exactly one instance
 
 	 // Now pass the new composite back to Catch so it uses that
 
-	const char* args[] = { argv[0], "-s" , "-r", "compact" };
+	#if COMPACT_OUTPUT
+		const char* args[] = { argv[0], "-s" , "-r", "compact" };
 
-	int returnCode = session.applyCommandLine(4, args);
-	if (returnCode != 0) {// Indicates a command line error
-		printf("Failed to parse arguments. Exit code %d", returnCode);
-		return returnCode;
-	}
+		int returnCode = session.applyCommandLine(4, args);
+		if (returnCode != 0) {// Indicates a command line error
+			printf("Failed to parse arguments. Exit code %d", returnCode);
+			return returnCode;
+		}
+	#endif
 
 	// writing to session.configData() or session.Config() here
 	// overrides command line args

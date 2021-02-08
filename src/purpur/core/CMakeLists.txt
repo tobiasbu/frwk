@@ -31,8 +31,10 @@ set(CORE_SUB_INC
 
 	${INCPATH}/utils/noncopyable.hpp
 	${INCPATH}/utils/helper_macros.hpp
+	${INCPATH}/utils/type_traits.hpp
 
 	${INCPATH}/error/exception.hpp
+
 	${INCPATH}/assert/assert.hpp
 	${INCPATH}/assert/assert_handler.hpp
 	${INCPATH}/assert/assertion_exception.hpp
@@ -42,7 +44,9 @@ set(CORE_SUB_INC
 
 set(CORE_SUB_SRC
 	${SRCPATH}/error/exception.cpp
+
 	${SRCPATH}/debug/logger.cpp
+
 	${SRCPATH}/assert/assert_handler.cpp
 	${SRCPATH}/assert/assertion_exception.cpp
 )

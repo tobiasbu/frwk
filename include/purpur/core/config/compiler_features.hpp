@@ -31,7 +31,7 @@
 ////////////////////////////////////////////////////////////
 // Define CONSTEXPR macro
 ////////////////////////////////////////////////////////////
-#if (_MSC_FULL_VER >= 190024210)
+#if _MSC_FULL_VER >= 190024210 && __cplusplus != 201103L
 	/// Constant expression
 	#define CONSTEXPR constexpr
 #else
@@ -61,6 +61,28 @@
 	/// noexcept
 	#define NOEXCEPT
 #endif
+
+
+////////////////////////////////////////////////////////////
+// Define NODISCARD macro
+////////////////////////////////////////////////////////////
+#ifndef PPR_HAS_NODISCARD
+    #ifndef __has_cpp_attribute
+        #define PPR_HAS_NODISCARD 0
+    #elif __has_cpp_attribute(nodiscard) >= 201603L
+        #define PPR_HAS_NODISCARD 1
+    #else
+        #define PPR_HAS_NODISCARD 0
+    #endif
+#endif
+
+#if PPR_HAS_NODISCARD
+    #define NODISCARD [[nodiscard]]
+#else
+    #define NODISCARD
+#endif
+
+
 
 ////////////////////////////////////////////////////////////
 #if defined(_MSC_FULL_VER) && _MSC_FULL_VER >= 180020827
