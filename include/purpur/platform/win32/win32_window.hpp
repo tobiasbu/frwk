@@ -10,7 +10,12 @@ namespace ppr {
 
 	namespace internal {
 
+		class Win32Messaging;
+
 		class Win32Window : public NativeWindow {
+
+		friend class Win32Messaging;
+
 		private:
 			HWND handle;
 			void onEvent(UINT message, WPARAM wParam, LPARAM lParam);

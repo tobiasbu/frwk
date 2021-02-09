@@ -5,6 +5,7 @@ set(LINK_LIBS "")
 
 set(PLATFORM_INC
 	${INCPATH}/export.hpp
+	${INCPATH}/platform.hpp
 	${INCPATH}/window.hpp
 	${INCPATH}/window_style.hpp
 	${INCPATH}/window_handle.hpp
@@ -22,12 +23,21 @@ if(PPR_OS_WINDOWS)
 	set(SRC_OS_PATH "${SRCPATH}/win32")
 
 	set(PLATFORM_SUB_INC
-		${INC_OS_PATH}/win32_platform.hpp
+		${INC_OS_PATH}/win32_detail.hpp
 		${INC_OS_PATH}/win32_window.hpp
 	)
 
 	set(PLATFORM_SUB_SRC
+		${SRC_OS_PATH}/win32_platform.cpp
 		${SRC_OS_PATH}/win32_window.cpp
+	)
+
+	# internal
+
+	set(PLATFORM_SUB_SRC
+		${PLATFORM_SUB_SRC}
+		${SRC_OS_PATH}/win32_messaging.hpp
+		${SRC_OS_PATH}/win32_messaging.cpp
 	)
 
 

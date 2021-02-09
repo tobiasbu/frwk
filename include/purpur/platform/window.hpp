@@ -10,16 +10,15 @@
 
 namespace ppr {
 
-	namespace internal {
-		class NativeWindow;
-	}
+
+	class NativeWindow;
 
 	class PPR_PLATFORM_API Window : public NonCopyable {
 	protected:
-		internal::NativeWindow * nativeWindow;
+		NativeWindow * nativeWindow;
 
 	public:
-		Window(internal::NativeWindow * nativeWindow);
+		Window(NativeWindow * nativeWindow);
 		Window(uint32 width, uint32 height, cstr title, uint32 style = WindowStyle::Default);
 		~Window();
 
@@ -28,7 +27,7 @@ namespace ppr {
 		void process();
 		WindowHandle getHandle();
 
-		static void create();
+		static void create(uint32 width, uint32 height, cstr title, uint32 style = WindowStyle::Default);
 	};
 
 } // namespace ppr

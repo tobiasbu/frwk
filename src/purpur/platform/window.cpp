@@ -9,7 +9,7 @@ namespace ppr {
 		return new NativeWindowType(width, height, title, style);
 	}
 
-	Window::Window(internal::NativeWindow * nativeWindow) : nativeWindow(nativeWindow) {}
+	Window::Window(NativeWindow * nativeWindow) : nativeWindow(nativeWindow) {}
 
 	Window::Window(uint32 width, uint32 height, cstr title, uint32 style) {
 		nativeWindow = createWindow(width, height, title, style);
