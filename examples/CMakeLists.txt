@@ -14,7 +14,14 @@ set(DEPENDENCIES
 	# ${OPENGL_glu_LIBRARY}
 )
 
+set(DEPENDENCIES
+	purpurina_render
+	${OPENGL_gl_LIBRARY}
+	${OPENGL_glu_LIBRARY}
+)
+
 # Create sandbox executable
 ppr_add_executable(window
 				   SOURCES ${EXAMPLE_SRC}
-				   DEPENDS ${DEPENDENCIES})
+				   DEPENDS ${DEPENDENCIES}
+)
