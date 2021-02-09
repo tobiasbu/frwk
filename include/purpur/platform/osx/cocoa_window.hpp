@@ -3,7 +3,7 @@
 #define _PURPURINA_FRWK_COCOA_WINDOW_HPP_
 
 #include <purpur/core/types.hpp>
-#include <purpur/platform/native_window.hpp>
+#include <purpur/platform/window_impl.hpp>
 
 #ifdef __OBJC__
 	#import <AppKit/AppKit.h>
@@ -17,7 +17,7 @@ typedef void * WindowDelegate;
 
 namespace ppr {
 	namespace internal {
-		class CocoaWindow : public NativeWindow {
+		class CocoaWindow : public WindowImpl {
 		private:
 			WindowHandle handle;
 			WindowDelegate delegate;
@@ -40,6 +40,7 @@ namespace ppr {
 
 			void setVisible(bool visible);
 			void focus();
+			void center();
 
 			void pool();
 		};

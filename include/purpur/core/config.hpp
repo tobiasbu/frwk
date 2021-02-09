@@ -17,6 +17,6 @@
 
 #include <purpur/core/config/api.hpp>
 #include <purpur/core/config/compiler_features.hpp>
-#include <purpur/core/config/platform.hpp>
+#include <purpur/core/config/os_detection.hpp>
 
 #endif

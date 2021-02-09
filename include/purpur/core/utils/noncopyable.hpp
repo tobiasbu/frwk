@@ -6,6 +6,9 @@
 
 namespace ppr {
 
+	///
+	/// @brief Non copyable instance
+	///
 	class NonCopyable {
 	protected:
 #if defined(PPR_CXX11_DEFAULT_FUNCTIONS)

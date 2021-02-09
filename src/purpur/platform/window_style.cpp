@@ -5,8 +5,7 @@ namespace ppr {
 
 	namespace WindowStyle {
 
-		uint32
-		make(bool bordeless, bool titleBar, bool resizable, bool closable, bool minimizable) {
+		uint32 make(bool bordeless, bool titleBar, bool resizable, bool closable) {
 			if (bordeless) {
 				return Borderless;
 			}
@@ -19,9 +18,6 @@ namespace ppr {
 			}
 			if (resizable) {
 				style |= Resize;
-			}
-			if (minimizable) {
-				style |= Minimize;
 			}
 			return style;
 		}

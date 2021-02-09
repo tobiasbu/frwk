@@ -2,6 +2,7 @@
 #ifndef _PURPURINA_FRWK_WINDOW_HANDLE_HPP_
 #define _PURPURINA_FRWK_WINDOW_HANDLE_HPP_
 
+#include <purpur/core/config/os_detection.hpp>
 #include <purpur/core/types.hpp>
 
 #ifdef PPR_OS_WINDOWS

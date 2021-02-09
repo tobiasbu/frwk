@@ -8,7 +8,7 @@
 namespace ppr {
 
 	////////////////////////////////////////////////////////////
-	/// \ingroup purpurina_window
+	/// \ingroup purpurina_platform
 	/// \brief Window style mask
 	///
 	/// \see https://docs.microsoft.com/en-us/windows/win32/winmsg/window-styles
@@ -49,14 +49,6 @@ namespace ppr {
 			/// - MacOS: NSWindowStyleMaskClosable
 			////////////////////////////////////////////////////////////
 			Close = 1u << 2u,
-
-			////////////////////////////////////////////////////////////
-			/// @brief Miniaturizable
-			///
-			/// - Win32: `WS_MINIMIZEBOX` | `WS_SYSMENU`
-			/// - MacOS: NSWindowStyleMaskMiniaturizable
-			////////////////////////////////////////////////////////////
-			Minimize = 1u << 3u,
 		};
 
 		/**
@@ -67,14 +59,13 @@ namespace ppr {
 		 * 		Title | Close | Resize | Minimize
 		 * @endcode
 		 */
-		constexpr uint32 Default = Title | Close | Resize | Minimize;
+		constexpr uint32 Default = Title | Close | Resize;
 
 		PPR_PLATFORM_API uint32 make(
 			bool bordeless,
 		 	bool titleBar,
 		 	bool resizable,
-		 	bool closable,
-		 	bool minimizable);
+		 	bool closable);
 
 	}; // namespace WindowStyle
 

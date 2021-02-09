@@ -19,10 +19,12 @@ int main(int argc, char* argv[]) {
 	}
 
 	logger.log("Opening window...");
-	Window win(480, 300, "teste");
-	win.setVisible(true);
-	while (win.isVisible()) {
-		win.process();
+
+	auto win = Window::create(480, 300, "teste");
+	win->setVisible(true);
+
+	while (win->isVisible()) {
+		Platform::poll_events();
 	}
 
 	if (!Platform::terminate()) {

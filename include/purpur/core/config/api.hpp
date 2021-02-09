@@ -2,7 +2,7 @@
 #ifndef _PURPURINA_FRWK_API_HPP_
 #define _PURPURINA_FRWK_API_HPP_
 
-#include <purpur/core/config/platform.hpp>
+#include <purpur/core/config/os_detection.hpp>
 
 ////////////////////////////////////////////////////////////
 // Define a portable debug macro

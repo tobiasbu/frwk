@@ -5,14 +5,14 @@
 #include <sstream>
 #include <stdarg.h>
 #include <stdio.h>
-
-#define PURPURINA_ASSERT_BUFFER_SIZE 1024
-
 namespace ppr {
+
 	namespace internal {
+
 		namespace Assert {
 
 			namespace {
+				constexpr uint32 PPR_ASSERT_BUFFER_SIZE = 1024;
 				bool ignoreAll = false;
 			}
 
@@ -44,12 +44,12 @@ namespace ppr {
 			            bool * ignore,
 			            cstr message,
 			            ...) {
-				char messageBuffer[PURPURINA_ASSERT_BUFFER_SIZE] = {0};
+				char messageBuffer[PPR_ASSERT_BUFFER_SIZE] = {0};
 
 				if (!!message) {
 					va_list argptr;
 					va_start(argptr, message);
-					vsnprintf(messageBuffer, PURPURINA_ASSERT_BUFFER_SIZE, message, argptr);
+					vsnprintf(messageBuffer, PPR_ASSERT_BUFFER_SIZE, message, argptr);
 					va_end(argptr);
 					message = messageBuffer;
 				}

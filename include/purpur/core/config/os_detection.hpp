@@ -1,6 +1,6 @@
 
-#ifndef _PURPURINA_FRWK_PLATFORM_DETECTION_HPP_
-#define _PURPURINA_FRWK_PLATFORM_DETECTION_HPP_
+#ifndef _PURPURINA_FRWK_OS_DETECTION_HPP_
+#define _PURPURINA_FRWK_OS_DETECTION_HPP_
 
 ////////////////////////////////////////////////////////////
 /// Set operating system

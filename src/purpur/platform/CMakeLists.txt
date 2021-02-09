@@ -5,16 +5,18 @@ set(LINK_LIBS "")
 
 set(PLATFORM_INC
 	${INCPATH}/export.hpp
+	${INCPATH}/platform.hpp
 	${INCPATH}/window.hpp
+	${INCPATH}/window_impl.hpp
 	${INCPATH}/window_style.hpp
 	${INCPATH}/window_handle.hpp
-	${INCPATH}/native_window.hpp
-	${INCPATH}/native_window_type.hpp
+	${INCPATH}/window_properties.hpp
 )
 
 set(PLATFORM_SRC
 	${SRCPATH}/window.cpp
 	${SRCPATH}/window_style.cpp
+	${SRCPATH}/window_properties.cpp
 )
 
 if(PPR_OS_WINDOWS)
@@ -22,12 +24,21 @@ if(PPR_OS_WINDOWS)
 	set(SRC_OS_PATH "${SRCPATH}/win32")
 
 	set(PLATFORM_SUB_INC
-		${INC_OS_PATH}/win32_platform.hpp
+		${INC_OS_PATH}/win32_detail.hpp
 		${INC_OS_PATH}/win32_window.hpp
 	)
 
 	set(PLATFORM_SUB_SRC
+		${SRC_OS_PATH}/platform.cpp
 		${SRC_OS_PATH}/win32_window.cpp
+	)
+
+	# internal
+
+	set(PLATFORM_SUB_SRC
+		${PLATFORM_SUB_SRC}
+		${SRC_OS_PATH}/win32_messaging.hpp
+		${SRC_OS_PATH}/win32_messaging.cpp
 	)
 
 
@@ -49,6 +60,7 @@ elseif(PPR_OS_MACOSX)
 	)
 
 	set(PLATFORM_SUB_SRC
+		${SRC_OS_PATH}/platform.mm
 		${SRC_OS_PATH}/cocoa_window.mm
 		${SRC_OS_PATH}/ppr_window.mm
 		${SRC_OS_PATH}/ppr_window_delegate.mm

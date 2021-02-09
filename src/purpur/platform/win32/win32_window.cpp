@@ -1,6 +1,5 @@
 
-#include <iostream>
-#include <purpur/platform/win32/win32_platform.hpp>
+#include <purpur/platform/win32/win32_detail.hpp>
 #include <purpur/platform/win32/win32_window.hpp>
 #include <purpur/platform/window_style.hpp>
 
@@ -8,78 +7,9 @@ namespace ppr {
 
 	namespace internal {
 
-		////////////////////////////////////////////////////////////
-		/// Internal Apis
-		////////////////////////////////////////////////////////////
-
-		int windowCount = 0;
-
-		////////////////////////////////////////////////////////////
-		/// \brief Main Window procedures.
-		/// Listens to window events and dispatches to observers.
-		///
-		/// \param hWnd Handle to window
-		/// \param uMsg Message identifier
-		/// \param wParam First message parameter
-		/// \param lParam Second message parameter
-		///
-		//////////////////////////////////////////////////////////
-		LRESULT CALLBACK MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
-			// if (uMsg == WM_CREATE) {
-			// 	LONG_PTR window = (LONG_PTR)reinterpret_cast<CREATESTRUCT*>(lParam)->lpCreateParams;
-			// 	SetWindowLongPtrW(hWnd, GWLP_USERDATA, window);
-			// }
-
-			HANDLE windowProp = GetPropW(hWnd, L"PPR");
-
-			// Get the Window instance corresponding to the window handle
-			Win32Window * window = windowProp ? (Win32Window *)windowProp : NULL;
-
-			if (window) {
-				// window->onEvent(uMsg, wParam, lParam);
-			}
-
-			// Prevents Windows to detroy the window automatically
-			if (uMsg == WM_CLOSE) {
-				// return 0;
-			}
-
-			// Prevents focus loss from Alt and F10 keys
-			if (uMsg == WM_SYSCOMMAND && wParam == SC_KEYMENU) {
-				return 0;
-			}
-
-			return DefWindowProcW(hWnd, uMsg, wParam, lParam);
-		}
-
-		////////////////////////////////////////////////////////////
-		/// \brief Register Window class
-		////////////////////////////////////////////////////////////
-		bool registerWindowsClass() {
-			WNDCLASSEXW wndclass;
-			wndclass.cbSize = sizeof(wndclass); // The size, in bytes, of this structure
-			wndclass.style = CS_VREDRAW | CS_HREDRAW | CS_OWNDC; // class style(s)
-			wndclass.lpfnWndProc = (WNDPROC)MainWndProc; // A pointer to the window procedure.
-			// clang-format off
-			wndclass.cbClsExtra = 0; // The number of extra bytes to allocate following the window-class structure.
-			wndclass.cbWndExtra = 0; // The number of extra bytes to allocate following the window instance.
-			wndclass.hInstance = GetModuleHandleW(NULL); // A handle to the instance that contains the window procedure for the class.
-			// clang-format on
-			wndclass.hIcon = NULL; // class icon.
-			wndclass.hIconSm = NULL;
-			wndclass.hCursor = LoadCursor(NULL, IDC_ARROW);      // class cursor.
-			wndclass.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1); // class background brush.
-			// specifies the resource name of the class menu, as the name appears in the resource
-			// file wndclass.lpszMenuName = __PPR_WNDCLASSNAME;
-			wndclass.lpszClassName = __PPR_WNDCLASSNAME;
-			wndclass.lpszMenuName = NULL;
-			if (!RegisterClassExW(&wndclass)) {
-				std::cerr << "Could no register window class" << std::endl;
-				return false;
-			}
-			return true;
-		}
-
+		/**
+		 * Convert const char * to wchar_t
+		 */
 		const wchar_t * toWchar(cstr buffer) {
 			int buffer_size = MultiByteToWideChar(CP_ACP, 0, buffer, -1, NULL, 0);
 			LPWSTR wbuffer = (LPWSTR)malloc(buffer_size);
@@ -100,12 +30,7 @@ namespace ppr {
 				}
 
 				if (style & WindowStyle::Resize) {
-					dwStyle |= WS_THICKFRAME | WS_MAXIMIZEBOX;
-					shouldBeClosable = true;
-				}
-
-				if (style & WindowStyle::Minimize) {
-					dwStyle |= WS_MINIMIZEBOX;
+					dwStyle |= WS_THICKFRAME | WS_MAXIMIZEBOX | WS_MINIMIZEBOX;
 					shouldBeClosable = true;
 				}
 
@@ -116,23 +41,24 @@ namespace ppr {
 			return dwStyle;
 		}
 
-		Win32Window::Win32Window(uint32 width, uint32 height, cstr title, uint32 style)
-		: handle(nullptr) {
-			// Register window class only for first window
-			if (windowCount == 0) {
-				if (!registerWindowsClass()) {
-					return;
-				}
-			}
+		Win32Window::Win32Window(HWND handle)
+		: handle(handle) {
 
+		}
+
+		Win32Window::~Win32Window() {
+			dispose();
+		}
+
+		Win32Window* Win32Window::create(const WindowProperties & props) {
 			bool isFullscreen = false;
 
 			// Retrieves a handle to a device context (DC) for the client area of a specified window
 			// or for the entire screen
 			HDC screenDC = GetDC(NULL);
 			// Compute window position and size
-			int32 left = (GetDeviceCaps(screenDC, HORZRES) - static_cast<int>(width)) / 2;
-			int32 top = (GetDeviceCaps(screenDC, VERTRES) - static_cast<int>(height)) / 2;
+			int32 left = (GetDeviceCaps(screenDC, HORZRES) - static_cast<int>(props.width)) / 2;
+			int32 top = (GetDeviceCaps(screenDC, VERTRES) - static_cast<int>(props.height)) / 2;
 			ReleaseDC(NULL, screenDC);
 
 			// if (!isFullscreen) {
@@ -142,21 +68,21 @@ namespace ppr {
 			// 	height = rect.bottom - rect.top;
 			// }
 
-			const wchar_t * titleWchar = toWchar(title);
+			const wchar_t * titleWchar = toWchar(props.title);
 			if (!titleWchar) {
-				std::cerr << "Invalid title" << std::endl;
-				return;
+				// std::cerr << "Invalid title" << std::endl;
+				return NULLPTR;
 			}
 
 			// clang-format off
-			handle = CreateWindowExW(WS_EX_APPWINDOW,
+			HWND handle = CreateWindowExW(WS_EX_APPWINDOW,
 				__PPR_WNDCLASSNAME,
 				titleWchar,
-				parseStyle(style),
+				parseStyle(props.style),
 				left,
 				top,
-				width,
-				height,
+				props.width,
+				props.height,
 				NULL,
 				NULL,
 				GetModuleHandle(NULL),
@@ -164,27 +90,17 @@ namespace ppr {
 			// clang-format on
 
 			if (!handle) {
-				std::cerr << "Could no create window" << std::endl;
-				return;
-				/* ShowWindow(handle, 1);
-				UpdateWindow(handle);*/
+				// std::cerr << "Could no create window" << std::endl;
+				return NULLPTR;
 			}
 
 			// if (style == 0) {
 			// 	SetWindowLong(handle, GWL_STYLE, 0 );
 			// }
 
-			SetPropW(handle, L"PPR", this);
-
-			windowCount += 1;
-		}
-
-		Win32Window::~Win32Window() {
-			dispose();
-
-			if (windowCount == 0) {
-				UnregisterClassW(__PPR_WNDCLASSNAME, GetModuleHandleW(NULL));
-			}
+			auto win = new Win32Window(handle);
+			SetPropW(handle, L"PPR", win);
+			return win;
 		}
 
 		void Win32Window::setVisible(bool visible) {
@@ -199,14 +115,6 @@ namespace ppr {
 			return IsWindowVisible(handle);
 		}
 
-		void Win32Window::pool() {
-			MSG message;
-			while (PeekMessageW(&message, NULL, 0, 0, PM_REMOVE)) {
-				TranslateMessage(&message);
-				DispatchMessageW(&message);
-			}
-		}
-
 		void Win32Window::onEvent(UINT message, WPARAM wParam, LPARAM lParam) {
 			if (!handle) {
 				return;
@@ -217,16 +125,10 @@ namespace ppr {
 
 		void Win32Window::dispose() {
 			if (handle) {
-				std::cout << "Window disposed" << std::endl;
 				RemovePropW(handle, L"PPR");
 				DestroyWindow(handle);
 				handle = nullptr;
-
-				windowCount -= 1;
 			}
 		}
-
-		// LRESULT CALLBACK Win32Window::MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM
-		// lParam)
 	} // namespace internal
 } // namespace ppr

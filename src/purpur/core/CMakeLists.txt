@@ -26,7 +26,7 @@ set(CORE_INC
 
 set(CORE_SUB_INC
 	${INCPATH}/config/api.hpp
-	${INCPATH}/config/platform.hpp
+	${INCPATH}/config/os_detection.hpp
 	${INCPATH}/config/compiler_features.hpp
 
 	${INCPATH}/utils/noncopyable.hpp

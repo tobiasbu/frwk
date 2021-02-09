@@ -1,14 +1,11 @@
 
-#include <purpur/platform/window_style.hpp>
-
 #import <purpur/platform/osx/autorelease_pool.h>
 #import <purpur/platform/osx/ppr_application.h>
-#import <purpur/platform/osx/ppr_application_delegate.h>
 #import <purpur/platform/osx/ppr_window.h>
 #import <purpur/platform/osx/ppr_window_delegate.h>
 
+#include <purpur/platform/window_style.hpp>
 #include <purpur/platform/osx/cocoa_window.hpp>
-
 
 #if MAC_OS_X_VERSION_MIN_REQUIRED <= MAC_OS_X_VERSION_10_12
 	#define NSWindowStyleMaskTitled NSTitledWindowMask;
@@ -69,43 +66,9 @@ namespace ppr {
 			return styleMask;
 		}
 
-		int platformInit() {
-			static bool isPlatformInited = false;
-
-			if (isPlatformInited) {
-				return 0;
-			}
-
-			[PPRApplication sharedApplication];
-			[NSApp setActivationPolicy:NSApplicationActivationPolicyRegular];
-        	[NSApp activateIgnoringOtherApps:YES];
-
-			// Register an application delegate
-			PPRApplicationDelegate * appDelegate = [[PPRApplicationDelegate alloc] init];
-
-			// TODO: handler appDelegate  error properly
-			if (appDelegate == nil) {
-				printf("purpur::OSX::platformInit: Failed to create application delegate");
-				return -1;
-			}
-
-        	if (![[PPRApplication sharedApplication] delegate]) {
-            	[[PPRApplication sharedApplication] setDelegate:appDelegate];
-			}
-
-			[[PPRApplication sharedApplication] finishLaunching];
-
-			[PPRApplication createMenuBar];
-
-			isPlatformInited = true;
-			return 0;
-		}
-
 		CocoaWindow::CocoaWindow(uint32 width, uint32 height, cstr title, uint32 style) {
 
 			@autoreleasepool {
-				platformInit();
-
 				checkAutoreleasePool();
 
 				PPRWindowDelegate * windowDelegate = [[PPRWindowDelegate alloc] initWith:this];
@@ -139,15 +102,16 @@ namespace ppr {
 				[window setHidesOnDeactivate:YES];
 				[window setReleasedWhenClosed:NO];
 				[window setTitle:[NSString stringWithUTF8String:title]];
-				[window center];
 
-				// set window level
-				[window setLevel:NSMainMenuWindowLevel+1];
-
-				// set event listeners
 				[window setDelegate:windowDelegate];
 				[window setAcceptsMouseMovedEvents:YES];
+				[window setRestorable:NO];
    				[window setIgnoresMouseEvents:NO];
+
+				[(NSWindow*) window center];
+
+				// if user specified monitor
+				// [window setLevel:NSMainMenuWindowLevel+1];
 
 				this->handle = window;
 				this->delegate =  windowDelegate;
@@ -193,6 +157,12 @@ namespace ppr {
 				[NSApp activateIgnoringOtherApps:YES];
 				[handle makeKeyAndOrderFront:nil];
 			}
+		}
+
+		void CocoaWindow::center() {
+			CGFloat x = NSWidth([[handle screen] frame])/2 - NSWidth([handle frame])/2;
+			CGFloat y = NSHeight([[handle screen] frame])/2 - NSHeight([handle frame])/2;
+			[handle setFrame:NSMakeRect(x, y, NSWidth([handle frame]), NSHeight([handle frame])) display:YES];
 		}
 
 		void CocoaWindow::pool() {
