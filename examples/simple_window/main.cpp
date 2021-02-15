@@ -18,15 +18,16 @@ int main(int argc, char* argv[]) {
 		return 1;
 	}
 
-	logger.log("Opening window...");
+	logger.log("Opening window");
 
-	auto win = Window::create(480, 300, "teste");
+	auto win = create::window(480, 300, "test");
 	win->setVisible(true);
 
 	while (win->isVisible()) {
-		Platform::poll_events();
+	 	Platform::poll_events();
 	}
 
+	logger.log("Terminating");
 	if (!Platform::terminate()) {
 		return 1;
 	}

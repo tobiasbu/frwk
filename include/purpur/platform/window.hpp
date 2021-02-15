@@ -6,6 +6,7 @@
 
 #include <purpur/core/types.hpp>
 #include <purpur/core/utils/noncopyable.hpp>
+#include <purpur/core/utils/type_traits.hpp>
 #include <purpur/platform/export.hpp>
 #include <purpur/platform/window_handle.hpp>
 #include <purpur/platform/window_style.hpp>
@@ -13,25 +14,38 @@
 
 namespace ppr {
 
+	class WindowImpl;
+	class Window;
+	using WindowPtr = std::unique_ptr<Window>;
+
+
 	template<typename S>
 	struct enable_make : public S
 	{
 		template<typename... T>
 		enable_make(T&&... t)
-			: S(std::forward<T>(t)...)
+			: S(FWD(t)...)
 		{
 		}
 	};
 
+	namespace create {
+		PPR_PLATFORM_API WindowPtr window(const WindowProperties & properties);
+		PPR_PLATFORM_API WindowPtr window(uint32 width, uint32 height, cstr title, uint32 style = WindowStyle::Default);
+	}
 
-	class WindowImpl;
 
 	class PPR_PLATFORM_API Window : NonCopyable {
 
+	using WindowImplPtr = std::unique_ptr<WindowImpl>;
+
+	friend WindowPtr create::window(const WindowProperties & properties);
+	friend WindowPtr create::window(uint32 width, uint32 height, cstr title, uint32 style);
+
 	protected:
 
-		std::unique_ptr<WindowImpl> nativeWindow;
-		Window(WindowImpl * nativeWindow);
+		WindowImplPtr impl;
+		Window(WindowImpl * impl);
 
 	public:
 
@@ -42,9 +56,11 @@ namespace ppr {
 		bool isVisible() const;
 		void setVisible(bool visible);
 
-		static std::unique_ptr<Window> create(uint32 width, uint32 height, cstr title, uint32 style = WindowStyle::Default);
-		static std::unique_ptr<Window> create(const WindowProperties & properties);
+		void close();
+
 	};
+
+
 
 
 

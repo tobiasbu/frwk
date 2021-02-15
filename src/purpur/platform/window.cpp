@@ -1,6 +1,7 @@
 
 
 #include <purpur/core/config/os_detection.hpp>
+#include <purpur/core/assert/assert.hpp>
 #include <purpur/core/utils/type_traits.hpp>
 #include <purpur/platform/window.hpp>
 
@@ -22,47 +23,52 @@ typedef ppr::internal::CocoaWindow WindowImplType;
 
 namespace ppr {
 
-	Window::Window(WindowImpl * nativeWindow) {
-		this->nativeWindow = std::unique_ptr<WindowImpl>(nativeWindow);
+	namespace create {
+
+		WindowPtr window(uint32 width, uint32 height, cstr title, uint32 style) {
+
+			WindowProperties props(
+				width,
+				height,
+				title,
+				style
+			);
+
+			return window(props);
+
+		}
+
+		WindowPtr window(const WindowProperties & props) {
+			auto impl = WindowImplType::create(props);
+			return std::make_unique<enable_make<Window>>(impl);
+		}
+
+	}
+
+	Window::Window(WindowImpl * _impl) {
+		PPR_ASSERT(_impl != NULLPTR, "ppr::Window: impl is nullptr.");
+		this->impl = WindowImplPtr(_impl);
 	}
 
 	Window::~Window() {
-		// if (nativeWindow) {
-		// 	delete nativeWindow;
-		// 	nativeWindow = NULLPTR;
-		// }
+		close();
 	}
 
 	bool Window::isVisible() const {
-		return nativeWindow && nativeWindow->isVisible();
+		return impl && impl->isVisible();
 	}
 
 	WindowHandle Window::getHandle() const {
-		return nativeWindow ? nativeWindow->getHandle() : NULLPTR;
+		return impl ? impl->getHandle() : NULLPTR;
 	}
 
 	void Window::setVisible(bool visible) {
-		if (nativeWindow) {
-			nativeWindow->setVisible(visible);
+		if (impl) {
+			impl->setVisible(visible);
 		}
 	}
 
-	std::unique_ptr<Window> Window::create(uint32 width, uint32 height, cstr title, uint32 style) {
-
-		WindowProperties props(
-			width,
-			height,
-			title,
-			style
-		);
-
-		return Window::create(props);
-
+	void Window::close() {
+		impl.reset(NULLPTR);
 	}
-
-	std::unique_ptr<Window> Window::create(const WindowProperties & props) {
-		auto nativeWindow = WindowImplType::create(props);
-		return std::make_unique<enable_make<Window>>(nativeWindow);
-	}
-
 } // namespace ppr
