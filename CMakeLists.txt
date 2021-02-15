@@ -21,19 +21,26 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/helpers.cmake)
 ####		     BASE CONFIG  			 ####
 #############################################
 
-# Set paths for purpurina packages files
-set(PURPUR_FRWK_PATH "${PROJECT_SOURCE_DIR}")
-set(PURPUR_SRC "${PURPUR_FRWK_PATH}/src/purpur")
-set(PURPUR_INC "${PURPUR_FRWK_PATH}/include/purpur")
-set(PURPUR_EXTLIBS_PATH "${PURPUR_FRWK_PATH}/thirdparty")
-
 # C/C++ version
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+# Project config
 set_property(GLOBAL PROPERTY USE_FOLDERS ON) # enable folders
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
+
+# Set paths for purpurina packages files
+set(PURPUR_FRWK_PATH "${PROJECT_SOURCE_DIR}")
+set(PURPUR_SRC "${PURPUR_FRWK_PATH}/src/purpur")
+set(PURPUR_INC "${PURPUR_FRWK_PATH}/include/purpur")
+set(PURPUR_EXTLIBS_PATH "${PURPUR_FRWK_PATH}/thirdparty")
+set(PURPUR_HEADER_GROUP "Header Files")
+set(PURPUR_SOURCE_GROUP "Source Files")
+
+#############################################
+####		       OPTIONS     			 ####
+#############################################
 
 # Check for clang-tidy
 set(ENABLE_CLANG_TIDY True CACHE BOOL "Add clang-tidy automatically to builds")
@@ -47,10 +54,6 @@ if (ENABLE_CLANG_TIDY)
 		message(AUTHOR_WARNING "clang-tidy not found!")
 	endif()
 endif()
-
-#############################################
-####		       OPTIONS     			 ####
-#############################################
 
 # Define BUILD_SHARED_LIBS property
 option(BUILD_SHARED_LIBS "TRUE = Build Purpurina as shared libraries; FALSE = Build as static libraries" TRUE)
@@ -74,7 +77,7 @@ endif()
 option(PURPUR_TESTS "Build tests")
 
 #############################################
-####		      OS OPTIONS			 ####
+####		      OS CONFIG 			 ####
 #############################################
 
 # [WINDOWS] Should generate static or dynamic libraries
@@ -95,7 +98,20 @@ if(PPR_OS_WINDOWS)
 				string(REGEX REPLACE "/MD" "/MT" ${flag} "${${flag}}")
 			endif()
 		endforeach()
+
+		# add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
+		# add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
 	endif()
+
+	# There is a bug in MSVC Community 2019 >= v16.8.4
+	# does not recognize whitespace in source_group.
+	# This seems to happens after the configuration from above lines.
+	# So, we repest the defintions os groups again: 
+	if(PPR_COMPILER_MSVC)
+		set(PURPUR_HEADER_GROUP "Headers Files")
+		set(PURPUR_SOURCE_GROUP "Sources Files")
+	endif()
+
 endif()
 
 # [MACOSX] Setup

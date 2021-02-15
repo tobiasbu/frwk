@@ -1,14 +1,14 @@
+
 include(CMakeParseArguments)
 
 #
 # Create multi option selector
 # In CMake GUI this will turn into a combobox
 #
-# Usage: ppr_multi_options(MY_VARIABLE							# variable name
-#						   "default_option"						# default value
-#						   "default_option;option_a;option_b"	# available options
-#						   "Defines the post build command"		# description
-# 						  )
+# @param variable {STRING}	variable name - MY_VARIABLE
+# @param default {STRING}	default value - "default_option"
+# @param options {STRING}	available options - "default_option;option_a;option_b"
+# @param options {STRING}	description - "Defines the post build command"
 #
 function (ppr_multi_options variable default options docstring)
 	if(NOT DEFINED ${variable})
@@ -23,11 +23,10 @@ endfunction()
 #
 # Create Purpurina CMake property
 #
-# Usage: ppr_set_prop(MY_VARIABLE 					# variable name
-#					  BOOL							# variable type
-# 					  FALSE							# default value
-# 					  "Compile Static Library"  	# variable description
-# 					  )
+# @param variable {STRING}	variable name - MY_VARIABLE
+# @param default {ANY}		default value - FALSE
+# @param type {ANY}		variable type - BOOL
+# @param docstring {STRING}	variable description - "Compile static library"
 #
 function(ppr_set_prop variable default type docstring)
 	if(NOT DEFINED ${variable})
@@ -40,21 +39,67 @@ endfunction()
 #
 # Set Xcode property
 #
-# Usage: ppr_set_xcode_prop(target 					# target
-#					  		xcode_prop				# property name
-# 					  		xcode_value				# property value
-# 					  		)
+# @param target {TARGET}		cmake target
+# @param xcode_prop {STRING}	property name
+# @param xcode_value {STRING}	property value
 #
 macro (ppr_set_xcode_prop target xcode_prop xcode_value)
     set_property (TARGET ${TARGET} PROPERTY XCODE_ATTRIBUTE_${xcode_prop} ${xcode_value})
 endmacro ()
 
 #
+# Create Purpurina source_group
+#
+# @param {STRING | STRING[]}  list of files
+# @param TREE {STRING}		optional - root directory
+# @param NAME {STRING}		optional - custom group name path
+# @param IS_IMPL {TOGGLE}	optional - is implementation files (Source Files)
+#
+macro(ppr_group)
+    cmake_parse_arguments(ARGS "IS_IMPL" "TREE;NAME" "" ${ARGN})
+
+	if("TREE" IN_LIST ARGS_KEYWORDS_MISSING_VALUES)
+        message(FATAL_ERROR "Missing 'TREE' argument value")
+    endif()
+
+	set(_files ${ARGN})
+
+	string(LENGTH "${ARGS_NAME}" _name_length)
+
+	if(_name_length GREATER 0)
+		list(POP_BACK _files)
+		list(POP_BACK _files)
+		set(_prefix ${ARGS_NAME})
+	elseif("NAME" IN_LIST ARGS_KEYWORDS_MISSING_VALUES)
+		list(POP_BACK _files)
+		set(_prefix "")
+	else()
+		if (ARGS_IS_IMPL)
+			set(_prefix ${PURPUR_SOURCE_GROUP})
+		else()
+			set(_prefix ${PURPUR_HEADER_GROUP})
+		endif()
+	endif()
+
+	if(ARGS_TREE)
+		list(POP_BACK _files)
+		list(POP_BACK _files)
+	endif()
+
+
+	if(ARGS_TREE)
+		source_group(TREE ${ARGS_TREE} FILES ${_files} PREFIX "${_prefix}")
+	else()
+		source_group("${_prefix}" FILES ${_files})
+	endif()
+endmacro()
+
+#
 # Add Purpurina library
 #
-# Usage: ppr_add_library(target
-#						 SOURCES # list of files
-# )
+# @param target {TARGET}			cmake target
+# @param SOURCES {STRING[]}		list of files
+# @param DEPENDS? {(TARGET | STRING)[]}	optional - list of dependencies
 #
 macro(ppr_add_library target)
 
@@ -81,10 +126,10 @@ macro(ppr_add_library target)
 	else()
 		if(PPR_OS_WINDOWS)
 			# include the major version number in Windows shared library names (but not import library names)
-			set_target_properties(${target} PROPERTIES DEBUG_POSTFIX "-dbg")
+			set_target_properties(${target} PROPERTIES DEBUG_POSTFIX "_dbg")
 			set_target_properties(${target} PROPERTIES SUFFIX "${CMAKE_SHARED_LIBRARY_SUFFIX}")
 		else()
-			set_target_properties(${target} PROPERTIES DEBUG_POSTFIX "-dbg")
+			set_target_properties(${target} PROPERTIES DEBUG_POSTFIX "_dbg")
 		endif()
 	endif()
 
@@ -121,11 +166,11 @@ macro(ppr_add_library target)
 endmacro()
 
 #
-# Add a new Sandbox executable target
+# Add a new example executable target
 #
-# Usage: ppr_add_executable(example
-# 						 SOURCES file.cpp...
-#						 DEPENDS purpurina-analytics)
+# @param target {TARGET}			cmake target
+# @param SOURCES {STRING[]}		list of files
+# @param DEPENDS? {(TARGET | STRING)[]}	optional - list of dependencies
 #
 macro(ppr_add_executable target)
 
@@ -140,7 +185,7 @@ macro(ppr_add_executable target)
 	set_target_properties(${target} PROPERTIES FOLDER "examples")
 
 	# Set the dev suffix
-	set_target_properties(${target} PROPERTIES DEBUG_POSTFIX "-dbg")
+	set_target_properties(${target} PROPERTIES DEBUG_POSTFIX "_dbg")
 
 	# Set the Visual Studio startup path for debugging
 	set_target_properties(${target} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
@@ -150,10 +195,6 @@ macro(ppr_add_executable target)
 	if(ARGS_DEPENDS)
 		target_link_libraries(${target} PRIVATE ${ARGS_DEPENDS})
 	endif()
-
-	# target_include_directories(${target}
-	# PUBLIC "$<BUILD_INTERFACE:${PURPUR_FRWK_PATH}/>")
-	# // ${PROJECT_SOURCE_DIR}/${target}/include
 
 	# [WIN32]
 	if(PPR_OS_WINDOWS AND BUILD_SHARED_LIBS)
@@ -168,7 +209,7 @@ macro(ppr_add_executable target)
 			add_custom_command(TARGET ${target}
 							  POST_BUILD        										# Adds a post-build event to MyTest
 							  COMMAND ${CMAKE_COMMAND} -E copy_if_different  			# which executes "cmake - E copy_if_different..."
-							  "${CMAKE_BINARY_DIR}/bin/purpurina-core-dbg.dll"        # <--this is in-file
+							  "${CMAKE_BINARY_DIR}/bin/purpurina_core_dbg.dll"        # <--this is in-file
 							  $<TARGET_FILE_DIR:${target}>)                 			# <--this is out-file path
 		else()
 			message(AUTHOR_WARNING "PURPURINA_SANDOBOX_POSTCOMMAND is not set correctly.\ The '${target}' target will be placed in ${CMAKE_BINARY_DIR}")
@@ -179,9 +220,9 @@ endmacro()
 #
 # Add a new Sandbox executable target
 #
-# Usage: ppr_add_test(example
-# 					  SOURCES file.cpp...
-#					  DEPENDS purpurina-analytics)
+# @param target {TARGET}			cmake target
+# @param SOURCES {STRING[]}		list of files
+# @param DEPENDS? {(TARGET | STRING)[]}	optional - list of dependencies
 #
 function(ppr_add_test target SOURCES DEPENDS)
 
@@ -201,6 +242,9 @@ function(ppr_add_test target SOURCES DEPENDS)
 
 endfunction()
 
+#
+# Export targets
+#
 function(ppr_export_targets)
 	set(CURRENT_DIR "${PROJECT_SOURCE_DIR}/cmake")
 

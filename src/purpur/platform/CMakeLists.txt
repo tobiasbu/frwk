@@ -73,18 +73,18 @@ endif()
 
 
 # root folder
-source_group("Header Files/" FILES ${PLATFORM_INC})
-source_group("Source Files/" FILES ${PLATFORM_SRC})
+ppr_group(${PLATFORM_INC})
+ppr_group(${PLATFORM_SRC} IS_IMPL)
 
 
 # sub-folders
-source_group(TREE ${INCPATH} FILES ${PLATFORM_SUB_INC} PREFIX "Header Files")
-source_group(TREE ${SRCPATH} FILES ${PLATFORM_SUB_SRC} PREFIX "Source Files")
+ppr_group(${PLATFORM_SUB_INC} TREE ${INCPATH})
+ppr_group(${PLATFORM_SUB_SRC} TREE ${SRCPATH} IS_IMPL)
 
 
 ppr_add_library(purpurina_platform
 				SOURCES ${PLATFORM_INC} ${PLATFORM_SRC} ${PLATFORM_SUB_INC} ${PLATFORM_SUB_SRC}
-				DEPENDS ${LINK_LIBS}
+				DEPENDS purpurina_core ${LINK_LIBS}
 )
 
 if (PPR_OS_MACOSX AND (NOT BUILD_SHARED_LIBS))

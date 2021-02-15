@@ -17,7 +17,7 @@ if (PPR_OS_WINDOWS AND PURPUR_EXAMPLES_POSTCOMMAND STREQUAL "exe_to_bin")
 endif()
 
 # Add modules
-include(Glad)
+# include(Glad)
 
 #############################################
 ####		ADD PURPURINA PACKAGES		 ####

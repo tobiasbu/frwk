@@ -2,19 +2,14 @@
 set(SRCPATH "${PROJECT_SOURCE_DIR}/examples")
 
 
-set(EXAMPLE_SRC
-	"${SRCPATH}/simple_window/main.cpp"
-)
-
-source_group("Source Files/" FILES ${EXAMPLE_SRC})
-
-set(DEPENDENCIES
-	purpurina_platform
-	# ${OPENGL_gl_LIBRARY}
-	# ${OPENGL_glu_LIBRARY}
-)
-
-# Create sandbox executable
+set(EXAMPLE_SRC "${SRCPATH}/simple_window/main.cpp")
 ppr_add_executable(simple_window
 				   SOURCES ${EXAMPLE_SRC}
-				   DEPENDS ${DEPENDENCIES})
+				   DEPENDS purpurina_platform)
+
+
+
+set(EXAMPLE_SRC "${SRCPATH}/hello_triangle/main.cpp")
+ppr_add_executable(hello_triangle
+				   SOURCES ${EXAMPLE_SRC}
+				   DEPENDS purpurina_render)

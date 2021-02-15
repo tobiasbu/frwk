@@ -36,15 +36,17 @@ if(PPR_OS_WINDOWS)
 endif()
 
 # root folder
-source_group("Header Files/" FILES ${RENDER_INC})
-source_group("Source Files/" FILES ${RENDER_SRC})
+ppr_group(${RENDER_INC})
+ppr_group(${RENDER_SRC} IS_IMPL)
 
 # sub-folders
-source_group(TREE ${INCPATH} FILES ${RENDER_SUB_INC} PREFIX "Header Files")
-source_group(TREE ${SRCPATH} FILES ${RENDER_SUB_SRC} PREFIX "Source Files")
-
+ppr_group(${RENDER_SUB_INC} TREE ${INCPATH})
+ppr_group(${RENDER_SUB_SRC} TREE ${SRCPATH} IS_IMPL)
 
 ppr_add_library(purpurina_render
 				SOURCES ${RENDER_INC} ${RENDER_SRC} ${RENDER_SUB_INC} ${RENDER_SUB_SRC}
 				DEPENDS purpurina_platform
 )
+
+find_package(OpenGL)
+target_link_libraries(purpurina_render PRIVATE ${OPENGL_gl_LIBRARY})
