@@ -14,6 +14,7 @@ include(CMakeDependentOption)
 include(GNUInstallDirs)
 
 # Include the CMake Configuration and Utils files
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/commons.cmake)
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/config.cmake)
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/helpers.cmake)
 
@@ -106,7 +107,7 @@ if(PPR_OS_WINDOWS)
 	# There is a bug in MSVC Community 2019 >= v16.8.4
 	# does not recognize whitespace in source_group.
 	# This seems to happens after the configuration from above lines.
-	# So, we repest the defintions os groups again: 
+	# So, we repest the defintions os groups again:
 	if(PPR_COMPILER_MSVC)
 		set(PURPUR_HEADER_GROUP "Headers Files")
 		set(PURPUR_SOURCE_GROUP "Sources Files")
