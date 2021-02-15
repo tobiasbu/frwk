@@ -18,9 +18,9 @@
 #include <purpur/core/config/api.hpp>
 
 #ifdef PURPURINA_CORE_EXPORTS
-	#define PURPURINA_CORE_API PPR_API_EXPORT
+	#define PPR_CORE_API PPR_API_EXPORT
 #else
-	#define PURPURINA_CORE_API PPR_API_IMPORT
+	#define PPR_CORE_API PPR_API_IMPORT
 #endif
 
 #endif

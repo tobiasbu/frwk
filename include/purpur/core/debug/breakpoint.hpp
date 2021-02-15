@@ -1,13 +1,12 @@
 
-
 #ifndef _PURPURINA_FRWK_BREAKPOINT_HPP_
 #define _PURPURINA_FRWK_BREAKPOINT_HPP_
 
-#include <purpur/core/config/os_detection.hpp>
+#include <purpur/core/config/api.hpp>
 
 #ifdef PPR_DEBUG
 	#if defined(_MSC_VER)
-extern void __cdecl __debugbreak(void);
+		extern void __cdecl __debugbreak(void);
 		#define PPR_BREAKPOINT() __debugbreak()
 	#else
 		#if defined(__APPLE__)

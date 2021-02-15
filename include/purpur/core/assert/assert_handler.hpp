@@ -15,7 +15,7 @@
 #ifndef _PURPURINA_FRWK_ASSERT_HANDLER_HPP_
 #define _PURPURINA_FRWK_ASSERT_HANDLER_HPP_
 
-#include <purpur/core/config.hpp>
+#include <purpur/core/config/compiler_features.hpp>
 #include <purpur/core/export.hpp>
 #include <purpur/core/types.hpp>
 
@@ -40,10 +40,10 @@ namespace ppr {
 				Fatal = 64
 			};
 
-			PURPURINA_CORE_API Action getAction(Level level = Level::Error,
+			PPR_CORE_API Action getAction(Level level = Level::Error,
 			                                    bool * ignore = NULLPTR);
 
-			PURPURINA_CORE_API cstr handle(cstr file,
+			PPR_CORE_API cstr handle(cstr file,
 			                               int32 line,
 			                               cstr function,
 			                               cstr expression,
@@ -51,9 +51,11 @@ namespace ppr {
 			                               cstr message,
 			                               ...);
 
-			PURPURINA_CORE_API bool ignoreAllAsserts();
+			PPR_CORE_API bool ignoreAllAsserts();
 		} // namespace Assert
-	}     // namespace internal
+
+	}  // namespace internal
+
 } // namespace ppr
 
 #endif

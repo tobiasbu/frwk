@@ -15,9 +15,9 @@
 #ifndef _PURPURINA_FRWK_ASSERTION_EXCEPTION_HPP_
 #define _PURPURINA_FRWK_ASSERTION_EXCEPTION_HPP_
 
-#include <purpur/core/error/exception.hpp>
 #include <purpur/core/export.hpp>
 #include <purpur/core/types.hpp>
+#include <purpur/core/error/exception.hpp>
 
 namespace ppr {
 
@@ -28,7 +28,7 @@ namespace ppr {
 	/// This exception is generally throw in assertions using `PPR_ASSERT`
 	///
 	////////////////////////////////////////////////////////////
-	class PURPURINA_CORE_API AssertionException : Exception {
+	class PPR_CORE_API AssertionException : Exception {
 	private:
 		cstr _file;
 		int32 _line;

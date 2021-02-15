@@ -16,9 +16,9 @@ namespace ppr {
 				bool ignoreAll = false;
 			}
 
-			void ignoreAllAsserts(bool value) {
-				ignoreAll = value;
-			}
+			// void ignoreAllAsserts(bool value) {
+			// 	ignoreAll = value;
+			// }
 
 			bool ignoreAllAsserts() {
 				return ignoreAll;
@@ -73,5 +73,7 @@ namespace ppr {
 				return message;
 			}
 		} // namespace Assert
-	}     // namespace internal
+
+	} // namespace internal
+
 } // namespace ppr

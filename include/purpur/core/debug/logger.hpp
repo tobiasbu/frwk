@@ -8,13 +8,13 @@
 
 namespace ppr {
 
-	class PURPURINA_CORE_API Logger {
+	class PPR_CORE_API Logger {
 	private:
 		void printLevel(LogLevel level);
 
 		template<typename T>
 		void print(T only) {
-			std::cout << only << std::endl;
+			std::cout << only;
 		}
 
 		template<typename T, typename... Args>

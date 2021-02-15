@@ -13,7 +13,7 @@ namespace ppr {
 	/// \brief Represents an Purpurina exception.
 	///
 	////////////////////////////////////////////////////////////
-	class PURPURINA_CORE_API Exception {
+	class PPR_CORE_API Exception {
 	protected:
 		cstr _message;
 

@@ -7,7 +7,7 @@
 
 namespace ppr {
 
-	struct WindowProperties {
+	struct PPR_PLATFORM_API WindowProperties {
 		uint32 width;
 		uint32 height;
 		cstr title;

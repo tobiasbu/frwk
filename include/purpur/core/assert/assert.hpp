@@ -65,10 +65,6 @@
 	0, 0, 0, 0, 0, 0, 0, 1,																		   \
 	0, PPR_NO_MACRO)																		   	   \
 
-#define __PPR_ASSERT_(debug, ...)			PPR_JOIN(__PPR_ASSERT_, PURPURINA_HAS_ONE_ARGUMENT(__VA_ARGS__))(debug, __VA_ARGS__)
-#define __PPR_ASSERT_0(debug, ...)			PURPURINA_APPLY_VA_ARGS(__PPR_ASSERT_2, debug, __VA_ARGS__)
-#define __PPR_ASSERT_1(debug, expression)  	__PPR_ASSERT_2(debug, expression, PPR_NULLPTR)
-
 
 ////////////////////////////////////////////////////////////
 /// \brief Assert given expression
@@ -82,16 +78,22 @@
 ////////////////////////////////////////////////////////////
 #define PPR_ASSERT(expression, ...) __PPR_ASSERT_(true, expression, __VA_ARGS__)
 
+#define __PPR_ASSERT_(debug, ...)			PPR_JOIN(__PPR_ASSERT_, PURPURINA_HAS_ONE_ARGUMENT(__VA_ARGS__))(debug, __VA_ARGS__)
+#define __PPR_ASSERT_0(debug, ...)			PURPURINA_APPLY_VA_ARGS(__PPR_ASSERT_2, debug, __VA_ARGS__)
+#define __PPR_ASSERT_1(debug, expression)  	__PPR_ASSERT_2(debug, expression, NULLPTR)
+
 #if defined(_MSC_FULL_VER) && (_MSC_FULL_VER >= 140050215)
 
-	#define __PPR_ASSERT_3(debug, expression, ...)                                            \
-		__pragma(warning(push)) __pragma(warning(disable : 4127)) do {                        \
+	#define __PPR_ASSERT_3(debug, expression, ...)											  \
+		__pragma(warning(push))													  		      \
+		__pragma(warning(disable : 4127)) 													  \
+		do {                                                      							  \
 			static bool _ignore = false;                                                      \
-			if ((!!expression) || _ignore || ppr::internal::Assert::ignoreAllAsserts())       \
+			if (expression || ppr::internal::Assert::ignoreAllAsserts())    			      \
 				void(0);                                                                      \
 			else {                                                                            \
 				ppr::internal::Assert::Action action = ppr::internal::Assert::getAction();    \
-				ppr::cstr message = ppr::cstr message = ppr::internal::Assert::handle(        \
+				ppr::cstr message = ppr::internal::Assert::handle(					          \
 					PPR_ASSERT_FILE, PPR_ASSERT_LINE, PPR_ASSERT_FUNCTION,                    \
 					#expression, 													          \
 					&_ignore,															      \
