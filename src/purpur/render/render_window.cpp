@@ -3,7 +3,7 @@
 
 namespace ppr {
 
-	RenderWidow::RenderWidow(NativeWindow * nativeWindow) : Window(nativeWindow) {}
+	RenderWidow::RenderWidow(WindowImpl * nativeWindow) : Window(nativeWindow) {}
 
 	RenderWidow * RenderWidow::create() {
 		return nullptr;

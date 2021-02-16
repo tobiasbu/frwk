@@ -10,7 +10,8 @@ set(CATCH_BUILD_TESTING OFF)
 set(CATCH_INSTALL_DOCS OFF)
 
 # catch main file
-set(CATCH_MAIN ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp)
+set(TESTS_PATH ${CMAKE_CURRENT_SOURCE_DIR})
+set(CATCH_MAIN ${TESTS_PATH}/main.cpp)
 
 
 add_subdirectory("core")

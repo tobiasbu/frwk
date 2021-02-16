@@ -23,9 +23,8 @@ endif()
 ####		ADD PURPURINA PACKAGES		 ####
 #############################################
 
-# Purpurina Core
-add_subdirectory("${PURPUR_SRC}/core")
+ppr_add_lib_directory(core)
 
-add_subdirectory("${PURPUR_SRC}/platform")
+ppr_add_lib_directory(platform)
 
-add_subdirectory("${PURPUR_SRC}/render")
+ppr_add_lib_directory(render)

@@ -13,6 +13,18 @@ macro (ppr_set_xcode_prop target xcode_prop xcode_value)
 endmacro ()
 
 #
+# Add Purpurina directory
+#
+# @param package_name {STRING}	cmake target name
+#
+function(ppr_add_lib_directory package_name)
+    set(INCPATH ${PURPUR_INC}/${package_name})
+    set(SRCPATH ${PURPUR_SRC}/${package_name})
+
+    add_subdirectory(${package_name})
+endfunction()
+
+#
 # Add Purpurina library
 #
 # @param target {TARGET}			cmake target

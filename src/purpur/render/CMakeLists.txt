@@ -1,50 +1,54 @@
 
-set(INCPATH "${PURPUR_INC}/render")
-set(SRCPATH "${PURPUR_SRC}/render")
+####################################
+# RENDER
+####################################
 
-
-
-set(RENDER_INC
-	${INCPATH}/export.hpp
-	${INCPATH}/context_config.hpp
-	${INCPATH}/render_window.hpp
+# includes
+ppr_file_list(ROOT ${INCPATH} OUTPUT INC
+	export.hpp
+	context_config.hpp
+	render_window.hpp
 )
+ppr_group(${INC})
 
-set(RENDER_SRC
-	${SRCPATH}/render_window.cpp
+# sources
+ppr_file_list(ROOT ${SRCPATH} OUTPUT SRC
+	render_window.cpp
 )
+ppr_group(${SRC} IS_IMPL)
 
-set(RENDER_SUB_INC
-	${INCPATH}/opengl/gl_context.hpp
+# includes subfolder
+ppr_file_list(ROOT ${INCPATH} OUTPUT SUB_INC
+	opengl/gl_context.hpp
 )
+ppr_group(${SUB_INC} TREE ${INCPATH})
 
-set(RENDER_SUB_SRC
-	${SRCPATH}/opengl/gl_context.cpp
+# sources subfolder
+ppr_file_list(ROOT ${SRCPATH} OUTPUT SUB_SRC
+	opengl/gl_context.cpp
 )
+ppr_group(${SUB_SRC} TREE ${SRCPATH} IS_IMPL)
 
+
+####################################
+# OS SPECIFIC FILES
+####################################
 if(PPR_OS_WINDOWS)
-	set(RENDER_SUB_INC
-		${RENDER_SUB_INC}
-		${INCPATH}/opengl/wgl_context.hpp
+	# platfrom inc
+	ppr_file_list(ROOT ${INCPATH} OUTPUT SUB_INC CONCAT
+		opengl/wgl_context.hpp
 	)
 
-	set(RENDER_SUB_SRC
-		${RENDER_SUB_SRC}
-		${SRCPATH}/opengl/wgl_context.cpp
+	# platfrom src
+	ppr_file_list(ROOT ${SRCPATH} OUTPUT SUB_SRC CONCAT
+		opengl/wgl_context.cpp
 	)
-
 endif()
 
-# root folder
-ppr_group(${RENDER_INC})
-ppr_group(${RENDER_SRC} IS_IMPL)
 
-# sub-folders
-ppr_group(${RENDER_SUB_INC} TREE ${INCPATH})
-ppr_group(${RENDER_SUB_SRC} TREE ${SRCPATH} IS_IMPL)
 
 ppr_add_library(purpurina_render
-				SOURCES ${RENDER_INC} ${RENDER_SRC} ${RENDER_SUB_INC} ${RENDER_SUB_SRC}
+				SOURCES ${INC} ${SRC} ${SUB_INC} ${SUB_SRC}
 				DEPENDS purpurina_platform
 )
 
