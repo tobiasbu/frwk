@@ -79,7 +79,7 @@ ForEachMacros:
   - BOOST_FOREACH
 IncludeBlocks: Regroup
 IncludeCategories:
-  - Regex: '^(<|"(purpur))/'
+  - Regex: '^(<|"(ct))/'
     Priority: 4
     SortPriority: 0
   - Regex: '^"(llvm|llvm-c|clang|clang-c)/'
@@ -166,7 +166,7 @@ UseTab: ForIndentation
 # does not work in msvc: WhitespaceSensitiveMacros
 WhitespaceSensitiveMacros:
   - STRINGIZE
-  - PPR_STRINGIZE
+  - CT_STRINGIZE
   - PP_STRINGIZE
   - BOOST_PP_STRINGIZE
 ...

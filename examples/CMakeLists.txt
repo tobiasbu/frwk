@@ -1,8 +1,5 @@
 
-set(SRCPATH "${PROJECT_SOURCE_DIR}/examples")
+
+add_subdirectory(basic)
 
 
-set(EXAMPLE_SRC "${SRCPATH}/simple_window/main.cpp")
-ppr_add_executable(simple_window
-				   SOURCES ${EXAMPLE_SRC}
-				   DEPENDS purpurina_platform)

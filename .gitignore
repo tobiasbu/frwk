@@ -49,7 +49,7 @@ _deps
 *.build/
 *.xcodeproj/
 
-# Purpurina
+# chronotrix
 _bkp
 out/
 build/

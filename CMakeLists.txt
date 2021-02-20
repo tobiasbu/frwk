@@ -5,9 +5,9 @@ if(NOT CMAKE_OSX_ARCHITECTURES)
 endif()
 
 # Project Name
-project (purpurina
+project (chronotrix_frwk
 		VERSION 0.0.1
-		DESCRIPTION "Purpurina Game Engine"
+		DESCRIPTION "Chronotrix Framework"
 		LANGUAGES CXX)
 
 include(CMakeDependentOption)
@@ -23,21 +23,21 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/helpers.cmake)
 #############################################
 
 # C/C++ version
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_C_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_C_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Project config
 set_property(GLOBAL PROPERTY USE_FOLDERS ON) # enable folders
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 
-# Set paths for purpurina packages files
-set(PURPUR_FRWK_PATH "${PROJECT_SOURCE_DIR}")
-set(PURPUR_SRC "${PURPUR_FRWK_PATH}/src/purpur")
-set(PURPUR_INC "${PURPUR_FRWK_PATH}/include/purpur")
-set(PURPUR_EXTLIBS_PATH "${PURPUR_FRWK_PATH}/thirdparty")
-set(PURPUR_HEADER_GROUP "Header Files")
-set(PURPUR_SOURCE_GROUP "Source Files")
+# Set paths for chronotrix packages files
+set(CT_FRWK_PATH "${PROJECT_SOURCE_DIR}")
+set(CT_SRC "${CT_FRWK_PATH}/src/ct")
+set(CT_INC "${CT_FRWK_PATH}/include/ct")
+set(CT_EXTLIBS_PATH "${CT_FRWK_PATH}/thirdparty")
+set(CT_HEADER_GROUP "Header Files")
+set(CT_SOURCE_GROUP "Source Files")
 
 #############################################
 ####		       OPTIONS     			 ####
@@ -57,15 +57,15 @@ if (ENABLE_CLANG_TIDY)
 endif()
 
 # Define BUILD_SHARED_LIBS property
-option(BUILD_SHARED_LIBS "TRUE = Build Purpurina as shared libraries; FALSE = Build as static libraries" TRUE)
+option(BUILD_SHARED_LIBS "TRUE = Build Chronotrix as shared libraries; FALSE = Build as static libraries" TRUE)
 
 # Should build sandox examples?
-option(PURPUR_EXAMPLES "TRUE = Build the Purpurina examples; FALSE = Don't build examples" TRUE)
+option(CT_EXAMPLES "TRUE = Build the Chronotrix examples; FALSE = Don't build examples" TRUE)
 
 # [WINDOWS] Make a multi options for executables
-if(PPR_OS_WINDOWS AND BUILD_SHARED_LIBS AND PURPUR_EXAMPLES)
-	ppr_multi_options(
-		PURPUR_EXAMPLES_POSTCOMMAND
+if(CT_OS_WINDOWS AND BUILD_SHARED_LIBS AND CT_EXAMPLES)
+	ct_multi_options(
+		CT_EXAMPLES_POSTCOMMAND
 		"exe_to_bin"
 		"exe_to_bin;bin_to_exe"
 		"Defines post build command for executables.
@@ -75,23 +75,23 @@ if(PPR_OS_WINDOWS AND BUILD_SHARED_LIBS AND PURPUR_EXAMPLES)
 endif()
 
 # tests
-option(PURPUR_TESTS "Build tests")
+option(CT_TESTS "Build tests")
 
 #############################################
 ####		      OS CONFIG 			 ####
 #############################################
 
 # [WINDOWS] Should generate static or dynamic libraries
-if(PPR_OS_WINDOWS)
-	option(PURPURNA_STATIC_STDLIBS "TRUE to statically link to the standard libraries, FALSE to use them as DLLs" FALSE)
+if(CT_OS_WINDOWS)
+	option(CT_STATIC_STDLIBS "TRUE to statically link to the standard libraries, FALSE to use them as DLLs" FALSE)
 
 	# the following combination of flags is not valid
-	if (BUILD_SHARED_LIBS AND PURPUR_STATIC_STDLIBS)
-		message(FATAL_ERROR "Can not use BUILD_SHARED_LIBS and PURPUR_STATIC_STDLIBS together.")
+	if (BUILD_SHARED_LIBS AND CT_STATIC_STDLIBS)
+		message(FATAL_ERROR "Can not use BUILD_SHARED_LIBS and CT_STATIC_STDLIBS together.")
  	endif()
 
   	# for VC++, set globally compiler flags
-	if(PPR_COMPILER_MSVC AND PURPUR_STATIC_STDLIBS)
+	if(CT_COMPILER_MSVC AND CT_STATIC_STDLIBS)
 		foreach(flag
 				CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE
 				CMAKE_CXX_FLAGS_MINSIZEREL CMAKE_CXX_FLAGS_RELWITHDEBINFO)
@@ -108,15 +108,15 @@ if(PPR_OS_WINDOWS)
 	# does not recognize whitespace in source_group.
 	# This seems to happens after the configuration from above lines.
 	# So, we repest the defintions os groups again:
-	if(PPR_COMPILER_MSVC)
-		set(PURPUR_HEADER_GROUP "Headers Files")
-		set(PURPUR_SOURCE_GROUP "Sources Files")
+	if(CT_COMPILER_MSVC)
+		set(CT_HEADER_GROUP "Headers Files")
+		set(CT_SOURCE_GROUP "Sources Files")
 	endif()
 
 endif()
 
 # [MACOSX] Setup
-if(PPR_OS_MACOSX)
+if(CT_OS_MACOSX)
 	set(XCODE_TEMPLATES_ARCH "\$(NATIVE_ARCH_ACTUAL)")
 endif()
 
@@ -124,16 +124,16 @@ endif()
 ####		     ADD PACAKGES 			 ####
 #############################################
 
-add_subdirectory(${PURPUR_SRC})
+add_subdirectory(${CT_SRC})
 
 # examples
-if (PURPUR_EXAMPLES)
-	add_subdirectory("${PURPUR_FRWK_PATH}/examples")
+if (CT_EXAMPLES)
+	add_subdirectory("${CT_FRWK_PATH}/examples")
 endif()
 
 # tests
-if(PURPUR_TESTS)
-	add_subdirectory("${PURPUR_FRWK_PATH}/tests")
+if(CT_TESTS)
+	add_subdirectory("${CT_FRWK_PATH}/tests")
 endif()
 
 
@@ -142,9 +142,9 @@ endif()
 #############################################
 
 # Install all packages includes
-install(DIRECTORY "${PURPUR_INC}"
+install(DIRECTORY "${CT_INC}"
 		DESTINATION include
         COMPONENT devel
         FILES_MATCHING PATTERN "*.hpp" PATTERN "*.inl")
 
-ppr_export_targets()
+ct_export_targets()

@@ -17,17 +17,17 @@
           "type": "BOOL"
         },
         {
-          "name": "PURPUR_EXAMPLES",
+          "name": "CT_EXAMPLES",
           "value": "True",
           "type": "BOOL"
         },
         {
-          "name": "PURPUR_EXAMPLES_POSTCOMMAND",
+          "name": "CT_EXAMPLES_POSTCOMMAND",
           "value": "exe_to_bin",
           "type": "STRING"
         },
         {
-          "name": "PURPUR_TESTS",
+          "name": "CT_TESTS",
           "value": "True",
           "type": "BOOL"
         },

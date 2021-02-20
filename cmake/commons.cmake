@@ -8,7 +8,7 @@
 # @param options {STRING}	available options - "default_option;option_a;option_b"
 # @param options {STRING}	description - "Defines the post build command"
 #
-function (ppr_multi_options variable default options docstring)
+function (ct_multi_options variable default options docstring)
 	if(NOT DEFINED ${variable})
 		set(${variable} ${default})
 	endif()
@@ -26,7 +26,7 @@ endfunction()
 # @param type {ANY}		variable type - BOOL
 # @param docstring {STRING}	variable description - "Compile static library"
 #
-function(ppr_set_prop variable default type docstring)
+function(ct_set_prop variable default type docstring)
 	if(NOT DEFINED ${variable})
         set(${variable} ${default})
     endif()
@@ -43,7 +43,7 @@ endfunction()
 # @param NAME {STRING}		optional - custom group name path
 # @param IS_IMPL {TOGGLE}	optional - is implementation files (Source Files)
 #
-macro(ppr_group)
+macro(ct_group)
     cmake_parse_arguments(ARGS "IS_IMPL" "TREE;NAME" "" ${ARGN})
 
 	if("TREE" IN_LIST ARGS_KEYWORDS_MISSING_VALUES)
@@ -63,9 +63,9 @@ macro(ppr_group)
 	else()
 		if (ARGS_IS_IMPL)
 			list(REMOVE_ITEM _files "IS_IMPL")
-			set(_prefix ${PURPUR_SOURCE_GROUP})
+			set(_prefix ${CT_SOURCE_GROUP})
 		else()
-			set(_prefix ${PURPUR_HEADER_GROUP})
+			set(_prefix ${CT_HEADER_GROUP})
 		endif()
 	endif()
 
@@ -75,7 +75,7 @@ macro(ppr_group)
 	endif()
 
 	if(NOT _files OR NOT DEFINED _files)
-		message(WARNING "Could not parse 'ppr_group'. Missing files list.")
+		message(WARNING "Could not parse 'ct_group'. Missing files list.")
 	endif()
 
 	if(ARGS_TREE)
@@ -93,7 +93,7 @@ endmacro()
 # @param CONCAT {TOGGLE}	optional - concat files list to output variable
 # @param ... {STRING[]}		list of files
 #
-macro(ppr_file_list)
+macro(ct_file_list)
 
 	cmake_parse_arguments(ARGS "CONCAT" "ROOT;OUTPUT" "" ${ARGN})
 

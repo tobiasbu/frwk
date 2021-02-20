@@ -1,30 +1,30 @@
 
 #include <catch2/catch.hpp>
 
-#include <purpur/core/utils/type_traits.hpp>
-
-namespace {
-	template <class T>
-	void swap(T& a, T& b) {
-		T tmp(ppr::move(a));
-		a = ppr::move(b);
-		b = ppr::move(tmp);
-	}
-
-	template <class T>
-	void swapMacro(T& a, T& b) {
-		T tmp(MOV(a));
-		a = MOV(b);
-		b = MOV(tmp);
-	}
+#include <ct/core/utils/type_traits.hpp>
 
 
-	class DummyMoveClass {
-		public:
-		int value = 42;
-		DummyMoveClass(int val): value(val) {}
-	};
+template <class T>
+void swap(T& a, T& b) {
+	T tmp(ct::move(a));
+	a = ct::move(b);
+	b = ct::move(tmp);
 }
+
+template <class T>
+void swapMacro(T& a, T& b) {
+	T tmp(MOV(a));
+	a = MOV(b);
+	b = MOV(tmp);
+}
+
+
+class DummyMoveClass {
+	public:
+	int value = 42;
+	DummyMoveClass(int val): value(val) {}
+};
+
 
 TEST_CASE( "move", "[core:utils:type_traits:move]" ) {
 
