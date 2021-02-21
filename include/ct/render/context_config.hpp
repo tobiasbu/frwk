@@ -6,12 +6,16 @@
 
 namespace ct {
 
+
+
 	struct ContextConfig {
 		uint8 color_bits;   // 16, 24, 32
 		uint8 depth_bits;   // 8, 16, 24
 		uint8 stencil_bits; // 8
 		uint8 antialias_level;
 		bool double_buffer;
+		uint8 major_version;
+		uint8 minor_version;
 
 		explicit ContextConfig(uint8 color_bits = 24,
 		                       uint8 depth_bits = 16,
