@@ -57,6 +57,30 @@
 		"optional": "cpp",
 		"string_view": "cpp",
 		"fstream": "cpp",
-		"functional": "cpp"
-	}
+		"functional": "cpp",
+		"bitset": "cpp",
+		"chrono": "cpp",
+		"condition_variable": "cpp",
+		"ctime": "cpp",
+		"iterator": "cpp",
+		"map": "cpp",
+		"numeric": "cpp",
+		"random": "cpp",
+		"ratio": "cpp",
+		"regex": "cpp",
+		"set": "cpp",
+		"future": "cpp",
+		"iomanip": "cpp",
+		"mutex": "cpp",
+		"thread": "cpp",
+		"cinttypes": "cpp",
+		"variant": "cpp",
+		"compare": "cpp",
+		"*.rh": "cpp"
+	},
+	"doxdocgen.c.triggerSequence": "/// @",
+	"doxdocgen.c.firstLine": "////////////////////////////////////////////////////////////",
+	"doxdocgen.c.lastLine": "////////////////////////////////////////////////////////////",
+	"doxdocgen.c.commentPrefix": "/// ",
+	"cmake.configureOnOpen": true
 }
