@@ -1,10 +1,14 @@
 
 #include <ct/render/render_window.hpp>
+#include <ct/render/render_context.hpp>
 
 namespace ct {
 
-	RenderWidow::RenderWidow(WindowImpl * nativeWindow) : Window(nativeWindow) {}
-
+	RenderWindow::RenderWindow(Window && base_window, RenderContext * context)
+	:
+	context(context),
+	Window(MOV(base_window))
+	{}
 
 	RenderWindowPtr create_render_window(uint32 width, uint32 height, cstr title, uint32 style, const ContextConfig & config) {
 
@@ -19,9 +23,14 @@ namespace ct {
 	}
 
 	RenderWindowPtr create_render_window(const WindowProperties & properties, const ContextConfig & config) {
-		// auto impl = WindowImplType::create(props);
-		// return std::make_unique<enable_make<RenderWidow>>(impl);
-		return nullptr;
+		auto window = create_window(properties).release();
+		auto context = RenderContext::create(window, config);
+
+		auto ptr = std::make_unique<enable_make<RenderWindow>>(MOV(*window), context);
+		// delete window;
+
+		return ptr;
+		// return  std::unique_ptr<RenderWindow>(renderWindow);
 	}
 
 } // namespace ct
