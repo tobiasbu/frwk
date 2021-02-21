@@ -6,6 +6,7 @@ namespace ct {
 	RenderWidow::RenderWidow(WindowImpl * nativeWindow) : Window(nativeWindow) {}
 
 	RenderWidow * RenderWidow::create() {
+
 		return nullptr;
 	}
 

@@ -7,9 +7,7 @@ namespace ct {
 	namespace internal {
 
 		namespace {
-			void createDummyContext() {}
-
-			PIXELFORMATDESCRIPTOR createPixelFormat() {
+			PIXELFORMATDESCRIPTOR create_pixel_format() {
 				DWORD dwFlags = PFD_SUPPORT_OPENGL | PFD_DRAW_TO_WINDOW;
 				BYTE iPixelType = PFD_TYPE_RGBA;
 				BYTE cColorBits = 32;

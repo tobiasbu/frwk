@@ -31,19 +31,19 @@ namespace ct {
 		return *this;
 	}
 
-	CT_ASSERT_ALWAYS_INLINE cstr AssertionException::file() const {
+	CT_FORCE_INLINE cstr AssertionException::file() const {
 		return this->_file;
 	}
 
-	CT_ASSERT_ALWAYS_INLINE int32 AssertionException::line() const {
+	CT_FORCE_INLINE int32 AssertionException::line() const {
 		return this->_line;
 	}
 
-	CT_ASSERT_ALWAYS_INLINE cstr AssertionException::function() const {
+	CT_FORCE_INLINE cstr AssertionException::function() const {
 		return this->_function;
 	}
 
-	CT_ASSERT_ALWAYS_INLINE cstr AssertionException::expression() const {
+	CT_FORCE_INLINE cstr AssertionException::expression() const {
 		return this->_expression;
 	}
 

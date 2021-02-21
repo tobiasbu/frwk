@@ -15,7 +15,7 @@ namespace ct {
 		Fatal = 512
 	};
 
-	const char * getLogLevelName(LogLevel level) {
+	const char * get_log_level_name(LogLevel level) {
 		switch (level) {
 			case LogLevel::Debug: return "Debug";
 			default: return "Log";

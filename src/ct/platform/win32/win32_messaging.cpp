@@ -22,7 +22,7 @@ namespace ct {
 			    windowProp ? (internal::Win32Window *)windowProp : NULL;
 
 			if (window) {
-				window->onEvent(uMsg, wParam, lParam);
+				window->on_event(uMsg, wParam, lParam);
 			}
 
 			// Prevents Windows to detroy the window automatically

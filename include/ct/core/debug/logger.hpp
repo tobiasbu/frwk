@@ -10,7 +10,7 @@ namespace ct {
 
 	class CT_CORE_API Logger {
 	private:
-		void printLevel(LogLevel level);
+		void print_level(LogLevel level);
 
 		template<typename T>
 		void print(T only) {
@@ -32,13 +32,13 @@ namespace ct {
 		Logger();
 
 		void log() {
-			this->printLevel(LogLevel::Log);
+			this->print_level(LogLevel::Log);
 			std::cout << std::endl;
 		}
 
 		template<typename... Args>
 		void log(Args... args) {
-			this->printLevel(LogLevel::Log);
+			this->print_level(LogLevel::Log);
 			this->print(args...);
 			std::cout << std::endl;
 		}

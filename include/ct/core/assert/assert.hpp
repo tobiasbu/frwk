@@ -41,10 +41,10 @@
 
 // clang-format off
 
-#define CHRONOTRIX_APPLY_VA_ARGS(M, ...) CHRONOTRIX_DO_APPLY_VA_ARGS(M, (__VA_ARGS__))
-#define CHRONOTRIX_DO_APPLY_VA_ARGS(M, args) M args
+#define CT_APPLY_VA_ARGS(M, ...) __CT_DO_APPLY_VA_ARGS(M, (__VA_ARGS__))
+#define __CT_DO_APPLY_VA_ARGS(M, args) M args
 
-#define CHRONOTRIX_ASSERT_NARG(...) CHRONOTRIX_APPLY_VA_ARGS(CHRONOTRIX_ASSERT_NARG_,				   \
+#define CT_ASSERT_NARG(...) CT_APPLY_VA_ARGS(__CT_ASSERT_NARG_,				   \
 	CT_NO_MACRO, ##__VA_ARGS__,										   						   \
 	32, 31, 30, 29, 28, 27, 26, 25,										   						   \
 	24, 23, 22, 21, 20, 19, 18, 17,										   						   \
@@ -52,12 +52,12 @@
 	 8,  7,  6,  5,  4,  3,  2,  1,										   						   \
 	 0, CT_NO_MACRO)										   						               \
 
-#define CHRONOTRIX_ASSERT_NARG_( _0, _1, _2, _3, _4, _5, _6, _7, _8,								   \
+#define __CT_ASSERT_NARG_( _0, _1, _2, _3, _4, _5, _6, _7, _8,								   \
                                 _9, _10, _11, _12, _13, _14, _15, _16,							   \
                                _17, _18, _19, _20, _21, _22, _23, _24,							   \
                                _25, _26, _27, _28, _29, _30, _31, _32, _33, ...) _33
 
-#define CHRONOTRIX_HAS_ONE_ARGUMENT(...) CHRONOTRIX_APPLY_VA_ARGS(CHRONOTRIX_ASSERT_NARG_,            \
+#define CT_HAS_ONE_ARGUMENT(...) CT_APPLY_VA_ARGS(__CT_ASSERT_NARG_,            \
 	CT_NO_MACRO, ##__VA_ARGS__,										   						   \
     0, 0, 0, 0, 0, 0, 0, 0,										   						   		   \
 	0, 0, 0, 0, 0, 0, 0, 0,																		   \
@@ -78,8 +78,8 @@
 ////////////////////////////////////////////////////////////
 #define CT_ASSERT(expression, ...) __CT_ASSERT_(true, expression, __VA_ARGS__)
 
-#define __CT_ASSERT_(debug, ...)			CT_JOIN(__CT_ASSERT_, CHRONOTRIX_HAS_ONE_ARGUMENT(__VA_ARGS__))(debug, __VA_ARGS__)
-#define __CT_ASSERT_0(debug, ...)			CHRONOTRIX_APPLY_VA_ARGS(__CT_ASSERT_2, debug, __VA_ARGS__)
+#define __CT_ASSERT_(debug, ...)			CT_JOIN(__CT_ASSERT_, CT_HAS_ONE_ARGUMENT(__VA_ARGS__))(debug, __VA_ARGS__)
+#define __CT_ASSERT_0(debug, ...)			CT_APPLY_VA_ARGS(__CT_ASSERT_2, debug, __VA_ARGS__)
 #define __CT_ASSERT_1(debug, expression)  	__CT_ASSERT_2(debug, expression, NULLPTR)
 
 #if defined(_MSC_FULL_VER) && (_MSC_FULL_VER >= 140050215)
@@ -89,21 +89,21 @@
 		__pragma(warning(disable : 4127)) 													  \
 		do {                                                      							  \
 			static bool _ignore = false;                                                      \
-			if (expression || ct::internal::Assert::ignoreAllAsserts())    			      \
+			if (expression || ct::internal::Assert::ignore_all_asserts())    			      \
 				void(0);                                                                      \
 			else {                                                                            \
-				ct::internal::Assert::Action action = ct::internal::Assert::getAction();    \
+				ct::internal::Assert::Action action = ct::internal::Assert::get_action();     \
 				ct::cstr message = ct::internal::Assert::handle(					          \
-					CT_ASSERT_FILE, CT_ASSERT_LINE, CT_ASSERT_FUNCTION,                    \
+					CT_ASSERT_FILE, CT_ASSERT_LINE, CT_ASSERT_FUNCTION,                    	  \
 					#expression, 													          \
 					&_ignore,															      \
 					__VA_ARGS__);															  \
 																						      \
-				if (action == ct::internal::Assert::Action::Break) {                         \
-					CT_BREAKPOINT();                                                         \
-				} else if (action == ct::internal::Assert::Action::Throw) {                  \
-					throw ct::AssertionException(CT_ASSERT_FILE, CT_ASSERT_LINE,           \
-					                              CT_ASSERT_FUNCTION, #expression, message); \
+				if (action == ct::internal::Assert::Action::Break) {                          \
+					CT_BREAKPOINT();                                                          \
+				} else if (action == ct::internal::Assert::Action::Throw) {                   \
+					throw ct::AssertionException(CT_ASSERT_FILE, CT_ASSERT_LINE,              \
+					                              CT_ASSERT_FUNCTION, #expression, message);  \
 				}                                                                             \
 			}                                                                                 \
 		}                                                                                     \

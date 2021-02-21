@@ -20,11 +20,11 @@ namespace ct {
 			// 	ignoreAll = value;
 			// }
 
-			bool ignoreAllAsserts() {
+			bool ignore_all_asserts() {
 				return ignoreAll;
 			}
 
-			Action getAction(Level level, bool * ignore) {
+			Action get_action(Level level, bool * ignore) {
 				if (ignoreAll) {
 					return Action::Ignore;
 				}

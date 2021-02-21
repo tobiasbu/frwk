@@ -22,8 +22,8 @@
 ///
 /// @c "vX.Y.Z"
 ////////////////////////////////////////////////////////////
-#define CT_FRWK_VERSION                                       \
-	"v" CT_STRINGER(CT_FRWK_VERSION_MAJOR) "." CT_STRINGER( \
+#define CT_FRWK_VERSION                                       			\
+	"v" CT_STRINGER(CT_FRWK_VERSION_MAJOR) "." CT_STRINGER( 			\
 	    CT_FRWK_VERSION_MINOR) "." CT_STRINGER(CT_FRWK_VERSION_PATCH)
 
 #endif

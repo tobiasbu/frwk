@@ -47,11 +47,11 @@
 #define __CT_DO_JOIN2(X, Y) X##Y
 
 #if defined(_MSC_VER)
-	#define CT_ASSERT_ALWAYS_INLINE __forceinline
+	#define CT_FORCE_INLINE __forceinline
 #elif defined(__GNUC__) || defined(__clang__)
-	#define CT_ASSERT_ALWAYS_INLINE inline __attribute__((always_inline))
+	#define CT_FORCE_INLINE inline __attribute__((always_inline))
 #else
-	#define CT_ASSERT_ALWAYS_INLINE inline
+	#define CT_FORCE_INLINE inline
 #endif
 
 #endif

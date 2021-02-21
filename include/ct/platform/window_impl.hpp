@@ -21,9 +21,9 @@ namespace ct {
 		/// @return True if the window is visible otherwise false
 		///
 		////////////////////////////////////////////////////////////
-		virtual bool isVisible() const = 0;
-		virtual WindowHandle getHandle() const = 0;
-		virtual void setVisible(bool visible) = 0;
+		virtual bool is_visible() const = 0;
+		virtual WindowHandle get_handle() const = 0;
+		virtual void set_visible(bool visible) = 0;
 	};
 
 } // namespace ct

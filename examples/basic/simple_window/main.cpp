@@ -20,10 +20,10 @@ int main(int argc, char* argv[]) {
 
 	logger.log("Opening window");
 
-	auto win = create::window(480, 300, "test");
-	win->setVisible(true);
+	auto win = create_window(480, 300, "Chronotrix Simple Window");
+	win->set_visible(true);
 
-	while (win->isVisible()) {
+	while (win->is_visible()) {
 	 	Platform::poll_events();
 	}
 

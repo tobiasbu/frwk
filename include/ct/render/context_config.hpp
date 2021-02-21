@@ -7,22 +7,22 @@
 namespace ct {
 
 	struct ContextConfig {
-		uint8 colorBits;   // 16, 24, 32
-		uint8 depthBits;   // 8, 16, 24
-		uint8 stencilBits; // 8
-		uint8 antiAliasLevel;
-		bool doubleBuffer;
+		uint8 color_bits;   // 16, 24, 32
+		uint8 depth_bits;   // 8, 16, 24
+		uint8 stencil_bits; // 8
+		uint8 antialias_level;
+		bool double_buffer;
 
-		explicit ContextConfig(uint8 colorBits = 24,
-		                       uint8 depthBits = 16,
-		                       uint8 stencilBits = 0,
-		                       uint8 antiAliasLevel = 0,
-		                       bool doubleBuffer = true)
-		: colorBits(colorBits),
-		  depthBits(depthBits),
-		  stencilBits(stencilBits),
-		  antiAliasLevel(antiAliasLevel),
-		  doubleBuffer(doubleBuffer) {}
+		explicit ContextConfig(uint8 color_bits = 24,
+		                       uint8 depth_bits = 16,
+		                       uint8 stencil_bits = 0,
+		                       uint8 antialias_level = 0,
+		                       bool double_buffer = true)
+		: color_bits(color_bits),
+		  depth_bits(depth_bits),
+		  stencil_bits(stencil_bits),
+		  antialias_level(antialias_level),
+		  double_buffer(double_buffer) {}
 	};
 
 } // namespace ct

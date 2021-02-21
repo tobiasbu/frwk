@@ -19,7 +19,7 @@ namespace ct {
 			////////////////////////////////////////////////////////////
 			/// \brief Register Window class
 			////////////////////////////////////////////////////////////
-			bool registerWindowsClass() {
+			bool register_windows_class() {
 				WNDCLASSEXW wndclass;
 				wndclass.cbSize = sizeof(wndclass); // The size, in bytes, of this structure
 				wndclass.style = CS_VREDRAW | CS_HREDRAW | CS_OWNDC; // class style(s)
@@ -50,7 +50,7 @@ namespace ct {
 				return true;
 			}
 
-			if (!detail::registerWindowsClass()) {
+			if (!detail::register_windows_class()) {
 				return false;
 			}
 

@@ -29,18 +29,13 @@ namespace ct {
 		}
 	};
 
-	namespace create {
-		CT_PLATFORM_API WindowPtr window(const WindowProperties & properties);
-		CT_PLATFORM_API WindowPtr window(uint32 width, uint32 height, cstr title, uint32 style = WindowStyle::Default);
-	}
-
 
 	class CT_PLATFORM_API Window : NonCopyable {
 
 	using WindowImplPtr = std::unique_ptr<WindowImpl>;
 
-	friend WindowPtr create::window(const WindowProperties & properties);
-	friend WindowPtr create::window(uint32 width, uint32 height, cstr title, uint32 style);
+	friend CT_PLATFORM_API WindowPtr create_window(const WindowProperties & properties);
+	friend CT_PLATFORM_API WindowPtr create_window(uint32 width, uint32 height, cstr title, uint32 style);
 
 	protected:
 
@@ -52,17 +47,16 @@ namespace ct {
 		Window() = delete;
 		virtual ~Window();
 
-		WindowHandle getHandle() const;
-		bool isVisible() const;
-		void setVisible(bool visible);
+		WindowHandle get_handle() const;
+		bool is_visible() const;
+		void set_visible(bool visible);
 
 		void close();
 
 	};
 
-
-
-
+	CT_PLATFORM_API WindowPtr create_window(const WindowProperties & properties);
+	CT_PLATFORM_API WindowPtr create_window(uint32 width, uint32 height, cstr title, uint32 style = WindowStyle::Default);
 
 } // namespace ct
 

@@ -23,27 +23,25 @@ typedef ct::internal::CocoaWindow WindowImplType;
 
 namespace ct {
 
-	namespace create {
+	WindowPtr create_window(uint32 width, uint32 height, cstr title, uint32 style) {
 
-		WindowPtr window(uint32 width, uint32 height, cstr title, uint32 style) {
+		WindowProperties props(
+			width,
+			height,
+			title,
+			style
+		);
 
-			WindowProperties props(
-				width,
-				height,
-				title,
-				style
-			);
-
-			return window(props);
-
-		}
-
-		WindowPtr window(const WindowProperties & props) {
-			auto impl = WindowImplType::create(props);
-			return std::make_unique<enable_make<Window>>(impl);
-		}
+		return create_window(props);
 
 	}
+
+	WindowPtr create_window(const WindowProperties & props) {
+		auto impl = WindowImplType::create(props);
+		return std::make_unique<enable_make<Window>>(impl);
+	}
+
+
 
 	Window::Window(WindowImpl * _impl) {
 		CT_ASSERT(_impl != NULLPTR, "ct::Window: impl is nullptr.");
@@ -54,17 +52,17 @@ namespace ct {
 		close();
 	}
 
-	bool Window::isVisible() const {
-		return impl && impl->isVisible();
+	bool Window::is_visible() const {
+		return impl && impl->is_visible();
 	}
 
-	WindowHandle Window::getHandle() const {
-		return impl ? impl->getHandle() : NULLPTR;
+	WindowHandle Window::get_handle() const {
+		return impl ? impl->get_handle() : NULLPTR;
 	}
 
-	void Window::setVisible(bool visible) {
+	void Window::set_visible(bool visible) {
 		if (impl) {
-			impl->setVisible(visible);
+			impl->set_visible(visible);
 		}
 	}
 

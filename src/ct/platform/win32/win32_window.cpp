@@ -10,14 +10,24 @@ namespace ct {
 		/**
 		 * Convert const char * to wchar_t
 		 */
-		const wchar_t * toWchar(cstr buffer) {
-			int buffer_size = MultiByteToWideChar(CP_ACP, 0, buffer, -1, NULL, 0);
-			LPWSTR wbuffer = (LPWSTR)malloc(buffer_size);
-			MultiByteToWideChar(CP_ACP, 0, buffer, -1, &wbuffer[0], buffer_size);
-			return wbuffer;
+		WCHAR* to_wchar(cstr input) {
+			int buffer_count = MultiByteToWideChar(CP_ACP, 0, input, -1, NULL, 0);
+
+			if (!buffer_count) {
+				return NULLPTR;
+			}
+
+			WCHAR* output = (WCHAR*)calloc(buffer_count, sizeof(WCHAR));
+
+			if (!MultiByteToWideChar(CP_UTF8, 0, input, -1, &output[0], buffer_count)) {
+				free(output);
+				return NULLPTR;
+			}
+
+			return output;
 		}
 
-		DWORD parseStyle(const uint32 & style) {
+		DWORD parse_style(const uint32 & style) {
 			DWORD dwStyle = 0;
 
 			if (style == WindowStyle::Borderless) {
@@ -68,7 +78,7 @@ namespace ct {
 			// 	height = rect.bottom - rect.top;
 			// }
 
-			const wchar_t * titleWchar = toWchar(props.title);
+			WCHAR * titleWchar = to_wchar(props.title);
 			if (!titleWchar) {
 				// std::cerr << "Invalid title" << std::endl;
 				return NULLPTR;
@@ -78,7 +88,7 @@ namespace ct {
 			HWND handle = CreateWindowExW(WS_EX_APPWINDOW,
 				__CT_WNDCLASSNAME,
 				titleWchar,
-				parseStyle(props.style),
+				parse_style(props.style),
 				left,
 				top,
 				props.width,
@@ -89,33 +99,32 @@ namespace ct {
 				NULL);
 			// clang-format on
 
+			free(titleWchar);
+
 			if (!handle) {
 				// std::cerr << "Could no create window" << std::endl;
 				return NULLPTR;
 			}
 
-			// if (style == 0) {
-			// 	SetWindowLong(handle, GWL_STYLE, 0 );
-			// }
 
 			auto win = new Win32Window(handle);
 			SetPropW(handle, L"CT", win);
 			return win;
 		}
 
-		void Win32Window::setVisible(bool visible) {
+		void Win32Window::set_visible(bool visible) {
 			ShowWindow(handle, visible ? SW_SHOW : SW_HIDE);
 		}
 
-		WindowHandle Win32Window::getHandle() const {
+		WindowHandle Win32Window::get_handle() const {
 			return handle;
 		}
 
-		bool Win32Window::isVisible() const {
+		bool Win32Window::is_visible() const {
 			return IsWindowVisible(handle);
 		}
 
-		void Win32Window::onEvent(UINT message, WPARAM wParam, LPARAM lParam) {
+		void Win32Window::on_event(UINT message, WPARAM wParam, LPARAM lParam) {
 			if (!handle) {
 				return;
 			}

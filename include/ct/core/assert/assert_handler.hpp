@@ -40,7 +40,7 @@ namespace ct {
 				Fatal = 64
 			};
 
-			CT_CORE_API Action getAction(Level level = Level::Error,
+			CT_CORE_API Action get_action(Level level = Level::Error,
 			                                    bool * ignore = NULLPTR);
 
 			CT_CORE_API cstr handle(cstr file,
@@ -51,7 +51,7 @@ namespace ct {
 			                               cstr message,
 			                               ...);
 
-			CT_CORE_API bool ignoreAllAsserts();
+			CT_CORE_API bool ignore_all_asserts();
 		} // namespace Assert
 
 	}  // namespace internal
