@@ -16,8 +16,6 @@ namespace ct {
 
 	class WindowImpl;
 	class Window;
-	using WindowPtr = std::unique_ptr<Window>;
-
 
 	template<typename S>
 	struct enable_make : public S
@@ -28,6 +26,9 @@ namespace ct {
 		{
 		}
 	};
+
+	using WindowPtr = std::unique_ptr<Window>;
+
 
 
 	class CT_PLATFORM_API Window : NonCopyable {
@@ -54,6 +55,7 @@ namespace ct {
 		void close();
 
 	};
+
 
 	CT_PLATFORM_API WindowPtr create_window(const WindowProperties & properties);
 	CT_PLATFORM_API WindowPtr create_window(uint32 width, uint32 height, cstr title, uint32 style = WindowStyle::Default);
