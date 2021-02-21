@@ -10,7 +10,6 @@ ct_file_list(ROOT ${INCPATH} OUTPUT INC
 	export.hpp
 	platform.hpp
 	window.hpp
-	window_impl.hpp
 	window_style.hpp
 	window_handle.hpp
 	window_properties.hpp
@@ -22,7 +21,9 @@ ct_file_list(ROOT ${SRCPATH} OUTPUT SRC
 	window.cpp
 	window_style.cpp
 	window_properties.cpp
+	window_impl.hpp
 )
+
 ct_group(${SRC} IS_IMPL)
 
 
@@ -34,27 +35,28 @@ if(CT_OS_WINDOWS)
 	set(SRC_OS_PATH "${SRCPATH}/win32")
 
 	# platfrom inc
-	ct_file_list(ROOT ${INC_OS_PATH} OUTPUT PLATFORM_INC
+	ct_file_list(ROOT ${SRC_OS_PATH} OUTPUT PLATFORM_INC
 		win32_detail.hpp
 		win32_window.hpp
+		win32_messaging.hpp
 	)
+	ct_group(${PLATFORM_INC} NAME "win32/include")
 
 	# platform src
 	ct_file_list(ROOT ${SRC_OS_PATH} OUTPUT PLATFORM_SRC
 		platform.cpp
 		win32_window.cpp
-		#
-		win32_messaging.hpp
 		win32_messaging.cpp
 	)
+	ct_group(${PLATFORM_SRC} NAME "win32/src")
 
-elseif(CT_OS_MACOSX)
+elseif(CT_OS_MACOSX) 
 	set(INC_OS_PATH "${INCPATH}/osx")
 	set(SRC_OS_PATH "${SRCPATH}/osx")
 	set(LINK_LIBS "-framework Foundation" "-framework AppKit" "-framework IOKit" "-framework Carbon")
 
 	# platfrom inc
-	ct_file_list(ROOT ${INC_OS_PATH} OUTPUT PLATFORM_INC
+	ct_file_list(ROOT ${SRC_OS_PATH} OUTPUT PLATFORM_INC
 		cocoa_window.hpp
 		cocoa_window_controller.h
 		ct_window.h
@@ -63,6 +65,7 @@ elseif(CT_OS_MACOSX)
 		ct_application_delegate.h
 		autorelease_pool.h
 	)
+	ct_group(${PLATFORM_INC} NAME "osx/include")
 
 	# platform src
 	ct_file_list(ROOT ${SRC_OS_PATH} OUTPUT PLATFORM_SRC
@@ -74,12 +77,9 @@ elseif(CT_OS_MACOSX)
 		ct_application_delegate.mm
 		autorelease_pool.mm
 	)
+	ct_group(${PLATFORM_SRC} NAME "osx/src")
 
 endif()
-
-# platform groups
-ct_group(${PLATFORM_INC} TREE ${INCPATH})
-ct_group(${PLATFORM_SRC} TREE ${SRCPATH} IS_IMPL)
 
 
 # make library target
