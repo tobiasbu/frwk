@@ -1,7 +1,8 @@
 
-#include <ct/platform/win32/win32_detail.hpp>
-#include <ct/platform/win32/win32_window.hpp>
 #include <ct/platform/window_style.hpp>
+#include <ct/platform/detail/win32_detail.hpp>
+
+#include <ct/platform/win32/win32_window.hpp>
 
 namespace ct {
 
