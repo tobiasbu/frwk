@@ -36,21 +36,24 @@ if(CT_OS_WINDOWS)
 
 	# platfrom inc
 	ct_file_list(ROOT ${SRC_OS_PATH} OUTPUT PLATFORM_INC
-		win32_detail.hpp
 		win32_window.hpp
 		win32_messaging.hpp
+	)
+	set(PLATFORM_INC
+		${PLATFORM_INC}
+		${INCPATH}/detail/win32_detail.hpp
 	)
 	ct_group(${PLATFORM_INC} NAME "win32/include")
 
 	# platform src
 	ct_file_list(ROOT ${SRC_OS_PATH} OUTPUT PLATFORM_SRC
-		platform.cpp
+		win32_platform.cpp
 		win32_window.cpp
 		win32_messaging.cpp
 	)
 	ct_group(${PLATFORM_SRC} NAME "win32/src")
 
-elseif(CT_OS_MACOSX) 
+elseif(CT_OS_MACOSX)
 	set(INC_OS_PATH "${INCPATH}/osx")
 	set(SRC_OS_PATH "${SRCPATH}/osx")
 	set(LINK_LIBS "-framework Foundation" "-framework AppKit" "-framework IOKit" "-framework Carbon")

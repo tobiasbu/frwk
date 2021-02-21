@@ -1,9 +1,10 @@
 
 
 #include <windows.h>
+#include <strsafe.h>
 
 #include <ct/platform/platform.hpp>
-#include <ct/platform/win32/win32_detail.hpp>
+#include <ct/platform/detail/win32_detail.hpp>
 #include <ct/platform/win32/win32_messaging.hpp>
 #include <ct/platform/win32/win32_window.hpp>
 
@@ -41,8 +42,48 @@ namespace ct {
 				// resource file wndclass.lpszMenuName = __CT_WNDCLASSNAME;
 				wndclass.lpszClassName = __CT_WNDCLASSNAME;
 				wndclass.lpszMenuName = NULL;
-				return RegisterClassExW(&wndclass);
+				if (!RegisterClassExW(&wndclass)) {
+					return false;
+				}
+				return true;
 			}
+
+			// https://docs.microsoft.com/en-us/windows/win32/hidpi/setting-the-default-dpi-awareness-for-a-process
+			bool set_process_dpi_awareness() {
+
+			}
+
+			void get_last_error() {
+				// Retrieve the system error message for the last-error code
+				LPTSTR lpszFunction = TEXT("GetProcessId");
+				LPVOID lpMsgBuf;
+				LPVOID lpDisplayBuf;
+				DWORD dw = GetLastError();
+
+				FormatMessage(
+					FORMAT_MESSAGE_ALLOCATE_BUFFER |
+					FORMAT_MESSAGE_FROM_SYSTEM |
+					FORMAT_MESSAGE_IGNORE_INSERTS,
+					NULL,
+					dw,
+					MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+					(LPTSTR) &lpMsgBuf,
+					0, NULL );
+
+				// Display the error message and exit the process
+
+				lpDisplayBuf = (LPVOID)LocalAlloc(LMEM_ZEROINIT,
+					(lstrlen((LPCTSTR)lpMsgBuf) + lstrlen((LPCTSTR)lpszFunction) + 40) * sizeof(TCHAR));
+				StringCchPrintf((LPTSTR)lpDisplayBuf,
+					LocalSize(lpDisplayBuf) / sizeof(TCHAR),
+					TEXT("%s failed with error %d: %s"),
+					lpszFunction, dw, lpMsgBuf);
+				MessageBox(NULL, (LPCTSTR)lpDisplayBuf, TEXT("Error"), MB_OK);
+
+				LocalFree(lpMsgBuf);
+				LocalFree(lpDisplayBuf);
+			}
+
 		} // namespace detail
 
 		bool init() {
@@ -63,7 +104,7 @@ namespace ct {
 			}
 
 			if (!UnregisterClassW(__CT_WNDCLASSNAME, GetModuleHandleW(NULL))) {
-				return false;
+				detail::get_last_error();
 			}
 
 			detail::initialized = false;

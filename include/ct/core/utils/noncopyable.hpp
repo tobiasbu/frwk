@@ -4,10 +4,11 @@
 
 #include <ct/core/config/compiler_features.hpp>
 
+
 namespace ct {
 
 	///
-	/// @brief Non copyable instance
+	/// @brief Non copyable object
 	///
 	class NonCopyable {
 	protected:

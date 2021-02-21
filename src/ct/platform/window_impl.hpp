@@ -7,24 +7,28 @@
 
 namespace ct {
 
-	////////////////////////////////////////////////////////////
-	/// \brief Represents abstraction for OS-specifc window class
-	///
-	////////////////////////////////////////////////////////////
-	class WindowImpl : NonCopyable {
-	public:
-		virtual ~WindowImpl() {};
+	namespace internal {
 
 		////////////////////////////////////////////////////////////
-		/// @brief Tell whether or not the window is visible onscreen
-		///
-		/// @return True if the window is visible otherwise false
+		/// \brief Represents abstraction for OS-specifc window class
 		///
 		////////////////////////////////////////////////////////////
-		virtual bool is_visible() const = 0;
-		virtual WindowHandle get_handle() const = 0;
-		virtual void set_visible(bool visible) = 0;
-	};
+		class WindowImpl : NonCopyable {
+		public:
+			virtual ~WindowImpl() {};
+
+			////////////////////////////////////////////////////////////
+			/// @brief Tell whether or not the window is visible onscreen
+			///
+			/// @return True if the window is visible otherwise false
+			///
+			////////////////////////////////////////////////////////////
+			virtual bool is_visible() const = 0;
+			virtual WindowHandle get_handle() const = 0;
+			virtual void set_visible(bool visible) = 0;
+		};
+
+	}
 
 } // namespace ct
 
