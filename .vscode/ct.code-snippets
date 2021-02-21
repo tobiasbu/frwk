@@ -23,20 +23,21 @@
 		"body": [
 			"#ifndef _CHRONOTRIX_FRWK_LIB_${TM_FILENAME_BASE/(.*)/${1:/upcase}/}_HPP_",
 			"#define _CHRONOTRIX_FRWK_LIB_${TM_FILENAME_BASE/(.*)/${1:/upcase}/}_HPP_",
-
+			"",
+			"$0",
+			"",
 			"#endif"
 		],
 		"description": "Define chronotrix header guard"
 	},
 	"Chronotrix class":{
-		"scope": "cpp,c",
-		"prefix": "guard",
+		"scope": "cpp",
+		"prefix": "class",
 		"body": [
-		"",
 		"namespace ct {",
 		"",
 		"\tclass $1 {",
-		"\t",
+		"\t$0",
 		"\t};",
 		"",
 		"}",
@@ -44,21 +45,23 @@
 		"description": "Define chronotrix class"
 	},
 	"Chronotrix namespace": {
-		"scope": "cpp,c",
+		"scope": "cpp",
 		"prefix": "namespace,ct",
 		"body": [
 			"namespace ct {",
+			"",
+			"\t$0",
 			"",
 			"}",
 		],
 		"description": "Define chronotrix namespace"
 	},
-	"Chronotrix include": {
+	"Chronotrix #include": {
 		"scope": "cpp,c",
-		"prefix": "include",
+		"prefix": "#inc,#include",
 		"body": [
 			"#include <ct/$1>",
 		],
-		"description": "Define include macro poiting to ct/"
+		"description": "Define include macro pointing to <ct/>"
 	}
 }
