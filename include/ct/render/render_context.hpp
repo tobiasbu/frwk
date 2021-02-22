@@ -22,6 +22,9 @@ namespace ct {
 
 		RenderContext(internal::ContextImpl * impl);
 
+		void make_current();
+		void swap_buffers();
+
 		static RenderContext * create();
 		static RenderContext * create(Window* window, const ContextConfig & config);
 

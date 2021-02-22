@@ -2,10 +2,9 @@
 #ifndef _CHRONOTRIX_FRWK_GLCONTEXT_HPP_
 #define _CHRONOTRIX_FRWK_GLCONTEXT_HPP_
 
-#include <memory>
-
 #include <ct/core/utils/noncopyable.hpp>
 #include <ct/render/context_config.hpp>
+#include <ct/render/render_types.hpp>
 
 namespace ct {
 
@@ -21,10 +20,15 @@ namespace ct {
 		public:
 			virtual ~ContextImpl();
 
-			static ContextImpl* create(Window* window, const ContextConfig & config);
+			virtual void make_current() = 0;
+			virtual void swap_buffers() = 0;
+
+			static ContextImpl * create(Window * window, const ContextConfig & config);
+
+			static glGetProcAddressCb get_proc_address(cstr proc_name);
 		};
 
-	}
+	} // namespace internal
 
 } // namespace ct
 

@@ -46,13 +46,14 @@ set(CT_SOURCE_GROUP "Source Files")
 # Check for clang-tidy
 set(ENABLE_CLANG_TIDY True CACHE BOOL "Add clang-tidy automatically to builds")
 if (ENABLE_CLANG_TIDY)
-	find_program(CLANG_TIDY_EXE NAMES "clang-tidy" PATHS /usr/local/opt/llvm/bin)
+
+	find_program(CLANG_TIDY_EXE NAMES "clang-tidy" PATHS /usr/local/opt/llvm/bin /usr/local/bin)
 	if (CLANG_TIDY_EXE)
 		set(CMAKE_CXX_CLANG_TIDY "clang-tidy" CACHE STRING "" FORCE)
 		message(STATUS "clang-tidy found: ${CLANG_TIDY_EXE}")
 	else()
 		set(CMAKE_CXX_CLANG_TIDY "" CACHE STRING "" FORCE) # delete it
-		message(AUTHOR_WARNING "clang-tidy not found!")
+		message(WARNING "clang-tidy not found! Skipping")
 	endif()
 endif()
 

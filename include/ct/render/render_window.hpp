@@ -26,6 +26,9 @@ namespace ct {
 		RenderWindow() = delete;
 		RenderWindow(Window && base_window, RenderContext * context);
 
+		void make_current();
+		void swap_buffers();
+
 		static RenderWindow* create(uint32 width, uint32 height, cstr title, uint32 style = WindowStyle::Default, const ContextConfig & config = ContextConfig());
 	};
 

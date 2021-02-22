@@ -3,6 +3,7 @@
 #define _CHRONOTRIX_FRWK_RENDER_HPP_
 
 #include <ct/render/export.hpp>
+#include <ct/render/render_types.hpp>
 
 namespace ct {
 
@@ -12,9 +13,10 @@ namespace ct {
 
 		CT_RENDER_API bool terminate();
 
-	}
+		CT_RENDER_API glGetProcAddressCb get_proc_address(cstr procname);
 
-}
+	} // namespace Render
 
+} // namespace ct
 
 #endif

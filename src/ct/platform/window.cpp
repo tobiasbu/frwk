@@ -8,12 +8,12 @@
 #if defined(CT_OS_WIN32)
 
 	#include <ct/platform/win32/win32_window.hpp>
-typedef ct::internal::Win32Window WindowImplType;
+	typedef ct::internal::Win32Window WindowImplType;
 
 #elif defined(CT_OS_MACOS)
 
 	#include <ct/platform/osx/cocoa_window.hpp>
-typedef ct::internal::CocoaWindow WindowImplType;
+	typedef ct::internal::CocoaWindow WindowImplType;
 
 #else
 
