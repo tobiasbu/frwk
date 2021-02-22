@@ -16,7 +16,7 @@
 #define _CHRONOTRIX_FRWK_CONFIG_HPP_
 
 #include <ct/core/config/api.hpp>
-#include <ct/core/config/compiler_features.hpp>
+#include <ct/core/config/compiler.hpp>
 #include <ct/core/config/os_detection.hpp>
 
 #endif

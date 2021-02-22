@@ -17,6 +17,14 @@
 
 #endif
 
+#if defined __clang__ && !defined(__ibmxl__) && !defined(__CODEGEARC__)
+	#include <ct/core/config/compiler/clang.hpp>
+#elif defined(__GNUC__) && !defined(__ibmxl__)
+	#include <ct/core/config/compiler/gcc.hpp>
+#elif defined(_MSC_VER)
+	#include <ct/core/config/compiler/msvc.hpp>
+#endif
+
 ////////////////////////////////////////////////////////////
 // Define NULLPTR macro
 ////////////////////////////////////////////////////////////
@@ -31,8 +39,7 @@
 ////////////////////////////////////////////////////////////
 // Define CONSTEXPR macro
 ////////////////////////////////////////////////////////////
-#if _MSC_FULL_VER >= 190024210 && __cplusplus != 201103L
-	/// Constant expression
+#ifdef CT_CXX11_HAS_CONSTEXPR
 	#define CONSTEXPR constexpr
 #else
 	#define CONSTEXPR
@@ -41,19 +48,6 @@
 ////////////////////////////////////////////////////////////
 // Define NOEXCEPT macro
 ////////////////////////////////////////////////////////////
-#ifndef NOEXCEPT
-	// https://bcain-llvm.readthedocs.io/projects/clang/en/release_38/LanguageExtensions/
-	#ifdef __clang__
-		#if __has_feature(cxx_noexcept)
-			#define CT_CXX11_HAS_NOEXCEPT
-		#endif
-	#elif defined(__GXX_EXPERIMENTAL_CXX0X__) && __GNUC__ * 10 + __GNUC_MINOR__ >= 46
-		#define CT_CXX11_HAS_NOEXCEPT
-	#else defined(_MSC_FULL_VER) && _MSC_FULL_VER >= 190023026
-		#define CT_CXX11_HAS_NOEXCEPT
-	#endif
-#endif
-
 #ifdef CT_CXX11_HAS_NOEXCEPT
 	/// noexcept
 	#define NOEXCEPT noexcept
@@ -81,12 +75,5 @@
 	#define NODISCARD
 #endif
 
-////////////////////////////////////////////////////////////
-#if defined(_MSC_FULL_VER) && _MSC_FULL_VER >= 180020827
-	/// Check if a function can have `= delete`
-	#define CT_CXX11_DELETE_FUNCTIONS
-	/// Check if a function can have `= default`
-	#define CT_CXX11_DEFAULT_FUNCTIONS
-#endif
 
 #endif

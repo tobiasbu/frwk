@@ -23,7 +23,7 @@ ct_group(${INC})
 ct_file_list(ROOT ${INCPATH} OUTPUT SUB_INC
     config/api.hpp
 	config/os_detection.hpp
-	config/compiler_features.hpp
+	config/compiler.hpp
 	utils/noncopyable.hpp
 	utils/helper_macros.hpp
 	utils/type_traits.hpp

@@ -2,7 +2,7 @@
 #ifndef _CHRONOTRIX_FRWK_TYPE_TRAITS_HPP_
 #define _CHRONOTRIX_FRWK_TYPE_TRAITS_HPP_
 
-#include <ct/core/config/compiler_features.hpp>
+#include <ct/core/config/compiler.hpp>
 
 namespace ct {
 

@@ -15,7 +15,7 @@
 #ifndef _CHRONOTRIX_FRWK_ASSERT_HANDLER_HPP_
 #define _CHRONOTRIX_FRWK_ASSERT_HANDLER_HPP_
 
-#include <ct/core/config/compiler_features.hpp>
+#include <ct/core/config/compiler.hpp>
 #include <ct/core/export.hpp>
 #include <ct/core/types.hpp>
 
