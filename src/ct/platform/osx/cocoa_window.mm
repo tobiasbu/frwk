@@ -45,78 +45,35 @@ namespace ct {
 	namespace internal {
 
 		NSUInteger parseStyleMask(uint32 style) {
-			NSUInteger styleMask = NSWindowStyleMaskBorderless;
+			NSUInteger styleMask = NSWindowStyleMaskMiniaturizable;
 
-			if (style & WindowStyle::Title) {
-				styleMask |= NSWindowStyleMaskTitled;
-			}
+			if (style & WindowStyle::Borderless) {
+				styleMask |= NSWindowStyleMaskBorderless;
+			} else {
 
-			if (style & WindowStyle::Close) {
-				styleMask |= NSWindowStyleMaskClosable;
-			}
+				if (style & WindowStyle::Title) {
+					styleMask |= NSWindowStyleMaskTitled;
+				}
 
-			if (style & WindowStyle::Resize) {
-				styleMask |= NSWindowStyleMaskResizable;
-			}
+				if (style & WindowStyle::Close) {
+					styleMask |= NSWindowStyleMaskClosable;
+				}
 
-			if (style & WindowStyle::Minimize) {
-				styleMask |= NSWindowStyleMaskMiniaturizable;
+				if (style & WindowStyle::Resize) {
+					styleMask |= NSWindowStyleMaskResizable;
+				}
+
 			}
 
 			return styleMask;
 		}
 
-		CocoaWindow::CocoaWindow(uint32 width, uint32 height, cstr title, uint32 style) {
-
-			@autoreleasepool {
-				checkAutoreleasePool();
-
-				CTWindowDelegate * windowDelegate = [[CTWindowDelegate alloc] initWith:this];
-				// TODO: handle windowDelegate error properly
-				if (windowDelegate == nil) {
-					printf("Failed to create CTWindowDelegate");
-				}
-
-				NSRect contentRect = NSMakeRect(0, 0, width, height);
-
-				NSUInteger styleMask = parseStyleMask(style);
-
-				CTWindow * window = [[CTWindow alloc]
-													initWithContentRect:contentRect
-													styleMask:styleMask
-													backing:NSBackingStoreBuffered
-													defer:NO];
-				// TODO: handle window error properly
-				if (window == nil) {
-					printf("[ct] ERROR: Failed to create CTWindow at platform::CocoaWindow.");
-				}
-
-//				GradientView * myView = [[[GradientView alloc] initWithFrame:contentRect] autorelease];
-//				if (myView == nil) {
-//					printf("[ct] ERROR: Failed to create CTWindow at platform::CocoaWindow.");
-//				}
-//				[window setContentView:myView];
-
-				// set window config
-				[window setOpaque:YES];
-				[window setHidesOnDeactivate:YES];
-				[window setReleasedWhenClosed:NO];
-				[window setTitle:[NSString stringWithUTF8String:title]];
-
-				[window setDelegate:windowDelegate];
-				[window setAcceptsMouseMovedEvents:YES];
-				[window setRestorable:NO];
-   				[window setIgnoresMouseEvents:NO];
-
-				[(NSWindow*) window center];
-
-				// if user specified monitor
-				// [window setLevel:NSMainMenuWindowLevel+1];
-
-				this->handle = window;
-				this->delegate =  windowDelegate;
-			}
-
+		CocoaWindow::CocoaWindow(WindowHandle handle, WindowDelegate delegate)
+		:
+		handle(handle)
+		{
+			[delegate setup:this];
+			this->delegate = delegate;
 		}
 
 
@@ -128,17 +85,17 @@ namespace ct {
             handle = nullptr;
 		}
 
-		bool CocoaWindow::isVisible() const {
+		bool CocoaWindow::is_visible() const {
 			@autoreleasepool {
     			return [handle isVisible];
     		}
 		}
 
-		WindowHandle CocoaWindow::getHandle() const {
+		WindowHandle CocoaWindow::get_handle() const {
 			return handle;
 		}
 
-		void CocoaWindow::setVisible(bool visible) {
+		void CocoaWindow::set_visible(bool visible) {
 			@autoreleasepool {
 				if (visible) {
 					[handle orderFront:nil];
@@ -165,24 +122,51 @@ namespace ct {
 			[handle setFrame:NSMakeRect(x, y, NSWidth([handle frame]), NSHeight([handle frame])) display:YES];
 		}
 
-		void CocoaWindow::pool() {
-			/// TODO: improve event pool
-			[CTApplication processEvents];
-			// @autoreleasepool {
+		CocoaWindow * CocoaWindow::create(const WindowProperties & props) {
+			@autoreleasepool {
+				// checkAutoreleasePool();
 
-			// 	for (;;)
-			// 	{
-			// 		NSEvent* event = [NSApp nextEventMatchingMask:NSEventMaskAny
-			// 											untilDate:[NSDate distantPast]
-			// 											inMode:NSDefaultRunLoopMode
-			// 											dequeue:YES];
-			// 		if (event == nil)
-			// 			break;
+				CTWindowDelegate * windowDelegate = [[CTWindowDelegate alloc] init];
+				// TODO: handle windowDelegate error properly
+				if (windowDelegate == nil) {
+					printf("Failed to create CTWindowDelegate");
+					return nullptr;
+				}
 
-			// 		[NSApp sendEvent:event];
-			// 	}
+				NSUInteger styleMask = parseStyleMask(props.style);
+				NSRect contentRect = NSMakeRect(0, 0, props.width, props.height);
+				CTWindow * window = [[CTWindow alloc] initWithContentRect:contentRect
+													  styleMask:styleMask
+													  backing:NSBackingStoreBuffered
+													  defer:NO];
+				// TODO: handle window error properly
+				if (window == nil) {
+					printf("[ct] ERROR: Failed to create CTWindow at platform::CocoaWindow.");
+					return nullptr;
+				}
 
-			// } // autoreleasepool
+				// TODO: set view
+				// GradientView * myView = [[[GradientView alloc] initWithFrame:contentRect] autorelease];
+				// if (myView == nil) {
+				// printf("[ct] ERROR: Failed to create CTWindow at platform::CocoaWindow.");
+				// }
+				// [window setContentView:myView];
+
+				// set window config
+				[window setOpaque:YES];
+				[window setHidesOnDeactivate:YES];
+				[window setReleasedWhenClosed:NO];
+				[window setTitle:[NSString stringWithUTF8String:props.title]];
+
+				[window setDelegate:windowDelegate];
+				[window setAcceptsMouseMovedEvents:YES];
+				[window setRestorable:NO];
+   				[window setIgnoresMouseEvents:NO];
+
+				[(NSWindow*) window center];
+
+				return new CocoaWindow(window, windowDelegate);
+			}
 		}
 	}
 

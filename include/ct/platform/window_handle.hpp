@@ -19,12 +19,9 @@ namespace ct {
 
 	#ifdef __OBJC__
 		#import <AppKit/AppKit.h>
-		#import <ct/platform/osx/ct_window_delegate.h>
-	typedef NSWindow * WindowHandle;
-	typedef CTWindowDelegate * WindowDelegate;
+		typedef NSWindow * WindowHandle;
 	#else
-	typedef void * WindowHandle;
-	typedef void * WindowDelegate;
+		typedef void * WindowHandle;
 	#endif
 
 #else

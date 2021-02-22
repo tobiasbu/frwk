@@ -76,7 +76,8 @@
 		"cinttypes": "cpp",
 		"variant": "cpp",
 		"compare": "cpp",
-		"*.rh": "cpp"
+		"*.rh": "cpp",
+		"__config": "cpp"
 	},
 	"doxdocgen.c.triggerSequence": "/// @",
 	"doxdocgen.c.firstLine": "////////////////////////////////////////////////////////////",

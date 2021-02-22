@@ -72,7 +72,7 @@ elseif(CT_OS_MACOSX)
 
 	# platform src
 	ct_file_list(ROOT ${SRC_OS_PATH} OUTPUT PLATFORM_SRC
-		platform.mm
+		cocoa_platform.mm
 		cocoa_window.mm
 		ct_window.mm
 		ct_window_delegate.mm

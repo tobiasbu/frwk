@@ -1,5 +1,5 @@
 
-#import <ct/platform/osx/ctwindow.h>
+#import <ct/platform/osx/ct_window.h>
 
 @implementation CTWindow
 

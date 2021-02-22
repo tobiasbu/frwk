@@ -13,8 +13,8 @@ namespace ct {
 	ct::internal::CocoaWindow* cppWindow;
 }
 
-- (instancetype)initWith:(ct::internal::CocoaWindow *)window;
+-(void)setup:(ct::internal::CocoaWindow *)window;
 
-- (BOOL)windowShouldClose:(id)sender;
+-(BOOL)windowShouldClose:(id)sender;
 
 @end

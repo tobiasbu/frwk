@@ -11,6 +11,7 @@ namespace ct {
 		namespace detail {
 
 			bool initialized = false;
+			CTApplicationDelegate * app_delegate = nil;
 
 			int initApp() {
 
@@ -37,6 +38,8 @@ namespace ct {
 					[[CTApplication sharedApplication] setDelegate:appDelegate];
 				}
 
+				detail::app_delegate = appDelegate;
+
 				[[CTApplication sharedApplication] finishLaunching];
 
 				[CTApplication createMenuBar];
@@ -62,9 +65,24 @@ namespace ct {
 		}
 
 		////////////////////////////////////////////////////////////
+		void poll_events() {
+			@autoreleasepool {
+				[CTApplication processEvents];
+			}
+		}
+
+		////////////////////////////////////////////////////////////
 		bool terminate() {
 			if (!detail::initialized) {
 				return true;
+			}
+
+			@autoreleasepool {
+				if (detail::app_delegate) {
+					[NSApp setDelegate:nil];
+					[detail::app_delegate release];
+					detail::app_delegate = nil;
+				}
 			}
 
 			detail::initialized = false;

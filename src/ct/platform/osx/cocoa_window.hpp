@@ -3,16 +3,16 @@
 #define _CHRONOTRIX_FRWK_COCOA_WINDOW_HPP_
 
 #include <ct/core/types.hpp>
+
 #include <ct/platform/window_impl.hpp>
+#include <ct/platform/window_properties.hpp>
 
 #ifdef __OBJC__
 	#import <AppKit/AppKit.h>
 	#import <ct/platform/osx/ct_window_delegate.h>
-typedef NSWindow * WindowHandle;
-typedef CTWindowDelegate * WindowDelegate;
+	typedef CTWindowDelegate * WindowDelegate;
 #else
-typedef void * WindowHandle;
-typedef void * WindowDelegate;
+	typedef void * WindowDelegate;
 #endif
 
 namespace ct {
@@ -27,7 +27,7 @@ namespace ct {
 			/// \brief Constructs window instance
 			///
 			////////////////////////////////////////////////////////////
-			CocoaWindow(uint32 width, uint32 height, cstr title, uint32 style);
+			CocoaWindow(WindowHandle handle, WindowDelegate delegate);
 
 			////////////////////////////////////////////////////////////
 			/// \brief Destructor
@@ -35,14 +35,14 @@ namespace ct {
 			////////////////////////////////////////////////////////////
 			~CocoaWindow();
 
-			bool isVisible() const;
-			WindowHandle getHandle() const;
+			bool is_visible() const;
+			WindowHandle get_handle() const;
 
-			void setVisible(bool visible);
+			void set_visible(bool visible);
 			void focus();
 			void center();
 
-			void pool();
+			static CocoaWindow * create(const WindowProperties & props);
 		};
 
 	} // namespace internal
