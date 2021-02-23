@@ -8,23 +8,18 @@ endif()
 project (chronotrix_frwk
 		VERSION 0.0.1
 		DESCRIPTION "Chronotrix Framework"
-		LANGUAGES CXX)
+		LANGUAGES C CXX)
 
 include(CMakeDependentOption)
 include(GNUInstallDirs)
 
-# Include the CMake Configuration and Utils files
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/commons.cmake)
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/config.cmake)
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/helpers.cmake)
-
 #############################################
-####		     BASE CONFIG  			 ####
+####             BASE CONFIG             ####
 #############################################
 
 # C/C++ version
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_C_STANDARD 17)
+set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Project config
@@ -35,13 +30,21 @@ set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 set(CT_FRWK_PATH "${PROJECT_SOURCE_DIR}")
 set(CT_SRC "${CT_FRWK_PATH}/src/ct")
 set(CT_INC "${CT_FRWK_PATH}/include/ct")
+set(CMAKE_MODULE_PATH "${CT_FRWK_PATH}/cmake/modules")
 set(CT_EXTLIBS_PATH "${CT_FRWK_PATH}/thirdparty")
 set(CT_HEADER_GROUP "Header Files")
 set(CT_SOURCE_GROUP "Source Files")
 
+# Include the CMake Configuration and Utils files
+include(${CT_FRWK_PATH}/cmake/commons.cmake)
+include(${CT_FRWK_PATH}/cmake/config.cmake)
+include(${CT_FRWK_PATH}/cmake/helpers.cmake)
+
 #############################################
-####		       OPTIONS     			 ####
+####              OPTIONS               ####
 #############################################
+
+ct_multi_options(CMAKE_BUILD_TYPE Debug "Debug;Release" "Choose the type of build (Debug or Release)")
 
 # Check for clang-tidy
 set(ENABLE_CLANG_TIDY True CACHE BOOL "Add clang-tidy automatically to builds")
@@ -79,7 +82,7 @@ endif()
 option(CT_TESTS "Build tests")
 
 #############################################
-####		      OS CONFIG 			 ####
+####              OS CONFIG              ####
 #############################################
 
 # [WINDOWS] Should generate static or dynamic libraries
@@ -122,7 +125,7 @@ if(CT_OS_MACOSX)
 endif()
 
 #############################################
-####		     ADD PACAKGES 			 ####
+####             ADD PACAKGES            ####
 #############################################
 
 add_subdirectory(${CT_SRC})
@@ -139,7 +142,7 @@ endif()
 
 
 #############################################
-####		       INSTALL    			 ####
+####               INSTALL               ####
 #############################################
 
 # Install all packages includes

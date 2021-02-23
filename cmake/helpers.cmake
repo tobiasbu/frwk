@@ -145,7 +145,7 @@ macro(ct_add_executable target)
 							  "${CMAKE_BINARY_DIR}/bin/chronotrix_core_dbg.dll"        # <--this is in-file
 							  $<TARGET_FILE_DIR:${target}>)                 			# <--this is out-file path
 		else()
-			message(AUTHOR_WARNING "CHRONOTRIX_SANDOBOX_POSTCOMMAND is not set correctly.\ The '${target}' target will be placed in ${CMAKE_BINARY_DIR}")
+			message(AUTHOR_WARNING "CT_EXAMPLES_POSTCOMMAND is not set correctly.\ The '${target}' target will be placed in ${CMAKE_BINARY_DIR}")
 		endif()
 	endif()
 endmacro()

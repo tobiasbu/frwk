@@ -1,9 +1,6 @@
 
-#include <windows.h>
-
 #include <ct/render/render.hpp>
 #include <ct/render/opengl/win32_internal.hpp>
-
 
 namespace ct {
 
