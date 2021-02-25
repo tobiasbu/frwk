@@ -11,5 +11,4 @@ if(NOT OPENGL_GLU_FOUND)
     message("ERROR: OpenGL Utilities not found (glu.h)")
 endif()
 
-
 set(GLAD "${CT_EXTLIBS_DIR}/glad/include")
