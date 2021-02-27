@@ -49,9 +49,9 @@ namespace ct {
 			}
 
 			// https://docs.microsoft.com/en-us/windows/win32/hidpi/setting-the-default-dpi-awareness-for-a-process
-			bool set_process_dpi_awareness() {
+			// bool set_process_dpi_awareness() {
 
-			}
+			// }
 
 			void get_last_error() {
 				// Retrieve the system error message for the last-error code

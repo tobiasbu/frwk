@@ -1,10 +1,19 @@
 cmake_minimum_required(VERSION 3.9)
 
+# Add common functions
+include(cmake/commons.cmake)
+
+# The options and cofiguration defined here must come
+# before CMake configure toolchains and project
+
+# Determine build type
+ct_option(CMAKE_BUILD_TYPE "Debug" STRING "Choose the type of build (Debug or Release)")
+
 if(NOT CMAKE_OSX_ARCHITECTURES)
     set(CMAKE_OSX_ARCHITECTURES "x86_64" CACHE STRING "macOS architecture to build; 64-bit is expected" FORCE)
 endif()
 
-# Project Name
+# Project
 project (chronotrix_frwk
 		VERSION 0.0.1
 		DESCRIPTION "Chronotrix Framework"
@@ -26,6 +35,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON) # enable folders
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 
+# Include the CMake Configuration and helpers files
+include(cmake/config.cmake)
+include(cmake/helpers.cmake)
+
 # Set paths for chronotrix packages files
 set(CT_FRWK_PATH "${PROJECT_SOURCE_DIR}")
 set(CT_SRC "${CT_FRWK_PATH}/src/ct")
@@ -35,19 +48,21 @@ set(CT_EXTLIBS_PATH "${CT_FRWK_PATH}/thirdparty")
 set(CT_HEADER_GROUP "Header Files")
 set(CT_SOURCE_GROUP "Source Files")
 
-# Include the CMake Configuration and Utils files
-include(${CT_FRWK_PATH}/cmake/commons.cmake)
-include(${CT_FRWK_PATH}/cmake/config.cmake)
-include(${CT_FRWK_PATH}/cmake/helpers.cmake)
-
 #############################################
 ####              OPTIONS               ####
 #############################################
 
-ct_multi_options(CMAKE_BUILD_TYPE Debug "Debug;Release" "Choose the type of build (Debug or Release)")
+# Define BUILD_SHARED_LIBS property
+ct_option(BUILD_SHARED_LIBS TRUE BOOL "TRUE = build Chronotrix as shared libraries. FALSE = build as static libraries")
+
+# Should build examples?
+ct_option(CT_EXAMPLES TRUE BOOL "TRUE = Build the Chronotrix examples. FALSE = Don't build examples")
+
+# tests
+ct_option(CT_TESTS FALSE BOOL "Build tests")
 
 # Check for clang-tidy
-set(ENABLE_CLANG_TIDY True CACHE BOOL "Add clang-tidy automatically to builds")
+set(ENABLE_CLANG_TIDY TRUE CACHE BOOL "Add clang-tidy automatically to builds")
 if (ENABLE_CLANG_TIDY)
 
 	find_program(CLANG_TIDY_EXE NAMES "clang-tidy" PATHS /usr/local/opt/llvm/bin /usr/local/bin)
@@ -60,11 +75,6 @@ if (ENABLE_CLANG_TIDY)
 	endif()
 endif()
 
-# Define BUILD_SHARED_LIBS property
-option(BUILD_SHARED_LIBS "TRUE = Build Chronotrix as shared libraries; FALSE = Build as static libraries" TRUE)
-
-# Should build sandox examples?
-option(CT_EXAMPLES "TRUE = Build the Chronotrix examples; FALSE = Don't build examples" TRUE)
 
 # [WINDOWS] Make a multi options for executables
 if(CT_OS_WINDOWS AND BUILD_SHARED_LIBS AND CT_EXAMPLES)
@@ -78,8 +88,6 @@ if(CT_OS_WINDOWS AND BUILD_SHARED_LIBS AND CT_EXAMPLES)
 		* bin_to_exe = Make a copy of libraries to the executable folders.")
 endif()
 
-# tests
-option(CT_TESTS "Build tests")
 
 #############################################
 ####              OS CONFIG              ####

@@ -8,30 +8,29 @@
 # @param options {STRING}	available options - "default_option;option_a;option_b"
 # @param options {STRING}	description - "Defines the post build command"
 #
-function (ct_multi_options variable default options docstring)
+function (ct_multi_options variable default options docstr)
 	if(NOT DEFINED ${variable})
 		set(${variable} ${default})
 	endif()
 
-	set(${variable} ${default} CACHE STRING ${docstring})
+	set(${variable} ${${variable}} CACHE STRING ${docstr})
 	set_property(CACHE ${variable} PROPERTY STRINGS ${options})
 endfunction()
 
 
 #
-# Create CMake property
+# Create CMake option
 #
 # @param variable {STRING}	variable name - MY_VARIABLE
-# @param default {ANY}		default value - FALSE
 # @param type {ANY}		variable type - BOOL
-# @param docstring {STRING}	variable description - "Compile static library"
+# @param default {ANY}		default value - FALSE
+# @param docstr {STRING}	variable description - "Compile static library"
 #
-function(ct_set_prop variable default type docstring)
+function(ct_option variable value type docstr)
 	if(NOT DEFINED ${variable})
-        set(${variable} ${default})
+        set(${variable} ${value})
     endif()
-	message(${variable})
-    set(${variable} ${default} CACHE ${type} ${docstring} FORCE)
+	set(${variable} ${${variable}} CACHE ${type} ${docstr} FORCE)
 endfunction()
 
 #
