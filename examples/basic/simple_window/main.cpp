@@ -20,7 +20,7 @@ int main(int argc, char* argv[]) {
 
 	logger.log("Opening window");
 
-	auto win = create_window(480, 300, "Chronotrix Simple Window");
+	auto win = create_window(480, 360, "Chronotrix Simple Window");
 	win->set_visible(true);
 
 	while (win->is_visible()) {

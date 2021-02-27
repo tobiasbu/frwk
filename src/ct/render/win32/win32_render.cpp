@@ -21,9 +21,7 @@ namespace ct {
 			return true;
 		}
 
-		getProcAddressCb get_proc_address(cstr procname) {
-			return internal::WglContext::get_proc_address(procname);
-		}
+		const get_proc_address_fn_ptr get_proc_address = internal::WglContext::get_proc_address;
 
 	}
 

@@ -21,7 +21,7 @@ namespace ct {
 
 		ContextImpl::~ContextImpl() {};
 
-		getProcAddressCb ContextImpl::get_proc_address(cstr proc_name) {
+		get_proc_address_fn ContextImpl::get_proc_address(cstr proc_name) {
 			return ContextType::get_proc_address(proc_name);
 		}
 

@@ -6,8 +6,8 @@
 
 namespace ct {
 
-	typedef void (*getProcAddressCb)(void);
-	// typedef getProcAddressCb (*getProcAddressCb)(cstr);
+	typedef void (*get_proc_address_fn)(void);
+	typedef get_proc_address_fn (*get_proc_address_fn_ptr)(cstr procname);
 
 } // namespace ct
 

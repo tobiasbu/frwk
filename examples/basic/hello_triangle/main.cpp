@@ -178,7 +178,7 @@ int main(int argc, char const * argv[]) {
 	// enable depth testing
 	glEnable(GL_DEPTH_TEST);
 
-	// init our shaders
+	// init our shaders and triangle
 	GLuint shader_program = init_shaders();
 	TriangleMesh triangle = create_triangle(shader_program);
 

@@ -17,9 +17,9 @@ namespace ct {
 
 		class WglContext final : public ContextImpl {
 		private:
-			HGLRC__ * hglrc; //!< OpenGL rendering context
-			HDC__ * hdc;     //!< GDI Device context handle
 			HWND__ * hwnd; 	 //!< Associate window to this context
+			HDC__ * hdc;     //!< GDI Device context handle
+			HGLRC__ * hglrc; //!< OpenGL rendering context
 
 		public:
 			WglContext() = delete;
@@ -28,7 +28,7 @@ namespace ct {
 			void make_current() override;
 			void swap_buffers() override;
 
-			static getProcAddressCb get_proc_address(cstr procname);
+			static get_proc_address_fn get_proc_address(cstr procname);
 
 			static WglContext * create(Window* window, const ContextConfig & config);
 		};

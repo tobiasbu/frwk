@@ -117,13 +117,13 @@ namespace ct {
 			SwapBuffers(hdc);
 		}
 
-		 getProcAddressCb WglContext::get_proc_address(cstr procname) {
- 			const auto proc = (getProcAddressCb)wglGetProcAddress(procname);
+		 get_proc_address_fn WglContext::get_proc_address(cstr procname) {
+ 			const auto proc = (get_proc_address_fn)wglGetProcAddress(procname);
    			 if (proc) {
 				return proc;
 			}
 
-   			 return (getProcAddressCb)GetProcAddress(detail::opengl32_module, procname);
+   			 return (get_proc_address_fn)GetProcAddress(detail::opengl32_module, procname);
 		 }
 
 		WglContext * WglContext::create(Window* window, const ContextConfig & config) {
