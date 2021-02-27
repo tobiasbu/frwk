@@ -29,7 +29,6 @@ set(SRC_GL_PATH "${SRCPATH}/opengl")
 ####################################
 if(CT_OS_WINDOWS)
 
-	set(LINK_LIBS "-framework Foundation" "-framework AppKit")
 
 	ct_file_list(ROOT ${SRCPATH} OUTPUT SUB_SRC CONCAT
 		win32/win32_internal.hpp
@@ -44,6 +43,8 @@ if(CT_OS_WINDOWS)
 	)
 
 elseif(CT_OS_MACOSX)
+
+	set(LINK_LIBS "-framework Foundation" "-framework AppKit")
 
 	ct_file_list(ROOT ${SRCPATH} OUTPUT SUB_SRC CONCAT
 		cocoa_render.cpp

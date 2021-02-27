@@ -13,7 +13,7 @@ namespace ct {
 
 		CT_RENDER_API bool terminate();
 
-		CT_RENDER_API glGetProcAddressCb get_proc_address(cstr procname);
+		CT_RENDER_API getProcAddressCb get_proc_address(cstr procname);
 
 	} // namespace Render
 

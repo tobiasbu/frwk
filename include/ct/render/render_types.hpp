@@ -6,8 +6,8 @@
 
 namespace ct {
 
-	typedef void (*glGetProcAddressCb)(void);
-	// typedef glGetProcAddressCb (*_glGetProcAddressCbPtr)(cstr);
+	typedef void (*getProcAddressCb)(void);
+	// typedef getProcAddressCb (*getProcAddressCb)(cstr);
 
 } // namespace ct
 

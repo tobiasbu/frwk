@@ -5,7 +5,7 @@
 #include <ct/core/types.hpp>
 #include <ct/platform/window.hpp>
 
-#include <ct/render/opengl/win32_internal.hpp>
+#include <ct/render/win32/win32_internal.hpp>
 #include <ct/render/opengl/wgl_context.hpp>
 
 namespace ct {
@@ -13,13 +13,19 @@ namespace ct {
 	namespace internal {
 
 		namespace detail {
-			HMODULE opengl32;
+			HMODULE opengl32_module = NULL;
 
-			PIXELFORMATDESCRIPTOR create_pixel_format() {
+			PIXELFORMATDESCRIPTOR create_pixel_format(const ContextConfig & config) {
 				DWORD dwFlags = PFD_SUPPORT_OPENGL | PFD_DRAW_TO_WINDOW | PFD_DOUBLEBUFFER;
 				BYTE iPixelType = PFD_TYPE_RGBA;
-				BYTE cColorBits = 24;
-				BYTE alphaBuffer = cColorBits == 32 ? 8 : 0;
+				BYTE cColorBits = config.color_bits;
+				BYTE alphaBuffer = 0;
+
+				if (cColorBits >= 32) {
+					cColorBits = 32;
+					alphaBuffer = 8;
+				}
+
 
 				PIXELFORMATDESCRIPTOR pfd = {
 					sizeof(PIXELFORMATDESCRIPTOR), // Size of PixelFormat struct
@@ -47,17 +53,17 @@ namespace ct {
 			}
 
 			bool init_WGL() {
-				if (opengl32) {
+				if (opengl32_module) {
 					return true;
 				}
 
-				opengl32 = LoadLibraryA("opengl32.dll");
-				if (!opengl32) {
+				opengl32_module = LoadLibraryA("opengl32.dll");
+				if (!opengl32_module) {
 					return false;
 				}
 
 				// Create dummy context to retrieve ARB extensions
-				PIXELFORMATDESCRIPTOR pfd = create_pixel_format();
+				PIXELFORMATDESCRIPTOR pfd = create_pixel_format(ContextConfig());
 				auto hdc = GetDC(internal::get_helper_window());
 
 				int32 pixelFormat = ChoosePixelFormat(hdc, &pfd);
@@ -93,7 +99,34 @@ namespace ct {
 		{
 		}
 
-		WglContext * WglContext::create(Window* window) {
+		void WglContext::make_current() {
+			if (hwnd != NULL) {
+				if (wglMakeCurrent(hdc, hglrc)) {
+
+				} else {
+
+				}
+			} else {
+
+				if (!wglMakeCurrent(NULL, NULL)) {
+
+				}
+			}
+		}
+		void WglContext::swap_buffers() {
+			SwapBuffers(hdc);
+		}
+
+		 getProcAddressCb WglContext::get_proc_address(cstr procname) {
+ 			const auto proc = (getProcAddressCb)wglGetProcAddress(procname);
+   			 if (proc) {
+				return proc;
+			}
+
+   			 return (getProcAddressCb)GetProcAddress(detail::opengl32_module, procname);
+		 }
+
+		WglContext * WglContext::create(Window* window, const ContextConfig & config) {
 
 			if (!detail::init_WGL()) {
 				std::cout << "Failed to initialize Wgl" << std::endl;
@@ -105,16 +138,19 @@ namespace ct {
 			// window handle to device context
 			HDC hDc = GetDC(hWnd);
 
-			PIXELFORMATDESCRIPTOR pfd = detail::create_pixel_format();
+			PIXELFORMATDESCRIPTOR pfd = detail::create_pixel_format(config);
 			int32 pixelFormat = ChoosePixelFormat(hDc, &pfd);
+			if (!pixelFormat) {
+				std::cout << "Fail to create pixel format" << std::endl;
+			}
 
-			if (pixelFormat) {
-				if (!SetPixelFormat(hDc, pixelFormat, &pfd)) {
-					std::cout << "Fail to create pixel format" << std::endl;
-				}
-			} else {
-				// error
-					std::cout << "Fail to choose pixel format" << std::endl;
+			if (!DescribePixelFormat(hDc, pixelFormat, sizeof(pfd), &pfd)){
+        		std::cout << "Failed to describe PFD for selected pixel format" << std::endl;
+        		return nullptr;
+    		}
+
+			if (!SetPixelFormat(hDc, pixelFormat, &pfd)) {
+				std::cout << "Fail to set pixel format" << std::endl;
 			}
 
 			// openGL rendering context

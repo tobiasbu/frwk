@@ -157,8 +157,8 @@ int main(int argc, char const * argv[]) {
 
 	logger.log("Opening window...");
 
-	int width = 640;
-	int height = 480;
+	int width = 480;
+	int height = 360;
 
 	// create and render window
 	auto win = create_render_window(width, height, "hello triangle");
@@ -184,7 +184,7 @@ int main(int argc, char const * argv[]) {
 
 	win->set_visible(true);
 
-	glViewport(0, 0, width * 2, height * 2);
+	glViewport(0, 0, width, height);
 
 	while (win->is_visible()) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

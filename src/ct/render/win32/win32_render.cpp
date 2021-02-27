@@ -1,6 +1,7 @@
 
 #include <ct/render/render.hpp>
-#include <ct/render/opengl/win32_internal.hpp>
+#include <ct/render/opengl/wgl_context.hpp>
+#include <ct/render/win32/win32_internal.hpp>
 
 namespace ct {
 
@@ -18,6 +19,10 @@ namespace ct {
 		bool terminate() {
 			internal::destroy_helper_window();
 			return true;
+		}
+
+		getProcAddressCb get_proc_address(cstr procname) {
+			return internal::WglContext::get_proc_address(procname);
 		}
 
 	}

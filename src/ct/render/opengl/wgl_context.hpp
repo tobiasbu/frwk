@@ -25,7 +25,12 @@ namespace ct {
 			WglContext() = delete;
 			explicit WglContext(HWND__ * hwnd, HDC__ * hdc, HGLRC__ * hglrc);
 
-			static WglContext * create(Window* window);
+			void make_current() override;
+			void swap_buffers() override;
+
+			static getProcAddressCb get_proc_address(cstr procname);
+
+			static WglContext * create(Window* window, const ContextConfig & config);
 		};
 
 	} // namespace internal

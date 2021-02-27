@@ -14,8 +14,8 @@ namespace ct {
 			return true;
 		}
 
-		glGetProcAddressCb get_proc_address(cstr procname) {
-					return ct::internal::ContextImpl::get_proc_address(procname);
+		getProcAddressCb get_proc_address(cstr procname) {
+			return ct::internal::ContextImpl::get_proc_address(procname);
 		}
 
 	} // namespace Render

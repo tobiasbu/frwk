@@ -22,11 +22,17 @@ namespace ct {
 		                       uint8 stencil_bits = 0,
 		                       uint8 antialias_level = 0,
 		                       bool double_buffer = true)
-		: color_bits(color_bits),
-		  depth_bits(depth_bits),
-		  stencil_bits(stencil_bits),
-		  antialias_level(antialias_level),
-		  double_buffer(double_buffer) {}
+							   :
+							   color_bits(color_bits),
+							   depth_bits(depth_bits),
+							   stencil_bits(stencil_bits),
+							   antialias_level(antialias_level),
+							   double_buffer(double_buffer)
+		{
+			major_version = 3;
+			minor_version = 0;
+		}
+
 	};
 
 } // namespace ct

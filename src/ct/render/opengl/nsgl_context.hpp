@@ -35,7 +35,7 @@ namespace ct {
 			void swap_buffers() override;
 
 			static NsGlContext * create(Window * window, const ContextConfig & config);
-			static glGetProcAddressCb get_proc_address(cstr procname);
+			static getProcAddressCb get_proc_address(cstr procname);
 		};
 
 	} // namespace internal

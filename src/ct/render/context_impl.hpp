@@ -25,7 +25,7 @@ namespace ct {
 
 			static ContextImpl * create(Window * window, const ContextConfig & config);
 
-			static glGetProcAddressCb get_proc_address(cstr proc_name);
+			static getProcAddressCb get_proc_address(cstr proc_name);
 		};
 
 	} // namespace internal
