@@ -9,18 +9,18 @@ namespace ct {
 
 
 	struct ContextConfig {
-		uint8 color_bits;   // 16, 24, 32
-		uint8 depth_bits;   // 8, 16, 24
-		uint8 stencil_bits; // 8
-		uint8 antialias_level;
+		u8 color_bits;   // 16, 24, 32
+		u8 depth_bits;   // 8, 16, 24
+		u8 stencil_bits; // 8
+		u8 antialias_level;
 		bool double_buffer;
-		uint8 major_version;
-		uint8 minor_version;
+		u8 major_version;
+		u8 minor_version;
 
-		explicit ContextConfig(uint8 color_bits = 24,
-		                       uint8 depth_bits = 16,
-		                       uint8 stencil_bits = 0,
-		                       uint8 antialias_level = 0,
+		explicit ContextConfig(u8 color_bits = 24,
+		                       u8 depth_bits = 16,
+		                       u8 stencil_bits = 0,
+		                       u8 antialias_level = 0,
 		                       bool double_buffer = true)
 							   :
 							   color_bits(color_bits),

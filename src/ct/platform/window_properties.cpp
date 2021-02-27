@@ -4,7 +4,7 @@
 
 namespace ct {
 
-	WindowProperties::WindowProperties(uint32 width, uint32 height, cstr title, uint32 style)
+	WindowProperties::WindowProperties(u32 width, u32 height, cstr title, u32 style)
 	:
 	width(width),
 	height(height),

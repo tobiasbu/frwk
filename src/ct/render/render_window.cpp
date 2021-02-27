@@ -20,10 +20,10 @@ namespace ct {
 		}
 	}
 
-	RenderWindowPtr create_render_window(uint32 width,
-	                                     uint32 height,
+	RenderWindowPtr create_render_window(u32 width,
+	                                     u32 height,
 	                                     cstr title,
-	                                     uint32 style,
+	                                     u32 style,
 	                                     const ContextConfig & config) {
 		WindowProperties props(width, height, title, style);
 

@@ -66,7 +66,7 @@ namespace ct {
 				PIXELFORMATDESCRIPTOR pfd = create_pixel_format(ContextConfig());
 				auto hdc = GetDC(internal::get_helper_window());
 
-				int32 pixelFormat = ChoosePixelFormat(hdc, &pfd);
+				i32 pixelFormat = ChoosePixelFormat(hdc, &pfd);
 				if (!SetPixelFormat(hdc, pixelFormat, &pfd)) {
 					return false;
 				}
@@ -139,7 +139,7 @@ namespace ct {
 			HDC hDc = GetDC(hWnd);
 
 			PIXELFORMATDESCRIPTOR pfd = detail::create_pixel_format(config);
-			int32 pixelFormat = ChoosePixelFormat(hDc, &pfd);
+			i32 pixelFormat = ChoosePixelFormat(hDc, &pfd);
 			if (!pixelFormat) {
 				std::cout << "Fail to create pixel format" << std::endl;
 			}

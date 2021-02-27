@@ -28,7 +28,7 @@ namespace ct {
 			return output;
 		}
 
-		DWORD parse_style(const uint32 & style) {
+		DWORD parse_style(const u32 & style) {
 			DWORD dwStyle = 0;
 
 			if (style == WindowStyle::Borderless) {
@@ -68,8 +68,8 @@ namespace ct {
 			// or for the entire screen
 			HDC screenDC = GetDC(NULL);
 			// Compute window position and size
-			int32 left = (GetDeviceCaps(screenDC, HORZRES) - static_cast<int>(props.width)) / 2;
-			int32 top = (GetDeviceCaps(screenDC, VERTRES) - static_cast<int>(props.height)) / 2;
+			i32 left = (GetDeviceCaps(screenDC, HORZRES) - static_cast<int>(props.width)) / 2;
+			i32 top = (GetDeviceCaps(screenDC, VERTRES) - static_cast<int>(props.height)) / 2;
 			ReleaseDC(NULL, screenDC);
 
 			// if (!isFullscreen) {

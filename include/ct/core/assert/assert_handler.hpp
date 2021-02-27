@@ -44,7 +44,7 @@ namespace ct {
 			                                    bool * ignore = NULLPTR);
 
 			CT_CORE_API cstr handle(cstr file,
-			                               int32 line,
+			                               i32 line,
 			                               cstr function,
 			                               cstr expression,
 			                               bool * ignore,

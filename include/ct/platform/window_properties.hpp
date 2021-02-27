@@ -8,13 +8,13 @@
 namespace ct {
 
 	struct CT_PLATFORM_API WindowProperties {
-		uint32 width;
-		uint32 height;
+		u32 width;
+		u32 height;
 		cstr title;
-		uint32 style;
+		u32 style;
 
 		WindowProperties() = default;
-		WindowProperties(uint32 width, uint32 height, cstr title, uint32 style = WindowStyle::Default);
+		WindowProperties(u32 width, u32 height, cstr title, u32 style = WindowStyle::Default);
 	};
 
 }

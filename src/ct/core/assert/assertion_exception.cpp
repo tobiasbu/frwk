@@ -5,7 +5,7 @@
 namespace ct {
 
 	AssertionException::AssertionException(cstr file,
-	                                       int32 line,
+	                                       i32 line,
 	                                       cstr function,
 	                                       cstr expression,
 	                                       cstr message) noexcept
@@ -35,7 +35,7 @@ namespace ct {
 		return this->_file;
 	}
 
-	CT_FORCE_INLINE int32 AssertionException::line() const {
+	CT_FORCE_INLINE i32 AssertionException::line() const {
 		return this->_line;
 	}
 

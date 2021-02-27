@@ -60,7 +60,7 @@ namespace ct {
 		return window_impl;
 	}
 
-	WindowPtr create_window(uint32 width, uint32 height, cstr title, uint32 style) {
+	WindowPtr create_window(u32 width, u32 height, cstr title, u32 style) {
 
 		WindowProperties props(
 			width,

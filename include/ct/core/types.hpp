@@ -11,30 +11,29 @@ namespace ct {
 	// (basically there are 3 types for 3 sizes, so no other match is possible),
 	// we can use them without doing any kind of check
 
-	/// 8 bits integer types
-	typedef signed char int8;
-	typedef unsigned char uint8;
 
-	/// 16 bits integer types
-	typedef signed short int16;
-	typedef unsigned short uint16;
+	typedef signed char i8; //<! 8-bit integer
+	typedef unsigned char u8; //<! unsigned 8-bit integer
 
-	/// 32 bits integer types
-	typedef signed int int32;
-	typedef unsigned int uint32;
+	typedef signed short i16; //<! 16-bit integer
+	typedef unsigned short u16; //<! unsigned 16-bit integer
+
+	typedef signed int i32;  //<! 32-bit integer
+	typedef unsigned int u32; //<! unsigned 32-bit integer
 
 /// 64 bits integer types
 #if defined(_MSC_VER)
-	typedef signed __int64 int64;
-	typedef unsigned __int64 uint64;
+	typedef signed __int64 i64; //<! 64-bit integer
+	typedef unsigned __int64 u64; //<! unsigned 64-bit integer
 #else
-	typedef signed long long int64;
-	typedef unsigned long long uint64;
+	typedef signed long long i64;
+	typedef unsigned long long u64;
 #endif
 
-	/// Byte representation
-	typedef uint8 byte;
+	typedef float f32; //<! single precision floating point
+	typedef double f64; //<! single precision floating point
 
+	typedef unsigned char byte; //<! Byte representation
 	typedef const char * cstr; //<! C-string
 
 } // namespace ct

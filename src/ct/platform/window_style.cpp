@@ -5,11 +5,11 @@ namespace ct {
 
 	namespace WindowStyle {
 
-		uint32 make(bool bordeless, bool titleBar, bool resizable, bool closable) {
+		u32 make(bool bordeless, bool titleBar, bool resizable, bool closable) {
 			if (bordeless) {
 				return Borderless;
 			}
-			uint32 style = 0U;
+			u32 style = 0U;
 			if (titleBar) {
 				style |= Title;
 			}

@@ -31,7 +31,7 @@ namespace ct {
 	class CT_CORE_API AssertionException : Exception {
 	private:
 		cstr _file;
-		int32 _line;
+		i32 _line;
 		cstr _function;
 		cstr _expression;
 
@@ -46,7 +46,7 @@ namespace ct {
 		/// \param message Optional message
 		///
 		explicit AssertionException(cstr file,
-		                            int32 line,
+		                            i32 line,
 		                            cstr function,
 		                            cstr expression,
 		                            cstr message = "unknown") noexcept;
@@ -75,7 +75,7 @@ namespace ct {
 		///
 		/// \return Line number
 		///
-		int32 line() const;
+		i32 line() const;
 
 		///
 		/// \brief Get function signature

@@ -42,7 +42,7 @@ namespace ct {
 		using WindowImplPtr = std::unique_ptr<internal::WindowImpl>;
 
 		friend CT_PLATFORM_API WindowPtr create_window(const WindowProperties & properties);
-		friend CT_PLATFORM_API WindowPtr create_window(uint32 width, uint32 height, cstr title, uint32 style);
+		friend CT_PLATFORM_API WindowPtr create_window(u32 width, u32 height, cstr title, u32 style);
 
 	protected:
 
@@ -111,7 +111,7 @@ namespace ct {
 	};
 
 	CT_PLATFORM_API WindowPtr create_window(const WindowProperties & properties);
-	CT_PLATFORM_API WindowPtr create_window(uint32 width, uint32 height, cstr title, uint32 style = WindowStyle::Default);
+	CT_PLATFORM_API WindowPtr create_window(u32 width, u32 height, cstr title, u32 style = WindowStyle::Default);
 
 
 } // namespace ct

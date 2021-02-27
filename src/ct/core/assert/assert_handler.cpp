@@ -12,7 +12,7 @@ namespace ct {
 		namespace Assert {
 
 			namespace {
-				constexpr uint32 CT_ASSERT_BUFFER_SIZE = 1024;
+				constexpr u32 CT_ASSERT_BUFFER_SIZE = 1024;
 				bool ignoreAll = false;
 			}
 
@@ -38,7 +38,7 @@ namespace ct {
 			}
 
 			cstr handle(cstr file,
-			            int32 line,
+			            i32 line,
 			            cstr function,
 			            cstr expression,
 			            bool * ignore,

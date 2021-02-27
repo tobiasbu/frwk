@@ -6,7 +6,7 @@
 
 namespace ct {
 
-	enum class LogLevel : uint32
+	enum class LogLevel : u32
 	{
 		Log = 32,
 		Debug = 64,

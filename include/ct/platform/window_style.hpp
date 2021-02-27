@@ -16,7 +16,7 @@ namespace ct {
 	///
 	////////////////////////////////////////////////////////////
 	namespace WindowStyle {
-		enum : uint32
+		enum : u32
 		{
 			////////////////////////////////////////////////////////////
 			/// @brief No border and no title bar
@@ -59,9 +59,9 @@ namespace ct {
 		 * 		Title | Close | Resize | Minimize
 		 * @endcode
 		 */
-		constexpr uint32 Default = Title | Close | Resize;
+		constexpr u32 Default = Title | Close | Resize;
 
-		CT_PLATFORM_API uint32 make(
+		CT_PLATFORM_API u32 make(
 			bool bordeless,
 		 	bool titleBar,
 		 	bool resizable,
