@@ -4,13 +4,7 @@
 // \todo Copyright notice
 //
 ////////////////////////////////////////////////////////////
-///
-/// \ingroup chronotrix-core
-/// \file AssertHandler.hpp
-/// \author Tobias Ulrich <flamenco.bluegrass@gmail.com>
-/// \date September 25, 2020
-///
-////////////////////////////////////////////////////////////
+
 
 #ifndef _CHRONOTRIX_FRWK_ASSERT_HANDLER_HPP_
 #define _CHRONOTRIX_FRWK_ASSERT_HANDLER_HPP_
@@ -59,3 +53,4 @@ namespace ct {
 } // namespace ct
 
 #endif
+

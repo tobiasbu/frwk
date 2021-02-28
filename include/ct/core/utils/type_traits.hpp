@@ -4,44 +4,53 @@
 
 #include <ct/core/config/compiler.hpp>
 
+
+
+
 namespace ct {
 
-	// Remove reference
-
+	////////////////////////////////////////////////////////////
+	/// @defgroup type_traits Type Traits
 	///
+	/// @{
+	///
+	////////////////////////////////////////////////////////////
+
+	////////////////////////////////////////////////////////////
 	/// @brief Provides the non-reference type to which `T` refers.
 	///
+	////////////////////////////////////////////////////////////
 	template<class T>
 	struct remove_reference {
-		using type = T; //!< type referred by T
+		using type = T; ///< type referred by T
 	};
 
-	///
+	////////////////////////////////////////////////////////////
 	/// @brief Provides the non-reference type to which `T&` refers.
 	///
+	////////////////////////////////////////////////////////////
 	template<class T>
 	struct remove_reference<T &> {
-		using type = T; //!< type referred by T
+		using type = T; ///< type referred by T
 	};
 
-	///
+	////////////////////////////////////////////////////////////
 	/// @brief Provides the non-reference type to which `T&&` refers.
 	///
+	////////////////////////////////////////////////////////////
 	template<class T>
 	struct remove_reference<T &&> {
-		using type = T; //!< type referred by T
+		using type = T; ///< type referred by T
 	};
 
 
-	///
+	////////////////////////////////////////////////////////////
 	/// @brief Defines non reference type from T
 	///
+	////////////////////////////////////////////////////////////
 	template<class T>
 	using remove_reference_t = typename remove_reference<T>::type;
 
-
-
-	// move
 
 	////////////////////////////////////////////////////////////
 	/// @brief Returns an _rvalue_ reference to argument.
@@ -66,14 +75,29 @@ namespace ct {
 
 
     ////////////////////////////////////////////////////////////
-    /// @brief Forward an _lvalue_ as either an _lvalue_ or an rvalue
+	/// @def FWD(...args)
+    /// @brief Forward an _lvalue_ as either an _lvalue_
+	/// or an rvalue
     ///
     ////////////////////////////////////////////////////////////
 	#define FWD(...) \
 		static_cast<decltype(__VA_ARGS__)&&>(__VA_ARGS__)
 
 
+	/// @}
 
 } // namespace ct
 
+
+
 #endif
+
+
+
+
+////////////////////////////////////////////////////////////
+/// @file type_traits.hpp
+/// Detailed description goes here
+/// @ingroup core
+///
+////////////////////////////////////////////////////////////

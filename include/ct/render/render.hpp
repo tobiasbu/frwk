@@ -7,6 +7,7 @@
 
 namespace ct {
 
+	/// Render module
 	namespace Render {
 
 		CT_RENDER_API bool init();

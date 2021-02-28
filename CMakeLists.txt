@@ -55,10 +55,13 @@ set(CT_SOURCE_GROUP "Source Files")
 # Define BUILD_SHARED_LIBS property
 ct_option(BUILD_SHARED_LIBS TRUE BOOL "TRUE = build Chronotrix as shared libraries. FALSE = build as static libraries")
 
-# Should build examples?
+# Build examples
 ct_option(CT_EXAMPLES TRUE BOOL "TRUE = Build the Chronotrix examples. FALSE = Don't build examples")
 
-# tests
+# Build docs
+ct_option(CT_DOCS FALSE BOOL "TRUE = generate the API documentation. FALSE = ignore it")
+
+# Build tests
 ct_option(CT_TESTS FALSE BOOL "Build tests")
 
 # Check for clang-tidy
@@ -138,16 +141,19 @@ endif()
 
 add_subdirectory(${CT_SRC})
 
-# examples
+# Examples
 if (CT_EXAMPLES)
 	add_subdirectory("${CT_FRWK_PATH}/examples")
 endif()
 
-# tests
+# Tests
 if(CT_TESTS)
 	add_subdirectory("${CT_FRWK_PATH}/tests")
 endif()
 
+if(CT_DOCS)
+add_subdirectory("${CT_FRWK_PATH}/docs")
+endif()
 
 #############################################
 ####               INSTALL               ####

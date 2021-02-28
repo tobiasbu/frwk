@@ -1,16 +1,10 @@
 ////////////////////////////////////////////////////////////
 /// Chronotrix Framework
 ///
-/// \todo Copyright notice
+/// @todo Copyright notice
 ///
 ////////////////////////////////////////////////////////////
-///
-/// \ingroup chronotrix-platform
-/// \file Export.hpp
-/// \author Tobias Ulrich <tobiasbulrich@gmail.com>
-/// \date January 23, 2021
-///
-////////////////////////////////////////////////////////////
+
 
 #ifndef _CHRONOTRIX_FRWK_PLATFORM_EXPORTS_HPP_
 #define _CHRONOTRIX_FRWK_PLATFORM_EXPORTS_HPP_

@@ -8,11 +8,7 @@
 namespace ct {
 
 	////////////////////////////////////////////////////////////
-	/// \ingroup chronotrix_platform
-	/// \brief Window style mask
-	///
-	/// \see https://docs.microsoft.com/en-us/windows/win32/winmsg/window-styles
-	/// \see https://developer.apple.com/documentation/appkit/nswindowstylemask
+	/// @brief Window style mask
 	///
 	////////////////////////////////////////////////////////////
 	namespace WindowStyle {
@@ -56,11 +52,20 @@ namespace ct {
 		 *
 		 * The default style contains:
 		 * @code
-		 * 		Title | Close | Resize | Minimize
+		 * 	auto my_win_style = Title | Close | Resize;
 		 * @endcode
 		 */
 		constexpr u32 Default = Title | Close | Resize;
 
+		////////////////////////////////////////////////////////////
+		/// @brief Helper to create custom WindowStyle
+		///
+		/// @param bordeless Should bordeless
+		/// @param titleBar Should have title bar
+		/// @param resizable Should be resizable
+		/// @param closable Should be closable
+		/// @return WindowStyle
+		////////////////////////////////////////////////////////////
 		CT_PLATFORM_API u32 make(
 			bool bordeless,
 		 	bool titleBar,
@@ -72,3 +77,11 @@ namespace ct {
 } // namespace ct
 
 #endif
+
+////////////////////////////////////////////////////////////
+/// @ingroup platform
+///
+/// @see https://docs.microsoft.com/en-us/windows/win32/winmsg/window-styles
+/// @see https://developer.apple.com/documentation/appkit/nswindowstylemask
+///
+////////////////////////////////////////////////////////////

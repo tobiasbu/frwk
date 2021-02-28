@@ -2,6 +2,7 @@
 	"cmake.configureSettings": {
 		"CT_EXAMPLES": true,
 		"CT_TESTS": true,
+		"CT_DOCS": true,
 		"CT_EXAMPLES_POSTCOMMAND": "exe_to_bin",
 	},
 	"files.associations": {

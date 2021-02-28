@@ -6,8 +6,6 @@
 
 namespace ct {
 
-
-
 	struct ContextConfig {
 		u8 color_bits;   // 16, 24, 32
 		u8 depth_bits;   // 8, 16, 24

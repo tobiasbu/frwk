@@ -4,13 +4,6 @@
 /// \todo Copyright notice
 ///
 ////////////////////////////////////////////////////////////
-///
-/// \ingroup chronotrix-core
-/// \file Export.hpp
-/// \author Tobias Ulrich <flamenco.bluegrass@gmail.com>
-/// \date March 22, 2020
-///
-////////////////////////////////////////////////////////////
 
 #ifndef _CHRONOTRIX_FRWK_CORE_EXPORTS_HPP_
 #define _CHRONOTRIX_FRWK_CORE_EXPORTS_HPP_
