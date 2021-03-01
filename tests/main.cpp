@@ -1,5 +1,6 @@
 #define CATCH_CONFIG_RUNNER
-// #define CATCH_CONFIG_ENABLE_BENCHMARKING
+#define CATCH_CONFIG_FAST_COMPILE
+#define CATCH_CONFIG_ENABLE_BENCHMARKING
 #include <catch2/catch.hpp>
 
 #define COMPACT_OUTPUT 0
@@ -18,6 +19,16 @@ int main(int argc, char* argv[])
 			printf("Failed to parse arguments. Exit code %d", returnCode);
 			return returnCode;
 		}
+	#else
+
+		const char* args[] = { argv[0], "-d yes" };
+
+		int returnCode = session.applyCommandLine(2, args);
+		if (returnCode != 0) {// Indicates a command line error
+			printf("Failed to parse arguments. Exit code %d", returnCode);
+			return returnCode;
+		}
+
 	#endif
 
 	// writing to session.configData() or session.Config() here

@@ -157,15 +157,16 @@ endmacro()
 # @param SOURCES {STRING[]}		list of files
 # @param DEPENDS? {(TARGET | STRING)[]}	optional - list of dependencies
 #
-function(ct_add_test target SOURCES DEPENDS)
+macro(ct_add_test target SOURCES)
+	cmake_parse_arguments(ARGS "" "" "DEPENDS" ${ARGN})
 
 	add_executable(${target} ${SOURCES})
 
 	set_target_properties(${target} PROPERTIES FOLDER "tests")
 	set_target_properties(${target} PROPERTIES CMAKE_CXX_CLANG_TIDY "")
 
-	if(DEPENDS)
-        target_link_libraries(${target} PRIVATE ${DEPENDS})
+	if(ARGS_DEPENDS)
+        target_link_libraries(${target} PRIVATE ${ARGS_DEPENDS})
 	endif()
 
 	# add catch header as SYSTEM to avoid clang-tidy
@@ -173,7 +174,7 @@ function(ct_add_test target SOURCES DEPENDS)
 
 	add_test(NAME chronotrix_tests COMMAND ${target})
 
-endfunction()
+endmacro()
 
 #
 # Export targets
