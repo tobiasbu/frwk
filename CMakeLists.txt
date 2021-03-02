@@ -40,11 +40,12 @@ include(cmake/config.cmake)
 include(cmake/helpers.cmake)
 
 # Set paths for chronotrix packages files
-set(CT_FRWK_PATH "${PROJECT_SOURCE_DIR}")
-set(CT_SRC "${CT_FRWK_PATH}/src/ct")
-set(CT_INC "${CT_FRWK_PATH}/include/ct")
-set(CMAKE_MODULE_PATH "${CT_FRWK_PATH}/cmake/modules")
-set(CT_EXTLIBS_PATH "${CT_FRWK_PATH}/thirdparty")
+set(CT_FRWK_DIR "${PROJECT_SOURCE_DIR}")
+set(CT_SRC "${CT_FRWK_DIR}/src/ct")
+set(CT_INC "${CT_FRWK_DIR}/include/ct")
+set(CMAKE_MODULE_PATH "${CT_FRWK_DIR}/cmake/modules")
+set(CT_THIRDPARTY_DIR "${CT_FRWK_DIR}/thirdparty")
+set(CT_THIRDPARTY_HEADERS ${CT_THIRDPARTY_DIR}/headers)
 set(CT_HEADER_GROUP "Header Files")
 set(CT_SOURCE_GROUP "Source Files")
 
@@ -143,16 +144,16 @@ add_subdirectory(${CT_SRC})
 
 # Examples
 if (CT_EXAMPLES)
-	add_subdirectory("${CT_FRWK_PATH}/examples")
+	add_subdirectory("${CT_FRWK_DIR}/examples")
 endif()
 
 # Tests
 if(CT_TESTS)
-	add_subdirectory("${CT_FRWK_PATH}/tests")
+	add_subdirectory("${CT_FRWK_DIR}/tests")
 endif()
 
 if(CT_DOCS)
-add_subdirectory("${CT_FRWK_PATH}/docs")
+add_subdirectory("${CT_FRWK_DIR}/docs")
 endif()
 
 #############################################

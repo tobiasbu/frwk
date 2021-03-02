@@ -13,15 +13,15 @@ if(NOT OPENGL_GLU_FOUND)
 endif()
 
 # sources
-set(GLAD_SRC ${CT_EXTLIBS_PATH}/glad/src/glad.c)
+set(GLAD_SRC ${CT_THIRDPARTY_DIR}/glad/src/glad.c)
 set(GLAD_INCLUDE_DIR
-	${CT_EXTLIBS_PATH}/glad/include/KHR/khrplatform.h
-	${CT_EXTLIBS_PATH}/glad/include/glad/glad.h
+	${CT_THIRDPARTY_DIR}/glad/include/KHR/khrplatform.h
+	${CT_THIRDPARTY_DIR}/glad/include/glad/glad.h
 )
 
 # target
 add_library(glad STATIC ${GLAD_SRC} ${GLAD_INCLUDE_DIR})
 target_link_libraries(glad PRIVATE ${OPENGL_LIBRARIES})
-target_include_directories(glad PUBLIC "$<BUILD_INTERFACE:${CT_EXTLIBS_PATH}/glad/include>")
+target_include_directories(glad PUBLIC "$<BUILD_INTERFACE:${CT_THIRDPARTY_DIR}/glad/include>")
 
 set_target_properties(${target} PROPERTIES FOLDER "thirdparty")

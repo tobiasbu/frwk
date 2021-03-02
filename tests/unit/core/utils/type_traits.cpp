@@ -1,5 +1,5 @@
-
-#include <catch2/catch.hpp>
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include <doctest.h>
 
 #include <ct/core/utils/type_traits.hpp>
 
@@ -28,7 +28,7 @@ class DummyMoveClass {
 
 TEST_CASE( "move", "[core:utils:type_traits:move]" ) {
 
-	SECTION("swap entities") {
+	SUBCASE("swap entities") {
 		DummyMoveClass a(64);
     	DummyMoveClass b(128);
 
@@ -43,7 +43,7 @@ TEST_CASE( "move", "[core:utils:type_traits:move]" ) {
 		REQUIRE(b.value == 128);
     }
 
-	SECTION("swap entities with MOV macro") {
+	SUBCASE("swap entities with MOV macro") {
 		DummyMoveClass a(64);
     	DummyMoveClass b(128);
 

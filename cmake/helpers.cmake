@@ -82,8 +82,8 @@ macro(ct_add_library target)
 
 	# Add <ct/../../> as public include directory
 	target_include_directories(${target}
-							PUBLIC "$<BUILD_INTERFACE:${CT_FRWK_PATH}/include>"
-							PRIVATE "${CT_FRWK_PATH}/src")
+							PUBLIC "$<BUILD_INTERFACE:${CT_FRWK_DIR}/include>"
+							PRIVATE "${CT_FRWK_DIR}/src")
 	target_include_directories(${target} INTERFACE $<INSTALL_INTERFACE:include>)
 
 	# Link libraries libs
@@ -170,7 +170,7 @@ macro(ct_add_test target SOURCES)
 	endif()
 
 	# add catch header as SYSTEM to avoid clang-tidy
-	target_include_directories(${target} SYSTEM PRIVATE "${CT_EXTLIBS_PATH}/headers")
+	target_include_directories(${target} SYSTEM PRIVATE "${CT_THIRDPARTY_HEADERS}")
 
 	add_test(NAME chronotrix_tests COMMAND ${target})
 

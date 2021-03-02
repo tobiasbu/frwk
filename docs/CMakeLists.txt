@@ -2,7 +2,7 @@
 find_package(Doxygen REQUIRED)
 
 # set the in and out documentation dirs
-set(DOXYGEN_INPUT_DIR ${CT_FRWK_PATH})
+set(DOXYGEN_INPUT_DIR ${CT_FRWK_DIR})
 set(DOXYGEN_OUTPUT_DIR ${PROJECT_BINARY_DIR}/docs)
 
 # see if we can generate the CHM documentation

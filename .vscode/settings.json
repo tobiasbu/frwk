@@ -89,7 +89,9 @@
 		"xloctime": "cpp",
 		"xtree": "cpp",
 		"coroutine": "cpp",
-		"resumable": "cpp"
+		"resumable": "cpp",
+		"csignal": "cpp",
+		"unordered_set": "cpp"
 	},
 	"doxdocgen.c.triggerSequence": "/// @",
 	"doxdocgen.c.firstLine": "////////////////////////////////////////////////////////////",

@@ -1,18 +1,8 @@
 
-# include(CTest)
-# Include(FetchContent)
-
-
-# Catch2 config
-set(CATCH_INSTALL_HELPERS OFF)
-set(BUILD_TESTING OFF)
-set(CATCH_BUILD_TESTING OFF)
-set(CATCH_INSTALL_DOCS OFF)
-
-# catch main file
 set(TESTS_DIR ${CMAKE_CURRENT_SOURCE_DIR})
-set(CATCH_MAIN ${TESTS_DIR}/main.cpp)
+set(BENCH_DIR ${TESTS_DIR}/benchmark)
+set(UNIT_DIR ${TESTS_DIR}/unit)
 
+add_subdirectory(benchmark)
 
-add_subdirectory(core)
-add_subdirectory(misc)
+add_subdirectory(unit)
