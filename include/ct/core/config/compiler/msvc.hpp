@@ -14,3 +14,5 @@
 	/// Check if a function can have `= default`
 	#define CT_CXX11_DEFAULT_FUNCTIONS
 #endif
+
+#define NOINLINE __declspec(noinline)

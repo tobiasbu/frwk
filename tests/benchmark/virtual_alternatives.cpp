@@ -1,8 +1,6 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include <doctest.h>
 
-#include <nanobench.h>
-
 #include <iostream>
 #include <functional>
 #include <chrono>
@@ -10,29 +8,49 @@
 #include <ct/core/types.hpp>
 #include <ct/core/utils/type_traits.hpp>
 
-namespace classic {
+#include <profiler.hpp>
 
-	class Base {
+namespace poly {
+
+	class PureBase {
 	public:
-		Base() = default;
-		virtual void foo() = 0;
+		virtual void foo(ct::i32 a) = 0;
 	};
 
-	class Derived : public Base {
-	public:
+	class PureDerived : public PureBase {
+	private:
 		ct::i32 i = 0;
-		void foo() override {
-			i = rand() % 100;
+	public:
+		virtual void foo(ct::i32 a) override {
+			i = (rand() % 100) + a;
+		}
+	};
+
+	class Derived : public PureDerived {
+	private:
+		ct::i32 i = 0;
+	public:
+		virtual void foo(ct::i32 a) override {
+			i = (rand() % 200) + a;
+		}
+	};
+
+	class DerivedDerived : public Derived {
+	private:
+		ct::i32 i = 0;
+	public:
+		virtual void foo(ct::i32 a) override {
+			i = (rand() % 300) + a;
 		}
 	};
 
 	class Container {
 	private:
-		Base * _impl;
+		PureBase * _impl;
 	public:
-		Container(Base * impl): _impl(impl) {}
-		void foo() {
-			_impl->foo();
+		Container(PureBase * impl): _impl(impl) {}
+		void foo(ct::i32 a) {
+			_impl->foo(a);
 		}
 	};
 
@@ -45,8 +63,8 @@ namespace direct {
 			ct::i32 i = 0;
 		public:
 		Direct() = default;
-		void foo() {
-			i = rand() % 100;
+		void foo(ct::i32 a) {
+			i = (rand() % 100) + a;
 		}
 	};
 
@@ -55,8 +73,8 @@ namespace direct {
 		Direct * _impl;
 		public:
 		Container(Direct * impl): _impl(impl) {}
-		void foo() {
-			_impl->foo();
+		void foo(ct::i32 a) {
+			_impl->foo(a);
 		}
 	};
 
@@ -69,13 +87,9 @@ namespace crtp {
 		private:
 		friend T;
 		Base() = default;
-		inline T * as_underlying() {
-			return static_cast<T*>(this);
-		}
-
 		public:
-		void foo() {
-			as_underlying()->foo();
+		void foo(ct::i32 a) {
+			static_cast<T*>(this)->foo(a);
 		}
 	};
 
@@ -87,8 +101,8 @@ namespace crtp {
 		public:
 		using Base::Base;
 
-		void foo() {
-			i = rand() % 100;
+		void foo(ct::i32 a) {
+			i = (rand() % 100) + a;
 		}
 	};
 
@@ -99,15 +113,15 @@ namespace crtp {
 		Derived * _impl;
 	public:
 		Container(Derived * impl): _impl(impl) {}
-		void foo() {
-			_impl->foo();
+		void foo(ct::i32 a) {
+			_impl->foo(a);
 		}
 	};
 
 }
 
 namespace fn_map {
-	typedef void(*print_fn_ptr)();
+	typedef void(*print_fn_ptr)(ct::i32);
 
 	struct FnMap {
 		FnMap() = default;
@@ -122,8 +136,8 @@ namespace fn_map {
 	public:
 		explicit Container(FnMap && impl): _impl(MOV(impl)) {}
 		Container(FnMap * impl): _impl(*impl) {}
-		void foo() {
-			_impl.foo();
+		void foo(ct::i32 a) {
+			_impl.foo(a);
 		}
 	};
 
@@ -131,65 +145,100 @@ namespace fn_map {
 
 TEST_CASE("virtual alternatives") {
 
-	ankerl::nanobench::Bench b;
-    b.title("virtual alternatives")
-		.unit("uint64_t")
-		.warmup(100)
-		.minEpochIterations(5000)
-		.epochs(11);
-    b.performanceCounters(true);
+	ct::test::Profiler p;
+	p.iterations(50000);
 
 	{
         direct::Direct direct;
-		b.run("direct calls", [&] {
-			direct.foo();
+		p.run("direct", [&] {
+			direct.foo(rand() % 100);
 		});
     };
 
 	{
+        poly::PureDerived derived;
+		p.run("abstract > pure derived", [&] {
+			derived.foo(rand() % 100);
+		});
+    }
+
+	{
+        poly::Derived derived;
+		p.run("pure derived > derived", [&] {
+			derived.foo(rand() % 100);
+		});
+    }
+
+	{
+        poly::DerivedDerived derived;
+		p.run("derived > derived derived", [&] {
+			derived.foo(rand() % 100);
+		});
+    }
+
+	{
         direct::Container container(new direct::Direct());
-		b.run("through instance ref", [&] {
-			container.foo();
+		p.run("direct through instance ref", [&] {
+			container.foo(rand() % 100);
+		});
+	}
+
+	{
+        poly::Container container(new poly::PureDerived());
+		p.run("pure derived through instance ref", [&] {
+			container.foo(rand() % 100);
+		});
+	}
+
+	{
+        poly::Container container(new poly::Derived());
+		p.run("derived through instance ref", [&] {
+			container.foo(rand() % 100);
 		});
 	}
 
 
-    {
-        classic::Container container(new classic::Derived());
-		b.run("polymorphism", [&] {
-			container.foo();
+
+	{
+        poly::Container container(new poly::DerivedDerived());
+		p.run("derived derived through instance ref", [&] {
+			container.foo(rand() % 100);
 		});
-    }
+	}
+
+
 
 
 	{
         crtp::Container container(new crtp::Derived());
-		b.run("crtp", [&] {
-			container.foo();
+		p.run("crtp", [&] {
+			container.foo(rand() % 100);
 		});
 	}
 
 	{
         fn_map::FnMap * map = new fn_map::FnMap {
-	 		[]() {
-	 			auto i = rand() % 100;
+	 		[](ct::i32 a) {
+	 			auto i = (rand() % 100) + a;
 	 		},
 	 	};
 		fn_map::Container container(map);
-		b.run("lambda map", [&] {
-			container.foo();
+		p.run("lambda map", [&] {
+			container.foo(rand() % 100);
 		});
 	}
 
 	{
 		fn_map::FnMap map  {
-			[]() {
-				auto i = rand() % 100;
+			[](ct::i32 a) {
+				auto i = (rand() % 100) + a;
 			},
 		};
         fn_map::Container container(MOV(map));
-		b.run("lambda map with move", [&] {
-			container.foo();
+		p.run("lambda map with move", [&] {
+			container.foo(rand() % 100);
 		});
 	}
+
+	p.render();
 }

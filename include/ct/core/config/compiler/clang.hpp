@@ -17,3 +17,5 @@
 #if __has_feature(cxx_deleted_functions)
 	#define CT_CXX11_DELETE_FUNCTIONS
 #endif
+
+#define __attribute__((noinline))
