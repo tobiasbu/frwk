@@ -1,11 +1,11 @@
 
-include(${CT_THIRDPARTY_DIR}/nanobench.cmake)
+include(${CT_THIRDPARTY_CMAKE_CONFIG_DIR}/nanobench.cmake)
 
 function(add_bench target SOURCES)
 	cmake_parse_arguments(ARGS "" "" "DEPENDS" ${ARGN})
 
 	add_executable(${target} ${SOURCES})
-	set_target_properties(${target} PROPERTIES FOLDER "bench")
+	set_target_properties(${target} PROPERTIES FOLDER "tests/bench")
 	set_target_properties(${target} PROPERTIES CMAKE_CXX_CLANG_TIDY "")
 
 	if(ARGS_DEPENDS)
@@ -19,6 +19,4 @@ function(add_bench target SOURCES)
 endfunction()
 
 set(SRC ${BENCH_DIR}/virtual_alternatives.cpp)
-ct_group(${SRC} TREE ${TESTS_DIR} NAME "benchmark")
-
 add_bench(bench_virtual_alter "${SRC}" DEPENDS chronotrix_core)

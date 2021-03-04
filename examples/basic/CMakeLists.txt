@@ -1,6 +1,6 @@
 
 
-include(${CT_THIRDPARTY_DIR}/glad.cmake)
+include(${CT_THIRDPARTY_CMAKE_CONFIG_DIR}/glad.cmake)
 
 # Examples
 set(SRCPATH "${PROJECT_SOURCE_DIR}/examples/basic")

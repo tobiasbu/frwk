@@ -45,6 +45,7 @@ set(CT_SRC "${CT_FRWK_DIR}/src/ct")
 set(CT_INC "${CT_FRWK_DIR}/include/ct")
 set(CMAKE_MODULE_PATH "${CT_FRWK_DIR}/cmake/modules")
 set(CT_THIRDPARTY_DIR "${CT_FRWK_DIR}/thirdparty")
+set(CT_THIRDPARTY_CMAKE_CONFIG_DIR "${CT_FRWK_DIR}/cmake/thirdparty")
 set(CT_THIRDPARTY_HEADERS ${CT_THIRDPARTY_DIR}/headers)
 set(CT_HEADER_GROUP "Header Files")
 set(CT_SOURCE_GROUP "Source Files")
@@ -71,10 +72,12 @@ if (ENABLE_CLANG_TIDY)
 
 	find_program(CLANG_TIDY_EXE NAMES "clang-tidy" PATHS /usr/local/opt/llvm/bin /usr/local/bin)
 	if (CLANG_TIDY_EXE)
-		set(CMAKE_CXX_CLANG_TIDY "clang-tidy" CACHE STRING "" FORCE)
+		set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXE};-header-filter=include\/ct\/.*.hpp")
 		message(STATUS "clang-tidy found: ${CLANG_TIDY_EXE}")
+		configure_file(.clang-tidy .clang-tidy COPYONLY)
+
 	else()
-		set(CMAKE_CXX_CLANG_TIDY "" CACHE STRING "" FORCE) # delete it
+		set(CMAKE_CXX_CLANG_TIDY "") # delete it
 		message(WARNING "clang-tidy not found! Skipping")
 	endif()
 endif()
@@ -153,7 +156,7 @@ if(CT_TESTS)
 endif()
 
 if(CT_DOCS)
-add_subdirectory("${CT_FRWK_DIR}/docs")
+	add_subdirectory("${CT_FRWK_DIR}/docs")
 endif()
 
 #############################################

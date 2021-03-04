@@ -24,4 +24,4 @@ add_library(glad STATIC ${GLAD_SRC} ${GLAD_INCLUDE_DIR})
 target_link_libraries(glad PRIVATE ${OPENGL_LIBRARIES})
 target_include_directories(glad PUBLIC "$<BUILD_INTERFACE:${CT_THIRDPARTY_DIR}/glad/include>")
 
-set_target_properties(${target} PROPERTIES FOLDER "thirdparty")
+set_target_properties(glad PROPERTIES FOLDER "thirdparty")

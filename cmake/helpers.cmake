@@ -162,8 +162,9 @@ macro(ct_add_test target SOURCES)
 
 	add_executable(${target} ${SOURCES})
 
-	set_target_properties(${target} PROPERTIES FOLDER "tests")
+	set_target_properties(${target} PROPERTIES FOLDER "tests/unit")
 	set_target_properties(${target} PROPERTIES CMAKE_CXX_CLANG_TIDY "")
+	set_target_properties(${target} PROPERTIES CXX_CLANG_TIDY "")
 
 	if(ARGS_DEPENDS)
         target_link_libraries(${target} PRIVATE ${ARGS_DEPENDS})
