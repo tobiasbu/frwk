@@ -15,9 +15,9 @@
 #ifndef _CHRONOTRIX_FRWK_ASSERTION_EXCEPTION_HPP_
 #define _CHRONOTRIX_FRWK_ASSERTION_EXCEPTION_HPP_
 
+#include <ct/core/error/exception.hpp>
 #include <ct/core/export.hpp>
 #include <ct/core/types.hpp>
-#include <ct/core/error/exception.hpp>
 
 namespace ct {
 

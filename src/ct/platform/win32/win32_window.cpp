@@ -1,8 +1,7 @@
 
-#include <ct/platform/window_style.hpp>
 #include <ct/platform/detail/win32_detail.hpp>
-
 #include <ct/platform/win32/win32_window.hpp>
+#include <ct/platform/window_style.hpp>
 
 namespace ct {
 
@@ -11,14 +10,14 @@ namespace ct {
 		/**
 		 * Convert const char * to wchar_t
 		 */
-		WCHAR* to_wchar(cstr input) {
+		WCHAR * to_wchar(cstr input) {
 			int buffer_count = MultiByteToWideChar(CP_ACP, 0, input, -1, NULL, 0);
 
 			if (!buffer_count) {
 				return NULLPTR;
 			}
 
-			WCHAR* output = (WCHAR*)calloc(buffer_count, sizeof(WCHAR));
+			WCHAR * output = (WCHAR *)calloc(buffer_count, sizeof(WCHAR));
 
 			if (!MultiByteToWideChar(CP_UTF8, 0, input, -1, &output[0], buffer_count)) {
 				free(output);
@@ -52,16 +51,13 @@ namespace ct {
 			return dwStyle;
 		}
 
-		Win32Window::Win32Window(HWND handle)
-		: handle(handle) {
-
-		}
+		Win32Window::Win32Window(HWND handle) : handle(handle) {}
 
 		Win32Window::~Win32Window() {
 			dispose();
 		}
 
-		Win32Window* Win32Window::create(const WindowProperties & props) {
+		Win32Window * Win32Window::create(const WindowProperties & props) {
 			bool isFullscreen = false;
 
 			// Retrieves a handle to a device context (DC) for the client area of a specified window
@@ -106,7 +102,6 @@ namespace ct {
 				// std::cerr << "Could no create window" << std::endl;
 				return NULLPTR;
 			}
-
 
 			auto win = new Win32Window(handle);
 			SetPropW(handle, L"CT", win);

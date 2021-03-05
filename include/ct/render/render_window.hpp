@@ -6,7 +6,6 @@
 #include <ct/render/context_config.hpp>
 #include <ct/render/export.hpp>
 
-
 namespace ct {
 
 	class RenderContext;
@@ -14,12 +13,15 @@ namespace ct {
 	using RenderWindowPtr = std::unique_ptr<RenderWindow>;
 
 	class CT_RENDER_API RenderWindow : public Window {
-
-		friend CT_RENDER_API RenderWindowPtr create_render_window(u32 width, u32 height, cstr title, u32 style, const ContextConfig & config);
-		friend CT_RENDER_API RenderWindowPtr create_render_window(const WindowProperties & properties, const ContextConfig & config);
+		friend CT_RENDER_API RenderWindowPtr create_render_window(u32 width,
+		                                                          u32 height,
+		                                                          cstr title,
+		                                                          u32 style,
+		                                                          const ContextConfig & config);
+		friend CT_RENDER_API RenderWindowPtr
+		create_render_window(const WindowProperties & properties, const ContextConfig & config);
 
 	private:
-
 		RenderContext * context;
 
 	public:
@@ -29,13 +31,22 @@ namespace ct {
 		void make_current();
 		void swap_buffers();
 
-		static RenderWindow* create(u32 width, u32 height, cstr title, u32 style = WindowStyle::Default, const ContextConfig & config = ContextConfig());
+		static RenderWindow * create(u32 width,
+		                             u32 height,
+		                             cstr title,
+		                             u32 style = WindowStyle::Default,
+		                             const ContextConfig & config = ContextConfig());
 	};
 
-
-
-	CT_RENDER_API RenderWindowPtr create_render_window(u32 width, u32 height, cstr title, u32 style = WindowStyle::Default, const ContextConfig & config = ContextConfig());
-	CT_RENDER_API RenderWindowPtr create_render_window(const WindowProperties & properties, const ContextConfig & config = ContextConfig());
+	CT_RENDER_API RenderWindowPtr
+	create_render_window(u32 width,
+	                     u32 height,
+	                     cstr title,
+	                     u32 style = WindowStyle::Default,
+	                     const ContextConfig & config = ContextConfig());
+	CT_RENDER_API RenderWindowPtr
+	create_render_window(const WindowProperties & properties,
+	                     const ContextConfig & config = ContextConfig());
 
 } // namespace ct
 

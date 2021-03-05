@@ -19,9 +19,9 @@ namespace ct {
 
 	#ifdef __OBJC__
 		#import <AppKit/AppKit.h>
-		typedef NSWindow * WindowHandle;
+	typedef NSWindow * WindowHandle;
 	#else
-		typedef void * WindowHandle;
+	typedef void * WindowHandle;
 	#endif
 
 #else

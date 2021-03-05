@@ -177,30 +177,28 @@ TEST_CASE("virtual alternatives") {
     }
 
 	{
-        direct::Container container(new direct::Direct());
+        direct::Container container(new direct::Direct()); // NOLINT
 		p.run("direct through instance ref", [&] {
 			container.foo(rand() % 100);
 		});
 	}
 
 	{
-        poly::Container container(new poly::PureDerived());
+        poly::Container container(new poly::PureDerived()); // NOLINT
 		p.run("pure derived through instance ref", [&] {
 			container.foo(rand() % 100);
 		});
 	}
 
 	{
-        poly::Container container(new poly::Derived());
+        poly::Container container(new poly::Derived()); // NOLINT
 		p.run("derived through instance ref", [&] {
 			container.foo(rand() % 100);
 		});
 	}
 
-
-
 	{
-        poly::Container container(new poly::DerivedDerived());
+        poly::Container container(new poly::DerivedDerived()); // NOLINT
 		p.run("derived derived through instance ref", [&] {
 			container.foo(rand() % 100);
 		});
@@ -210,19 +208,19 @@ TEST_CASE("virtual alternatives") {
 
 
 	{
-        crtp::Container container(new crtp::Derived());
+        crtp::Container container(new crtp::Derived());  // NOLINT
 		p.run("crtp", [&] {
 			container.foo(rand() % 100);
 		});
 	}
 
 	{
-        fn_map::FnMap * map = new fn_map::FnMap {
-	 		[](ct::i32 a) {
+        fn_map::FnMap * map = new fn_map::FnMap {  // NOLINT
+	 		[](ct::i32 a) {  // NOLINT
 	 			auto i = (rand() % 100) + a;
 	 		},
 	 	};
-		fn_map::Container container(map);
+		fn_map::Container container(map);  // NOLINT
 		p.run("lambda map", [&] {
 			container.foo(rand() % 100);
 		});

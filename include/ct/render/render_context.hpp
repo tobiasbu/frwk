@@ -2,8 +2,8 @@
 #ifndef _CHRONOTRIX_FRWK_RENDER_RENDERCONTEXT_HPP_
 #define _CHRONOTRIX_FRWK_RENDER_RENDERCONTEXT_HPP_
 
-#include <ct/render/export.hpp>
 #include <ct/render/context_config.hpp>
+#include <ct/render/export.hpp>
 
 namespace ct {
 
@@ -13,23 +13,19 @@ namespace ct {
 	}
 
 	class CT_RENDER_API RenderContext {
-
-		private:
-
+	private:
 		internal::ContextImpl * impl;
 
-		public:
-
+	public:
 		RenderContext(internal::ContextImpl * impl);
 
 		void make_current();
 		void swap_buffers();
 
 		static RenderContext * create();
-		static RenderContext * create(Window* window, const ContextConfig & config);
-
+		static RenderContext * create(Window * window, const ContextConfig & config);
 	};
 
-}
+} // namespace ct
 
 #endif

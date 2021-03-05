@@ -1,4 +1,4 @@
-
+// clang-format off
 #ifndef _CHRONOTRIX_FRWK_VERSION_HPP_
 #define _CHRONOTRIX_FRWK_VERSION_HPP_
 
@@ -22,8 +22,9 @@
 ///
 /// @c "vX.Y.Z"
 ////////////////////////////////////////////////////////////
-#define CT_FRWK_VERSION                                       			\
-	"v" CT_STRINGER(CT_FRWK_VERSION_MAJOR) "." CT_STRINGER( 			\
-	    CT_FRWK_VERSION_MINOR) "." CT_STRINGER(CT_FRWK_VERSION_PATCH)
+#define CT_FRWK_VERSION	"v" \
+		CT_STRINGER(CT_FRWK_VERSION_MAJOR) "." \
+		CT_STRINGER(CT_FRWK_VERSION_MINOR) "." \
+		CT_STRINGER(CT_FRWK_VERSION_PATCH)
 
 #endif

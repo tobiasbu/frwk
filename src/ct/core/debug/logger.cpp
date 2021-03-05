@@ -11,5 +11,4 @@ namespace ct {
 		std::cout << get_log_level_name(level) << ": ";
 	}
 
-
 } // namespace ct

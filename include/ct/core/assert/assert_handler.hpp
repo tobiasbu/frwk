@@ -5,7 +5,6 @@
 //
 ////////////////////////////////////////////////////////////
 
-
 #ifndef _CHRONOTRIX_FRWK_ASSERT_HANDLER_HPP_
 #define _CHRONOTRIX_FRWK_ASSERT_HANDLER_HPP_
 
@@ -34,23 +33,21 @@ namespace ct {
 				Fatal = 64
 			};
 
-			CT_CORE_API Action get_action(Level level = Level::Error,
-			                                    bool * ignore = NULLPTR);
+			CT_CORE_API Action get_action(Level level = Level::Error, bool * ignore = NULLPTR);
 
 			CT_CORE_API cstr handle(cstr file,
-			                               i32 line,
-			                               cstr function,
-			                               cstr expression,
-			                               bool * ignore,
-			                               cstr message,
-			                               ...);
+			                        i32 line,
+			                        cstr function,
+			                        cstr expression,
+			                        bool * ignore,
+			                        cstr message,
+			                        ...);
 
 			CT_CORE_API bool ignore_all_asserts();
 		} // namespace Assert
 
-	}  // namespace internal
+	} // namespace internal
 
 } // namespace ct
 
 #endif
-

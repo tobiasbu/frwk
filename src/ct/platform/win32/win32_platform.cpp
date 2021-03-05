@@ -1,13 +1,11 @@
 
-
-#include <windows.h>
 #include <strsafe.h>
+#include <windows.h>
 
-#include <ct/platform/platform.hpp>
 #include <ct/platform/detail/win32_detail.hpp>
+#include <ct/platform/platform.hpp>
 #include <ct/platform/win32/win32_messaging.hpp>
 #include <ct/platform/win32/win32_window.hpp>
-
 
 namespace ct {
 
@@ -55,11 +53,12 @@ namespace ct {
 
 			void get_last_error() {
 				// Retrieve the system error message for the last-error code
-				LPTSTR lpszFunction = TEXT("GetProcessId");
+				LPTSTR lpszFunction = (char*)"GetProcessId";
 				LPVOID lpMsgBuf;
 				LPVOID lpDisplayBuf;
 				DWORD dw = GetLastError();
 
+				// clang-format off
 				FormatMessage(
 					FORMAT_MESSAGE_ALLOCATE_BUFFER |
 					FORMAT_MESSAGE_FROM_SYSTEM |
@@ -79,6 +78,7 @@ namespace ct {
 					TEXT("%s failed with error %d: %s"),
 					lpszFunction, dw, lpMsgBuf);
 				MessageBox(NULL, (LPCTSTR)lpDisplayBuf, TEXT("Error"), MB_OK);
+				// clang-format on
 
 				LocalFree(lpMsgBuf);
 				LocalFree(lpDisplayBuf);

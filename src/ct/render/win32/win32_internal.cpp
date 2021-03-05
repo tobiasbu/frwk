@@ -2,9 +2,7 @@
 #include <windows.h>
 
 #include <ct/platform/detail/win32_detail.hpp>
-
 #include <ct/render/win32/win32_internal.hpp>
-
 
 namespace ct {
 
@@ -13,19 +11,22 @@ namespace ct {
 		HWND helper_window = nullptr;
 
 		bool create_helper_window() {
-
 			if (helper_window) {
 				return true;
 			}
 
 			helper_window = CreateWindowExW(WS_EX_OVERLAPPEDWINDOW,
-					__CT_WNDCLASSNAME,
-					L"CT Helper window",
-					WS_CLIPSIBLINGS | WS_CLIPCHILDREN,
-					0, 0, 1, 1,
-					NULL, NULL,
-					GetModuleHandleW(NULL),
-					NULL);
+			                                __CT_WNDCLASSNAME,
+			                                L"CT Helper window",
+			                                WS_CLIPSIBLINGS | WS_CLIPCHILDREN,
+			                                0,
+			                                0,
+			                                1,
+			                                1,
+			                                NULL,
+			                                NULL,
+			                                GetModuleHandleW(NULL),
+			                                NULL);
 
 			if (!helper_window) {
 				return false;
@@ -49,11 +50,9 @@ namespace ct {
 			}
 		}
 
-
 		HWND get_helper_window() {
 			return helper_window;
 		}
-	}
+	} // namespace internal
 
-}
-
+} // namespace ct

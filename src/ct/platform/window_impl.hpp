@@ -9,15 +9,12 @@ namespace ct {
 
 	namespace internal {
 
-
-
 		////////////////////////////////////////////////////////////
 		/// \brief Represents abstraction for OS-specifc window class
 		///
 		////////////////////////////////////////////////////////////
 		class WindowImpl : NonCopyable {
 		public:
-
 			virtual ~WindowImpl() {};
 
 			////////////////////////////////////////////////////////////
@@ -31,7 +28,7 @@ namespace ct {
 			virtual void set_visible(bool visible) = 0;
 		};
 
-	}
+	} // namespace internal
 
 } // namespace ct
 

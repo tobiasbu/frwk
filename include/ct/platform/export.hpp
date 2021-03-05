@@ -5,7 +5,6 @@
 ///
 ////////////////////////////////////////////////////////////
 
-
 #ifndef _CHRONOTRIX_FRWK_PLATFORM_EXPORTS_HPP_
 #define _CHRONOTRIX_FRWK_PLATFORM_EXPORTS_HPP_
 

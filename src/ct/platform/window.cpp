@@ -1,19 +1,19 @@
 
 
-#include <ct/core/config/os_detection.hpp>
 #include <ct/core/assert/assert.hpp>
+#include <ct/core/config/os_detection.hpp>
 #include <ct/core/utils/type_traits.hpp>
 #include <ct/platform/window.hpp>
 
 #if defined(CT_OS_WIN32)
 
 	#include <ct/platform/win32/win32_window.hpp>
-	typedef ct::internal::Win32Window WindowImplType;
+typedef ct::internal::Win32Window WindowImplType;
 
 #elif defined(CT_OS_MACOS)
 
 	#include <ct/platform/osx/cocoa_window.hpp>
-	typedef ct::internal::CocoaWindow WindowImplType;
+typedef ct::internal::CocoaWindow WindowImplType;
 
 #else
 
@@ -61,22 +61,14 @@ namespace ct {
 	}
 
 	WindowPtr create_window(u32 width, u32 height, cstr title, u32 style) {
-
-		WindowProperties props(
-			width,
-			height,
-			title,
-			style
-		);
+		WindowProperties props(width, height, title, style);
 
 		return create_window(props);
-
 	}
 
 	WindowPtr create_window(const WindowProperties & props) {
 		auto impl = Window::create_window_impl(props);
 		return std::make_unique<enable_make<Window>>(impl);
 	}
-
 
 } // namespace ct

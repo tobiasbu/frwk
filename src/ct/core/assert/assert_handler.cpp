@@ -1,7 +1,7 @@
 
 #include <cstdarg> // va_start() and va_end()
-#include <iostream>
 #include <ct/core/assert/assert_handler.hpp>
+#include <iostream>
 #include <sstream>
 #include <stdarg.h>
 #include <stdio.h>
@@ -14,7 +14,7 @@ namespace ct {
 			namespace {
 				constexpr u32 CT_ASSERT_BUFFER_SIZE = 1024;
 				bool ignoreAll = false;
-			}
+			} // namespace
 
 			// void ignoreAllAsserts(bool value) {
 			// 	ignoreAll = value;
@@ -70,7 +70,7 @@ namespace ct {
 
 				std::cout << ss.str() << std::endl;
 
-				return message;
+				return message;  // NOLINT
 			}
 		} // namespace Assert
 

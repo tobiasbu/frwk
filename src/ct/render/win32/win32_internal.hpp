@@ -11,9 +11,8 @@ namespace ct {
 
 		void destroy_helper_window();
 
-		HWND__* get_helper_window();
+		HWND__ * get_helper_window();
 
-	}
+	} // namespace internal
 
-}
-
+} // namespace ct

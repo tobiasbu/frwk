@@ -1,12 +1,11 @@
 
-#include <windows.h>
 #include <iostream>
+#include <windows.h>
 
 #include <ct/core/types.hpp>
 #include <ct/platform/window.hpp>
-
-#include <ct/render/win32/win32_internal.hpp>
 #include <ct/render/opengl/wgl_context.hpp>
+#include <ct/render/win32/win32_internal.hpp>
 
 namespace ct {
 
@@ -25,8 +24,7 @@ namespace ct {
 					cColorBits = 32;
 					alphaBuffer = 8;
 				}
-
-
+				// clang-format off
 				PIXELFORMATDESCRIPTOR pfd = {
 					sizeof(PIXELFORMATDESCRIPTOR), // Size of PixelFormat struct
 					1,                             // Version Number
@@ -48,7 +46,7 @@ namespace ct {
 					0, 0,
 					0 // Layer Masks Ignored
 				};
-
+				// clang-format on
 				return pfd;
 			}
 
@@ -89,27 +87,20 @@ namespace ct {
 				wglDeleteContext(hglrc);
 				return true;
 			}
-		}
+		} // namespace detail
 
 		WglContext::WglContext(HWND hwnd, HDC hdc, HGLRC hglrc)
-		:
-		hwnd(hwnd),
-		hdc(hdc),
-		hglrc(hglrc)
-		{
-		}
+		: hwnd(hwnd),
+		  hdc(hdc),
+		  hglrc(hglrc) {}
 
 		void WglContext::make_current() {
 			if (hwnd != NULL) {
 				if (wglMakeCurrent(hdc, hglrc)) {
-
 				} else {
-
 				}
 			} else {
-
 				if (!wglMakeCurrent(NULL, NULL)) {
-
 				}
 			}
 		}
@@ -117,17 +108,16 @@ namespace ct {
 			SwapBuffers(hdc);
 		}
 
-		 get_proc_address_fn WglContext::get_proc_address(cstr procname) {
- 			const auto proc = (get_proc_address_fn)wglGetProcAddress(procname);
-   			 if (proc) {
+		get_proc_address_fn WglContext::get_proc_address(cstr procname) {
+			const auto proc = (get_proc_address_fn)wglGetProcAddress(procname);
+			if (proc) {
 				return proc;
 			}
 
-   			 return (get_proc_address_fn)GetProcAddress(detail::opengl32_module, procname);
-		 }
+			return (get_proc_address_fn)GetProcAddress(detail::opengl32_module, procname);
+		}
 
-		WglContext * WglContext::create(Window* window, const ContextConfig & config) {
-
+		WglContext * WglContext::create(Window * window, const ContextConfig & config) {
 			if (!detail::init_WGL()) {
 				std::cout << "Failed to initialize Wgl" << std::endl;
 				return nullptr;
@@ -144,10 +134,10 @@ namespace ct {
 				std::cout << "Fail to create pixel format" << std::endl;
 			}
 
-			if (!DescribePixelFormat(hDc, pixelFormat, sizeof(pfd), &pfd)){
-        		std::cout << "Failed to describe PFD for selected pixel format" << std::endl;
-        		return nullptr;
-    		}
+			if (!DescribePixelFormat(hDc, pixelFormat, sizeof(pfd), &pfd)) {
+				std::cout << "Failed to describe PFD for selected pixel format" << std::endl;
+				return nullptr;
+			}
 
 			if (!SetPixelFormat(hDc, pixelFormat, &pfd)) {
 				std::cout << "Fail to set pixel format" << std::endl;

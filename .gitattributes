@@ -1,6 +1,6 @@
 # Properly detect programming languages on Github
 *.h linguist-language=cpp
-*.inc linguist-language=cpp
+*.inl linguist-language=cpp
 src/ct/platform/osx linguist-language=objc++
 thirdparty/* linguist-vendored
 

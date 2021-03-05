@@ -1,9 +1,8 @@
 
 #ifndef _CHRONOTRIX_FRWK_NONCOPYABLE_HPP_
-#define _CHRONOTRIX_FRWK_NONCOPYABLE_HPP_
+	#define _CHRONOTRIX_FRWK_NONCOPYABLE_HPP_
 
-#include <ct/core/config/compiler.hpp>
-
+	#include <ct/core/config/compiler.hpp>
 
 namespace ct {
 
@@ -13,7 +12,7 @@ namespace ct {
 	////////////////////////////////////////////////////////////
 	class NonCopyable {
 	protected:
-#if defined(CT_CXX11_DEFAULT_FUNCTIONS)
+	#if defined(CT_CXX11_DEFAULT_FUNCTIONS)
 		////////////////////////////////////////////////////////////
 		/// @brief Default constructor
 		///
@@ -25,12 +24,12 @@ namespace ct {
 		///
 		////////////////////////////////////////////////////////////
 		~NonCopyable() = default;
-#else
+	#else
 		NonCopyable() {}
 		~NonCopyable() {}
-#endif
+	#endif
 
-#if defined(CT_CXX11_DELETE_FUNCTIONS)
+	#if defined(CT_CXX11_DELETE_FUNCTIONS)
 
 		////////////////////////////////////////////////////////////
 		/// @brief Non copyable constructor
@@ -43,11 +42,11 @@ namespace ct {
 		///
 		////////////////////////////////////////////////////////////
 		NonCopyable & operator=(const NonCopyable &) = delete;
-#else
+	#else
 	private:
 		NonCopyable(const NonCopyable &);
 		NonCopyable & operator=(const NonCopyable &);
-#endif
+	#endif
 	};
 } // namespace ct
 
@@ -61,4 +60,3 @@ namespace ct {
 /// Detailed description goes here
 ///
 ////////////////////////////////////////////////////////////
-

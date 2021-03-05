@@ -1,10 +1,10 @@
 
 #ifndef _CHRONOTRIX_FRWK_LOGGER_HPP_
-#define _CHRONOTRIX_FRWK_LOGGER_HPP_
+	#define _CHRONOTRIX_FRWK_LOGGER_HPP_
 
-#include <iostream>
-#include <ct/core/debug/loglevel.hpp>
-#include <ct/core/export.hpp>
+	#include <ct/core/debug/loglevel.hpp>
+	#include <ct/core/export.hpp>
+	#include <iostream>
 
 namespace ct {
 
@@ -12,12 +12,12 @@ namespace ct {
 	private:
 		void print_level(LogLevel level);
 
-		template<typename T>
+		template <typename T>
 		void print(T only) {
 			std::cout << only;
 		}
 
-		template<typename T, typename... Args>
+		template <typename T, typename... Args>
 		void print(T current, Args... next) {
 			std::cout << current;
 
@@ -36,7 +36,7 @@ namespace ct {
 			std::cout << std::endl;
 		}
 
-		template<typename... Args>
+		template <typename... Args>
 		void log(Args... args) {
 			this->print_level(LogLevel::Log);
 			this->print(args...);

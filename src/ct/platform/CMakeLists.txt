@@ -43,7 +43,7 @@ if(CT_OS_WINDOWS)
 		${PLATFORM_INC}
 		${INCPATH}/detail/win32_detail.hpp
 	)
-	ct_group(${PLATFORM_INC} NAME "win32/include")
+	ct_group(${PLATFORM_INC} NAME "${CT_HEADER_GROUP}/win32")
 
 	# platform src
 	ct_file_list(ROOT ${SRC_OS_PATH} OUTPUT PLATFORM_SRC
@@ -51,7 +51,7 @@ if(CT_OS_WINDOWS)
 		win32_window.cpp
 		win32_messaging.cpp
 	)
-	ct_group(${PLATFORM_SRC} NAME "win32/src")
+	ct_group(${PLATFORM_SRC} NAME "${CT_SOURCE_GROUP}/win32")
 
 elseif(CT_OS_MACOSX)
 	set(INC_OS_PATH "${INCPATH}/osx")

@@ -18,4 +18,4 @@
 	#define CT_CXX11_DELETE_FUNCTIONS
 #endif
 
-#define __attribute__((noinline))
+#define NOINLINE __attribute__((noinline))

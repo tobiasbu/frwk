@@ -11,10 +11,10 @@ AlignConsecutiveAssignments: false
 AlignConsecutiveBitFields: false
 AlignConsecutiveDeclarations: false
 AlignConsecutiveMacros: false
-AlignEscapedNewlines: Left
+AlignEscapedNewlines: DontAlign
 AlignOperands: true
 AlignTrailingComments: true
-AllowAllArgumentsOnNextLine: false
+AllowAllArgumentsOnNextLine: true
 AllowAllConstructorInitializersOnNextLine: false
 AllowAllParametersOfDeclarationOnNextLine: false
 AllowShortBlocksOnASingleLine: Never
@@ -30,7 +30,7 @@ AlwaysBreakAfterReturnType: None
 AlwaysBreakBeforeMultilineStrings: false
 AlwaysBreakTemplateDeclarations: Yes
 # skipped - AttributeMacros
-BinPackArguments: true
+BinPackArguments: false
 BinPackParameters: false
 BraceWrapping:
   AfterCaseLabel: false
@@ -77,23 +77,11 @@ ForEachMacros:
   - foreach
   - Q_FOREACH
   - BOOST_FOREACH
-IncludeBlocks: Regroup
-IncludeCategories:
-  - Regex: '^(<|"(ct))/'
-    Priority: 4
-    SortPriority: 0
-  - Regex: '^"(llvm|llvm-c|clang|clang-c)/'
-    Priority: 2
-    SortPriority: 0
-  - Regex: '^(<|"(gtest|gmock|isl|json)/)'
-    Priority: 3
-    SortPriority: 0
-  - Regex: '.*'
-    Priority: 1
-    SortPriority: 0
+IncludeBlocks: Preserve
 IncludeIsMainRegex: '(Test)?$'
 IncludeIsMainSourceRegex: ''
 # does not work in msvc: IndentCaseBlocks
+# IndentAccessModifiers: true
 IndentCaseBlocks: false
 IndentCaseLabels: true
 # does not work in msvc: IndentExternBlock
@@ -134,7 +122,7 @@ SortIncludes: true
 SortUsingDeclarations: true
 SpaceAfterCStyleCast: false
 SpaceAfterLogicalNot: false
-SpaceAfterTemplateKeyword: false
+SpaceAfterTemplateKeyword: true
 # skipped - SpaceAroundPointerQualifiers:
 SpaceBeforeAssignmentOperators: true
 # not available - SpaceBeforeCaseColon: false

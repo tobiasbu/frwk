@@ -62,7 +62,7 @@ namespace ct {
 				return *this;
 			}
 
-			NODISCARD void render() {
+			void render() {
 				for (auto& r : _results) {
 					std::cout << r.name
 					<< " | "

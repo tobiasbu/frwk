@@ -26,7 +26,7 @@ class DummyMoveClass {
 };
 
 
-TEST_CASE( "move", "[core:utils:type_traits:move]" ) {
+TEST_CASE("[core:utils:type_traits:move]") {
 
 	SUBCASE("swap entities") {
 		DummyMoveClass a(64);
@@ -34,14 +34,14 @@ TEST_CASE( "move", "[core:utils:type_traits:move]" ) {
 
 		swap(a, b);
 
-		REQUIRE(a.value == 128);
-		REQUIRE(b.value == 64);
+		CHECK(a.value == 128);
+		CHECK(b.value == 64);
 
 		swap(a, b);
 
-		REQUIRE(a.value == 64);
-		REQUIRE(b.value == 128);
-    }
+		CHECK(a.value == 64);
+		CHECK(b.value == 128);
+    };
 
 	SUBCASE("swap entities with MOV macro") {
 		DummyMoveClass a(64);
@@ -49,13 +49,13 @@ TEST_CASE( "move", "[core:utils:type_traits:move]" ) {
 
 		swapMacro(a, b);
 
-		REQUIRE(a.value == 128);
-		REQUIRE(b.value == 64);
+		CHECK(a.value == 128);
+		CHECK(b.value == 64);
 
 		swapMacro(a, b);
 
-		REQUIRE(a.value == 64);
-		REQUIRE(b.value == 128);
-    }
+		CHECK(a.value == 64);
+		CHECK(b.value == 128);
+    };
 
-}
+};

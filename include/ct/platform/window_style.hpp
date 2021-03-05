@@ -1,9 +1,9 @@
 
 #ifndef _CHRONOTRIX_FRWK_WINDOW_STYLE_HPP_
-#define _CHRONOTRIX_FRWK_WINDOW_STYLE_HPP_
+	#define _CHRONOTRIX_FRWK_WINDOW_STYLE_HPP_
 
-#include <ct/core/types.hpp>
-#include <ct/platform/export.hpp>
+	#include <ct/core/types.hpp>
+	#include <ct/platform/export.hpp>
 
 namespace ct {
 
@@ -66,11 +66,7 @@ namespace ct {
 		/// @param closable Should be closable
 		/// @return WindowStyle
 		////////////////////////////////////////////////////////////
-		CT_PLATFORM_API u32 make(
-			bool bordeless,
-		 	bool titleBar,
-		 	bool resizable,
-		 	bool closable);
+		CT_PLATFORM_API u32 make(bool bordeless, bool titleBar, bool resizable, bool closable);
 
 	}; // namespace WindowStyle
 

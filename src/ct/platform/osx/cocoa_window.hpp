@@ -3,16 +3,15 @@
 #define _CHRONOTRIX_FRWK_COCOA_WINDOW_HPP_
 
 #include <ct/core/types.hpp>
-
 #include <ct/platform/window_impl.hpp>
 #include <ct/platform/window_properties.hpp>
 
 #ifdef __OBJC__
 	#import <AppKit/AppKit.h>
 	#import <ct/platform/osx/ct_window_delegate.h>
-	typedef CTWindowDelegate * WindowDelegate;
+typedef CTWindowDelegate * WindowDelegate;
 #else
-	typedef void * WindowDelegate;
+typedef void * WindowDelegate;
 #endif
 
 namespace ct {

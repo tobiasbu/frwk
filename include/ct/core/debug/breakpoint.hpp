@@ -6,7 +6,7 @@
 
 #ifdef CT_DEBUG
 	#if defined(_MSC_VER)
-		extern void __cdecl __debugbreak(void);
+extern void __cdecl __debugbreak(void);
 		#define CT_BREAKPOINT() __debugbreak()
 	#else
 		#if defined(__APPLE__)

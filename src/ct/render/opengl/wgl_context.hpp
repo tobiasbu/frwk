@@ -14,10 +14,9 @@ namespace ct {
 
 	namespace internal {
 
-
 		class WglContext final : public ContextImpl {
 		private:
-			HWND__ * hwnd; 	 //!< Associate window to this context
+			HWND__ * hwnd;   //!< Associate window to this context
 			HDC__ * hdc;     //!< GDI Device context handle
 			HGLRC__ * hglrc; //!< OpenGL rendering context
 
@@ -30,7 +29,7 @@ namespace ct {
 
 			static get_proc_address_fn get_proc_address(cstr procname);
 
-			static WglContext * create(Window* window, const ContextConfig & config);
+			static WglContext * create(Window * window, const ContextConfig & config);
 		};
 
 	} // namespace internal
