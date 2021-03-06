@@ -5,7 +5,7 @@
 #include <functional>
 #include <chrono>
 
-#include <ct/types.hpp>
+#include <ct/config/types.hpp>
 #include <ct/core/utils/type_traits.hpp>
 
 #include <profiler.hpp>
@@ -143,7 +143,7 @@ namespace fn_map {
 
 }
 
-TEST_CASE("virtual alternatives") {
+TEST_CASE("benchmark/virtual_alternatives") {
 
 	ct::test::Profiler p;
 	p.iterations(50000);
