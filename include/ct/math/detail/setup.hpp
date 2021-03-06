@@ -2,8 +2,15 @@
 #ifndef _CHRONOTRIX_FRWK_MATH_SETUP_HPP_
 #define _CHRONOTRIX_FRWK_MATH_SETUP_HPP_
 
-#include <ct/config/compiler.hpp>
-#include <ct/types.hpp>
+#include <ct/config.hpp>
+
+#if defined(CT_ASSERT)
+	#define __CT_MATH_ASSERT CT_ASSERT
+#elif defined(assert)
+	#define __CT_MATH_ASSERT assert
+#else
+	#define __CT_MATH_ASSERT(...) ((0)void)
+#endif
 
 namespace ct {
 
