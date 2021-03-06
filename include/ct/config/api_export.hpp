@@ -1,15 +1,8 @@
 
-#ifndef _CHRONOTRIX_FRWK_API_HPP_
-#define _CHRONOTRIX_FRWK_API_HPP_
+#ifndef _CHRONOTRIX_FRWK_CONFIG_API_EXPORT_HPP_
+#define _CHRONOTRIX_FRWK_CONFIG_API_EXPORT_HPP_
 
-#include <ct/core/config/os_detection.hpp>
-
-////////////////////////////////////////////////////////////
-// Define a portable debug macro
-////////////////////////////////////////////////////////////
-#if defined(_DEBUG) || defined(DEBUG)
-	#define CT_DEBUG
-#endif
+#include <ct/config/os.hpp>
 
 ////////////////////////////////////////////////////////////
 // Define import / export macros for each module

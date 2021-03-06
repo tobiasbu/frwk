@@ -18,5 +18,5 @@ function(add_bench target SOURCES)
 
 endfunction()
 
-set(SRC ${BENCH_DIR}/virtual_alternatives.cpp)
-add_bench(bench_virtual_alter "${SRC}" DEPENDS chronotrix_core)
+set(SRC ${BENCH_DIR}/virtual_alternatives.test.cpp)
+add_bench(bench_virtual_alter "${SRC}" DEPENDS ctfk_core)

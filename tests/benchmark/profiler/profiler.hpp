@@ -4,9 +4,7 @@
 
 #include <chrono>
 
-#include <ct/core/types.hpp>
-#include <ct/core/config/compiler.hpp>
-
+#include <ct/config.hpp>
 namespace ct {
 
 	namespace test {

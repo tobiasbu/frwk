@@ -4,20 +4,13 @@
 // \todo Copyright notice
 //
 ////////////////////////////////////////////////////////////
-///
-/// \ingroup chronotrix-core
-/// \file AssertionException.hpp
-/// \author Tobias Ulrich <flamenco.bluegrass@gmail.com>
-/// \date September 25, 2020
-///
-////////////////////////////////////////////////////////////
 
-#ifndef _CHRONOTRIX_FRWK_ASSERTION_EXCEPTION_HPP_
-#define _CHRONOTRIX_FRWK_ASSERTION_EXCEPTION_HPP_
+#ifndef _CHRONOTRIX_FRWK_DEBUG_ASSERTION_EXCEPTION_HPP_
+#define _CHRONOTRIX_FRWK_DEBUG_ASSERTION_EXCEPTION_HPP_
 
 #include <ct/core/error/exception.hpp>
 #include <ct/core/export.hpp>
-#include <ct/core/types.hpp>
+#include <ct/config/types.hpp>
 
 namespace ct {
 
@@ -95,3 +88,11 @@ namespace ct {
 } // namespace ct
 
 #endif
+
+////////////////////////////////////////////////////////////
+/// @file AssertionException.hpp
+/// @ingroup debug
+/// @author Tobias Ulrich <flamenco.bluegrass@gmail.com>
+/// @date September 25, 2020
+///
+////////////////////////////////////////////////////////////

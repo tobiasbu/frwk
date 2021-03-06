@@ -2,7 +2,7 @@
 #ifndef _CHRONOTRIX_FRWK_WINDOW_HPP_
 #define _CHRONOTRIX_FRWK_WINDOW_HPP_
 
-#include <ct/core/types.hpp>
+#include <ct/config/types.hpp>
 #include <ct/core/utils/noncopyable.hpp>
 #include <ct/core/utils/type_traits.hpp>
 #include <ct/platform/export.hpp>

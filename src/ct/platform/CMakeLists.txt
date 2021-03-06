@@ -86,12 +86,12 @@ endif()
 
 
 # make library target
-ct_add_library(chronotrix_platform
+ct_add_library(ctfk_platform
 				SOURCES ${INC} ${SRC} ${PLATFORM_INC} ${PLATFORM_SRC}
-				DEPENDS chronotrix_core ${LINK_LIBS}
+				DEPENDS ctfk_config ctfk_core ${LINK_LIBS}
 )
 
 # specifc config
 if (CT_OS_MACOSX AND (NOT BUILD_SHARED_LIBS))
-    target_link_libraries(chronotrix_platform PRIVATE -ObjC)
+    target_link_libraries(ctfk_platform PRIVATE -ObjC)
 endif()

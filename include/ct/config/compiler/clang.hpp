@@ -19,3 +19,4 @@
 #endif
 
 #define NOINLINE __attribute__((noinline))
+#define __CT_FORCEINLINE __attribute__((__always_inline__))

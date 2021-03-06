@@ -15,3 +15,4 @@
 #endif
 
 #define NOINLINE __declspec(noinline)
+#define __CT_FORCEINLINE __forceinline

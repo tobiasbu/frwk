@@ -1,6 +1,10 @@
 
 include(CMakeParseArguments)
 
+macro(get_project_version ct_ver)
+	set(${ct_ver} "${${PROJECT_NAME}_VERSION_MAJOR}")
+endmacro()
+
 #
 # Set Xcode property
 #
@@ -51,23 +55,24 @@ macro(ct_add_library target)
 	set_target_properties(${target} PROPERTIES DEFINE_SYMBOL "${EXPORT_SYMBOL_NAME}_EXPORTS")
 
 	# Set libray output files names
+	get_project_version(FK_VERSION)
+	# set_target_properties(${target} PROPERTIES PREFIX "${PROJECT_NAME}_")
+
 	if(CT_STATIC)
-		set_target_properties(${target} PROPERTIES DEBUG_POSTFIX -${chronotrix_VERSION}-s.dev)
-		set_target_properties(${target} PROPERTIES RELEASE_POSTFIX -${chronotrix_VERSION}-s)
-		set_target_properties(${target} PROPERTIES MINSIZEREL_POSTFIX -${chronotrix_VERSION}-min-s)
-		set_target_properties(${target} PROPERTIES RELWITHDEBINFO_POSTFIX -${chronotrix_VERSION}-s)
+		set_target_properties(${target} PROPERTIES DEBUG_POSTFIX - ${FK_VERSION}-s.dev)
+		set_target_properties(${target} PROPERTIES RELEASE_POSTFIX -${FK_VERSION}-s)
+		set_target_properties(${target} PROPERTIES MINSIZEREL_POSTFIX -${FK_VERSION}-min-s)
+		set_target_properties(${target} PROPERTIES RELWITHDEBINFO_POSTFIX -${FK_VERSION}-s)
 	else()
+		set_target_properties(${target} PROPERTIES DEBUG_POSTFIX "_d")
 		if(CT_OS_WINDOWS)
 			# include the major version number in Windows shared library names (but not import library names)
-			set_target_properties(${target} PROPERTIES DEBUG_POSTFIX "_dbg")
-			set_target_properties(${target} PROPERTIES SUFFIX "${CMAKE_SHARED_LIBRARY_SUFFIX}")
-		else()
-			set_target_properties(${target} PROPERTIES DEBUG_POSTFIX "_dbg")
+			set_target_properties(${target} PROPERTIES SUFFIX "_${FK_VERSION}${CMAKE_SHARED_LIBRARY_SUFFIX}")
 		endif()
 	endif()
 
 	# [WIN32] Set the target folder for Visual Studio
-	set_target_properties(${target} PROPERTIES FOLDER "frwk")
+	set_target_properties(${target} PROPERTIES FOLDER "${PROJECT_NAME}")
 
 	# [MACOS] Set Xcode properties
 	# if(CT_OS_MACOSX AND BUILD_SHARED_LIBS)
@@ -99,6 +104,37 @@ macro(ct_add_library target)
 endmacro()
 
 #
+# Add Chronotrix header-only library
+#
+# @param target {TARGET}			cmake target
+# @param HEADERS {STRING[]}		list of header files
+# @param DEPENDS? {(TARGET | STRING)[]}	optional - list of dependencies
+#
+macro(ct_add_header_lib target HEADERS)
+	cmake_parse_arguments(ARGS "" "" "DEPENDS" ${ARGN})
+
+	# Create library target
+	add_library(${target} INTERFACE)
+
+	# Add rule for export symbol
+	install(TARGETS ${target} EXPORT ChronotrixConfigExport
+			ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+			LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+			RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+			FRAMEWORK DESTINATION "." COMPONENT bin)
+
+	# Add <ct/../../> as interface include directory
+	target_include_directories(${target} INTERFACE
+							   $<BUILD_INTERFACE:${CT_FRWK_DIR}/include>
+							   $<INSTALL_INTERFACE:include>)
+	# target_sources(${target} INTERFACE ${HEADERS})
+
+	if(ARGS_DEPENDS)
+		target_link_libraries(${target} PUBLIC ${ARGS_DEPENDS})
+	endif()
+endmacro()
+
+#
 # Add a new example executable target
 #
 # @param target {TARGET}			cmake target
@@ -118,13 +154,13 @@ macro(ct_add_executable target)
 	set_target_properties(${target} PROPERTIES FOLDER "examples")
 
 	# Set the dev suffix
-	set_target_properties(${target} PROPERTIES DEBUG_POSTFIX "_dbg")
+	set_target_properties(${target} PROPERTIES DEBUG_POSTFIX "_d")
 
 	# Set the Visual Studio startup path for debugging
 	set_target_properties(${target} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
 	# Set target libraries
-	target_link_libraries(${target} PRIVATE chronotrix_core)
+	target_link_libraries(${target} PRIVATE ctfk_core)
 	if(ARGS_DEPENDS)
 		target_link_libraries(${target} PRIVATE ${ARGS_DEPENDS})
 	endif()
@@ -142,7 +178,7 @@ macro(ct_add_executable target)
 			add_custom_command(TARGET ${target}
 							  POST_BUILD        										# Adds a post-build event to MyTest
 							  COMMAND ${CMAKE_COMMAND} -E copy_if_different  			# which executes "cmake - E copy_if_different..."
-							  "${CMAKE_BINARY_DIR}/bin/chronotrix_core_dbg.dll"        # <--this is in-file
+							  "${CMAKE_BINARY_DIR}/bin/chronotrix_core_d.dll"        # <--this is in-file
 							  $<TARGET_FILE_DIR:${target}>)                 			# <--this is out-file path
 		else()
 			message(AUTHOR_WARNING "CT_EXAMPLES_POSTCOMMAND is not set correctly.\ The '${target}' target will be placed in ${CMAKE_BINARY_DIR}")
@@ -173,7 +209,7 @@ macro(ct_add_test target SOURCES)
 	# add catch header as SYSTEM to avoid clang-tidy
 	target_include_directories(${target} SYSTEM PRIVATE "${CT_THIRDPARTY_HEADERS}")
 
-	add_test(NAME chronotrix_tests COMMAND ${target})
+	add_test(NAME ctfk_tests COMMAND ${target})
 
 endmacro()
 
@@ -188,7 +224,7 @@ function(ct_export_targets)
 
 	# Create Version file for the project
 	write_basic_package_version_file("${CMAKE_CURRENT_BINARY_DIR}/ChronotrixVersionConfig.cmake"
-                                     VERSION ${chronotrix_VERSION}
+                                     VERSION ${${PROJECT_NAME}_VERSION}
 									 COMPATIBILITY SameMajorVersion)
 
 	# Set target build config
@@ -205,7 +241,8 @@ function(ct_export_targets)
 		FILE "${CMAKE_CURRENT_BINARY_DIR}/${TARGET_CONFIG_FILENAME}")
 
 	set(CONFIG_PACKAGE_DIR ${CMAKE_INSTALL_LIBDIR}/cmake/chronotrix)
-	# configure_package_config_file("${CURRENT_DIR}/ChronotrixConfig.cmake.in" "${CMAKE_CURRENT_BINARY_DIR}/ChronotrixConfig.cmake"
+	# configure_package_config_file("${CURRENT_DIR}/ChronotrixConfig.cmake.in"
+	# ${CMAKE_CURRENT_BINARY_DIR}/ChronotrixConfig.cmake"
     #    						  INSTALL_DESTINATION "${CONFIG_PACKAGE_DIR}")
 
 	# Add installation rule for targets

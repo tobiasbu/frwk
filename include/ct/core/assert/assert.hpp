@@ -4,16 +4,9 @@
 // \todo Copyright notice
 //
 ////////////////////////////////////////////////////////////
-///
-/// \ingroup chronotrix-core
-/// \file Assert.hpp
-/// \author Tobias Ulrich <flamenco.bluegrass@gmail.com>
-/// \date September 25, 2020
-///
-////////////////////////////////////////////////////////////
 
-#ifndef _CHRONOTRIX_FRWK_ASSERT_HPP_
-#define _CHRONOTRIX_FRWK_ASSERT_HPP_
+#ifndef _CHRONOTRIX_FRWK_DEBUG_ASSERT_HPP_
+#define _CHRONOTRIX_FRWK_DEBUG_ASSERT_HPP_
 
 #include <ct/core/assert/assert_handler.hpp>
 #include <ct/core/assert/assertion_exception.hpp>
@@ -44,36 +37,36 @@
 #define CT_APPLY_VA_ARGS(M, ...) __CT_DO_APPLY_VA_ARGS(M, (__VA_ARGS__))
 #define __CT_DO_APPLY_VA_ARGS(M, args) M args
 
-#define CT_ASSERT_NARG(...) CT_APPLY_VA_ARGS(__CT_ASSERT_NARG_,				   \
-	CT_NO_MACRO, ##__VA_ARGS__,										   						   \
-	32, 31, 30, 29, 28, 27, 26, 25,										   						   \
-	24, 23, 22, 21, 20, 19, 18, 17,										   						   \
-	16,	15, 14, 13, 12, 11, 10,  9,										   						   \
-	 8,  7,  6,  5,  4,  3,  2,  1,										   						   \
-	 0, CT_NO_MACRO)										   						               \
+#define CT_ASSERT_NARG(...) CT_APPLY_VA_ARGS(__CT_ASSERT_NARG_,	\
+	CT_NO_MACRO, ##__VA_ARGS__,	\
+	32, 31, 30, 29, 28, 27, 26, 25,	\
+	24, 23, 22, 21, 20, 19, 18, 17,	\
+	16,	15, 14, 13, 12, 11, 10,  9,	\
+	 8,  7,  6,  5,  4,  3,  2,  1,	\
+	 0, CT_NO_MACRO)				\
 
-#define __CT_ASSERT_NARG_( _0, _1, _2, _3, _4, _5, _6, _7, _8,								   \
-                                _9, _10, _11, _12, _13, _14, _15, _16,							   \
-                               _17, _18, _19, _20, _21, _22, _23, _24,							   \
+#define __CT_ASSERT_NARG_( _0, _1, _2, _3, _4, _5, _6, _7, _8, \
+                                _9, _10, _11, _12, _13, _14, _15, _16, \
+                               _17, _18, _19, _20, _21, _22, _23, _24, \
                                _25, _26, _27, _28, _29, _30, _31, _32, _33, ...) _33
 
-#define CT_HAS_ONE_ARGUMENT(...) CT_APPLY_VA_ARGS(__CT_ASSERT_NARG_,            \
-	CT_NO_MACRO, ##__VA_ARGS__,										   						   \
-    0, 0, 0, 0, 0, 0, 0, 0,										   						   		   \
-	0, 0, 0, 0, 0, 0, 0, 0,																		   \
-	0, 0, 0, 0, 0, 0, 0, 0,																		   \
-	0, 0, 0, 0, 0, 0, 0, 1,																		   \
-	0, CT_NO_MACRO)																		   	   \
+#define CT_HAS_ONE_ARGUMENT(...) CT_APPLY_VA_ARGS(__CT_ASSERT_NARG_, \
+	CT_NO_MACRO, ##__VA_ARGS__,	 \
+    0, 0, 0, 0, 0, 0, 0, 0,	\
+	0, 0, 0, 0, 0, 0, 0, 0,	\
+	0, 0, 0, 0, 0, 0, 0, 0, \
+	0, 0, 0, 0, 0, 0, 0, 1,	\
+	0, CT_NO_MACRO)
 
 
 ////////////////////////////////////////////////////////////
-/// \brief Assert given expression
+/// @brief Assert given expression
 ///
-/// \param expression Expression to be tested
-/// \param message Optional message
-/// \param args Additional message args
+/// @param expression Expression to be tested
+/// @param message Optional message
+/// @param args Additional message args
 ///
-/// \exception ct::AssertException
+/// @exception ct::AssertException
 ///
 ////////////////////////////////////////////////////////////
 #define CT_ASSERT(expression, ...) __CT_ASSERT_(true, expression, __VA_ARGS__)
@@ -88,7 +81,6 @@
 		__pragma(warning(push))													  		      \
 		__pragma(warning(disable : 4127)) 													  \
 		do {                                                      							  \
-			static bool _ignore = false;                                                      \
 			if (expression || ct::internal::Assert::ignore_all_asserts())    			      \
 				void(0);                                                                      \
 			else {                                                                            \
@@ -96,7 +88,7 @@
 				ct::cstr message = ct::internal::Assert::handle(					          \
 					CT_ASSERT_FILE, CT_ASSERT_LINE, CT_ASSERT_FUNCTION,                    	  \
 					#expression, 													          \
-					&_ignore,															      \
+					false,															      	  \
 					__VA_ARGS__);															  \
 																						      \
 				if (action == ct::internal::Assert::Action::Break) {                          \
@@ -123,3 +115,11 @@
 #endif
 
 #endif
+
+////////////////////////////////////////////////////////////
+/// @file Assert.hpp
+/// @ingroup debug
+/// @author Tobias Ulrich <flamenco.bluegrass@gmail.com>
+/// @date September 25, 2020
+///
+////////////////////////////////////////////////////////////

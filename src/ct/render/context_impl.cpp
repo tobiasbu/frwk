@@ -1,5 +1,5 @@
 
-#include <ct/core/config/os_detection.hpp>
+#include <ct/config/os.hpp>
 #include <ct/render/context_impl.hpp>
 #include <stdio.h>
 

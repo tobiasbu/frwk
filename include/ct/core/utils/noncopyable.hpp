@@ -1,8 +1,8 @@
 
 #ifndef _CHRONOTRIX_FRWK_NONCOPYABLE_HPP_
-	#define _CHRONOTRIX_FRWK_NONCOPYABLE_HPP_
+#define _CHRONOTRIX_FRWK_NONCOPYABLE_HPP_
 
-	#include <ct/core/config/compiler.hpp>
+#include <ct/config.hpp>
 
 namespace ct {
 

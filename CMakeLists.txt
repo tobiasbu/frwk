@@ -14,7 +14,7 @@ if(NOT CMAKE_OSX_ARCHITECTURES)
 endif()
 
 # Project
-project (chronotrix_frwk
+project (ctfk
 		VERSION 0.0.1
 		DESCRIPTION "Chronotrix Framework"
 		LANGUAGES C CXX)
@@ -49,6 +49,7 @@ set(CT_THIRDPARTY_CMAKE_CONFIG_DIR "${CT_FRWK_DIR}/cmake/thirdparty")
 set(CT_THIRDPARTY_HEADERS ${CT_THIRDPARTY_DIR}/headers)
 set(CT_HEADER_GROUP "Header Files")
 set(CT_SOURCE_GROUP "Source Files")
+set(CMAKE_INSTALL_PREFIX "${CT_FRWK_DIR}/install/${PROJECT_NAME}")
 
 #############################################
 ####              OPTIONS               ####
@@ -137,6 +138,18 @@ endif()
 # [MACOSX] Setup
 if(CT_OS_MACOSX)
 	set(XCODE_TEMPLATES_ARCH "\$(NATIVE_ARCH_ACTUAL)")
+endif()
+
+#############################################
+####	 OUTPUT AND LIB DIRECTORIES 	 ####
+#############################################
+# Set output folders for libraries
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
+set(LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}/lib")
+
+if (CT_OS_WINDOWS AND CT_EXAMPLES_POSTCOMMAND STREQUAL "exe_to_bin")
+	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 endif()
 
 #############################################

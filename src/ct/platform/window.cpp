@@ -1,7 +1,7 @@
 
 
 #include <ct/core/assert/assert.hpp>
-#include <ct/core/config/os_detection.hpp>
+#include <ct/config/os.hpp>
 #include <ct/core/utils/type_traits.hpp>
 #include <ct/platform/window.hpp>
 

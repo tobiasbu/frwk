@@ -24,7 +24,7 @@ namespace ct {
 				return ignoreAll;
 			}
 
-			Action get_action(Level level, bool * ignore) {
+			Action get_action(Level level, bool ignore) {
 				if (ignoreAll) {
 					return Action::Ignore;
 				}
@@ -41,7 +41,7 @@ namespace ct {
 			            i32 line,
 			            cstr function,
 			            cstr expression,
-			            bool * ignore,
+			            bool ignore,
 			            cstr message,
 			            ...) {
 				char messageBuffer[CT_ASSERT_BUFFER_SIZE] = {0};

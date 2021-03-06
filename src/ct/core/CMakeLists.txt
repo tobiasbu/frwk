@@ -3,8 +3,8 @@
 # ROOT HEADERS
 ####################################
 
-set(ROOT_INC ${CT_INC}/ct.hpp)
-ct_group(${ROOT_INC} TREE ${CT_INC} NAME "")
+# set(ROOT_INC ${CT_INC}/ct.hpp)
+# ct_group(${ROOT_INC} TREE ${CT_INC} NAME "")
 
 ####################################
 # CORE
@@ -12,18 +12,12 @@ ct_group(${ROOT_INC} TREE ${CT_INC} NAME "")
 
 # includes
 ct_file_list(ROOT ${INCPATH} OUTPUT INC
-	types.hpp
-	version.hpp
-	config.hpp
 	export.hpp
 )
 ct_group(${INC})
 
 # includes subfolder
 ct_file_list(ROOT ${INCPATH} OUTPUT SUB_INC
-    config/api.hpp
-	config/os_detection.hpp
-	config/compiler.hpp
 	utils/noncopyable.hpp
 	utils/helper_macros.hpp
 	utils/type_traits.hpp
@@ -46,6 +40,7 @@ ct_group(${SUB_SRC} TREE ${SRCPATH} IS_IMPL)
 
 
 # make library target
-ct_add_library(chronotrix_core
-				SOURCES ${INC} ${SUB_INC} ${SUB_SRC} ${ROOT_INC}
+ct_add_library(ctfk_core
+			   SOURCES ${INC} ${SUB_INC} ${SUB_SRC} ${ROOT_INC}
+			   DEPENDS ctfk_config
 )
