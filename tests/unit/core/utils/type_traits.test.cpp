@@ -26,7 +26,7 @@ class DummyMoveClass {
 };
 
 
-TEST_CASE("[core:utils:type_traits:move]") {
+TEST_CASE("core/utils/type_traits::move") {
 
 	SUBCASE("swap entities") {
 		DummyMoveClass a(64);

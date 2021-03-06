@@ -1,6 +1,4 @@
 
-include(${CT_THIRDPARTY_CMAKE_CONFIG_DIR}/nanobench.cmake)
-
 function(add_bench target SOURCES)
 	cmake_parse_arguments(ARGS "" "" "DEPENDS" ${ARGN})
 
