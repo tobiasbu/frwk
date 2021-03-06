@@ -15,9 +15,9 @@
 #ifndef _CHRONOTRIX_FRWK_RENDER_EXPORTS_HPP_
 #define _CHRONOTRIX_FRWK_RENDER_EXPORTS_HPP_
 
-#include <ct/core/config/api.hpp>
+#include <ct/config/api_export.hpp>
 
-#ifdef CHRONOTRIX_RENDER_EXPORTS
+#ifdef CTFK_RENDER_EXPORTS
 	#define CT_RENDER_API CT_API_EXPORT
 #else
 	#define CT_RENDER_API CT_API_IMPORT

@@ -2,9 +2,8 @@
 #ifndef _CHRONOTRIX_FRWK_EXCEPTION_HPP_
 #define _CHRONOTRIX_FRWK_EXCEPTION_HPP_
 
-#include <ct/core/config.hpp>
+#include <ct/config.hpp>
 #include <ct/core/export.hpp>
-#include <ct/core/types.hpp>
 
 namespace ct {
 

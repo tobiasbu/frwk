@@ -1,6 +1,6 @@
 
-#ifndef _CHRONOTRIX_FRWK_TYPES_HPP_
-#define _CHRONOTRIX_FRWK_TYPES_HPP_
+#ifndef _CHRONOTRIX_FRWK_CONFIG_TYPES_HPP_
+#define _CHRONOTRIX_FRWK_CONFIG_TYPES_HPP_
 
 namespace ct {
 
@@ -30,7 +30,7 @@ namespace ct {
 	#endif
 
 	typedef float f32;  ///< single precision floating point
-	typedef double f64; ///<! double precision floating point
+	typedef double f64; ///< double precision floating point
 
 	typedef unsigned char byte; ///< Byte representation
 	typedef const char * cstr;  ///< C-string
@@ -44,8 +44,6 @@ namespace ct {
 ////////////////////////////////////////////////////////////
 /// @file types.hpp
 /// All "common" platforms use the same size for char, short and int
-///	(basically there are 3 types for 3 sizes, so no other match is possible),
-///	 we can use them without doing any kind of check
-/// @ingroup core
+/// @ingroup config
 ///
 ////////////////////////////////////////////////////////////

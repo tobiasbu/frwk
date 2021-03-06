@@ -2,7 +2,7 @@
 #ifndef _CHRONOTRIX_FRWK_WINDOW_PROPERTIES_HPP_
 #define _CHRONOTRIX_FRWK_WINDOW_PROPERTIES_HPP_
 
-#include <ct/core/types.hpp>
+#include <ct/config/types.hpp>
 #include <ct/platform/window_style.hpp>
 
 namespace ct {

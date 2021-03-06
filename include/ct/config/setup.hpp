@@ -1,6 +1,10 @@
 
-#ifndef _CHRONOTRIX_FRWK_COMPILER_FEATURES_HPP_
-#define _CHRONOTRIX_FRWK_COMPILER_FEATURES_HPP_
+#ifndef _CHRONOTRIX_FRWK_CONFIG_SETUP_HPP_
+#define _CHRONOTRIX_FRWK_CONFIG_SETUP_HPP_
+
+////////////////////////////////////////////////////////////
+// Setup compiler
+////////////////////////////////////////////////////////////
 
 #if defined(__cplusplus)
 	#if (__cplusplus > 199711L) || (defined(_MSC_FULL_VER) && (_MSC_FULL_VER >= 150020706))
@@ -18,11 +22,18 @@
 #endif
 
 #if defined __clang__ && !defined(__ibmxl__) && !defined(__CODEGEARC__)
-	#include <ct/core/config/compiler/clang.hpp>
+	#include <ct/config/compiler/clang.hpp>
 #elif defined(__GNUC__) && !defined(__ibmxl__)
-	#include <ct/core/config/compiler/gcc.hpp>
+	#include <ct/config/compiler/gcc.hpp>
 #elif defined(_MSC_VER)
-	#include <ct/core/config/compiler/msvc.hpp>
+	#include <ct/config/compiler/msvc.hpp>
+#endif
+
+////////////////////////////////////////////////////////////
+// Define a portable debug macro
+////////////////////////////////////////////////////////////
+#if defined(_DEBUG) || defined(DEBUG)
+	#define CT_DEBUG
 #endif
 
 ////////////////////////////////////////////////////////////
@@ -73,6 +84,23 @@
 	#define NODISCARD [[nodiscard]]
 #else
 	#define NODISCARD
+#endif
+
+////////////////////////////////////////////////////////////
+// Define CT_FORCEINLINE macro
+// See: http://www.devx.com/tips/Tip/13553
+////////////////////////////////////////////////////////////
+#ifdef CT_DEBUG
+	#define CT_DISABLE_FORCEINLINE
+#endif
+
+#ifndef CT_FORCEINLINE
+
+	#ifdef CT_DISABLE_FORCEINLINE
+		#define CT_FORCEINLINE inline
+	#else
+		#define CT_FORCEINLINE __CT_FORCEINLINE
+	#endif
 #endif
 
 #endif

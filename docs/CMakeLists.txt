@@ -35,7 +35,7 @@ add_custom_target(doc ALL
                   WORKING_DIRECTORY ${DOXYGEN_INPUT_DIR})
 
 # setup install rules
-install(FILES ${DOXYGEN_OUTPUT_DIR}/ct.tag
+install(FILES ${DOXYGEN_OUTPUT_DIR}/${PROJECT_NAME}.tag
         DESTINATION ${CMAKE_INSTALL_DOCDIR}
         COMPONENT doc)
 
@@ -44,7 +44,7 @@ install(DIRECTORY ${DOXYGEN_OUTPUT_DIR}/html
         COMPONENT doc)
 
 if(DOXYGEN_HHC_PROGRAM)
-    install(FILES ${DOXYGEN_OUTPUT_DIR}/ct.chm
+    install(FILES ${DOXYGEN_OUTPUT_DIR}/${PROJECT_NAME}.chm
             DESTINATION ${CMAKE_INSTALL_DOCDIR}
             COMPONENT doc)
 endif()

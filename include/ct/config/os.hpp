@@ -1,11 +1,11 @@
 
-#ifndef _CHRONOTRIX_FRWK_OS_DETECTION_HPP_
-#define _CHRONOTRIX_FRWK_OS_DETECTION_HPP_
+#ifndef _CHRONOTRIX_FRWK_CONFIG_OS_HPP_
+#define _CHRONOTRIX_FRWK_CONFIG_OS_HPP_
 
 ////////////////////////////////////////////////////////////
-/// Set operating system
-/// see
-/// http://nadeausoftware.com/articles/2012/01/c_c_tip_how_use_compiler_predefined_macros_detect_operating_system
+// Set operating system macros
+// see
+// http://nadeausoftware.com/articles/2012/01/c_c_tip_how_use_compiler_predefined_macros_detect_operating_system
 ////////////////////////////////////////////////////////////
 
 #if defined(_WIN32)

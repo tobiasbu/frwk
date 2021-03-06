@@ -51,6 +51,7 @@ _deps
 
 # chronotrix
 _bkp
+install/
 out/
 build/
 .vs

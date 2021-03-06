@@ -2,8 +2,7 @@
 #ifndef _CHRONOTRIX_FRWK_WINDOW_HANDLE_HPP_
 #define _CHRONOTRIX_FRWK_WINDOW_HANDLE_HPP_
 
-#include <ct/core/config/os_detection.hpp>
-#include <ct/core/types.hpp>
+#include <ct/config.hpp>
 
 #ifdef CT_OS_WINDOWS
 struct HWND__;

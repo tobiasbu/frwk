@@ -5,7 +5,7 @@
 #include <functional>
 #include <chrono>
 
-#include <ct/core/types.hpp>
+#include <ct/types.hpp>
 #include <ct/core/utils/type_traits.hpp>
 
 #include <profiler.hpp>

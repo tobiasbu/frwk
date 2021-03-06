@@ -1,8 +1,8 @@
 
-#ifndef _CHRONOTRIX_FRWK_BREAKPOINT_HPP_
-#define _CHRONOTRIX_FRWK_BREAKPOINT_HPP_
+#ifndef _CHRONOTRIX_FRWK_DEBUG_BREAKPOINT_HPP_
+#define _CHRONOTRIX_FRWK_DEBUG_BREAKPOINT_HPP_
 
-#include <ct/core/config/api.hpp>
+#include <ct/config/api_export.hpp>
 
 #ifdef CT_DEBUG
 	#if defined(_MSC_VER)

@@ -1,10 +1,10 @@
 
-#ifndef _CHRONOTRIX_FRWK_LOGGER_HPP_
-	#define _CHRONOTRIX_FRWK_LOGGER_HPP_
+#ifndef _CHRONOTRIX_FRWK_DEBUG_LOGGER_HPP_
+#define _CHRONOTRIX_FRWK_DEBUG_LOGGER_HPP_
 
-	#include <ct/core/debug/loglevel.hpp>
-	#include <ct/core/export.hpp>
-	#include <iostream>
+#include <ct/core/debug/loglevel.hpp>
+#include <ct/core/export.hpp>
+#include <iostream>
 
 namespace ct {
 

@@ -2,7 +2,7 @@
 #include <iostream>
 #include <windows.h>
 
-#include <ct/core/types.hpp>
+#include <ct/config/types.hpp>
 #include <ct/platform/window.hpp>
 #include <ct/render/opengl/wgl_context.hpp>
 #include <ct/render/win32/win32_internal.hpp>

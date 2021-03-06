@@ -60,10 +60,10 @@ elseif(CT_OS_MACOSX)
 
 endif()
 
-ct_add_library(chronotrix_render
+ct_add_library(ctfk_render
 				SOURCES ${INC} ${SRC} ${SUB_SRC}
-				DEPENDS chronotrix_platform ${LINK_LIBS}
+				DEPENDS ctfk_platform ${LINK_LIBS}
 )
 
 find_package(OpenGL)
-target_link_libraries(chronotrix_render PRIVATE ${OPENGL_gl_LIBRARY})
+target_link_libraries(ctfk_render PRIVATE ${OPENGL_gl_LIBRARY})

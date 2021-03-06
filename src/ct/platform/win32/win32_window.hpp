@@ -4,7 +4,7 @@
 
 #include <windows.h>
 
-#include <ct/core/types.hpp>
+#include <ct/config/types.hpp>
 #include <ct/platform/window_impl.hpp>
 #include <ct/platform/window_properties.hpp>
 
