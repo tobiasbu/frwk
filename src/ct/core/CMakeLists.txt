@@ -21,6 +21,7 @@ ct_file_list(ROOT ${INCPATH} OUTPUT SUB_INC
 	utils/noncopyable.hpp
 	utils/helper_macros.hpp
 	utils/type_traits.hpp
+	utils/type_info.hpp
 	error/exception.hpp
 	assert/assert.hpp
 	assert/assert_handler.hpp
