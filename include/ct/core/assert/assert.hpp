@@ -13,9 +13,9 @@
 #include <ct/core/debug/breakpoint.hpp>
 #include <ct/core/utils/helper_macros.hpp>
 
-#ifndef __CT_ASSERT_ENABLED
-	#ifdef CT_DEBUG
-		#define __CT_ASSERT_ENABLED
+#if defined(CT_DEBUG)
+	#ifndef CT_ASSERT_ENABLED
+		#define CT_ASSERT_ENABLED
 	#endif
 #endif
 
@@ -94,8 +94,11 @@
 				if (action == ct::internal::Assert::Action::Break) {                          \
 					CT_BREAKPOINT();                                                          \
 				} else if (action == ct::internal::Assert::Action::Throw) {                   \
-					throw ct::AssertionException(CT_ASSERT_FILE, CT_ASSERT_LINE,              \
-					                              CT_ASSERT_FUNCTION, #expression, message);  \
+					throw ct::AssertionException(CT_ASSERT_FILE,                              \
+												 CT_ASSERT_LINE,                              \
+					                             CT_ASSERT_FUNCTION,                          \
+												 #expression,                                 \
+												 message);                                    \
 				}                                                                             \
 			}                                                                                 \
 		}                                                                                     \
@@ -108,7 +111,7 @@
 
 #undef __CT_ASSERT_2
 
-#ifdef __CT_ASSERT_ENABLED
+#ifdef CT_ASSERT_ENABLED
 	#define __CT_ASSERT_2(debug, expression, ...) __CT_ASSERT_3(debug, expression, __VA_ARGS__)
 #else
 	#define __CT_ASSERT_2(debug, expression, ...) (void)(true ? (void)0 : ((void)(expression)))
