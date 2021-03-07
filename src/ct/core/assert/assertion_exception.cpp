@@ -15,19 +15,19 @@ namespace ct {
 	  _function(function),
 	  _expression(expression) {}
 
-	AssertionException::AssertionException(const AssertionException & rhs) noexcept
-	: Exception(rhs._message),
-	  _file(rhs._file),
-	  _line(rhs._line),
-	  _function(rhs._function),
-	  _expression(rhs._expression) {}
+	AssertionException::AssertionException(const AssertionException & other) noexcept
+	: Exception(other),
+	  _file(other._file),
+	  _line(other._line),
+	  _function(other._function),
+	  _expression(other._expression) {}
 
-	AssertionException & AssertionException::operator=(AssertionException const & rhs) noexcept {
-		_file = rhs._file;
-		_line = rhs._line;
-		_function = rhs._function;
-		_expression = rhs._expression;
-		_message = rhs._message;
+	AssertionException & AssertionException::operator=(AssertionException const & other) noexcept {
+		_file = other._file;
+		_line = other._line;
+		_function = other._function;
+		_expression = other._expression;
+		detail::copy_exception_data(&other._data, &_data);
 		return *this;
 	}
 

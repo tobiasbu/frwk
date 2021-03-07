@@ -21,7 +21,7 @@ namespace ct {
 	/// This exception is generally throw in assertions using `CT_ASSERT`
 	///
 	////////////////////////////////////////////////////////////
-	class CT_CORE_API AssertionException : Exception {
+	class CT_CORE_API AssertionException : public Exception {
 	private:
 		cstr _file;
 		i32 _line;

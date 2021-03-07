@@ -7,45 +7,55 @@
 
 namespace ct {
 
+	namespace detail {
+		struct exception_data {
+			const char * what;
+			bool should_free;
+		};
+		extern void copy_exception_data(const exception_data * from, exception_data * to);
+	}
+
 	////////////////////////////////////////////////////////////
-	/// \class Exception
-	/// \brief Represents an Chronotrix exception.
+	/// @class Exception
+	/// @brief Represents an Chronotrix exception.
 	///
 	////////////////////////////////////////////////////////////
 	class CT_CORE_API Exception {
 	protected:
-		cstr _message;
+		detail::exception_data _data;
 
 	public:
 		////////////////////////////////////////////////////////////
-		/// \brief Default Constructor
-		/// \param message Description of this message
+		/// @brief Default Constructor
+		/// @param message Description of this message
 		///
 		////////////////////////////////////////////////////////////
-		explicit Exception(cstr message = "unknown") NOEXCEPT;
+		explicit Exception(cstr const message = "unknown") NOEXCEPT;
 
 		////////////////////////////////////////////////////////////
-		/// \brief Copy constructor
+		/// @brief Copy constructor
 		///
 		////////////////////////////////////////////////////////////
-		Exception(const Exception & rhs) NOEXCEPT;
+		Exception(const Exception & other) NOEXCEPT;
 
 		////////////////////////////////////////////////////////////
-		/// \brief Destructor
+		/// @brief Destructor
 		///
 		////////////////////////////////////////////////////////////
 		virtual ~Exception() NOEXCEPT;
 
+		////////////////////////////////////////////////////////////
+		/// @brief Get string identifying this exception
 		///
-		/// \brief Get string identifying this exception
+		/// @return A pointer to c-string with description related to this exception.
 		///
-		/// \return A pointer to c-string with description related to this exception.
-		///
-		virtual const char * what() const NOEXCEPT;
+		////////////////////////////////////////////////////////////
+		NODISCARD virtual const char * what() const NOEXCEPT;
 
+		////////////////////////////////////////////////////////////
+		/// @brief Copy exception
 		///
-		/// \brief Copy exception
-		///
+		////////////////////////////////////////////////////////////
 		Exception operator=(const Exception & rhs) NOEXCEPT;
 	};
 
