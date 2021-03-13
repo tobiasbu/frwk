@@ -2,13 +2,22 @@
 #include <ct/config.hpp>
 #include <ct/core/utils/type_traits.hpp>
 
+namespace ct {
+	template<class T>
+	struct type { static CONSTEXPR cstr name = "T"; };
+}
+
+#define CT_REGISTER_TYPENAME(T) \
+	namespace ct { \
+		template<> struct type<T> { static CONSTEXPR cstr name = #T; }; \
+	}
 
 #define __CT_REGISTER_CTTI_INDEXERS(begin, end) \
 	namespace ct { \
 		namespace detail { \
 			namespace ctti { \
-				CONSTEXPR ct::u64 ctti_begin = begin; \
-				CONSTEXPR ct::u64 ctti_end = end; \
+				CONSTEXPR u64 ctti_begin = begin; \
+				CONSTEXPR u64 ctti_end = end; \
 	}}} \
 
 
@@ -16,6 +25,9 @@
 #if defined(_MSC_VER) && !defined(__clang__)
 	__CT_REGISTER_CTTI_INDEXERS(41, 19)
 #endif
+
+
+
 
 
 namespace ct {
@@ -97,34 +109,27 @@ namespace ct {
 			}
 
 			NODISCARD CONSTEXPR str_portion subview(const u64 offset = 0, u64 count = npos) const {
-				/*_Check_offset(_Off);
-				_Count = _Clamp_suffix_size(_Off, _Count);*/
+				// TODO: check offset and clamp count
 				return str_portion(_str + offset, count);
 			}
-
-			/*cstr substr(const u64 offset = 0, u64 count = npos) const {
-
-			}*/
 		};
 
 		template <class T>
 		struct typeinfo {
 			static const char * a() NOEXCEPT {
 				str_portion part(__FUNCSIG__);
-				//part.crop(ctti::ctti_begin, ctti::ctti_begin - ctti::ctti_end);
-				
 				return part.subview(ctti::ctti_begin).data();
-				// return __FUNCSIG__;
 			}
 		};
 
-		
 	}
 
 	template<class T>
-	CONSTEXPR inline const char * type() NOEXCEPT {
+	NODISCARD CONSTEXPR inline cstr type_name() NOEXCEPT {
 		typedef typename remove_reference<T>::type no_ref;
 		return detail::typeinfo<no_ref>::a();
 	}
-
 }
+
+CT_REGISTER_TYPENAME(int)
+CT_REGISTER_TYPENAME(float)
