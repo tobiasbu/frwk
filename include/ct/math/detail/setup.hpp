@@ -15,16 +15,16 @@
 namespace ct {
 
 	template <typename T>
-	struct vec2;
+	struct tvec2;
 	template <typename T>
-	struct vec3;
+	struct tvec3;
 	template <typename T>
-	struct vec4;
+	struct tvec4;
 
 	template <typename T>
-	struct mat3;
+	struct tmat3;
 	template <typename T>
-	struct mat4;
+	struct tmat4;
 
 } // namespace ct
 

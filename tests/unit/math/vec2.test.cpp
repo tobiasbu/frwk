@@ -2,7 +2,7 @@
 #include <doctest.h>
 
 #include <ct/core/assert/assert.hpp>
-#include <ct/math/detail/tml_vec2.hpp>
+#include <ct/math/detail/tvec2.hpp>
 
 REGISTER_EXCEPTION_TRANSLATOR(ct::Exception & ex) {
 	return doctest::String(ex.what());
@@ -12,10 +12,9 @@ REGISTER_EXCEPTION_TRANSLATOR(ct::AssertionException & ex) {
 	return doctest::String(ex.what());
 }
 
-
-typedef ct::detail::vec2<ct::f32> vec2f;
-typedef ct::detail::vec2<ct::i32> vec2i;
-typedef ct::detail::vec2<bool> vec2b;
+typedef ct::tvec2<ct::f32> vec2f;
+typedef ct::tvec2<ct::i32> vec2i;
+typedef ct::tvec2<bool> vec2b;
 
 constexpr float max(float a, float b) {
 	return a > b ? a : b;

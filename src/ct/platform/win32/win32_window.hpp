@@ -25,9 +25,12 @@ namespace ct {
 			Win32Window(HWND handle);
 			~Win32Window();
 
-			void set_visible(bool visible) override;
-			bool is_visible() const override;
 			WindowHandle get_handle() const override;
+			vec2i get_position() const override;
+			bool is_visible() const override;
+			void set_position(const i32 & x, const i32 & y) override;
+			void set_position(const vec2i & position) override;
+			void set_visible(bool visible) override;
 			void dispose();
 
 			static Win32Window * create(const WindowProperties & props);

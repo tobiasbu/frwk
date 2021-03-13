@@ -2,12 +2,13 @@
 # includes
 ct_file_list(ROOT ${INCPATH} OUTPUT INC
 	detail/setup.hpp
-	detail/tml_vec2.hpp
-	detail/tml_vec2.inl
+	detail/tvec2.hpp
+	detail/tvec2.inl
+	vec2.hpp
 )
 
 ct_add_header_lib(ctfk_math
-			   SOURCES ${INC}
+			  	  SOURCES ${INC}
 )
 
 # if(MSVC)

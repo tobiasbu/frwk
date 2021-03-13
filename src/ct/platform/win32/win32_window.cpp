@@ -108,16 +108,35 @@ namespace ct {
 			return win;
 		}
 
-		void Win32Window::set_visible(bool visible) {
-			ShowWindow(handle, visible ? SW_SHOW : SW_HIDE);
-		}
 
 		WindowHandle Win32Window::get_handle() const {
 			return handle;
 		}
 
+		vec2i Win32Window::get_position() const {
+			RECT rect = { NULL };
+			vec2i v = { -1, -1 };
+			if(GetWindowRect(handle, &rect)) {
+				v.x = rect.left;
+				v.y = rect.top;
+			}
+			return v;
+		}
+
 		bool Win32Window::is_visible() const {
 			return IsWindowVisible(handle);
+		}
+
+		void Win32Window::set_position(const i32 & x, const i32 & y) {
+			SetWindowPos(handle, NULL, x, y, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+		}
+
+		void Win32Window::set_position(const vec2i & position) {
+			SetWindowPos(handle, NULL, position.x, position.y, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+		}
+
+		void Win32Window::set_visible(bool visible) {
+			ShowWindow(handle, visible ? SW_SHOW : SW_HIDE);
 		}
 
 		void Win32Window::on_event(UINT message, WPARAM wParam, LPARAM lParam) {

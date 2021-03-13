@@ -5,6 +5,7 @@
 #include <ct/config/types.hpp>
 #include <ct/core/utils/noncopyable.hpp>
 #include <ct/core/utils/type_traits.hpp>
+#include <ct/math/vec.hpp>
 #include <ct/platform/export.hpp>
 #include <ct/platform/window_handle.hpp>
 #include <ct/platform/window_properties.hpp>
@@ -45,16 +46,16 @@ namespace ct {
 	///
 	////////////////////////////////////////////////////////////
 	class Window : NonCopyable {
-		using WindowImplPtr = std::unique_ptr<internal::WindowImpl>;
-
 		friend CT_PLATFORM_API WindowPtr create_window(const WindowProperties & properties);
 		friend CT_PLATFORM_API WindowPtr create_window(u32 width,
 		                                               u32 height,
 		                                               cstr title,
 		                                               u32 style);
 
+	private:
+		internal::WindowImpl * impl; ///< Window implementation
+
 	protected:
-		WindowImplPtr impl; ///< Window implementation
 
 		////////////////////////////////////////////////////////////
 		/// @brief Constructs a window instance
@@ -95,6 +96,14 @@ namespace ct {
 		CT_PLATFORM_API WindowHandle get_handle() const;
 
 		////////////////////////////////////////////////////////////
+		/// @brief Get window position
+		///
+		/// @return Position of the window in pixels
+		///
+		////////////////////////////////////////////////////////////
+		CT_PLATFORM_API vec2i get_position() const;
+
+		////////////////////////////////////////////////////////////
 		/// @brief Check if window is visible the in screen
 		///
 		/// @return True is visible to the user otherwise false
@@ -105,10 +114,27 @@ namespace ct {
 		////////////////////////////////////////////////////////////
 		/// @brief Set window visibility
 		///
-		/// @param visible
+		/// @param visible Visibility flag
 		///
 		////////////////////////////////////////////////////////////
 		CT_PLATFORM_API void set_visible(bool visible);
+
+		////////////////////////////////////////////////////////////
+		/// @brief Set the window position
+		///
+		/// @param position New position of the window
+		///
+		////////////////////////////////////////////////////////////
+		CT_PLATFORM_API void set_position(const vec2i & position);
+
+		////////////////////////////////////////////////////////////
+		/// @brief Set the window position
+		///
+		/// @param x X axis
+		/// @param y Y axis
+		//
+		////////////////////////////////////////////////////////////
+		CT_PLATFORM_API void set_position(const i32 & x, const i32 & y);
 
 		////////////////////////////////////////////////////////////
 		/// @brief Closes the window and release internal pointers

@@ -88,7 +88,7 @@ endif()
 # make library target
 ct_add_library(ctfk_platform
 				SOURCES ${INC} ${SRC} ${PLATFORM_INC} ${PLATFORM_SRC}
-				DEPENDS ctfk_config ctfk_core ${LINK_LIBS}
+				DEPENDS ctfk_math ctfk_core ${LINK_LIBS}
 )
 
 # specifc config
