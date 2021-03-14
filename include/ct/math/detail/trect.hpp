@@ -37,8 +37,8 @@ namespace ct {
 
 		// Functions
 
-		CONSTEXPR tvec2<T> min() const;
-		CONSTEXPR tvec2<T> max() const;
+		CONSTEXPR tvec2<T> min(void) const;
+		CONSTEXPR tvec2<T> max(void) const;
 
 		CONSTEXPR tvec2<T> center() const;
 		CONSTEXPR bool contains(const tvec2<T> & point) const;

@@ -31,7 +31,7 @@ namespace ct {
 
 	Window::Window(Window && other) {
 		CT_ASSERT(other.impl != NULLPTR, "ct::Window: other.impl is nullptr.");
-		impl = MOV(other.impl);
+		this->impl = MOV(other.impl);
 	}
 
 	Window::~Window() {

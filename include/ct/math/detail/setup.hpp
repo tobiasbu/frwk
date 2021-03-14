@@ -9,7 +9,7 @@
 #elif defined(assert)
 	#define __CT_MATH_ASSERT assert
 #else
-	#define __CT_MATH_ASSERT(...) ((0)void)
+	#define __CT_MATH_ASSERT(...) (void)0
 #endif
 
 namespace ct {

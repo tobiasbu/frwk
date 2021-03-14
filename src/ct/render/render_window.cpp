@@ -40,7 +40,6 @@ namespace ct {
 		// this is really bad solution
 		// maybe we should move render window and context to platform module
 		auto ptr = std::make_unique<enable_make<RenderWindow>>(MOV(*window), context);
-		delete window;
 		return ptr;
 	}
 

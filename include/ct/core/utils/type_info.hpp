@@ -2,15 +2,6 @@
 #include <ct/config.hpp>
 #include <ct/core/utils/type_traits.hpp>
 
-namespace ct {
-	template<class T>
-	struct type { static CONSTEXPR cstr name = "T"; };
-}
-
-#define CT_REGISTER_TYPENAME(T) \
-	namespace ct { \
-		template<> struct type<T> { static CONSTEXPR cstr name = #T; }; \
-	}
 
 #define __CT_REGISTER_CTTI_INDEXERS(begin, end) \
 	namespace ct { \
@@ -18,15 +9,31 @@ namespace ct {
 			namespace ctti { \
 				CONSTEXPR u64 ctti_begin = begin; \
 				CONSTEXPR u64 ctti_end = end; \
-	}}} \
+	}}} 
 
 
 
 #if defined(_MSC_VER) && !defined(__clang__)
 	__CT_REGISTER_CTTI_INDEXERS(41, 19)
+#else
+	__CT_REGISTER_CTTI_INDEXERS(0, 0)
 #endif
 
 
+namespace ct {
+	    template <class T>
+	    struct type {
+		    static CONSTEXPR cstr name = "T";
+	    };
+}         // namespace ct
+
+#define CT_REGISTER_TYPENAME(T) \
+	namespace ct { \
+		template <> \
+		struct type<T> { \
+			static CONSTEXPR cstr name = #T; \
+		}; \
+	}
 
 
 

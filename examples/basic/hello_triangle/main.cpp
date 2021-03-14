@@ -20,8 +20,8 @@ bool check_shader_compilation(GLuint shader) {
 	int success;
 	glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
 	if (!success) {
-		char infoLog[512];
-		glGetShaderInfoLog(shader, 512, NULL, infoLog);
+		char infoLog[1024];
+		glGetShaderInfoLog(shader, 1024, NULL, infoLog);
 		logger.log("SHADER::COMPILATION_FAILED:\n", infoLog);
 		return false;
 	}
@@ -140,11 +140,6 @@ TriangleMesh create_triangle(GLuint shader_program) {
 }
 
 int main(int argc, char const * argv[]) {
-#ifdef __APPLE__
-	// glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // uncomment this statement to fix
-	// compilation on OS X
-#endif
-
 	if (!Platform::init()) {
 		logger.log("Could not initialize Platform module");
 		return 1;
@@ -157,8 +152,8 @@ int main(int argc, char const * argv[]) {
 
 	logger.log("Opening window...");
 
-	int width = 480;
-	int height = 360;
+	i32 width = 480;
+	i32 height = 360;
 
 	// create and render window
 	auto win = create_render_window(width, height, "hello triangle");
