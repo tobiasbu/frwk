@@ -26,6 +26,9 @@ namespace ct {
 	template <typename T>
 	struct tmat4;
 
+	template <typename T>
+	struct trect;
+
 } // namespace ct
 
 #endif

@@ -139,17 +139,39 @@ namespace ct {
 		return *this;
 	}
 
+	// Relational operators
+
+	template <typename T>
+	CT_FORCEINLINE CONSTEXPR bool tvec2<T>::operator<(const tvec2<T> & other) const {
+		return (this->x < other.x) && (this->y < other.y); 
+	}
+
+	template <typename T>
+	CT_FORCEINLINE CONSTEXPR bool tvec2<T>::operator<=(const tvec2<T> & other) const {
+		return (this->x <= other.x) && (this->y <= other.y); 
+	}
+
+	template <typename T>
+	CT_FORCEINLINE CONSTEXPR bool tvec2<T>::operator>(const tvec2<T> & other) const {
+		return (this->x > other.x) && (this->y > other.y); 
+	}
+
+	template <typename T>
+	CT_FORCEINLINE CONSTEXPR bool tvec2<T>::operator>=(const tvec2<T> & other) const {
+		return (this->x >= other.x) && (this->y >= other.y); 
+	}
+
 	// Array Subscriptor
 
 	template <typename T>
 	CT_FORCEINLINE CONSTEXPR T & tvec2<T>::operator[](const u32 & index) {
-		__CT_MATH_ASSERT(index >= 0 && index < 2, "ct::tvec2<T> Can not access element %d", index);
+		__CT_MATH_ASSERT(index >= 0 && index < 2, "ct::tvec2<T>: Can not access element with index %d", index);
 		return index ? y : x;
 	}
 
 	template <typename T>
 	CT_FORCEINLINE CONSTEXPR const T & tvec2<T>::operator[](const u32 & index) const {
-		__CT_MATH_ASSERT(index >= 0 && index < 2, "ct::tvec2<T> Can not access element %d", index);
+		__CT_MATH_ASSERT(index >= 0 && index < 2, "ct::tvec2<T>: Can not access element with index %d", index);
 		return index ? y : x; // return (&x)[index];
 	}
 

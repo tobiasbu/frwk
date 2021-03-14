@@ -1,6 +1,6 @@
 
-#ifndef _CHRONOTRIX_FRWK_MATH_VEC2_HPP_
-#define _CHRONOTRIX_FRWK_MATH_VEC2_HPP_
+#ifndef _CHRONOTRIX_FRWK_MATH_TVEC2_HPP_
+#define _CHRONOTRIX_FRWK_MATH_TVEC2_HPP_
 
 #include <ostream>
 #include <ct/math/detail/setup.hpp>
@@ -79,6 +79,13 @@ namespace ct {
 
 		template <typename U>
 		CONSTEXPR tvec2<T> & operator/=(const tvec2<U> & other);
+
+		// Relational operators
+
+		CONSTEXPR bool operator<(const tvec2<T> & other) const;
+		CONSTEXPR bool operator<=(const tvec2<T> & other) const;
+		CONSTEXPR bool operator>(const tvec2<T> & other) const;
+		CONSTEXPR bool operator>=(const tvec2<T> & other) const;
 
 		// Array Subscriptor
 

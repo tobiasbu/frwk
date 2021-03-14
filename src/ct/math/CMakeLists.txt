@@ -4,7 +4,10 @@ ct_file_list(ROOT ${INCPATH} OUTPUT INC
 	detail/setup.hpp
 	detail/tvec2.hpp
 	detail/tvec2.inl
-	vec2.hpp
+	detail/trect.hpp
+	detail/trect.inl
+	vec.hpp
+	rect.hpp
 )
 
 ct_add_header_lib(ctfk_math

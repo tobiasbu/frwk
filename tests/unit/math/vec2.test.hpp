@@ -1,16 +1,5 @@
-#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include <doctest.h>
-
-#include <ct/core/assert/assert.hpp>
 #include <ct/math/detail/tvec2.hpp>
-
-REGISTER_EXCEPTION_TRANSLATOR(ct::Exception & ex) {
-	return doctest::String(ex.what());
-}
-
-REGISTER_EXCEPTION_TRANSLATOR(ct::AssertionException & ex) {
-	return doctest::String(ex.what());
-}
 
 typedef ct::tvec2<ct::f32> vec2f;
 typedef ct::tvec2<ct::i32> vec2i;
