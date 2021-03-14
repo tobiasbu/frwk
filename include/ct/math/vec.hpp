@@ -12,7 +12,7 @@ namespace ct {
 	typedef tvec2<i16> vec2s;  ///< Vector2 of 16-bit integer
 	typedef tvec2<u16> vec2su; ///< Vector2 of unsigned 16-bit integer*/
 	typedef tvec2<i32> vec2i;  ///< Vector2 of 32-bit integer
-	typedef tvec2<u32> vec2iu; ///< Vector2 of unsigned 32-bit integer
+	typedef tvec2<u32> vec2u;  ///< Vector2 of unsigned 32-bit integer
 	typedef tvec2<i64> vec2l;  ///< Vector2 of 64-bit integer
 	typedef tvec2<u64> vec2lu; ///< Vector2 of unsigned 64-bit integer
 

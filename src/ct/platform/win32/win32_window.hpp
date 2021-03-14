@@ -26,10 +26,16 @@ namespace ct {
 			~Win32Window();
 
 			WindowHandle get_handle() const override;
+			vec2u get_content_size() const override;
+			recti get_frame() const override;
 			vec2i get_position() const override;
+			vec2u get_size() const override;
 			bool is_visible() const override;
-			void set_position(const i32 & x, const i32 & y) override;
+
+			void set_content_size(const vec2u & size) override;
+			void set_frame(const recti & frame) override;
 			void set_position(const vec2i & position) override;
+			void set_size(const vec2u & size) override;
 			void set_visible(bool visible) override;
 			void dispose();
 

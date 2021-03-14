@@ -2,6 +2,7 @@
 #include <ct/platform/detail/win32_detail.hpp>
 #include <ct/platform/win32/win32_window.hpp>
 #include <ct/platform/window_style.hpp>
+#include <iostream>
 
 namespace ct {
 
@@ -60,36 +61,40 @@ namespace ct {
 		Win32Window * Win32Window::create(const WindowProperties & props) {
 			bool isFullscreen = false;
 
-			// Retrieves a handle to a device context (DC) for the client area of a specified window
-			// or for the entire screen
-			HDC screenDC = GetDC(NULL);
-			// Compute window position and size
-			i32 left = (GetDeviceCaps(screenDC, HORZRES) - static_cast<int>(props.width)) / 2;
-			i32 top = (GetDeviceCaps(screenDC, VERTRES) - static_cast<int>(props.height)) / 2;
-			ReleaseDC(NULL, screenDC);
-
-			// if (!isFullscreen) {
-			// 	RECT rect = RECT {0, 0, width, height};
-			// 	AdjustWindowRect(&rect, win32Style, false);
-			// 	width = rect.right - rect.left;
-			// 	height = rect.bottom - rect.top;
-			// }
-
 			WCHAR * titleWchar = to_wchar(props.title);
 			if (!titleWchar) {
 				// std::cerr << "Invalid title" << std::endl;
 				return NULLPTR;
 			}
 
+			u32 window_style = parse_style(props.style);
+			i32 width;
+			i32 height;
+
+			if (!isFullscreen) {
+				RECT rect = {0, 0, static_cast<i32>(props.width), static_cast<i32>(props.height)};
+				AdjustWindowRect(&rect, window_style, false);
+				width = rect.right - rect.left;
+				height = rect.bottom - rect.top;
+			}
+
+			// Retrieves a handle to a device context (DC) for the client area of a specified window
+			// or for the entire screen
+			HDC screenDC = GetDC(NULL);
+			// Compute window position and size
+			i32 left = (GetDeviceCaps(screenDC, HORZRES) - width) / 2;
+			i32 top = (GetDeviceCaps(screenDC, VERTRES) - height) / 2;
+			ReleaseDC(NULL, screenDC);
+
 			// clang-format off
 			HWND handle = CreateWindowExW(WS_EX_APPWINDOW,
 				__CT_WNDCLASSNAME,
 				titleWchar,
-				parse_style(props.style),
+				window_style,
 				left,
 				top,
-				props.width,
-				props.height,
+				width,
+				height,
 				NULL,
 				NULL,
 				GetModuleHandle(NULL),
@@ -113,26 +118,93 @@ namespace ct {
 			return handle;
 		}
 
+		vec2u Win32Window::get_content_size() const {
+			RECT rect;
+			vec2u size;
+			if (GetClientRect(handle, &rect)) {
+				size.x = rect.right - rect.left;
+				size.y = rect.bottom - rect.top;
+			}
+			return size;
+		}
+
+		recti Win32Window::get_frame() const {
+			RECT rect = {NULL};
+			recti frame;
+			if (GetWindowRect(handle, &rect)) {
+				frame.x = rect.left;
+				frame.y = rect.top;
+				frame.width = rect.right - rect.left;
+				frame.height = rect.bottom - rect.top;
+			}
+			return frame;
+		}
+
 		vec2i Win32Window::get_position() const {
 			RECT rect = { NULL };
-			vec2i v = { -1, -1 };
+			vec2i pos;
 			if(GetWindowRect(handle, &rect)) {
-				v.x = rect.left;
-				v.y = rect.top;
+				pos.x = rect.left;
+				pos.y = rect.top;
 			}
-			return v;
+			return pos;
+		}
+
+		vec2u Win32Window::get_size() const {
+			RECT rect = {NULL};
+			vec2u size;
+			if (GetWindowRect(handle, &rect)) {
+				size.x = rect.right - rect.left;
+				size.y = rect.bottom - rect.top;
+			}
+			return size;
 		}
 
 		bool Win32Window::is_visible() const {
 			return IsWindowVisible(handle);
 		}
 
-		void Win32Window::set_position(const i32 & x, const i32 & y) {
-			SetWindowPos(handle, NULL, x, y, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+		void Win32Window::set_content_size(const vec2u & size) {
+			RECT rect = {0, 0, static_cast<long>(size.x), static_cast<long>(size.y)};
+			AdjustWindowRect(&rect, GetWindowLong(handle, GWL_STYLE), false);
+			SetWindowPos(handle,
+			             NULL,
+			             0,
+			             0,
+			             rect.right - rect.left,
+			             rect.bottom - rect.top,
+			             SWP_NOMOVE | SWP_NOZORDER);
+		}
+
+		void Win32Window::set_frame(const recti & frame) {
+			RECT rect = {
+			    frame.x,
+				frame.y,
+				static_cast<long>(frame.width),
+				static_cast<long>(frame.height)
+			};
+			//AdjustWindowRect(&rect, GetWindowLong(handle, GWL_STYLE), false);
+			SetWindowPos(handle,
+			             NULL,
+			             rect.left,
+			             rect.top,
+			             rect.right - rect.left,
+			             rect.bottom - rect.top,
+			             SWP_NOZORDER);
 		}
 
 		void Win32Window::set_position(const vec2i & position) {
 			SetWindowPos(handle, NULL, position.x, position.y, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+		}
+
+		void Win32Window::set_size(const vec2u & size) {
+			SetWindowPos(handle,
+			             NULL,
+			             0,
+			             0,
+			             static_cast<long>(size.x),
+			             static_cast<long>(size.y),
+			             SWP_NOMOVE | SWP_NOZORDER);
 		}
 
 		void Win32Window::set_visible(bool visible) {

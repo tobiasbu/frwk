@@ -139,4 +139,5 @@ namespace ct {
 }
 
 CT_REGISTER_TYPENAME(int)
+CT_REGISTER_TYPENAME(unsigned int)
 CT_REGISTER_TYPENAME(float)

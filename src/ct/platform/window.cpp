@@ -42,23 +42,47 @@ namespace ct {
 		return impl ? impl->get_handle() : NULLPTR;
 	}
 
+	vec2u Window::get_content_size() const {
+		return impl ? impl->get_content_size() : vec2u(0, 0);
+	}
+
+	recti Window::get_frame() const {
+		return impl ? impl->get_frame() : recti();
+	}
+
 	vec2i Window::get_position() const {
-		return impl ? impl->get_position() : vec2i(-1, -1);
+		return impl ? impl->get_position() : vec2i();
+	}
+
+	vec2u Window::get_size() const {
+		return impl ? impl->get_size() : vec2u();
 	}
 
 	bool Window::is_visible() const {
 		return impl && impl->is_visible();
 	}
 
-	void  Window::set_position(const vec2i & position) {
+	void Window::set_content_size(const vec2u& content_size) {
+		if (impl) {
+			impl->set_content_size(content_size);
+		}
+	}
+
+	void Window::set_position(const vec2i & position) {
 		if (impl) {
 			impl->set_position(position);
 		}
 	}
 
-	void  Window::set_position(const i32 & x, const i32 & y) {
+	void Window::set_position(const i32 & x, const i32 & y) {
 		if (impl) {
-			impl->set_position(x, y);
+			impl->set_position(vec2(x, y));
+		}
+	}
+
+	void Window::set_size(const vec2u & size) {
+		if (impl) {
+			impl->set_size(size);
 		}
 	}
 

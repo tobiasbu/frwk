@@ -30,12 +30,12 @@ namespace ct {
 	// Functions
 
 	template <typename T>
-	CONSTEXPR tvec2<T> trect<T>::min() const {
+	CONSTEXPR tvec2<T> trect<T>::top_left() const {
 		return tvec2<T>(x, y);
 	}
 
 	template <typename T>
-	CONSTEXPR tvec2<T> trect<T>::max() const {
+	CONSTEXPR tvec2<T> trect<T>::bottom_right() const {
 		return tvec2<T>(x + width, y + height);
 	}
 
@@ -97,10 +97,10 @@ namespace ct {
 		return (&x)[index];
 	}
 
-
 	template <typename T>
 	std::ostream& operator<<(std::ostream &stream, const trect<T> &rect) {
-		return s << "ct::rect<" << type<T>::name << ">(" << rect.x << ", " << rect.y << ", " << rect.width << ", " << rect.height << ')';
+		return stream << "ct::rect<" << type<T>::name << ">(" << rect.x << ", " << rect.y << ", "
+		              << rect.width << ", " << rect.height << ')';
 	}
 
 }

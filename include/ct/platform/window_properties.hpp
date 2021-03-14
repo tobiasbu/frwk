@@ -12,8 +12,8 @@ namespace ct {
 	///
 	////////////////////////////////////////////////////////////
 	struct CT_PLATFORM_API WindowProperties {
-		u32 width;  ///< Window's width
-		u32 height; ///< Window's height
+		u32 width;  ///< Window content's width
+		u32 height; ///< Window content's height
 		cstr title; ///< Window's title
 		u32 style;  ///< Style of the window (see: ct::WindowStyle)
 

@@ -56,10 +56,10 @@ TEST_CASE("math/rect") {
 
 	}
 
-	SUBCASE("min and max") {
+	SUBCASE("top left and bottom right") {
 		recti rect0(2048, -1024, 100, 100);
-		CHECK(rect0.min() == ct::tvec2<ct::i32>(2048, -1024));
-		CHECK(rect0.max() == ct::tvec2<ct::i32>(2148, -924));
+		CHECK(rect0.top_left() == ct::tvec2<ct::i32>(2048, -1024));
+		CHECK(rect0.bottom_right() == ct::tvec2<ct::i32>(2148, -924));
 	}
 
 	SUBCASE("center") {
@@ -81,12 +81,12 @@ TEST_CASE("math/rect") {
 	SUBCASE("intersects") {
 		recti rect0(-16, -16, 160, 160);
 		recti rect1(0, 0, 64, 64);
-		rect1.position = rect0.min();
+		rect1.position = rect0.top_left();
 		rect1.x -= 176;
 		CHECK(rect0.intersects(rect1)); // bottom right
 		rect1.y += 160;
 		CHECK(rect0.intersects(rect1)); // top right
-		rect1.position = rect0.max();
+		rect1.position = rect0.bottom_right();
 		rect1.x -= 32;
 		CHECK(rect0.intersects(rect1)); // top left
 		rect1.y -= 176;
