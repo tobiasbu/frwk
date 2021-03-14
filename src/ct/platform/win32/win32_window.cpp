@@ -11,7 +11,7 @@ namespace ct {
 		/**
 		 * Convert const char * to wchar_t
 		 */
-		WCHAR * to_wchar(cstr input) {
+		WCHAR * char_to_wchar(cstr input) {
 			int buffer_count = MultiByteToWideChar(CP_ACP, 0, input, -1, NULL, 0);
 
 			if (!buffer_count) {
@@ -61,8 +61,8 @@ namespace ct {
 		Win32Window * Win32Window::create(const WindowProperties & props) {
 			bool isFullscreen = false;
 
-			WCHAR * titleWchar = to_wchar(props.title);
-			if (!titleWchar) {
+			WCHAR * title_wchar = char_to_wchar(props.title);
+			if (!title_wchar) {
 				// std::cerr << "Invalid title" << std::endl;
 				return NULLPTR;
 			}
@@ -89,7 +89,7 @@ namespace ct {
 			// clang-format off
 			HWND handle = CreateWindowExW(WS_EX_APPWINDOW,
 				__CT_WNDCLASSNAME,
-				titleWchar,
+				title_wchar,
 				window_style,
 				left,
 				top,
@@ -101,7 +101,7 @@ namespace ct {
 				NULL);
 			// clang-format on
 
-			free(titleWchar);
+			free(title_wchar);
 
 			if (!handle) {
 				// std::cerr << "Could no create window" << std::endl;
@@ -160,6 +160,29 @@ namespace ct {
 			return size;
 		}
 
+		cstr Win32Window::get_title() const {
+			i64 length = GetWindowTextLengthW(handle);
+			char * title = nullptr;
+			if (length > 0) {
+				length += 1;
+				WCHAR * title_wchar = (WCHAR *)calloc(length, sizeof(WCHAR));
+				if (GetWindowTextW(handle, title_wchar, length)) {
+					title = (char *)malloc(length);
+					size_t converted;
+					#if defined(_MSC_VER)
+					// NOLINTNEXTLINE
+					wcstombs_s(&converted, title, length, title_wchar, length);
+					#else
+						wcstombs(title, title_wchar, length);
+					#endif
+				}
+				free(title_wchar);
+			}
+
+			return title; // NOLINT
+		}
+
+
 		bool Win32Window::is_visible() const {
 			return IsWindowVisible(handle);
 		}
@@ -205,6 +228,15 @@ namespace ct {
 			             static_cast<long>(size.x),
 			             static_cast<long>(size.y),
 			             SWP_NOMOVE | SWP_NOZORDER);
+		}
+
+		void Win32Window::set_title(cstr title) {
+			WCHAR * title_wchar = char_to_wchar(title);
+			if (!title_wchar) {
+				return;
+			}
+			SetWindowTextW(handle, title_wchar);
+			free(title_wchar);
 		}
 
 		void Win32Window::set_visible(bool visible) {

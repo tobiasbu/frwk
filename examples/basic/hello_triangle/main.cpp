@@ -177,9 +177,9 @@ int main(int argc, char const * argv[]) {
 	GLuint shader_program = init_shaders();
 	TriangleMesh triangle = create_triangle(shader_program);
 
-	win->set_visible(true);
-
 	glViewport(0, 0, width, height);
+
+	win->set_visible(true);
 
 	while (win->is_visible()) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

@@ -62,6 +62,13 @@ namespace ct {
 		return impl && impl->is_visible();
 	}
 
+	cstr Window::get_title() const {
+		if (impl) {
+			return impl->get_title();
+		}
+		return nullptr;
+	}
+
 	void Window::set_content_size(const vec2u& content_size) {
 		if (impl) {
 			impl->set_content_size(content_size);
@@ -89,6 +96,12 @@ namespace ct {
 	void Window::set_visible(bool visible) {
 		if (impl) {
 			impl->set_visible(visible);
+		}
+	}
+
+	void Window::set_title(cstr title) {
+		if (impl) {
+			impl->set_title(title);
 		}
 	}
 
