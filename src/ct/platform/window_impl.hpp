@@ -15,7 +15,7 @@ namespace ct {
 		/// \brief Represents abstraction for OS-specifc window class
 		///
 		////////////////////////////////////////////////////////////
-		class WindowImpl : NonCopyable {
+		class WindowImpl : noncopyable {
 		public:
 			virtual ~WindowImpl() {};
 

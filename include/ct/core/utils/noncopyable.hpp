@@ -10,23 +10,23 @@ namespace ct {
 	/// @brief Non copyable object
 	///
 	////////////////////////////////////////////////////////////
-	class NonCopyable {
+	class noncopyable {
 	protected:
 	#if defined(CT_CXX11_DEFAULT_FUNCTIONS)
 		////////////////////////////////////////////////////////////
 		/// @brief Default constructor
 		///
 		////////////////////////////////////////////////////////////
-		constexpr NonCopyable() = default;
+		constexpr noncopyable() = default;
 
 		////////////////////////////////////////////////////////////
 		/// @brief Default destructor
 		///
 		////////////////////////////////////////////////////////////
-		~NonCopyable() = default;
+		~noncopyable() = default;
 	#else
-		NonCopyable() {}
-		~NonCopyable() {}
+		noncopyable() {}
+		~noncopyable() {}
 	#endif
 
 	#if defined(CT_CXX11_DELETE_FUNCTIONS)
@@ -35,17 +35,17 @@ namespace ct {
 		/// @brief Non copyable constructor
 		///
 		////////////////////////////////////////////////////////////
-		NonCopyable(const NonCopyable &) = delete;
+		noncopyable(const noncopyable &) = delete;
 
 		////////////////////////////////////////////////////////////
 		/// @brief Copy assignment is not permited
 		///
 		////////////////////////////////////////////////////////////
-		NonCopyable & operator=(const NonCopyable &) = delete;
+		noncopyable & operator=(const noncopyable &) = delete;
 	#else
 	private:
-		NonCopyable(const NonCopyable &);
-		NonCopyable & operator=(const NonCopyable &);
+		noncopyable(const noncopyable &);
+		noncopyable & operator=(const noncopyable &);
 	#endif
 	};
 } // namespace ct
@@ -54,7 +54,7 @@ namespace ct {
 
 ////////////////////////////////////////////////////////////
 /// @file noncopyable.hpp
-/// @class ct::NonCopyable
+/// @class ct::noncopyable
 /// @ingroup core
 ///
 /// Detailed description goes here

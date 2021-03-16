@@ -46,7 +46,7 @@ namespace ct {
 	/// @brief Represents window instance
 	///
 	////////////////////////////////////////////////////////////
-	class Window : NonCopyable {
+	class Window : noncopyable {
 		friend CT_PLATFORM_API WindowPtr create_window(const WindowProperties & properties);
 		friend CT_PLATFORM_API WindowPtr create_window(u32 width,
 		                                               u32 height,

@@ -13,7 +13,7 @@ namespace ct {
 		/// @brief Internal Windows messaging transmiter
 		///
 		////////////////////////////////////////////////////////////
-		class Win32Messaging : public NonCopyable {
+		class Win32Messaging : public noncopyable {
 		public:
 			////////////////////////////////////////////////////////////
 			/// @brief Main Window procedures.

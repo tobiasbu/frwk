@@ -16,7 +16,7 @@ namespace ct {
 		/// @brief Represents abstract rendering context
 		///
 		////////////////////////////////////////////////////////////
-		class ContextImpl : NonCopyable {
+		class ContextImpl : noncopyable {
 		public:
 			virtual ~ContextImpl();
 
