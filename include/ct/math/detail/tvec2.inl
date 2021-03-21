@@ -1,7 +1,7 @@
 
 namespace ct {
 
-	// Default
+	// Default constructos
 
 	template <typename T>
 	CT_FORCEINLINE CONSTEXPR tvec2<T>::tvec2()

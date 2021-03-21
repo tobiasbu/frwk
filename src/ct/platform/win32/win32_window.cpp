@@ -161,17 +161,17 @@ namespace ct {
 		}
 
 		cstr Win32Window::get_title() const {
-			i64 length = GetWindowTextLengthW(handle);
+			i32 length = GetWindowTextLengthW(handle);
 			char * title = nullptr;
 			if (length > 0) {
 				length += 1;
 				WCHAR * title_wchar = (WCHAR *)calloc(length, sizeof(WCHAR));
 				if (GetWindowTextW(handle, title_wchar, length)) {
 					title = (char *)malloc(length);
-					size_t converted;
+					u64 converted;
 					#if defined(_MSC_VER)
 					// NOLINTNEXTLINE
-					wcstombs_s(&converted, title, length, title_wchar, length);
+						wcstombs_s(&converted, title, length, title_wchar, length);
 					#else
 						wcstombs(title, title_wchar, length);
 					#endif

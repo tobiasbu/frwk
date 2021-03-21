@@ -1,6 +1,16 @@
 
 namespace ct {
 
+	// Default constructors
+
+	template <typename T>
+	CT_FORCEINLINE CONSTEXPR tvec3<T>::tvec3()
+	:
+	x(static_cast<T>(0)),
+	y(static_cast<T>(0)),
+	z(static_cast<T>(0))
+	{}
+
 	// Explicit constructors
 
 	template <typename T>
@@ -17,16 +27,6 @@ namespace ct {
 	x(scalar),
 	y(scalar),
 	z(scalar)
-	{}
-
-	// Default constructors
-
-	template <typename T>
-	CT_FORCEINLINE CONSTEXPR tvec3<T>::tvec3()
-	:
-	x(static_cast<T>(0)),
-	y(static_cast<T>(0)),
-	z(static_cast<T>(0))
 	{}
 
 	// Conversion constructors

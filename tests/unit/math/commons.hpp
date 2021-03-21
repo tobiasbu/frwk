@@ -4,6 +4,7 @@
 
 #include <ct/math/detail/tvec2.hpp>
 #include <ct/math/detail/tvec3.hpp>
+#include <ct/math/detail/tvec4.hpp>
 
 typedef ct::tvec2<ct::f32> vec2f;
 typedef ct::tvec2<ct::i32> vec2i;
@@ -12,6 +13,10 @@ typedef ct::tvec2<bool> vec2b;
 typedef ct::tvec3<ct::f32> vec3f;
 typedef ct::tvec3<ct::i32> vec3i;
 typedef ct::tvec3<bool> vec3b;
+
+typedef ct::tvec4<ct::f32> vec4f;
+typedef ct::tvec4<ct::i32> vec4i;
+typedef ct::tvec4<bool> vec4b;
 
 
 constexpr float max(float a, float b) {
