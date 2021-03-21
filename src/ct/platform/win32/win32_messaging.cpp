@@ -18,8 +18,7 @@ namespace ct {
 			HANDLE windowProp = GetPropW(hWnd, L"CT");
 
 			// Get the Window instance corresponding to the window handle
-			internal::Win32Window * window =
-			    windowProp ? (internal::Win32Window *)windowProp : NULL;
+			internal::Win32Window * window = windowProp ? (internal::Win32Window *)windowProp : NULL;
 
 			if (window) {
 				window->on_event(uMsg, wParam, lParam);
