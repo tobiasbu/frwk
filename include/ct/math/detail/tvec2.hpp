@@ -157,6 +157,8 @@ namespace ct {
 	template <typename T>
 	CONSTEXPR bool operator!=(const tvec2<T> & left, const tvec2<T> & right);
 
+	// Vector of booleans operators only
+
 	CONSTEXPR tvec2<bool> operator&&(const tvec2<bool> & left, const tvec2<bool> & right);
 
 	CONSTEXPR tvec2<bool> operator||(const tvec2<bool> & left, const tvec2<bool> & right);

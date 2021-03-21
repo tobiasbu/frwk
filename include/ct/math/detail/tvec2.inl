@@ -6,8 +6,8 @@ namespace ct {
 	template <typename T>
 	CT_FORCEINLINE CONSTEXPR tvec2<T>::tvec2()
 	:
-	x(0),
-	y(0)
+	x(static_cast<T>(0)),
+	y(static_cast<T>(0))
 	{}
 
 	// Explicit constructors
@@ -143,22 +143,22 @@ namespace ct {
 
 	template <typename T>
 	CT_FORCEINLINE CONSTEXPR bool tvec2<T>::operator<(const tvec2<T> & other) const {
-		return (this->x < other.x) && (this->y < other.y); 
+		return (this->x < other.x) && (this->y < other.y);
 	}
 
 	template <typename T>
 	CT_FORCEINLINE CONSTEXPR bool tvec2<T>::operator<=(const tvec2<T> & other) const {
-		return (this->x <= other.x) && (this->y <= other.y); 
+		return (this->x <= other.x) && (this->y <= other.y);
 	}
 
 	template <typename T>
 	CT_FORCEINLINE CONSTEXPR bool tvec2<T>::operator>(const tvec2<T> & other) const {
-		return (this->x > other.x) && (this->y > other.y); 
+		return (this->x > other.x) && (this->y > other.y);
 	}
 
 	template <typename T>
 	CT_FORCEINLINE CONSTEXPR bool tvec2<T>::operator>=(const tvec2<T> & other) const {
-		return (this->x >= other.x) && (this->y >= other.y); 
+		return (this->x >= other.x) && (this->y >= other.y);
 	}
 
 	// Array Subscriptor

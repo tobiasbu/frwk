@@ -1,4 +1,8 @@
 
+
+#ifndef _CHRONOTRIX_FRWK_CORE_TYPE_INFO_HPP_
+#define _CHRONOTRIX_FRWK_CORE_TYPE_INFO_HPP_
+
 #include <ct/config.hpp>
 #include <ct/core/utils/type_traits.hpp>
 
@@ -9,7 +13,7 @@
 			namespace ctti { \
 				CONSTEXPR u64 ctti_begin = begin; \
 				CONSTEXPR u64 ctti_end = end; \
-	}}} 
+	}}}
 
 
 
@@ -141,3 +145,6 @@ namespace ct {
 CT_REGISTER_TYPENAME(int)
 CT_REGISTER_TYPENAME(unsigned int)
 CT_REGISTER_TYPENAME(float)
+
+
+#endif
