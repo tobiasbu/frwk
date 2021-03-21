@@ -4,6 +4,7 @@
 #include <ct/core/assert/assert.hpp>
 
 #include "vec2.test.hpp"
+#include "vec3.test.hpp"
 #include "rect.test.hpp"
 
 REGISTER_EXCEPTION_TRANSLATOR(ct::Exception & ex) {
@@ -13,9 +14,6 @@ REGISTER_EXCEPTION_TRANSLATOR(ct::Exception & ex) {
 REGISTER_EXCEPTION_TRANSLATOR(ct::AssertionException & ex) {
 	return doctest::String(ex.what());
 }
-
-
-// #include "vec2.test.hpp";
 
 int main(int argc, char** argv) {
     doctest::Context context;
