@@ -22,8 +22,7 @@ namespace ct {
 				WNDCLASSEXW wndclass;
 				wndclass.cbSize = sizeof(wndclass); // The size, in bytes, of this structure
 				wndclass.style = CS_VREDRAW | CS_HREDRAW | CS_OWNDC; // class style(s)
-				wndclass.lpfnWndProc = (WNDPROC)
-				    internal::Win32Messaging::MainWndProc; // A pointer to the window procedure.
+				wndclass.lpfnWndProc = (WNDPROC)internal::Win32Messaging::MainWndProc; // A pointer to the window procedure.
 
 				// clang-format off
 				wndclass.cbClsExtra = 0; // The number of extra bytes to allocate following the window-class structure.
@@ -37,7 +36,6 @@ namespace ct {
 				wndclass.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1); // class background brush.
 
 				// specifies the resource name of the class menu, as the name appears in the
-				// resource file wndclass.lpszMenuName = __CT_WNDCLASSNAME;
 				wndclass.lpszClassName = __CT_WNDCLASSNAME;
 				wndclass.lpszMenuName = NULL;
 				if (!RegisterClassExW(&wndclass)) {
@@ -92,10 +90,11 @@ namespace ct {
 			}
 
 			if (!detail::register_windows_class()) {
+				// TODO(@tobiasbu): error log
 				return false;
 			}
 
-			return (detail::initialized = true);
+			return true;
 		}
 
 		bool terminate() {
@@ -104,6 +103,7 @@ namespace ct {
 			}
 
 			if (!UnregisterClassW(__CT_WNDCLASSNAME, GetModuleHandleW(NULL))) {
+				// TODO(@tobiasbu): error log
 				detail::get_last_error();
 			}
 
