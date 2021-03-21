@@ -1,21 +1,5 @@
 #include <doctest.h>
-#include <ct/math/detail/tvec2.hpp>
-
-typedef ct::tvec2<ct::f32> vec2f;
-typedef ct::tvec2<ct::i32> vec2i;
-typedef ct::tvec2<bool> vec2b;
-
-constexpr float max(float a, float b) {
-	return a > b ? a : b;
-}
-
-constexpr float epsilon = 0.0001f;
-bool approximatelyEqual(float a, float b) {
-	return fabs(a - b) <= ( (fabs(a) < fabs(b) ? fabs(b) : fabs(a)) * epsilon);
-}
-bool essentiallyEqual(float a, float b) {
-    return fabs(a - b) <= ( (fabs(a) > fabs(b) ? fabs(b) : fabs(a)) * epsilon);
-}
+#include "commons.hpp"
 
 TEST_CASE("math/vec2") {
 
@@ -113,6 +97,13 @@ TEST_CASE("math/vec2") {
 		divide_assign_dst /= divide_assign_src;
 		CHECK(divide_assign_dst.x == 5773.8501f);
 		CHECK(divide_assign_dst.y == 3226.98877f);
+	}
+
+	SUBCASE("relational operators") {
+		CHECK(vec2i(42, -29) < vec2i(59, -19));
+		CHECK(vec2i(42, 8) <= vec2i(59, 9));
+		CHECK(vec2i(100, 200) > vec2i(99, 199));
+		CHECK(vec2i(100, 200) >= vec2i(100, 199));
 	}
 
 	SUBCASE("array subscriptors: []") {
