@@ -3,16 +3,6 @@
 
 TEST_CASE("math/vec2") {
 
-	SUBCASE("explicit constructors") {
-		vec2f expl_vec(42.f,13.f);
-		CHECK(expl_vec.x == 42.f);
-		CHECK(expl_vec.y == 13.f);
-
-		vec2f expl_scalar(84.f);
-		CHECK(expl_scalar.x == 84.f);
-		CHECK(expl_scalar.y == 84.f);
-	}
-
 	SUBCASE("default constructors") {
 		vec2f def_zero;
 		CHECK(def_zero.x == 0.f);
@@ -23,6 +13,17 @@ TEST_CASE("math/vec2") {
 		CHECK(copy_dest.x == 14.78f);
 		CHECK(copy_dest.y == 56.3467f);
 	}
+
+	SUBCASE("explicit constructors") {
+		vec2f expl_vec(42.f,13.f);
+		CHECK(expl_vec.x == 42.f);
+		CHECK(expl_vec.y == 13.f);
+
+		vec2f expl_scalar(84.f);
+		CHECK(expl_scalar.x == 84.f);
+		CHECK(expl_scalar.y == 84.f);
+	}
+
 
 	SUBCASE("conversion constructors") {
 		vec2f convert_from_uint(8u, 9u);
