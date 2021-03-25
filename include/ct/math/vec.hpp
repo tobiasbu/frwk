@@ -35,6 +35,14 @@ namespace ct {
 	typedef tvec3<f64> vec3d;  ///< Vector3 of double
 	typedef tvec3<f32> vec3;   ///< Vector3 of float
 
+	// vec4
+
+	typedef tvec4<bool> vec4b; ///< Vector4 of boolean
+	typedef tvec4<i32> vec4i;  ///< Vector4 of 32-bit integer
+	typedef tvec4<u32> vec4u;  ///< Vector4 of unsigned 32-bit integer
+	typedef tvec4<f64> vec4d;  ///< Vector4 of double
+	typedef tvec4<f32> vec4;   ///< Vector4 of float
+
 }
 
 
