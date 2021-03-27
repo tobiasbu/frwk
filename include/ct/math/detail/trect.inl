@@ -46,6 +46,9 @@ namespace ct {
 
 	template <typename T>
 	CONSTEXPR bool trect<T>::intersects(const trect<T> & other) const {
+		if (width <= 0 && height <= 0)
+			return false;
+
 		return (size > other.position && position < other.size) || (position > other.size && size < other.position);
 	}
 
@@ -64,7 +67,7 @@ namespace ct {
 	// Assign operators
 
 	template <typename T>
-	CONSTEXPR tvec2<T> & trect<T>::operator=(const trect<T> & other) {
+	CONSTEXPR trect<T> & trect<T>::operator=(const trect<T> & other) {
 		this->x = other.x;
 		this->y = other.y;
 		this->width = other.width;

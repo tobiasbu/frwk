@@ -9,9 +9,10 @@ namespace ct {
 	template <typename T>
 	struct trect {
 		using value_type = T;
+		using point_type = tvec2<T>;
 
 		union {
-			tvec2<T> position;
+			point_type position;
 			struct {
 				T x;
 				T y;
@@ -19,7 +20,7 @@ namespace ct {
 		};
 
 		union {
-			tvec2<T> size;
+			point_type size;
 			struct {
 				T width;
 				T height;
@@ -33,20 +34,20 @@ namespace ct {
 		CONSTEXPR trect(trect<T> && other) = default;
 
 		CONSTEXPR trect(T x, T y, T width, T height);
-		CONSTEXPR trect(const tvec2<T> & position, const tvec2<T> & size);
+		CONSTEXPR trect(const point_type & position, const point_type & size);
 
 		// Functions
 
-		CONSTEXPR tvec2<T> top_left() const;
-		CONSTEXPR tvec2<T> bottom_right() const;
+		CONSTEXPR point_type top_left() const;
+		CONSTEXPR point_type bottom_right() const;
 
-		CONSTEXPR tvec2<T> center() const;
-		CONSTEXPR bool contains(const tvec2<T> & point) const;
+		CONSTEXPR point_type center() const;
+		CONSTEXPR bool contains(const point_type & point) const;
 		CONSTEXPR bool intersects(const trect<T> & other) const;
 
 		// Assign operators
 
-		CONSTEXPR tvec2<T> & operator=(const trect<T> & other);
+		CONSTEXPR trect<T> & operator=(const trect<T> & other);
 
 		template <typename U>
 		CONSTEXPR trect<T> & operator=(const trect<U> & other);
