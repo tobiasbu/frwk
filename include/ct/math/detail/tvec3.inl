@@ -300,12 +300,12 @@ namespace ct {
 
 	template <typename T>
 	CT_FORCEINLINE CONSTEXPR bool operator==(const tvec3<T> & left, const tvec3<T> & right) {
-		return (left.x == right.x && left.y == right.y && left.z == right.z);
+		return left.x == right.x && left.y == right.y && left.z == right.z;
 	}
 
 	template <typename T>
 	CT_FORCEINLINE CONSTEXPR bool operator!=(const tvec3<T> & left, const tvec3<T> & right) {
-		return (left.x != right.x || left.y != right.y || left.z == right.z);
+		return (left.x != right.x) || (left.y != right.y) || (left.z != right.z);
 	}
 
 	// Vector of booleans operators only

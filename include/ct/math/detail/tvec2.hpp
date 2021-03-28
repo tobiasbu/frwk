@@ -41,7 +41,7 @@ namespace ct {
 
 		// Assign operators
 
-		CONSTEXPR tvec2<T> & operator=(const tvec2 & other) = default;
+		CONSTEXPR tvec2<T> & operator=(const tvec2<T> & other) = default;
 
 		template <typename U>
 		CONSTEXPR tvec2<T> & operator=(const tvec2<U> & other);
