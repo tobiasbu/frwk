@@ -179,7 +179,7 @@ TEST_CASE("math/vec2") {
 		CHECK(r.x == 16.5f);
 		CHECK(r.y == 16.0f);
 		r = 1.f / r;
-		CHECK(essentiallyEqual(r.x, 0.06061f));
+		CHECK(essentially_equal(r.x, 0.06061f));
 		CHECK(r.y == 0.0625f);
 	}
 

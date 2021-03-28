@@ -218,7 +218,7 @@ TEST_CASE("math/vec3") {
 		r = 0.1f * r;
 		CHECK(r.x == 289.85f);
 		CHECK(r.y == -418.20001f);
-		CHECK(essentiallyEqual(r.z, 95.2f));
+		CHECK(essentially_equal(r.z, 95.2f));
 	}
 
 	SUBCASE("binary operators: /") {
@@ -233,9 +233,9 @@ TEST_CASE("math/vec3") {
 		CHECK(r.y == 16.0f);
 		CHECK(r.z == 15.5f);
 		r = 1.f / r;
-		CHECK(essentiallyEqual(r.x, 0.06061f));
+		CHECK(essentially_equal(r.x, 0.06061f));
 		CHECK(r.y == 0.0625f);
-		CHECK(essentiallyEqual(r.z, 0.06451f));
+		CHECK(essentially_equal(r.z, 0.06451f));
 	}
 
 	SUBCASE("boolean operators: == !=") {

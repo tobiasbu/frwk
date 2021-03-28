@@ -145,7 +145,7 @@ TEST_CASE("math/vec4") {
 		CHECK(multiply_assign_scalar.x == 1.875f);
 		CHECK(multiply_assign_scalar.y == 6.5625f);
 		CHECK(multiply_assign_scalar.z == 0.75f);
-		CHECK(approximatelyEqual(multiply_assign_scalar.w, -5.01f));
+		CHECK(approximately_equal(multiply_assign_scalar.w, -5.01f));
 
 		vec4f multiply_assign_dst(9784, 1500, 5, -150);
 		vec4f multiply_assign_src(-0.1f, 7.5f, -2.f, 5);
@@ -261,7 +261,7 @@ TEST_CASE("math/vec4") {
 		r = 0.1f * r;
 		CHECK(r.x == 289.85f);
 		CHECK(r.y == -418.20001f);
-		CHECK(essentiallyEqual(r.z, 95.2f));
+		CHECK(essentially_equal(r.z, 95.2f));
 		CHECK(r.w == 7642.35f);
 	}
 
@@ -279,10 +279,10 @@ TEST_CASE("math/vec4") {
 		CHECK(r.z == 15.5f);
 		CHECK(r.w == 15.f);
 		r = 1.f / r;
-		CHECK(essentiallyEqual(r.x, 0.06061f));
+		CHECK(essentially_equal(r.x, 0.06061f));
 		CHECK(r.y == 0.0625f);
-		CHECK(essentiallyEqual(r.z, 0.06451f));
-		CHECK(essentiallyEqual(r.w, 0.066666665f));
+		CHECK(essentially_equal(r.z, 0.06451f));
+		CHECK(essentially_equal(r.w, 0.066666665f));
 	}
 
 	SUBCASE("boolean operators: == !=") {
