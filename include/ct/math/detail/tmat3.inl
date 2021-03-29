@@ -194,6 +194,15 @@ namespace ct {
 		       m[6] * m[4] * m[2];
 	}
 
+	template <typename T>
+	CT_FORCEINLINE CONSTEXPR void tmat3<T>::transpose() {
+		set(
+			m[0], m[3], m[6],
+			m[1], m[4], m[7],
+			m[2], m[5], m[8]
+		);
+	}
+
 	// Unary operators
 
 	// +=

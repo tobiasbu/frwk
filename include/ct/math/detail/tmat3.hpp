@@ -94,6 +94,7 @@ namespace ct {
 
 		CONSTEXPR T determinant() const;
 		CONSTEXPR tmat3<T> inverse() const;
+		CONSTEXPR void transpose();
 
 		// Assign operators
 

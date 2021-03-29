@@ -200,6 +200,14 @@ TEST_CASE("math/mat3") {
 		CHECK(t::equals(mat_row, mat_column));
 	}
 
+	SUBCASE("transpose") {
+		mat3 mat_trans(1, 2, 3, 4, 5, 6, 7, 8, 9);
+		mat_trans.transpose();
+		CHECK(mat_trans == mat3(1, 4, 7, 2, 5, 8, 3, 6, 9));
+		mat_trans.transpose();
+		CHECK(mat_trans == mat3(1, 2, 3, 4, 5, 6, 7, 8, 9));
+	}
+
 	SUBCASE("determinant") {
 		mat3 mat_det(6, 4, 2, 1, -2, 8, 1, 5, 7);
 		CHECK(mat_det.determinant() == -306.f);
