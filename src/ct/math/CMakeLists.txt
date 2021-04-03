@@ -9,9 +9,11 @@ ct_file_list(ROOT ${INCPATH} OUTPUT INC
 	detail/tvec3.inl
 	detail/tvec4.hpp
 	detail/tvec4.inl
-	# matrixes
+	# matrices
 	detail/tmat3.hpp
 	detail/tmat3.inl
+	detail/tmat4.hpp
+	detail/tmat4.inl
 	# shapes
 	detail/trect.hpp
 	detail/trect.inl
