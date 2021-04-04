@@ -6,7 +6,10 @@
 #include "vec2.test.hpp"
 #include "vec3.test.hpp"
 #include "vec4.test.hpp"
+
 #include "mat3.test.hpp"
+#include "mat4.test.hpp"
+
 #include "rect.test.hpp"
 
 REGISTER_EXCEPTION_TRANSLATOR(ct::Exception & ex) {

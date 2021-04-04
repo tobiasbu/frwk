@@ -6,6 +6,7 @@ ct_file_list(ROOT ${INCPATH} OUTPUT SRC
 	vec3.test.hpp
 	vec4.test.hpp
 	mat3.test.hpp
+	mat4.test.hpp
 	rect.test.hpp
 	commons.hpp
 	main.cpp

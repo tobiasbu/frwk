@@ -7,6 +7,7 @@
 #include <ct/math/detail/tvec4.hpp>
 
 #include <ct/math/detail/tmat3.hpp>
+#include <ct/math/detail/tmat4.hpp>
 
 typedef ct::tvec2<ct::f32> vec2f;
 typedef ct::tvec2<ct::i32> vec2i;
@@ -22,6 +23,9 @@ typedef ct::tvec4<bool> vec4b;
 
 typedef ct::tmat3<ct::f32> mat3;
 typedef ct::tmat3<ct::f64> mat3d;
+
+typedef ct::tmat4<ct::f32> mat4;
+typedef ct::tmat4<ct::f64> mat4d;
 
 constexpr float max(float a, float b) {
 	return a > b ? a : b;
