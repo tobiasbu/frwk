@@ -85,6 +85,9 @@ namespace ct {
 
 		// Functions
 
+		CONSTEXPR const column_type & col(const u32 & index) const;
+		CONSTEXPR column_type & col(const u32 & index);
+
 		CONSTEXPR column_type get_column(u32 index) const;
 		CONSTEXPR row_type get_row(u32 index) const;
 
@@ -137,8 +140,8 @@ namespace ct {
 
 		// Array Subscriptor
 
-		CONSTEXPR column_type & operator[](const u32 & index);
-		CONSTEXPR const column_type & operator[](const u32 & index) const;
+		CONSTEXPR T & operator[](const u32 & index);
+		CONSTEXPR const T & operator[](const u32 & index) const;
 
 		////////////////////////////////////////////////////////////
 		/// @brief Access to matrix column by given index

@@ -5,7 +5,7 @@
 namespace t {
 	bool approximately_equals(const mat3 & a, const mat3 & b, float epsilon = 0.0001) {
 		for (int i = 0; i < 3; i += 1) {
-			if (!approximately_equal(a[i], b[i])) {
+			if (!approximately_equal(a.col(i), b.col(i))) {
 				return false;
 			}
 		}
@@ -13,7 +13,7 @@ namespace t {
 	}
 	bool equals(const mat3 & a, const mat3 & b) {
 		for (int i = 0; i < 3; i += 1) {
-			if (a[i] != b[i]) {
+			if (a.col(i) != b.col(i)) {
 				return false;
 			}
 		}
@@ -109,9 +109,9 @@ TEST_CASE("math/mat3") {
 	SUBCASE("unary operators: negate(-) and nonnegate(+)") {
 		mat3 a(2.0f, -1.f, 0.f, 3.f, -2.f, 1.f, 4.f, -3.f, 2.f);
 		auto b = -a;
-		CHECK(b[0] == mat3::column_type(-2.f, 1.f, 0.f));
-		CHECK(b[1] == mat3::column_type(-3.f, 2.f, -1.f));
-		CHECK(b[2] == mat3::column_type(-4.f, 3.f, -2.f));
+		CHECK(b.col(0) == mat3::column_type(-2.f, 1.f, 0.f));
+		CHECK(b.col(1) == mat3::column_type(-3.f, 2.f, -1.f));
+		CHECK(b.col(2) == mat3::column_type(-4.f, 3.f, -2.f));
 		b = -b;
 		b = +b;
 		CHECK(b.get_column(0) == mat3::column_type(2.f, -1.f, 0.f));
@@ -249,7 +249,7 @@ TEST_CASE("math/mat3") {
 		vec3f r = mat_dst * vec;
 		CHECK(r == vec3f(14.f, 23.f, 61.f));
 		// column vector
-		r = vec * mat_dst; 
+		r = vec * mat_dst;
 		CHECK(r == vec3f(28.f, 35.f, 51.f));
 	}
 
