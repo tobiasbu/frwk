@@ -101,6 +101,18 @@ namespace ct {
 	// Functions
 
 	template <typename T>
+	CT_FORCEINLINE CONSTEXPR typename tmat3<T>::column_type & tmat3<T>::col(const u32 & index) {
+		__CT_MATH_ASSERT(index >= 0 && index < 3, "ct::tmat3<T>: Can not access column at index %d", index);
+		return column[index];
+	}
+
+	template <typename T>
+	CT_FORCEINLINE CONSTEXPR const typename tmat3<T>::column_type & tmat3<T>::col(const u32 & index) const {
+		__CT_MATH_ASSERT(index >= 0 && index < 3, "ct::tmat3<T>: Can not access column at index %d", index);
+		return column[index];
+	}
+
+	template <typename T>
 	CT_FORCEINLINE CONSTEXPR typename tmat3<T>::column_type tmat3<T>::get_column(u32 index) const {
 		__CT_MATH_ASSERT(index >= 0 && index < 3, "ct::tmat3<T>.get_column: Can not get column with index %d", index);
 		auto i = index * 3;
@@ -146,31 +158,31 @@ namespace ct {
 	template <typename T>
 	CONSTEXPR tmat3<T> tmat3<T>::inverse() const {
 		// see http://www.euclideanspace.com/maths/algebra/matrix/functions/inverse/index.htm
-		T inverse_det = determinant();
-		if (inverse_det == 0) { // epsilon
+		T det = determinant();
+		if (det == 0) { // epsilon
 			return *this;
 		}
-		inverse_det = static_cast<T>(1) / inverse_det;
+		det = static_cast<T>(1) / det;
 
 		tmat3<T> inverse;
 		// m11*m22 - m12*m21
-		inverse.m[0] = (m[4] * m[8] - m[7] * m[5]) * inverse_det;
+		inverse.m[0] = (m[4] * m[8] - m[7] * m[5]) * det;
 		// m12*m20 - m10*m22
-		inverse.m[1] = (m[7] * m[2] - m[1] * m[8]) * inverse_det;
+		inverse.m[1] = (m[7] * m[2] - m[1] * m[8]) * det;
 		// m10*m21 - m11*m20
-		inverse.m[2] = (m[1] * m[5] - m[4] * m[2]) * inverse_det;
+		inverse.m[2] = (m[1] * m[5] - m[4] * m[2]) * det;
 		// m02*m21 - m01*m22
-		inverse.m[3] = (m[6] * m[5] - m[3] * m[8]) * inverse_det;
+		inverse.m[3] = (m[6] * m[5] - m[3] * m[8]) * det;
 		// m00*m22 - m02*m20
-		inverse.m[4] = (m[0] * m[8] - m[6] * m[2]) * inverse_det;
+		inverse.m[4] = (m[0] * m[8] - m[6] * m[2]) * det;
 		// m01*m20 - m00*m21
-		inverse.m[5] = (m[3] * m[2] - m[0] * m[5]) * inverse_det;
+		inverse.m[5] = (m[3] * m[2] - m[0] * m[5]) * det;
 		// m01*m12 - m02*m11
-		inverse.m[6] = (m[3] * m[7] - m[6] * m[4]) * inverse_det;
+		inverse.m[6] = (m[3] * m[7] - m[6] * m[4]) * det;
 		// m02*m10 - m00*m12
-		inverse.m[7] = (m[6] * m[1] - m[0] * m[7]) * inverse_det;
+		inverse.m[7] = (m[6] * m[1] - m[0] * m[7]) * det;
 		// m00*m11 - m01*m10
-		inverse.m[8] = (m[0] * m[4] - m[3] * m[1]) * inverse_det;
+		inverse.m[8] = (m[0] * m[4] - m[3] * m[1]) * det;
 
 		return inverse;
 	}
@@ -180,17 +192,14 @@ namespace ct {
 		// m[0] * (m[4] * m[8] - m[7] * m[5]) -
 		// m[3] * (m[1] * m[8] - m[7] * m[2]) +
 		// m[6] * (m[1] * m[5] - m[4] * m[2]);
-		// m00 * m11 * m22 +
+		// m00 * m11 * m22 + m01 * m12 * m20 +
+		// m02 * m10 * m21 - m00 * m12 * m21 -
+		// m01 * m10 * m22 -  m02 * m11 * m20;
 		return m[0] * m[4] * m[8] +
-			// m01 * m12 * m20 +
 			   m[3] * m[7] * m[2] +
-		    // m02 * m10 * m21 -
 		       m[6] * m[1] * m[5] -
-		    // m00 * m12 * m21 -
 		       m[0] * m[7] * m[5] -
-		    // m01 * m10 * m22 -
 		       m[3] * m[1] * m[8] -
-		    // m02 * m11 * m20;
 		       m[6] * m[4] * m[2];
 	}
 
@@ -294,15 +303,15 @@ namespace ct {
 	// Array Subscriptor
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR typename tmat3<T>::column_type & tmat3<T>::operator[](const u32 & index) {
-		__CT_MATH_ASSERT(index >= 0 && index < 3, "ct::tmat3<T>: Can not access column at index %d", index);
-		return column[index];
+	CT_FORCEINLINE CONSTEXPR typename T & tmat3<T>::operator[](const u32 & index) {
+		__CT_MATH_ASSERT(index >= 0 && index < 9, "ct::tmat3<T>: Can not access element at index %d", index);
+		return m[index];
 	}
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR const typename tmat3<T>::column_type & tmat3<T>::operator[](const u32 & index) const {
-		__CT_MATH_ASSERT(index >= 0 && index < 3, "ct::tmat3<T>: Can not access element with index %d", index);
-		return column[index];
+	CT_FORCEINLINE CONSTEXPR const typename T & tmat3<T>::operator[](const u32 & index) const {
+		__CT_MATH_ASSERT(index >= 0 && index < 9, "ct::tmat3<T>: Can not access element at index %d", index);
+		return m[index];
 	}
 
 	template <typename T>
@@ -339,9 +348,9 @@ namespace ct {
 	template <typename T>
 	CT_FORCEINLINE CONSTEXPR tmat3<T> operator-(const tmat3<T> & mat) {
 		return tmat3<T>(
-			-mat[0],
-			-mat[1],
-			-mat[2]
+			-mat.col(0),
+			-mat.col(1),
+			-mat.col(2)
 		);
 	}
 
@@ -350,64 +359,64 @@ namespace ct {
 	// +
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR tmat3<T> operator+(const tmat3<T> & other, T scalar) {
-		return tmat3<T>(other[0] + scalar, other[1] + scalar, other[2] + scalar);
+	CT_FORCEINLINE CONSTEXPR tmat3<T> operator+(const tmat3<T> & mat, T scalar) {
+		return tmat3<T>(mat.col(0) + scalar, mat.col(1) + scalar, mat.col(2) + scalar);
 	}
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR tmat3<T> operator+(T scalar, const tmat3<T> & other) {
-		return tmat3<T>(scalar + other[0], scalar + other[1], scalar + other[2]);
+	CT_FORCEINLINE CONSTEXPR tmat3<T> operator+(T scalar, const tmat3<T> & mat) {
+		return tmat3<T>(scalar + mat.col(0), scalar + mat.col(1), scalar + mat.col(2));
 	}
 
 	template <typename T>
 	CT_FORCEINLINE CONSTEXPR tmat3<T> operator+(const tmat3<T> & left, const tmat3<T> & right) {
-		return tmat3<T>(left[0] + right[0], left[1] + right[1], left[2] + right[2]);
+		return tmat3<T>(left.col(0) + right.col(0), left.col(1) + right.col(1), left.col(2) + right.col(2));
 	}
 
 	// -
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR tmat3<T> operator-(const tmat3<T> & other, T scalar) {
-		return tmat3<T>(other[0] - scalar, other[1] - scalar, other[2] - scalar);
+	CT_FORCEINLINE CONSTEXPR tmat3<T> operator-(const tmat3<T> & mat, T scalar) {
+		return tmat3<T>(mat.col(0) - scalar, mat.col(1) - scalar, mat.col(2) - scalar);
 	}
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR tmat3<T> operator-(T scalar, const tmat3<T> & other) {
-		return tmat3<T>(scalar - other[0], scalar - other[1], scalar - other[2]);
+	CT_FORCEINLINE CONSTEXPR tmat3<T> operator-(T scalar, const tmat3<T> & mat) {
+		return tmat3<T>(scalar - mat.col(0), scalar - mat.col(1), scalar - mat.col(2));
 	}
 
 	template <typename T>
 	CT_FORCEINLINE CONSTEXPR tmat3<T> operator-(const tmat3<T> & left, const tmat3<T> & right) {
-		return tmat3<T>(left[0] - right[0], left[1] - right[1], left[2] - right[2]);
+		return tmat3<T>(left.col(0) - right.col(0), left.col(1) - right.col(1), left.col(2) - right.col(2));
 	}
 
 	// *
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR tmat3<T> operator*(const tmat3<T> & other, T scalar) {
-		return tmat3<T>(other[0] * scalar, other[1] * scalar, other[2] * scalar);
+	CT_FORCEINLINE CONSTEXPR tmat3<T> operator*(const tmat3<T> & mat, T scalar) {
+		return tmat3<T>(mat.col(0) * scalar, mat.col(1) * scalar, mat.col(2) * scalar);
 	}
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR tmat3<T> operator*(T scalar, const tmat3<T> & other) {
-		return tmat3<T>(scalar * other[0], scalar * other[1], scalar * other[2]);
+	CT_FORCEINLINE CONSTEXPR tmat3<T> operator*(T scalar, const tmat3<T> & mat) {
+		return tmat3<T>(scalar * mat.col(0), scalar * mat.col(1), scalar * mat.col(2));
 	}
 
 	template <typename T>
 	CT_FORCEINLINE CONSTEXPR tmat3<T> operator*(const tmat3<T> & left, const tmat3<T> & right) {
 		return tmat3<T>(
 		    // 1st column
-		    left[0][0] * right[0][0] + left[1][0] * right[0][1] + left[2][0] * right[0][2],
-		    left[0][1] * right[0][0] + left[1][1] * right[0][1] + left[2][1] * right[0][2],
-		    left[0][2] * right[0][0] + left[1][2] * right[0][1] + left[2][2] * right[0][2],
+		    left[0] * right[0] + left[3] * right[1] + left[6] * right[2],
+		    left[1] * right[0] + left[4] * right[1] + left[7] * right[2],
+		    left[2] * right[0] + left[5] * right[1] + left[8] * right[2],
 		    // 2nd column
-		    left[0][0] * right[1][0] + left[1][0] * right[1][1] + left[2][0] * right[1][2],
-		    left[0][1] * right[1][0] + left[1][1] * right[1][1] + left[2][1] * right[1][2],
-		    left[0][2] * right[1][0] + left[1][2] * right[1][1] + left[2][2] * right[1][2],
+		    left[0] * right[3] + left[3] * right[4] + left[6] * right[5],
+		    left[1] * right[3] + left[4] * right[4] + left[7] * right[5],
+		    left[2] * right[3] + left[5] * right[4] + left[8] * right[5],
 		    // 3th column
-		    left[0][0] * right[2][0] + left[1][0] * right[2][1] + left[2][0] * right[2][2],
-		    left[0][1] * right[2][0] + left[1][1] * right[2][1] + left[2][1] * right[2][2],
-		    left[0][2] * right[2][0] + left[1][2] * right[2][1] + left[2][2] * right[2][2]);
+		    left[0] * right[6] + left[3] * right[7] + left[6] * right[8],
+		    left[1] * right[6] + left[4] * right[7] + left[7] * right[8],
+		    left[2] * right[6] + left[5] * right[7] + left[8] * right[8]);
 	}
 
 	// vector multiplication
@@ -433,13 +442,13 @@ namespace ct {
 	// /
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR tmat3<T> operator/(const tmat3<T> & other, T scalar) {
-		return tmat3<T>(other[0] / scalar, other[1] / scalar, other[2] / scalar);
+	CT_FORCEINLINE CONSTEXPR tmat3<T> operator/(const tmat3<T> & mat, T scalar) {
+		return tmat3<T>(mat.col(0) / scalar, mat.col(1) / scalar, mat.col(2) / scalar);
 	}
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR tmat3<T> operator/(T scalar, const tmat3<T> & other) {
-		return tmat3<T>(scalar / other[0], scalar / other[1], scalar / other[2]);
+	CT_FORCEINLINE CONSTEXPR tmat3<T> operator/(T scalar, const tmat3<T> & mat) {
+		return tmat3<T>(scalar / mat.col(0), scalar / mat.col(1), scalar / mat.col(2));
 	}
 
 	template <typename T>
@@ -451,12 +460,12 @@ namespace ct {
 
 	template <typename T>
 	CONSTEXPR bool operator==(const tmat3<T> & left, const tmat3<T> & right) {
-		return (left[0] == right[0]) && (left[1] == right[1]) && (left[2] == right[2]);
+		return (left.col(0) == right.col(0)) && (left.col(1) == right.col(1)) && (left.col(2) == right.col(2));
 	}
 
 	template <typename T>
 	CONSTEXPR bool operator!=(const tmat3<T> & left, const tmat3<T> & right) {
-		return (left[0] != right[0]) || (left[1] != right[1]) || (left[2] != right[2]);
+		return (left.col(0) != right.col(0)) || (left.col(1) != right.col(1)) || (left.col(2) != right.col(2));
 	}
 
 }
