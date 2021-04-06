@@ -128,6 +128,16 @@ namespace ct {
 	w(static_cast<T>(other.w))
 	{}
 
+	// Functions
+
+	template <typename T>
+	CT_FORCEINLINE CONSTEXPR void tvec4<T>::set(T x, T y, T z, T w) {
+		this->x = x;
+		this->y = y;
+		this->z = z;
+		this->w = w;
+	}
+
 
 	// Assign operators
 
