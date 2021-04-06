@@ -94,6 +94,10 @@ namespace ct {
 		template <typename U>
 		CONSTEXPR tvec4(const tvec4<U> & vec4);
 
+		// Functions
+
+		CONSTEXPR void set(T x, T y, T z, T w);
+
 		// Assign operators
 
 		CONSTEXPR tvec4<T> & operator=(const tvec4<T> & other) = default;
