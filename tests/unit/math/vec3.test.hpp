@@ -1,5 +1,7 @@
+
 #include <doctest.h>
-#include "commons.hpp"
+
+#include "../../commons/math_commons.hpp"
 
 TEST_CASE("math/vec3") {
 

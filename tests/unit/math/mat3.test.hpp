@@ -1,6 +1,7 @@
 
 #include <doctest.h>
-#include "commons.hpp"
+
+#include "../../commons/math_commons.hpp"
 
 namespace t {
 	bool approximately_equals(const mat3 & a, const mat3 & b, float epsilon = 0.0001) {
