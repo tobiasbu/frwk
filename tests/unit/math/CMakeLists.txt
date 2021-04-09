@@ -8,12 +8,12 @@ ct_file_list(ROOT ${INCPATH} OUTPUT SRC
 	mat3.test.hpp
 	mat4.test.hpp
 	rect.test.hpp
-	commons.hpp
 	main.cpp
 )
 
-
-ct_group(${SRC} TREE ${CMAKE_CURRENT_SOURCE_DIR} NAME "test")
+SET(SRC ${SRC}
+	${TESTS_DIR}/commons/math_commons.hpp
+)
 
 ct_add_test(tests_math "${SRC}"
 			DEPENDS ctfk_math ctfk_core

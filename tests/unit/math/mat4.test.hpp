@@ -1,7 +1,9 @@
 
 #include <doctest.h>
-#include "commons.hpp"
 #include <iostream>
+
+#include "../../commons/math_commons.hpp"
+
 
 TEST_CASE("math/mat4") {
 	SUBCASE("determinant") {
