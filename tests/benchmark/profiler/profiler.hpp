@@ -3,6 +3,8 @@
 #define _CHRONOTRIX_FRWK_TESTS_PROFILER_HPP_
 
 #include <chrono>
+#include <iostream>
+#include <vector>
 
 #include <ct/config.hpp>
 namespace ct {

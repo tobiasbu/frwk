@@ -12,9 +12,21 @@ function(add_bench target SOURCES)
 
 	target_include_directories(${target} SYSTEM PRIVATE "${CT_THIRDPARTY_HEADERS}" "${BENCH_DIR}/profiler")
 
-	add_test(NAME chronotrix_tests COMMAND ${target})
+	add_test(NAME "${target}" COMMAND ${target})
 
 endfunction()
 
 set(SRC ${BENCH_DIR}/virtual_alternatives.test.cpp)
 add_bench(bench_virtual_alter "${SRC}" DEPENDS ctfk_core)
+
+
+ct_file_list(ROOT "${BENCH_DIR}/matrix_inverse" OUTPUT SRC
+	algorithms.hpp
+	mesa_algorithm.hpp
+	main.cpp
+)
+
+SET(SRC ${SRC}
+	${TESTS_DIR}/commons/math_commons.hpp
+)
+add_bench(bench_mat4_inverse "${SRC}" DEPENDS ctfk_core ctfk_math)

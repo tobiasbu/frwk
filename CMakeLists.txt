@@ -68,7 +68,7 @@ ct_option(CT_DOCS FALSE BOOL "TRUE = generate the API documentation. FALSE = ign
 ct_option(CT_TESTS FALSE BOOL "Build tests")
 
 # Check for clang-tidy
-set(ENABLE_CLANG_TIDY TRUE CACHE BOOL "Add clang-tidy automatically to builds")
+ct_option(ENABLE_CLANG_TIDY TRUE BOOL "Add clang-tidy automatically to builds")
 if (ENABLE_CLANG_TIDY)
 
 	find_program(CLANG_TIDY_EXE NAMES "clang-tidy" PATHS /usr/local/opt/llvm/bin /usr/local/bin)
@@ -81,6 +81,8 @@ if (ENABLE_CLANG_TIDY)
 		set(CMAKE_CXX_CLANG_TIDY "") # delete it
 		message(WARNING "clang-tidy not found! Skipping")
 	endif()
+else()
+	set(CMAKE_CXX_CLANG_TIDY "")
 endif()
 
 
