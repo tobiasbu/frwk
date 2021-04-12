@@ -33,7 +33,7 @@
         },
         {
           "name": "ENABLE_CLANG_TIDY",
-          "value": "True",
+          "value": "False",
           "type": "BOOL"
         }
       ]
