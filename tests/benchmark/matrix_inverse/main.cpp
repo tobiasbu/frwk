@@ -20,15 +20,12 @@ void check_algo_are_correct() {
 
 TEST_CASE("benchmark/mat4_inverse") {
 	ct::test::Profiler p;
-	p.iterations(20000);
+	p.iterations(100000);
 
 	check_algo_are_correct();
 
 	p.run("glm::inverse", [] {
-		mat4 src(1, 4, 1, 5,
-			3, 7, 9, 8,
-			7, 11, 12, 13,
-			10, 6, 4, 9);
+		mat4 src(1, 4, 1, 5, 3, 7, 9, 8, 7, 11, 12, 13, 10, 6, 4, 9);
 		auto inv = glm::inverse(src);
 	});
 
@@ -42,12 +39,10 @@ TEST_CASE("benchmark/mat4_inverse") {
 		auto inv = gauss_jordan_b::inverse(src);
 	});
 
-
 	p.run("gauss_jordan_a::inverse", [] {
 		mat4 src(1, 4, 1, 5, 3, 7, 9, 8, 7, 11, 12, 13, 10, 6, 4, 9);
 		auto inv = gauss_jordan_a::inverse(src);
 	});
-
 
 	p.run("mesa::inverse", [] {
 		mat4 src(1, 4, 1, 5, 3, 7, 9, 8, 7, 11, 12, 13, 10, 6, 4, 9);
