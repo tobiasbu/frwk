@@ -2,7 +2,7 @@
 #include "../../commons/math_commons.hpp"
 
 template <typename T>
-CONSTEXPR CT_FORCEINLINE void swap(T * a, T * b) {
+CT_CONSTEXPR CT_FORCEINLINE void swap(T * a, T * b) {
 	T * tmp = a;
 	a = b;
 	b = tmp;

@@ -2,7 +2,7 @@
 #ifndef _CHRONOTRIX_FRWK_WINDOW_STYLE_HPP_
 	#define _CHRONOTRIX_FRWK_WINDOW_STYLE_HPP_
 
-	#include <ct/config/types.hpp>
+	#include <ct/config.hpp>
 	#include <ct/platform/export.hpp>
 
 namespace ct {
@@ -55,7 +55,7 @@ namespace ct {
 		 * 	auto my_win_style = Title | Close | Resize;
 		 * @endcode
 		 */
-		constexpr u32 Default = Title | Close | Resize;
+		CT_CONSTEXPR u32 Default = Title | Close | Resize;
 
 		////////////////////////////////////////////////////////////
 		/// @brief Helper to create custom WindowStyle

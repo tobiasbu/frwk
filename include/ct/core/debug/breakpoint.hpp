@@ -2,7 +2,7 @@
 #ifndef _CHRONOTRIX_FRWK_DEBUG_BREAKPOINT_HPP_
 #define _CHRONOTRIX_FRWK_DEBUG_BREAKPOINT_HPP_
 
-#include <ct/config/api_export.hpp>
+#include <ct/config.hpp>
 
 #ifdef CT_DEBUG
 	#if defined(_MSC_VER)

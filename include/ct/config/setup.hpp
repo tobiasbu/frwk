@@ -7,7 +7,10 @@
 ////////////////////////////////////////////////////////////
 
 #if defined(__cplusplus)
-	#if (__cplusplus > 199711L) || (defined(_MSC_FULL_VER) && (_MSC_FULL_VER >= 150020706))
+
+	#if defined(__GXX_EXPERIMENTAL_CXX0X__) || (__cplusplus >= 201103L)
+		#define CT_CXX11
+	#elif (__cplusplus > 199711L) || (defined(_MSC_FULL_VER) && (_MSC_FULL_VER >= 150020706))
 		#define CT_CXX11
 	#endif
 
@@ -48,12 +51,12 @@
 #endif
 
 ////////////////////////////////////////////////////////////
-// Define CONSTEXPR macro
+// Define CT_CONSTEXPR macro
 ////////////////////////////////////////////////////////////
 #ifdef CT_CXX11_HAS_CONSTEXPR
-	#define CONSTEXPR constexpr
+	#define CT_CONSTEXPR constexpr
 #else
-	#define CONSTEXPR
+	#define CT_CONSTEXPR
 #endif
 
 ////////////////////////////////////////////////////////////
@@ -95,12 +98,27 @@
 #endif
 
 #ifndef CT_FORCEINLINE
-
 	#ifdef CT_DISABLE_FORCEINLINE
 		#define CT_FORCEINLINE inline
 	#else
 		#define CT_FORCEINLINE __CT_FORCEINLINE
 	#endif
+#endif
+
+////////////////////////////////////////////////////////////
+// Define CT_CURRENT_FUNCTION macro
+// From boost/current_function
+////////////////////////////////////////////////////////////
+#if defined(__GNUC__) || defined(__clang__)
+	#define CT_CURRENT_FUNCTION __PRETTY_FUNCTION__
+#elif defined(__FUNCSIG__)
+	#define CT_CURRENT_FUNCTION __FUNCSIG__
+#elif defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901)
+	#define CT_CURRENT_FUNCTION __func__
+#elif defined(__cplusplus) && (__cplusplus >= 201103)
+	#define CT_CURRENT_FUNCTION __func__
+#else
+	#define CT_CURRENT_FUNCTION "(unknown)"
 #endif
 
 #endif

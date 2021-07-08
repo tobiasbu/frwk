@@ -17,80 +17,80 @@ namespace ct {
 
 		// Default constructors
 
-		CONSTEXPR tvec2();
-		CONSTEXPR tvec2(const tvec2<T> & other) = default;
+		CT_CONSTEXPR tvec2();
+		CT_CONSTEXPR tvec2(const tvec2<T> & other) = default;
 
 		// Explicit constructors
 
-		CONSTEXPR tvec2(T x, T y);
-		CONSTEXPR explicit tvec2(T scalar);
+		CT_CONSTEXPR tvec2(T x, T y);
+		CT_CONSTEXPR explicit tvec2(T scalar);
 
 		// Conversion constructors
 
 		template <typename X, typename Y>
-		CONSTEXPR tvec2(X x, Y y);
+		CT_CONSTEXPR tvec2(X x, Y y);
 
 		template <typename U>
-		CONSTEXPR tvec2(const tvec2<U> & v2);
+		CT_CONSTEXPR tvec2(const tvec2<U> & v2);
 
 		// template <typename U>
-		// CONSTEXPR tvec2(const vec3<U> & v3);
+		// CT_CONSTEXPR tvec2(const vec3<U> & v3);
 
 		// template <typename U>
-		// CONSTEXPR tvec2(const vec4<U> & v4);
+		// CT_CONSTEXPR tvec2(const vec4<U> & v4);
 
 		// Assign operators
 
-		CONSTEXPR tvec2<T> & operator=(const tvec2<T> & other) = default;
+		CT_CONSTEXPR tvec2<T> & operator=(const tvec2<T> & other) = default;
 
 		template <typename U>
-		CONSTEXPR tvec2<T> & operator=(const tvec2<U> & other);
+		CT_CONSTEXPR tvec2<T> & operator=(const tvec2<U> & other);
 
 		// Unary operators
 
 		// +=
 
 		template <typename U>
-		CONSTEXPR tvec2<T> & operator+=(U scalar);
+		CT_CONSTEXPR tvec2<T> & operator+=(U scalar);
 
 		template <typename U>
-		CONSTEXPR tvec2<T> & operator+=(const tvec2<U> & other);
+		CT_CONSTEXPR tvec2<T> & operator+=(const tvec2<U> & other);
 
 		// -=
 
 		template <typename U>
-		CONSTEXPR tvec2<T> & operator-=(U scalar);
+		CT_CONSTEXPR tvec2<T> & operator-=(U scalar);
 
 		template <typename U>
-		CONSTEXPR tvec2<T> & operator-=(const tvec2<U> & other);
+		CT_CONSTEXPR tvec2<T> & operator-=(const tvec2<U> & other);
 
 		// *=
 
 		template <typename U>
-		CONSTEXPR tvec2<T> & operator*=(U scalar);
+		CT_CONSTEXPR tvec2<T> & operator*=(U scalar);
 
 		template <typename U>
-		CONSTEXPR tvec2<T> & operator*=(const tvec2<U> & other);
+		CT_CONSTEXPR tvec2<T> & operator*=(const tvec2<U> & other);
 
 		// /=
 
 		template <typename U>
-		CONSTEXPR tvec2<T> & operator/=(U scalar);
+		CT_CONSTEXPR tvec2<T> & operator/=(U scalar);
 
 		template <typename U>
-		CONSTEXPR tvec2<T> & operator/=(const tvec2<U> & other);
+		CT_CONSTEXPR tvec2<T> & operator/=(const tvec2<U> & other);
 
 		// Relational operators
 
-		CONSTEXPR bool operator<(const tvec2<T> & other) const;
-		CONSTEXPR bool operator<=(const tvec2<T> & other) const;
-		CONSTEXPR bool operator>(const tvec2<T> & other) const;
-		CONSTEXPR bool operator>=(const tvec2<T> & other) const;
+		CT_CONSTEXPR bool operator<(const tvec2<T> & other) const;
+		CT_CONSTEXPR bool operator<=(const tvec2<T> & other) const;
+		CT_CONSTEXPR bool operator>(const tvec2<T> & other) const;
+		CT_CONSTEXPR bool operator>=(const tvec2<T> & other) const;
 
 		// Array Subscriptor
 
-		CONSTEXPR T & operator[](const u32 & index);
-		CONSTEXPR const T & operator[](const u32 & index) const;
+		CT_CONSTEXPR T & operator[](const u32 & index);
+		CT_CONSTEXPR const T & operator[](const u32 & index) const;
 
 	};
 
@@ -98,70 +98,70 @@ namespace ct {
 	// Unary operators
 
 	template <typename T>
-	CONSTEXPR tvec2<T> operator+(const tvec2<T> & vec);
+	CT_CONSTEXPR tvec2<T> operator+(const tvec2<T> & vec);
 
 	template <typename T>
-	CONSTEXPR tvec2<T> operator-(const tvec2<T> & vec);
+	CT_CONSTEXPR tvec2<T> operator-(const tvec2<T> & vec);
 
 	// Binary operators
 
 	// +
 
 	template <typename T>
-	CONSTEXPR tvec2<T> operator+(const tvec2<T> & other, T scalar);
+	CT_CONSTEXPR tvec2<T> operator+(const tvec2<T> & other, T scalar);
 
 	template <typename T>
-	CONSTEXPR tvec2<T> operator+(T scalar, const tvec2<T> & other);
+	CT_CONSTEXPR tvec2<T> operator+(T scalar, const tvec2<T> & other);
 
 	template <typename T>
-	CONSTEXPR tvec2<T> operator+(const tvec2<T> & left, const tvec2<T> & right);
+	CT_CONSTEXPR tvec2<T> operator+(const tvec2<T> & left, const tvec2<T> & right);
 
 	// -
 
 	template <typename T>
-	CONSTEXPR tvec2<T> operator-(const tvec2<T> & other, T scalar);
+	CT_CONSTEXPR tvec2<T> operator-(const tvec2<T> & other, T scalar);
 
 	template <typename T>
-	CONSTEXPR tvec2<T> operator-(T scalar, const tvec2<T> & other);
+	CT_CONSTEXPR tvec2<T> operator-(T scalar, const tvec2<T> & other);
 
 	template <typename T>
-	CONSTEXPR tvec2<T> operator-(const tvec2<T> & left, const tvec2<T> & right);
+	CT_CONSTEXPR tvec2<T> operator-(const tvec2<T> & left, const tvec2<T> & right);
 
 	// *
 
 	template <typename T>
-	CONSTEXPR tvec2<T> operator*(const tvec2<T> & other, T scalar);
+	CT_CONSTEXPR tvec2<T> operator*(const tvec2<T> & other, T scalar);
 
 	template <typename T>
-	CONSTEXPR tvec2<T> operator*(T scalar, const tvec2<T> & other);
+	CT_CONSTEXPR tvec2<T> operator*(T scalar, const tvec2<T> & other);
 
 	template <typename T>
-	CONSTEXPR tvec2<T> operator*(const tvec2<T> & left, const tvec2<T> & right);
+	CT_CONSTEXPR tvec2<T> operator*(const tvec2<T> & left, const tvec2<T> & right);
 
 	// /
 
 	template <typename T>
-	CONSTEXPR tvec2<T> operator/(const tvec2<T> & other, T scalar);
+	CT_CONSTEXPR tvec2<T> operator/(const tvec2<T> & other, T scalar);
 
 	template <typename T>
-	CONSTEXPR tvec2<T> operator/(T scalar, const tvec2<T> & other);
+	CT_CONSTEXPR tvec2<T> operator/(T scalar, const tvec2<T> & other);
 
 	template <typename T>
-	CONSTEXPR tvec2<T> operator/(const tvec2<T> & left, const tvec2<T> & right);
+	CT_CONSTEXPR tvec2<T> operator/(const tvec2<T> & left, const tvec2<T> & right);
 
 	// Boolean operators
 
 	template <typename T>
-	CONSTEXPR bool operator==(const tvec2<T> & left, const tvec2<T> & right);
+	CT_CONSTEXPR bool operator==(const tvec2<T> & left, const tvec2<T> & right);
 
 	template <typename T>
-	CONSTEXPR bool operator!=(const tvec2<T> & left, const tvec2<T> & right);
+	CT_CONSTEXPR bool operator!=(const tvec2<T> & left, const tvec2<T> & right);
 
 	// Vector of booleans operators only
 
-	CONSTEXPR tvec2<bool> operator&&(const tvec2<bool> & left, const tvec2<bool> & right);
+	CT_CONSTEXPR tvec2<bool> operator&&(const tvec2<bool> & left, const tvec2<bool> & right);
 
-	CONSTEXPR tvec2<bool> operator||(const tvec2<bool> & left, const tvec2<bool> & right);
+	CT_CONSTEXPR tvec2<bool> operator||(const tvec2<bool> & left, const tvec2<bool> & right);
 
 	// ostream operator
 

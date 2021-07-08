@@ -4,7 +4,7 @@ namespace ct {
 	// Default constructors
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR tvec3<T>::tvec3()
+	CT_FORCEINLINE CT_CONSTEXPR tvec3<T>::tvec3()
 	:
 	x(static_cast<T>(0)),
 	y(static_cast<T>(0)),
@@ -14,7 +14,7 @@ namespace ct {
 	// Explicit constructors
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR tvec3<T>::tvec3(T _x, T _y, T _z)
+	CT_FORCEINLINE CT_CONSTEXPR tvec3<T>::tvec3(T _x, T _y, T _z)
 	:
 	x(_x),
 	y(_y),
@@ -22,7 +22,7 @@ namespace ct {
 	{}
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR tvec3<T>::tvec3(T scalar)
+	CT_FORCEINLINE CT_CONSTEXPR tvec3<T>::tvec3(T scalar)
 	:
 	x(scalar),
 	y(scalar),
@@ -33,7 +33,7 @@ namespace ct {
 
 	template <typename T>
 	template <typename U>
-	CT_FORCEINLINE CONSTEXPR tvec3<T>::tvec3(const tvec3<U> & vec3)
+	CT_FORCEINLINE CT_CONSTEXPR tvec3<T>::tvec3(const tvec3<U> & vec3)
 	:
 	x(static_cast<T>(vec3.x)),
 	y(static_cast<T>(vec3.y)),
@@ -42,7 +42,7 @@ namespace ct {
 
 	template <typename T>
 	template <typename X, typename Y, typename Z>
-	CT_FORCEINLINE CONSTEXPR tvec3<T>::tvec3(X _x, Y _y, Z _z)
+	CT_FORCEINLINE CT_CONSTEXPR tvec3<T>::tvec3(X _x, Y _y, Z _z)
 	:
 	x(static_cast<T>(_x)),
 	y(static_cast<T>(_y)),
@@ -52,7 +52,7 @@ namespace ct {
 	// Conversion constructors - from vec2
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR tvec3<T>::tvec3(const tvec2<T> & vec2)
+	CT_FORCEINLINE CT_CONSTEXPR tvec3<T>::tvec3(const tvec2<T> & vec2)
 	:
 	x(vec2.x),
 	y(vec2.y),
@@ -60,7 +60,7 @@ namespace ct {
 	{}
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR tvec3<T>::tvec3(const tvec2<T> & vec2, T _z)
+	CT_FORCEINLINE CT_CONSTEXPR tvec3<T>::tvec3(const tvec2<T> & vec2, T _z)
 	:
 	x(vec2.x),
 	y(vec2.y),
@@ -69,7 +69,7 @@ namespace ct {
 
 	template <typename T>
 	template <typename U>
-	CT_FORCEINLINE CONSTEXPR tvec3<T>::tvec3(const tvec2<U> & vec2)
+	CT_FORCEINLINE CT_CONSTEXPR tvec3<T>::tvec3(const tvec2<U> & vec2)
 	:
 	x(static_cast<T>(vec2.x)),
 	y(static_cast<T>(vec2.y)),
@@ -78,7 +78,7 @@ namespace ct {
 
 	template <typename T>
 	template <typename U, typename Z>
-	CT_FORCEINLINE CONSTEXPR tvec3<T>::tvec3(const tvec2<U> & vec2, Z _z)
+	CT_FORCEINLINE CT_CONSTEXPR tvec3<T>::tvec3(const tvec2<U> & vec2, Z _z)
 	:
 	x(static_cast<T>(vec2.x)),
 	y(static_cast<T>(vec2.y)),
@@ -89,7 +89,7 @@ namespace ct {
 
 	template <typename T>
 	template <typename U>
-	CT_FORCEINLINE CONSTEXPR tvec3<T> & tvec3<T>::operator=(const tvec3<U> & other) {
+	CT_FORCEINLINE CT_CONSTEXPR tvec3<T> & tvec3<T>::operator=(const tvec3<U> & other) {
 		this->x = static_cast<T>(other.x);
 		this->y = static_cast<T>(other.y);
 		this->z = static_cast<T>(other.z);
@@ -102,7 +102,7 @@ namespace ct {
 
 	template <typename T>
 	template <typename U>
-	CT_FORCEINLINE CONSTEXPR tvec3<T> & tvec3<T>::operator+=(U scalar) {
+	CT_FORCEINLINE CT_CONSTEXPR tvec3<T> & tvec3<T>::operator+=(U scalar) {
 		this->x += static_cast<T>(scalar);
 		this->y += static_cast<T>(scalar);
 		this->z += static_cast<T>(scalar);
@@ -111,7 +111,7 @@ namespace ct {
 
 	template <typename T>
 	template <typename U>
-	CT_FORCEINLINE CONSTEXPR tvec3<T> & tvec3<T>::operator+=(const tvec3<U> & other) {
+	CT_FORCEINLINE CT_CONSTEXPR tvec3<T> & tvec3<T>::operator+=(const tvec3<U> & other) {
 		this->x += static_cast<T>(other.x);
 		this->y += static_cast<T>(other.y);
 		this->z += static_cast<T>(other.z);
@@ -122,7 +122,7 @@ namespace ct {
 
 	template <typename T>
 	template <typename U>
-	CT_FORCEINLINE CONSTEXPR tvec3<T> & tvec3<T>::operator-=(U scalar) {
+	CT_FORCEINLINE CT_CONSTEXPR tvec3<T> & tvec3<T>::operator-=(U scalar) {
 		this->x -= static_cast<T>(scalar);
 		this->y -= static_cast<T>(scalar);
 		this->z -= static_cast<T>(scalar);
@@ -131,7 +131,7 @@ namespace ct {
 
 	template <typename T>
 	template <typename U>
-	CT_FORCEINLINE CONSTEXPR tvec3<T> & tvec3<T>::operator-=(const tvec3<U> & other) {
+	CT_FORCEINLINE CT_CONSTEXPR tvec3<T> & tvec3<T>::operator-=(const tvec3<U> & other) {
 		this->x -= static_cast<T>(other.x);
 		this->y -= static_cast<T>(other.y);
 		this->z -= static_cast<T>(other.z);
@@ -142,7 +142,7 @@ namespace ct {
 
 	template <typename T>
 	template <typename U>
-	CT_FORCEINLINE CONSTEXPR tvec3<T> & tvec3<T>::operator*=(U scalar) {
+	CT_FORCEINLINE CT_CONSTEXPR tvec3<T> & tvec3<T>::operator*=(U scalar) {
 		this->x *= static_cast<T>(scalar);
 		this->y *= static_cast<T>(scalar);
 		this->z *= static_cast<T>(scalar);
@@ -151,7 +151,7 @@ namespace ct {
 
 	template <typename T>
 	template <typename U>
-	CT_FORCEINLINE CONSTEXPR tvec3<T> & tvec3<T>::operator*=(const tvec3<U> & other) {
+	CT_FORCEINLINE CT_CONSTEXPR tvec3<T> & tvec3<T>::operator*=(const tvec3<U> & other) {
 		this->x *= static_cast<T>(other.x);
 		this->y *= static_cast<T>(other.y);
 		this->z *= static_cast<T>(other.z);
@@ -162,7 +162,7 @@ namespace ct {
 
 	template <typename T>
 	template <typename U>
-	CT_FORCEINLINE CONSTEXPR tvec3<T> & tvec3<T>::operator/=(U scalar) {
+	CT_FORCEINLINE CT_CONSTEXPR tvec3<T> & tvec3<T>::operator/=(U scalar) {
 		this->x /= static_cast<T>(scalar);
 		this->y /= static_cast<T>(scalar);
 		this->z /= static_cast<T>(scalar);
@@ -171,7 +171,7 @@ namespace ct {
 
 	template <typename T>
 	template <typename U>
-	CT_FORCEINLINE CONSTEXPR tvec3<T> & tvec3<T>::operator/=(const tvec3<U> & other) {
+	CT_FORCEINLINE CT_CONSTEXPR tvec3<T> & tvec3<T>::operator/=(const tvec3<U> & other) {
 		this->x /= static_cast<T>(other.x);
 		this->y /= static_cast<T>(other.y);
 		this->z /= static_cast<T>(other.z);
@@ -181,35 +181,35 @@ namespace ct {
 		// Relational operators
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR bool tvec3<T>::operator<(const tvec3<T> & other) const {
+	CT_FORCEINLINE CT_CONSTEXPR bool tvec3<T>::operator<(const tvec3<T> & other) const {
 		return (this->x < other.x) && (this->y < other.y) && (this->z < other.z);
 	}
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR bool tvec3<T>::operator<=(const tvec3<T> & other) const {
+	CT_FORCEINLINE CT_CONSTEXPR bool tvec3<T>::operator<=(const tvec3<T> & other) const {
 		return (this->x <= other.x) && (this->y <= other.y) && (this->z <= other.z);
 	}
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR bool tvec3<T>::operator>(const tvec3<T> & other) const {
+	CT_FORCEINLINE CT_CONSTEXPR bool tvec3<T>::operator>(const tvec3<T> & other) const {
 		return (this->x > other.x) && (this->y > other.y) && (this->z > other.z);
 	}
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR bool tvec3<T>::operator>=(const tvec3<T> & other) const {
+	CT_FORCEINLINE CT_CONSTEXPR bool tvec3<T>::operator>=(const tvec3<T> & other) const {
 		return (this->x >= other.x) && (this->y >= other.y) && (this->z >= other.z);
 	}
 
 	// Array Subscriptor
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR T & tvec3<T>::operator[](const u32 & index) {
+	CT_FORCEINLINE CT_CONSTEXPR T & tvec3<T>::operator[](const u32 & index) {
 		__CT_MATH_ASSERT(index >= 0 && index < 3, "ct::tvec3<T>: Can not access element with index %d", index);
 		return (&x)[index];
 	}
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR const T & tvec3<T>::operator[](const u32 & index) const {
+	CT_FORCEINLINE CT_CONSTEXPR const T & tvec3<T>::operator[](const u32 & index) const {
 		__CT_MATH_ASSERT(index >= 0 && index < 3, "ct::tvec3<T>: Can not access element with index %d", index);
 		return (&x)[index];
 	}
@@ -217,12 +217,12 @@ namespace ct {
 	// Unary operators
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR tvec3<T> operator+(const tvec3<T> & vec) {
+	CT_FORCEINLINE CT_CONSTEXPR tvec3<T> operator+(const tvec3<T> & vec) {
 		return vec;
 	}
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR tvec3<T> operator-(const tvec3<T> & vec) {
+	CT_FORCEINLINE CT_CONSTEXPR tvec3<T> operator-(const tvec3<T> & vec) {
 		return tvec3<T>(-vec.x, -vec.y, -vec.z);
 	}
 
@@ -231,90 +231,90 @@ namespace ct {
 	// +
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR tvec3<T> operator+(const tvec3<T> & other, T scalar) {
+	CT_FORCEINLINE CT_CONSTEXPR tvec3<T> operator+(const tvec3<T> & other, T scalar) {
 		return tvec3<T>(other.x + scalar, other.y + scalar, other.z + scalar);
 	}
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR tvec3<T> operator+(T scalar, const tvec3<T> & other) {
+	CT_FORCEINLINE CT_CONSTEXPR tvec3<T> operator+(T scalar, const tvec3<T> & other) {
 		return tvec3<T>(scalar + other.x, scalar + other.y, scalar + other.z);
 	}
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR tvec3<T> operator+(const tvec3<T> & left, const tvec3<T> & right) {
+	CT_FORCEINLINE CT_CONSTEXPR tvec3<T> operator+(const tvec3<T> & left, const tvec3<T> & right) {
 		return tvec3<T>(left.x + right.x, left.y + right.y, left.z + right.z);
 	}
 
 	// -
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR tvec3<T> operator-(const tvec3<T> & other, T scalar) {
+	CT_FORCEINLINE CT_CONSTEXPR tvec3<T> operator-(const tvec3<T> & other, T scalar) {
 		return tvec3<T>(other.x - scalar, other.y - scalar, other.z - scalar);
 	}
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR tvec3<T> operator-(T scalar, const tvec3<T> & other) {
+	CT_FORCEINLINE CT_CONSTEXPR tvec3<T> operator-(T scalar, const tvec3<T> & other) {
 		return tvec3<T>(scalar - other.x, scalar - other.y, scalar - other.z);
 	}
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR tvec3<T> operator-(const tvec3<T> & left, const tvec3<T> & right) {
+	CT_FORCEINLINE CT_CONSTEXPR tvec3<T> operator-(const tvec3<T> & left, const tvec3<T> & right) {
 		return tvec3<T>(left.x - right.x, left.y - right.y, left.z - right.z);
 	}
 
 	// *
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR tvec3<T> operator*(const tvec3<T> & other, T scalar) {
+	CT_FORCEINLINE CT_CONSTEXPR tvec3<T> operator*(const tvec3<T> & other, T scalar) {
 		return tvec3<T>(other.x * scalar, other.y * scalar, other.z * scalar);
 	}
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR tvec3<T> operator*(T scalar, const tvec3<T> & other) {
+	CT_FORCEINLINE CT_CONSTEXPR tvec3<T> operator*(T scalar, const tvec3<T> & other) {
 		return tvec3<T>(scalar * other.x, scalar * other.y, scalar * other.z);
 	}
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR tvec3<T> operator*(const tvec3<T> & left, const tvec3<T> & right) {
+	CT_FORCEINLINE CT_CONSTEXPR tvec3<T> operator*(const tvec3<T> & left, const tvec3<T> & right) {
 		return tvec3<T>(left.x * right.x, left.y * right.y, left.z * right.z);
 	}
 
 	// /
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR tvec3<T> operator/(const tvec3<T> & other, T scalar) {
+	CT_FORCEINLINE CT_CONSTEXPR tvec3<T> operator/(const tvec3<T> & other, T scalar) {
 		return tvec3<T>(other.x / scalar, other.y / scalar, other.z / scalar);
 	}
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR tvec3<T> operator/(T scalar, const tvec3<T> & other) {
+	CT_FORCEINLINE CT_CONSTEXPR tvec3<T> operator/(T scalar, const tvec3<T> & other) {
 		return tvec3<T>(scalar / other.x, scalar / other.y, scalar / other.z);
 	}
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR tvec3<T> operator/(const tvec3<T> & left, const tvec3<T> & right) {
+	CT_FORCEINLINE CT_CONSTEXPR tvec3<T> operator/(const tvec3<T> & left, const tvec3<T> & right) {
 		return tvec3<T>(left.x / right.x, left.y / right.y, left.z / right.z);
 	}
 
 	// Boolean operators
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR bool operator==(const tvec3<T> & left, const tvec3<T> & right) {
+	CT_FORCEINLINE CT_CONSTEXPR bool operator==(const tvec3<T> & left, const tvec3<T> & right) {
 		return left.x == right.x && left.y == right.y && left.z == right.z;
 	}
 
 	template <typename T>
-	CT_FORCEINLINE CONSTEXPR bool operator!=(const tvec3<T> & left, const tvec3<T> & right) {
+	CT_FORCEINLINE CT_CONSTEXPR bool operator!=(const tvec3<T> & left, const tvec3<T> & right) {
 		return (left.x != right.x) || (left.y != right.y) || (left.z != right.z);
 	}
 
 	// Vector of booleans operators only
 
-	CT_FORCEINLINE CONSTEXPR tvec3<bool> operator&&(const tvec3<bool> & left, const tvec3<bool> & right) {
+	CT_FORCEINLINE CT_CONSTEXPR tvec3<bool> operator&&(const tvec3<bool> & left, const tvec3<bool> & right) {
 		return tvec3<bool>(left.x && right.x, left.y && right.y, left.z && right.z);
 	}
 
-	CT_FORCEINLINE CONSTEXPR tvec3<bool> operator||(const tvec3<bool> & left, const tvec3<bool> & right) {
+	CT_FORCEINLINE CT_CONSTEXPR tvec3<bool> operator||(const tvec3<bool> & left, const tvec3<bool> & right) {
 		return tvec3<bool>(left.x || right.x, left.y || right.y, left.z || right.z);
 	}
 

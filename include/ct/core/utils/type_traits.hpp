@@ -52,7 +52,7 @@ namespace ct {
 	///
 	////////////////////////////////////////////////////////////
 	template <class T>
-	NODISCARD CONSTEXPR remove_reference_t<T> && move(T && arg) NOEXCEPT {
+	NODISCARD CT_CONSTEXPR remove_reference_t<T> && move(T && arg) NOEXCEPT {
 		return static_cast<remove_reference_t<T> &&>(arg);
 	}
 
