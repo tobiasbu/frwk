@@ -4,8 +4,7 @@
 #define _CHRONOTRIX_FRWK_CORE_TYPE_INFO_HPP_
 
 #include <ct/config.hpp>
-#include <ct/core/utils/type_traits.hpp>
-
+#include <ct/core/types/type_traits.hpp>
 
 #define __CT_REGISTER_CTTI_INDEXERS(begin, end) \
 	namespace ct { \
@@ -13,23 +12,22 @@
 			namespace ctti { \
 				CT_CONSTEXPR u64 ctti_begin = begin; \
 				CT_CONSTEXPR u64 ctti_end = end; \
-	}}}
-
-
+			} \
+		} \
+	}
 
 #if defined(_MSC_VER) && !defined(__clang__)
-	__CT_REGISTER_CTTI_INDEXERS(41, 19)
+__CT_REGISTER_CTTI_INDEXERS(41, 19)
 #else
-	__CT_REGISTER_CTTI_INDEXERS(0, 0)
+__CT_REGISTER_CTTI_INDEXERS(0, 0)
 #endif
 
-
 namespace ct {
-	    template <class T>
-	    struct type {
-		    static CT_CONSTEXPR cstr name = "T";
-	    };
-}         // namespace ct
+	template <class T>
+	struct type {
+		static CT_CONSTEXPR cstr name = "T";
+	};
+} // namespace ct
 
 #define CT_REGISTER_TYPENAME(T) \
 	namespace ct { \
@@ -39,8 +37,6 @@ namespace ct {
 		}; \
 	}
 
-
-
 namespace ct {
 
 	namespace detail {
@@ -48,8 +44,7 @@ namespace ct {
 		namespace ctti {
 
 			template <class It, class Iu>
-			CT_CONSTEXPR inline It
-			constexpr_search(It first1, It last1, Iu first2, Iu last2) NOEXCEPT {
+			CT_CONSTEXPR inline It constexpr_search(It first1, It last1, Iu first2, Iu last2) NOEXCEPT {
 				if (first2 == last2) {
 					return first1; // specified in C++11
 				}
@@ -88,32 +83,22 @@ namespace ct {
 		} // namespace ctti
 
 		class str_portion {
-			private:
+		private:
 			cstr _str;
 			u64 _size;
 
-			public:
+		public:
 			static CT_CONSTEXPR auto npos {static_cast<u64>(-1)};
 
 			str_portion() = default;
-			CT_CONSTEXPR str_portion(cstr source_str, u64 size) NOEXCEPT
-			:
-			_str(source_str),
-			_size(size)
-			{}
+			CT_CONSTEXPR str_portion(cstr source_str, u64 size) NOEXCEPT : _str(source_str), _size(size) {}
 
 			template <u64 arr_size>
-			CT_CONSTEXPR str_portion(const char (&source_str)[arr_size]) NOEXCEPT
-			:
-			_str(source_str),
-			_size(arr_size - 1)
-			{}
+			CT_CONSTEXPR str_portion(const char (&source_str)[arr_size]) NOEXCEPT : _str(source_str),
+			                                                                        _size(arr_size - 1) {}
 
 			template <u64 arr_size>
-			CT_CONSTEXPR str_portion(cstr str) NOEXCEPT
-			:
-			_str(str),
-			_size(arr_size) {}
+			CT_CONSTEXPR str_portion(cstr str) NOEXCEPT : _str(str), _size(arr_size) {}
 
 			CT_CONSTEXPR cstr data() const NOEXCEPT {
 				return _str;
@@ -133,18 +118,17 @@ namespace ct {
 			}
 		};
 
-	}
+	} // namespace detail
 
-	template<class T>
+	template <class T>
 	NODISCARD CT_CONSTEXPR inline cstr type_name() NOEXCEPT {
 		typedef typename remove_reference<T>::type no_ref;
 		return detail::typeinfo<no_ref>::a();
 	}
-}
+} // namespace ct
 
 CT_REGISTER_TYPENAME(int)
 CT_REGISTER_TYPENAME(unsigned int)
 CT_REGISTER_TYPENAME(float)
-
 
 #endif

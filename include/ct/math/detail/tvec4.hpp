@@ -3,7 +3,7 @@
 #define _CHRONOTRIX_FRWK_MATH_TVEC4_HPP_
 
 #include <ct/math/detail/setup.hpp>
-#include <ct/core/utils/type_info.hpp>
+#include <ct/core/types/type_info.hpp>
 
 namespace ct {
 
@@ -150,7 +150,6 @@ namespace ct {
 
 		CT_CONSTEXPR T & operator[](const u32 & index);
 		CT_CONSTEXPR const T & operator[](const u32 & index) const;
-
 	};
 
 	// Unary operators
@@ -224,9 +223,9 @@ namespace ct {
 	// ostream operator
 
 	template <typename T>
-	std::ostream& operator<<(std::ostream &s, const tvec4<T> &v);
+	std::ostream & operator<<(std::ostream & s, const tvec4<T> & v);
 
-}
+} // namespace ct
 
 #include <ct/math/detail/tvec4.inl>
 

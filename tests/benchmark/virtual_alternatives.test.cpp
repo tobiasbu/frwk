@@ -6,7 +6,7 @@
 #include <chrono>
 
 #include <ct/config/types.hpp>
-#include <ct/core/utils/type_traits.hpp>
+#include <ct/core/types/type_traits.hpp>
 
 #include <profiler.hpp>
 

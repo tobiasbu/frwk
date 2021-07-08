@@ -6,13 +6,7 @@
 ////////////////////////////////////////////////////////////
 
 #ifndef _CHRONOTRIX_FRWK_HELPER_MACROS_
-#define _CHRONOTRIX_FRWK_HELPER_MACROS_
-
-    /////////////////////////////////////////////////
-    /// @brief No Macro
-    ///
-	/////////////////////////////////////////////////
-	#define CT_NO_MACRO
+	#define _CHRONOTRIX_FRWK_HELPER_MACROS_
 
     /////////////////////////////////////////////////
     /// @brief Convert macro parameter to string literal.
@@ -39,14 +33,6 @@
 	#define CT_JOIN(X, Y) __CT_DO_JOIN(X, Y)
 	#define __CT_DO_JOIN(X, Y) __CT_DO_JOIN2(X, Y)
 	#define __CT_DO_JOIN2(X, Y) X##Y
-
-	#if defined(_MSC_VER)
-		#define CT_FORCE_INLINE __forceinline
-	#elif defined(__GNUC__) || defined(__clang__)
-		#define CT_FORCE_INLINE inline __attribute__((always_inline))
-	#else
-		#define CT_FORCE_INLINE inline
-	#endif
 
 #endif
 
