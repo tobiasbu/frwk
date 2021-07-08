@@ -13,7 +13,7 @@ namespace ct {
 
 		#ifdef __cplusplus
 			template <typename T, u64 SizeOfArray>
-			CONSTEXPR u64 countof(const T (&array)[SizeOfArray]) {
+			CT_CONSTEXPR u64 countof(const T (&array)[SizeOfArray]) {
 				return SizeOfArray;
 			}
 		#else

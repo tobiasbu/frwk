@@ -11,8 +11,8 @@
 	namespace ct { \
 		namespace detail { \
 			namespace ctti { \
-				CONSTEXPR u64 ctti_begin = begin; \
-				CONSTEXPR u64 ctti_end = end; \
+				CT_CONSTEXPR u64 ctti_begin = begin; \
+				CT_CONSTEXPR u64 ctti_end = end; \
 	}}}
 
 
@@ -27,7 +27,7 @@
 namespace ct {
 	    template <class T>
 	    struct type {
-		    static CONSTEXPR cstr name = "T";
+		    static CT_CONSTEXPR cstr name = "T";
 	    };
 }         // namespace ct
 
@@ -35,7 +35,7 @@ namespace ct {
 	namespace ct { \
 		template <> \
 		struct type<T> { \
-			static CONSTEXPR cstr name = #T; \
+			static CT_CONSTEXPR cstr name = #T; \
 		}; \
 	}
 
@@ -48,7 +48,7 @@ namespace ct {
 		namespace ctti {
 
 			template <class It, class Iu>
-			CONSTEXPR inline It
+			CT_CONSTEXPR inline It
 			constexpr_search(It first1, It last1, Iu first2, Iu last2) NOEXCEPT {
 				if (first2 == last2) {
 					return first1; // specified in C++11
@@ -74,14 +74,14 @@ namespace ct {
 			}
 
 			template <u32 arr_size>
-			CONSTEXPR inline cstr remove_begin_rt(cstr start) NOEXCEPT {
+			CT_CONSTEXPR inline cstr remove_begin_rt(cstr start) NOEXCEPT {
 				auto a = "";
 				cstr const it = constexpr_search(start, start + arr_size, a, a + sizeof(a) - 1);
 				return (it == start + arr_size ? start : it - 1);
 			}
 
 			template <u32 arr_size>
-			CONSTEXPR inline cstr remove_begin(cstr start) NOEXCEPT {
+			CT_CONSTEXPR inline cstr remove_begin(cstr start) NOEXCEPT {
 				return remove_begin_rt<arr_size - ctti_begin>(start + ctti_begin);
 			}
 
@@ -93,33 +93,33 @@ namespace ct {
 			u64 _size;
 
 			public:
-			static CONSTEXPR auto npos {static_cast<u64>(-1)};
+			static CT_CONSTEXPR auto npos {static_cast<u64>(-1)};
 
 			str_portion() = default;
-			CONSTEXPR str_portion(cstr source_str, u64 size) NOEXCEPT
+			CT_CONSTEXPR str_portion(cstr source_str, u64 size) NOEXCEPT
 			:
 			_str(source_str),
 			_size(size)
 			{}
 
 			template <u64 arr_size>
-			CONSTEXPR str_portion(const char (&source_str)[arr_size]) NOEXCEPT
+			CT_CONSTEXPR str_portion(const char (&source_str)[arr_size]) NOEXCEPT
 			:
 			_str(source_str),
 			_size(arr_size - 1)
 			{}
 
 			template <u64 arr_size>
-			CONSTEXPR str_portion(cstr str) NOEXCEPT
+			CT_CONSTEXPR str_portion(cstr str) NOEXCEPT
 			:
 			_str(str),
 			_size(arr_size) {}
 
-			CONSTEXPR cstr data() const NOEXCEPT {
+			CT_CONSTEXPR cstr data() const NOEXCEPT {
 				return _str;
 			}
 
-			NODISCARD CONSTEXPR str_portion subview(const u64 offset = 0, u64 count = npos) const {
+			NODISCARD CT_CONSTEXPR str_portion subview(const u64 offset = 0, u64 count = npos) const {
 				// TODO: check offset and clamp count
 				return str_portion(_str + offset, count);
 			}
@@ -128,7 +128,7 @@ namespace ct {
 		template <class T>
 		struct typeinfo {
 			static const char * a() NOEXCEPT {
-				str_portion part(__FUNCSIG__);
+				str_portion part(CT_CURRENT_FUNCTION);
 				return part.subview(ctti::ctti_begin).data();
 			}
 		};
@@ -136,7 +136,7 @@ namespace ct {
 	}
 
 	template<class T>
-	NODISCARD CONSTEXPR inline cstr type_name() NOEXCEPT {
+	NODISCARD CT_CONSTEXPR inline cstr type_name() NOEXCEPT {
 		typedef typename remove_reference<T>::type no_ref;
 		return detail::typeinfo<no_ref>::a();
 	}

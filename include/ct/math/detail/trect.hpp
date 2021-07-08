@@ -29,33 +29,33 @@ namespace ct {
 
 		// Default constructors
 
-		CONSTEXPR trect();
-		CONSTEXPR trect(const trect<T> & other) = default;
-		CONSTEXPR trect(trect<T> && other) = default;
+		CT_CONSTEXPR trect();
+		CT_CONSTEXPR trect(const trect<T> & other) = default;
+		CT_CONSTEXPR trect(trect<T> && other) = default;
 
-		CONSTEXPR trect(T x, T y, T width, T height);
-		CONSTEXPR trect(const point_type & position, const point_type & size);
+		CT_CONSTEXPR trect(T x, T y, T width, T height);
+		CT_CONSTEXPR trect(const point_type & position, const point_type & size);
 
 		// Functions
 
-		CONSTEXPR point_type top_left() const;
-		CONSTEXPR point_type bottom_right() const;
+		CT_CONSTEXPR point_type top_left() const;
+		CT_CONSTEXPR point_type bottom_right() const;
 
-		CONSTEXPR point_type center() const;
-		CONSTEXPR bool contains(const point_type & point) const;
-		CONSTEXPR bool intersects(const trect<T> & other) const;
+		CT_CONSTEXPR point_type center() const;
+		CT_CONSTEXPR bool contains(const point_type & point) const;
+		CT_CONSTEXPR bool intersects(const trect<T> & other) const;
 
 		// Assign operators
 
-		CONSTEXPR trect<T> & operator=(const trect<T> & other);
+		CT_CONSTEXPR trect<T> & operator=(const trect<T> & other);
 
 		template <typename U>
-		CONSTEXPR trect<T> & operator=(const trect<U> & other);
+		CT_CONSTEXPR trect<T> & operator=(const trect<U> & other);
 
 		// Array Subscriptor
 
-		CONSTEXPR T & operator[](const u32 & index);
-		CONSTEXPR const T & operator[](const u32 & index) const;
+		CT_CONSTEXPR T & operator[](const u32 & index);
+		CT_CONSTEXPR const T & operator[](const u32 & index) const;
 
 	};
 
