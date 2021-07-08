@@ -3,9 +3,9 @@
 	#define _CHRONOTRIX_FRWK_TYPE_TRAITS_HPP_
 
 	#include <ct/config/setup.hpp>
+	#include <cstddef>
 
 namespace ct {
-
 	////////////////////////////////////////////////////////////
 	/// @defgroup type_traits Type Traits
 	///
@@ -74,6 +74,13 @@ namespace ct {
 	///
 	////////////////////////////////////////////////////////////
 	#define FWD(...) static_cast<decltype(__VA_ARGS__) &&>(__VA_ARGS__)
+
+	template <typename T>
+	inline void swap(T & x, T & y) NOEXCEPT {
+		T tmp = MOV(x);
+		x = MOV(y);
+		y = MOV(tmp);
+	}
 
 	/// @}
 

@@ -4,9 +4,9 @@
 
 #include <ct/config/types.hpp>
 #include <ct/core/utils/noncopyable.hpp>
-#include <ct/core/utils/type_traits.hpp>
-#include <ct/math/vec.hpp>
+#include <ct/core/types/type_traits.hpp>
 #include <ct/math/rect.hpp>
+#include <ct/math/vec.hpp>
 #include <ct/platform/export.hpp>
 #include <ct/platform/window_handle.hpp>
 #include <ct/platform/window_properties.hpp>
@@ -48,16 +48,12 @@ namespace ct {
 	////////////////////////////////////////////////////////////
 	class Window : NonCopyable {
 		friend CT_PLATFORM_API WindowPtr create_window(const WindowProperties & properties);
-		friend CT_PLATFORM_API WindowPtr create_window(u32 width,
-		                                               u32 height,
-		                                               cstr title,
-		                                               u32 style);
+		friend CT_PLATFORM_API WindowPtr create_window(u32 width, u32 height, cstr title, u32 style);
 
 	private:
 		internal::WindowImpl * impl; ///< Window implementation
 
 	protected:
-
 		////////////////////////////////////////////////////////////
 		/// @brief Constructs a window instance
 		///
@@ -153,6 +149,8 @@ namespace ct {
 		////////////////////////////////////////////////////////////
 		CT_PLATFORM_API bool is_visible() const;
 
+		CT_PLATFORM_API bool is_open() const;
+
 		////////////////////////////////////////////////////////////
 		/// @brief Set the window's content size
 		///
@@ -221,15 +219,11 @@ namespace ct {
 		CT_PLATFORM_API void close();
 
 	protected:
-		static CT_PLATFORM_API internal::WindowImpl *
-		create_window_impl(const WindowProperties & properties);
+		static CT_PLATFORM_API internal::WindowImpl * create_window_impl(const WindowProperties & properties);
 	};
 
 	CT_PLATFORM_API WindowPtr create_window(const WindowProperties & properties);
-	CT_PLATFORM_API WindowPtr create_window(u32 width,
-	                                        u32 height,
-	                                        cstr title,
-	                                        u32 style = WindowStyle::Default);
+	CT_PLATFORM_API WindowPtr create_window(u32 width, u32 height, cstr title, u32 style = WindowStyle::Default);
 
 } // namespace ct
 

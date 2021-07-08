@@ -1,7 +1,7 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include <doctest.h>
 
-#include <ct/core/utils/type_traits.hpp>
+#include <ct/core/types/type_traits.hpp>
 
 
 template <class T>
