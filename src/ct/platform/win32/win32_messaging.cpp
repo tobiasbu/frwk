@@ -1,4 +1,5 @@
 
+#include <ct/config.hpp>
 #include <ct/platform/win32/win32_messaging.hpp>
 #include <ct/platform/win32/win32_window.hpp>
 
@@ -18,7 +19,8 @@ namespace ct {
 			HANDLE windowProp = GetPropW(hWnd, L"CT");
 
 			// Get the Window instance corresponding to the window handle
-			internal::Win32Window * window = windowProp ? (internal::Win32Window *)windowProp : NULL;
+			internal::Win32Window * window =
+			    windowProp ? (internal::Win32Window *)windowProp : CT_NULLPTR;
 
 			if (window) {
 				window->on_event(uMsg, wParam, lParam);

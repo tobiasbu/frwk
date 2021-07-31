@@ -34,8 +34,8 @@ namespace ct {
 	                                     const ContextConfig & config) {
 		auto window = create_window(properties).release();
 		auto context = RenderContext::create(window, config);
-		if (context == nullptr) {
-			return nullptr;
+		if (context == CT_NULLPTR) {
+			return CT_NULLPTR;
 		}
 		// this is really bad solution
 		// maybe we should move render window and context to platform module

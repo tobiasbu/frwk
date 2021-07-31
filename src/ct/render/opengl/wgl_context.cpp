@@ -2,7 +2,7 @@
 #include <iostream>
 #include <windows.h>
 
-#include <ct/config/types.hpp>
+#include <ct/config.hpp>
 #include <ct/platform/window.hpp>
 #include <ct/render/opengl/wgl_context.hpp>
 #include <ct/render/win32/win32_internal.hpp>
@@ -89,10 +89,7 @@ namespace ct {
 			}
 		} // namespace detail
 
-		WglContext::WglContext(HWND hwnd, HDC hdc, HGLRC hglrc)
-		: hwnd(hwnd),
-		  hdc(hdc),
-		  hglrc(hglrc) {}
+		WglContext::WglContext(HWND hwnd, HDC hdc, HGLRC hglrc) : hwnd(hwnd), hdc(hdc), hglrc(hglrc) {}
 
 		void WglContext::make_current() {
 			if (hwnd != NULL) {
@@ -120,7 +117,7 @@ namespace ct {
 		WglContext * WglContext::create(Window * window, const ContextConfig & config) {
 			if (!detail::init_WGL()) {
 				std::cout << "Failed to initialize Wgl" << std::endl;
-				return nullptr;
+				return CT_NULLPTR;
 			}
 
 			auto hWnd = window->get_handle();
@@ -136,7 +133,7 @@ namespace ct {
 
 			if (!DescribePixelFormat(hDc, pixelFormat, sizeof(pfd), &pfd)) {
 				std::cout << "Failed to describe PFD for selected pixel format" << std::endl;
-				return nullptr;
+				return CT_NULLPTR;
 			}
 
 			if (!SetPixelFormat(hDc, pixelFormat, &pfd)) {

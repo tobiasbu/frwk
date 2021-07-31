@@ -8,7 +8,7 @@ namespace ct {
 
 	namespace internal {
 
-		HWND helper_window = nullptr;
+		HWND helper_window = CT_NULLPTR;
 
 		bool create_helper_window() {
 			if (helper_window) {
@@ -46,7 +46,7 @@ namespace ct {
 		void destroy_helper_window() {
 			if (helper_window) {
 				DestroyWindow(helper_window);
-				helper_window = nullptr;
+				helper_window = CT_NULLPTR;
 			}
 		}
 

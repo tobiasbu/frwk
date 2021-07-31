@@ -2,35 +2,38 @@
 
 #include <ct/config/os.hpp>
 #include <ct/core/assert/assert.hpp>
-#include <ct/core/utils/type_traits.hpp>
+#include <ct/core/types/type_traits.hpp>
 
 #include <ct/platform/window.hpp>
 
 #if defined(CT_OS_WIN32)
 
 	#include <ct/platform/win32/win32_window.hpp>
-	typedef ct::internal::Win32Window WindowImplType;
+typedef ct::internal::Win32Window WindowImplType;
 
 #elif defined(CT_OS_MACOS)
 
 	#include <ct/platform/osx/cocoa_window.hpp>
-	typedef ct::internal::CocoaWindow WindowImplType;
+typedef ct::internal::CocoaWindow WindowImplType;
+
+#elif defined(CT_OS_LINUX)
+
+	#include <ct/platform/x11/x11_window.hpp>
+typedef ct::internal::X11Window WindowImplType;
 
 #else
-
 	#error "Platform not supported"
-
 #endif
 
 namespace ct {
 
 	Window::Window(internal::WindowImpl * _impl) {
-		CT_ASSERT(_impl != NULLPTR, "ct::Window: impl is nullptr.");
+		CT_ASSERT(_impl != CT_NULLPTR, "ct::Window: impl is nullptr.");
 		this->impl = _impl;
 	}
 
 	Window::Window(Window && other) {
-		CT_ASSERT(other.impl != NULLPTR, "ct::Window: other.impl is nullptr.");
+		CT_ASSERT(other.impl != CT_NULLPTR, "ct::Window: other.impl is nullptr.");
 		this->impl = MOV(other.impl);
 	}
 
@@ -39,7 +42,7 @@ namespace ct {
 	}
 
 	WindowHandle Window::get_handle() const {
-		return impl ? impl->get_handle() : NULLPTR;
+		return impl ? impl->get_handle() : (WindowHandle)0;
 	}
 
 	vec2u Window::get_content_size() const {
@@ -62,14 +65,18 @@ namespace ct {
 		return impl && impl->is_visible();
 	}
 
+	bool Window::is_open() const {
+		return impl != CT_NULLPTR;
+	}
+
 	cstr Window::get_title() const {
 		if (impl) {
 			return impl->get_title();
 		}
-		return nullptr;
+		return CT_NULLPTR;
 	}
 
-	void Window::set_content_size(const vec2u& content_size) {
+	void Window::set_content_size(const vec2u & content_size) {
 		if (impl) {
 			impl->set_content_size(content_size);
 		}
@@ -108,7 +115,7 @@ namespace ct {
 	void Window::close() {
 		if (impl) {
 			delete impl;
-			impl = NULLPTR;
+			impl = CT_NULLPTR;
 		}
 	}
 
