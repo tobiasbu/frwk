@@ -58,6 +58,13 @@
 	0, 0, 0, 0, 0, 0, 0, 1,	\
 	0, CT_NO_MACRO)
 
+#if defined(__GNUC__) || defined(__clang__)
+	#define CT_LIKELY(arg) __builtin_expect(!!(arg), !0)
+	#define CT_UNLIKELY(arg) __builtin_expect(!!(arg), !0)
+#else
+	#define CT_LIKELY(arg)
+	#define CT_UNLIKELY(arg)
+#endif
 
 ////////////////////////////////////////////////////////////
 /// @brief Assert given expression
@@ -81,7 +88,7 @@
 		__pragma(warning(push))													  		      \
 		__pragma(warning(disable : 4127)) 													  \
 		do {                                                      							  \
-			if (expression || ct::internal::Assert::ignore_all_asserts())    			      \
+			if (CT_LIKELY(expression) || ct::internal::Assert::ignore_all_asserts())    	  \
 				void(0);                                                                      \
 			else {                                                                            \
 				ct::internal::Assert::Action action = ct::internal::Assert::get_action();     \
@@ -104,6 +111,50 @@
 		}                                                                                     \
 		while (false)                                                                         \
 		__pragma(warning(pop))
+#else
+
+// For Clang and GCC define error diagnostic pragmas
+// See: https://gcc.gnu.org/onlinedocs/gcc/Diagnostic-Pragmas.html
+#if (defined(__GNUC__) && ((__GNUC__ * 1000 + __GNUC_MINOR__ * 100) >= 4600)) || defined(__clang__)
+      #define _pragma(x) _Pragma(#x)
+      #define __CT_ASSERT_WFORMAT_AS_ERROR_BEGIN											  \
+        _pragma(GCC diagnostic push)														  \
+        _pragma(GCC diagnostic error "-Wformat")
+
+      #define __CT_ASSERT_WFORMAT_AS_ERROR_END												  \
+        _pragma(GCC diagnostic pop)
+#else
+      #define __CT_ASSERT_WFORMAT_AS_ERROR_BEGIN
+      #define __CT_ASSERT_WFORMAT_AS_ERROR_END
+#endif
+
+#define __CT_ASSERT_3(debug, expression, ...)											  	  \
+		do {                                                      							  \
+			if (CT_LIKELY(expression) || ct::internal::Assert::ignore_all_asserts())    	  \
+				void(0);                                                                      \
+			else {               															  \
+				__CT_ASSERT_WFORMAT_AS_ERROR_BEGIN                                            \
+				ct::internal::Assert::Action action = ct::internal::Assert::get_action();     \
+				ct::cstr message = ct::internal::Assert::handle(					          \
+					CT_ASSERT_FILE, CT_ASSERT_LINE, CT_ASSERT_FUNCTION,                    	  \
+					#expression, 													          \
+					false,															      	  \
+					__VA_ARGS__);															  \
+																						      \
+				if (action == ct::internal::Assert::Action::Break) {                          \
+					CT_BREAKPOINT();                                                          \
+				} else if (action == ct::internal::Assert::Action::Throw) {                   \
+					throw ct::AssertionException(CT_ASSERT_FILE,                              \
+												 CT_ASSERT_LINE,                              \
+					                             CT_ASSERT_FUNCTION,                          \
+												 #expression,                                 \
+												 message);                                    \
+				__CT_ASSERT_WFORMAT_AS_ERROR_END											  \
+				}                                                                             \
+			}                                                                                 \
+		}                                                                                     \
+		while (false)                                                                         \
+
 
 #endif
 
