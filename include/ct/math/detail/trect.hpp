@@ -29,40 +29,39 @@ namespace ct {
 
 		// Default constructors
 
-		CT_CONSTEXPR trect();
-		CT_CONSTEXPR trect(const trect<T> & other) = default;
-		CT_CONSTEXPR trect(trect<T> && other) = default;
+		CT_MATH_FUNC trect();
+		CT_MATH_FUNC trect(const trect<T> & other) = default;
+		CT_MATH_FUNC trect(trect<T> && other) = default;
 
-		CT_CONSTEXPR trect(T x, T y, T width, T height);
-		CT_CONSTEXPR trect(const point_type & position, const point_type & size);
+		CT_MATH_FUNC trect(T x, T y, T width, T height);
+		CT_MATH_FUNC trect(const point_type & position, const point_type & size);
 
 		// Functions
 
-		CT_CONSTEXPR point_type top_left() const;
-		CT_CONSTEXPR point_type bottom_right() const;
+		CT_MATH_FUNC point_type top_left() const;
+		CT_MATH_FUNC point_type bottom_right() const;
 
-		CT_CONSTEXPR point_type center() const;
-		CT_CONSTEXPR bool contains(const point_type & point) const;
-		CT_CONSTEXPR bool intersects(const trect<T> & other) const;
+		CT_MATH_FUNC point_type center() const;
+		CT_MATH_FUNC bool contains(const point_type & point) const;
+		CT_MATH_FUNC bool intersects(const trect<T> & other) const;
 
 		// Assign operators
 
-		CT_CONSTEXPR trect<T> & operator=(const trect<T> & other);
+		CT_MATH_FUNC trect<T> & operator=(const trect<T> & other);
 
 		template <typename U>
-		CT_CONSTEXPR trect<T> & operator=(const trect<U> & other);
+		CT_MATH_FUNC trect<T> & operator=(const trect<U> & other);
 
 		// Array Subscriptor
 
-		CT_CONSTEXPR T & operator[](const u32 & index);
-		CT_CONSTEXPR const T & operator[](const u32 & index) const;
-
+		CT_MATH_FUNC T & operator[](const u32 & index);
+		CT_MATH_FUNC const T & operator[](const u32 & index) const;
 	};
 
 	template <typename T>
-	std::ostream& operator<<(std::ostream &stream, const trect<T> &rect);
+	std::ostream & operator<<(std::ostream & stream, const trect<T> & rect);
 
-}
+} // namespace ct
 
 #include <ct/math/detail/trect.inl>
 

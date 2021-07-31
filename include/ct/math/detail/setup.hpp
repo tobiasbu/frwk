@@ -12,6 +12,9 @@
 	#define __CT_MATH_ASSERT(...) (void)0
 #endif
 
+#define CT_MATH_FUNC CT_CONSTEXPR
+#define CT_MATH_FUNC_INL CT_FORCE_INLINE CT_CONSTEXPR
+
 namespace ct {
 
 	template <typename T>

@@ -2,7 +2,7 @@
 #include "../../commons/math_commons.hpp"
 
 template <typename T>
-CT_CONSTEXPR CT_FORCEINLINE void swap(T * a, T * b) {
+CT_CONSTEXPR CT_FORCE_INLINE void swap(T * a, T * b) {
 	T * tmp = a;
 	a = b;
 	b = tmp;
@@ -10,7 +10,7 @@ CT_CONSTEXPR CT_FORCEINLINE void swap(T * a, T * b) {
 
 namespace glm {
 	template <typename T>
-	CT_FORCEINLINE ct::tmat4<T> inverse(const ct::tmat4<T> & m) {
+	CT_FORCE_INLINE ct::tmat4<T> inverse(const ct::tmat4<T> & m) {
 		const ct::tvec4<T> & col0 = m.col(0);
 		const ct::tvec4<T> & col1 = m.col(1);
 		const ct::tvec4<T> & col2 = m.col(2);
@@ -75,7 +75,7 @@ namespace glm {
 
 namespace euclidean_space {
 	template <typename T>
-	CT_FORCEINLINE ct::tmat4<T> inverse(const ct::tmat4<T> & a) {
+	CT_FORCE_INLINE ct::tmat4<T> inverse(const ct::tmat4<T> & a) {
 		T det = a.determinant();
 		// there is no inverse if determinant is zero (not likely unless scale is broken)
 		if (0.0f == det) {
@@ -121,7 +121,7 @@ namespace euclidean_space {
 
 namespace gauss_jordan_a {
 	template <typename T>
-	CT_FORCEINLINE ct::tmat4<T> inverse(const ct::tmat4<T> & a) {
+	CT_FORCE_INLINE ct::tmat4<T> inverse(const ct::tmat4<T> & a) {
 		T aug[32];
 		T * tmp;
 		T * row[4];
@@ -197,7 +197,7 @@ namespace gauss_jordan_a {
 namespace gauss_jordan_b {
 
 	template <typename T>
-	CT_FORCEINLINE ct::tmat4<T> inverse(const ct::tmat4<T> & a) {
+	CT_FORCE_INLINE ct::tmat4<T> inverse(const ct::tmat4<T> & a) {
 		ct::tvec4<T> augmented[4][2];
 		ct::tvec4<T> *c0, *c1, *c2, *c3;
 
