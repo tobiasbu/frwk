@@ -17,13 +17,13 @@ namespace ct {
 
 		// Default constructors
 
-		CT_CONSTEXPR tvec3();
-		CT_CONSTEXPR tvec3(const tvec3<T> & other) = default;
+		CT_MATH_FUNC tvec3();
+		CT_MATH_FUNC tvec3(const tvec3<T> & other) = default;
 
 		// Explicit constructors
 
-		CT_CONSTEXPR tvec3(T x, T y, T z);
-		CT_CONSTEXPR explicit tvec3(T scalar);
+		CT_MATH_FUNC tvec3(T x, T y, T z);
+		CT_MATH_FUNC explicit tvec3(T scalar);
 
 		// Conversion constructors
 
@@ -34,7 +34,7 @@ namespace ct {
 		/// @param vec3 Vector of 3 elements
 		////////////////////////////////////////////////////////////
 		template <typename U>
-		CT_CONSTEXPR tvec3(const tvec3<U> & vec3);
+		CT_MATH_FUNC tvec3(const tvec3<U> & vec3);
 
 		////////////////////////////////////////////////////////////
 		/// @brief Conversion constructor from 3 elements
@@ -45,7 +45,7 @@ namespace ct {
 		/// @param z Z value
 		////////////////////////////////////////////////////////////
 		template <typename X, typename Y, typename Z>
-		CT_CONSTEXPR tvec3(X x, Y y, Z z);
+		CT_MATH_FUNC tvec3(X x, Y y, Z z);
 
 		////////////////////////////////////////////////////////////
 		/// @brief Constructs from vector of 2 elements.
@@ -53,7 +53,7 @@ namespace ct {
 		///
 		/// @param vec2 Vector of two elements
 		////////////////////////////////////////////////////////////
-		CT_CONSTEXPR tvec3(const tvec2<T> & vec2);
+		CT_MATH_FUNC tvec3(const tvec2<T> & vec2);
 
 		////////////////////////////////////////////////////////////
 		/// @brief Constructs from vector of 2 elements
@@ -61,135 +61,135 @@ namespace ct {
 		///
 		/// @param vec2 Vector of two elements
 		////////////////////////////////////////////////////////////
-		CT_CONSTEXPR tvec3(const tvec2<T> & vec2, T z);
+		CT_MATH_FUNC tvec3(const tvec2<T> & vec2, T z);
 
 		template <typename U>
-		CT_CONSTEXPR tvec3(const tvec2<U> & vec2);
+		CT_MATH_FUNC tvec3(const tvec2<U> & vec2);
 
 		template <typename U, typename Z>
-		CT_CONSTEXPR tvec3(const tvec2<U> & vec2, Z z);
+		CT_MATH_FUNC tvec3(const tvec2<U> & vec2, Z z);
 
 		// Assign operators
 
-		CT_CONSTEXPR tvec3<T> & operator=(const tvec3<T> & other) = default;
+		CT_MATH_FUNC tvec3<T> & operator=(const tvec3<T> & other) = default;
 
 		template <typename U>
-		CT_CONSTEXPR tvec3<T> & operator=(const tvec3<U> & other);
+		CT_MATH_FUNC tvec3<T> & operator=(const tvec3<U> & other);
 
 		// Unary operators
 
 		// +=
 
 		template <typename U>
-		CT_CONSTEXPR tvec3<T> & operator+=(U scalar);
+		CT_MATH_FUNC tvec3<T> & operator+=(U scalar);
 
 		template <typename U>
-		CT_CONSTEXPR tvec3<T> & operator+=(const tvec3<U> & other);
+		CT_MATH_FUNC tvec3<T> & operator+=(const tvec3<U> & other);
 
 		// -=
 
 		template <typename U>
-		CT_CONSTEXPR tvec3<T> & operator-=(U scalar);
+		CT_MATH_FUNC tvec3<T> & operator-=(U scalar);
 
 		template <typename U>
-		CT_CONSTEXPR tvec3<T> & operator-=(const tvec3<U> & other);
+		CT_MATH_FUNC tvec3<T> & operator-=(const tvec3<U> & other);
 
 		// *=
 
 		template <typename U>
-		CT_CONSTEXPR tvec3<T> & operator*=(U scalar);
+		CT_MATH_FUNC tvec3<T> & operator*=(U scalar);
 
 		template <typename U>
-		CT_CONSTEXPR tvec3<T> & operator*=(const tvec3<U> & other);
+		CT_MATH_FUNC tvec3<T> & operator*=(const tvec3<U> & other);
 
 		// /=
 
 		template <typename U>
-		CT_CONSTEXPR tvec3<T> & operator/=(U scalar);
+		CT_MATH_FUNC tvec3<T> & operator/=(U scalar);
 
 		template <typename U>
-		CT_CONSTEXPR tvec3<T> & operator/=(const tvec3<U> & other);
+		CT_MATH_FUNC tvec3<T> & operator/=(const tvec3<U> & other);
 
 		// Relational operators
 
-		CT_CONSTEXPR bool operator<(const tvec3<T> & other) const;
-		CT_CONSTEXPR bool operator<=(const tvec3<T> & other) const;
-		CT_CONSTEXPR bool operator>(const tvec3<T> & other) const;
-		CT_CONSTEXPR bool operator>=(const tvec3<T> & other) const;
+		CT_MATH_FUNC bool operator<(const tvec3<T> & other) const;
+		CT_MATH_FUNC bool operator<=(const tvec3<T> & other) const;
+		CT_MATH_FUNC bool operator>(const tvec3<T> & other) const;
+		CT_MATH_FUNC bool operator>=(const tvec3<T> & other) const;
 
 		// Array Subscriptor
 
-		CT_CONSTEXPR T & operator[](const u32 & index);
-		CT_CONSTEXPR const T & operator[](const u32 & index) const;
+		CT_MATH_FUNC T & operator[](const u32 & index);
+		CT_MATH_FUNC const T & operator[](const u32 & index) const;
 	};
 
 	// Unary operators
 
 	template <typename T>
-	CT_CONSTEXPR tvec3<T> operator+(const tvec3<T> & vec);
+	CT_MATH_FUNC tvec3<T> operator+(const tvec3<T> & vec);
 
 	template <typename T>
-	CT_CONSTEXPR tvec3<T> operator-(const tvec3<T> & vec);
+	CT_MATH_FUNC tvec3<T> operator-(const tvec3<T> & vec);
 
 	// Binary operators
 
 	// +
 
 	template <typename T>
-	CT_CONSTEXPR tvec3<T> operator+(const tvec3<T> & other, T scalar);
+	CT_MATH_FUNC tvec3<T> operator+(const tvec3<T> & other, T scalar);
 
 	template <typename T>
-	CT_CONSTEXPR tvec3<T> operator+(T scalar, const tvec3<T> & other);
+	CT_MATH_FUNC tvec3<T> operator+(T scalar, const tvec3<T> & other);
 
 	template <typename T>
-	CT_CONSTEXPR tvec3<T> operator+(const tvec3<T> & left, const tvec3<T> & right);
+	CT_MATH_FUNC tvec3<T> operator+(const tvec3<T> & left, const tvec3<T> & right);
 
 	// -
 
 	template <typename T>
-	CT_CONSTEXPR tvec3<T> operator-(const tvec3<T> & other, T scalar);
+	CT_MATH_FUNC tvec3<T> operator-(const tvec3<T> & other, T scalar);
 
 	template <typename T>
-	CT_CONSTEXPR tvec3<T> operator-(T scalar, const tvec3<T> & other);
+	CT_MATH_FUNC tvec3<T> operator-(T scalar, const tvec3<T> & other);
 
 	template <typename T>
-	CT_CONSTEXPR tvec3<T> operator-(const tvec3<T> & left, const tvec3<T> & right);
+	CT_MATH_FUNC tvec3<T> operator-(const tvec3<T> & left, const tvec3<T> & right);
 
 	// *
 
 	template <typename T>
-	CT_CONSTEXPR tvec3<T> operator*(const tvec3<T> & other, T scalar);
+	CT_MATH_FUNC tvec3<T> operator*(const tvec3<T> & other, T scalar);
 
 	template <typename T>
-	CT_CONSTEXPR tvec3<T> operator*(T scalar, const tvec3<T> & other);
+	CT_MATH_FUNC tvec3<T> operator*(T scalar, const tvec3<T> & other);
 
 	template <typename T>
-	CT_CONSTEXPR tvec3<T> operator*(const tvec3<T> & left, const tvec3<T> & right);
+	CT_MATH_FUNC tvec3<T> operator*(const tvec3<T> & left, const tvec3<T> & right);
 
 	// /
 
 	template <typename T>
-	CT_CONSTEXPR tvec3<T> operator/(const tvec3<T> & other, T scalar);
+	CT_MATH_FUNC tvec3<T> operator/(const tvec3<T> & other, T scalar);
 
 	template <typename T>
-	CT_CONSTEXPR tvec3<T> operator/(T scalar, const tvec3<T> & other);
+	CT_MATH_FUNC tvec3<T> operator/(T scalar, const tvec3<T> & other);
 
 	template <typename T>
-	CT_CONSTEXPR tvec3<T> operator/(const tvec3<T> & left, const tvec3<T> & right);
+	CT_MATH_FUNC tvec3<T> operator/(const tvec3<T> & left, const tvec3<T> & right);
 
 	// Boolean operators
 
 	template <typename T>
-	CT_CONSTEXPR bool operator==(const tvec3<T> & left, const tvec3<T> & right);
+	CT_MATH_FUNC bool operator==(const tvec3<T> & left, const tvec3<T> & right);
 
 	template <typename T>
-	CT_CONSTEXPR bool operator!=(const tvec3<T> & left, const tvec3<T> & right);
+	CT_MATH_FUNC bool operator!=(const tvec3<T> & left, const tvec3<T> & right);
 
 	// Vector of booleans operators only
 
-	CT_CONSTEXPR tvec3<bool> operator&&(const tvec3<bool> & left, const tvec3<bool> & right);
+	CT_MATH_FUNC tvec3<bool> operator&&(const tvec3<bool> & left, const tvec3<bool> & right);
 
-	CT_CONSTEXPR tvec3<bool> operator||(const tvec3<bool> & left, const tvec3<bool> & right);
+	CT_MATH_FUNC tvec3<bool> operator||(const tvec3<bool> & left, const tvec3<bool> & right);
 
 	// ostream operator
 

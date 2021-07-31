@@ -20,4 +20,3 @@
 #endif
 
 #define NOINLINE __attribute__((noinline))
-#define __CT_FORCEINLINE __attribute__((always_inline)) inline

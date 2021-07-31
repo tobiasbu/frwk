@@ -13,7 +13,7 @@ namespace mesa {
 
 	/// Source: https://gitlab.freedesktop.org/mesa/mesa/-/blob/master/src/mesa/math/m_matrix.c
 	template <typename T>
-	CT_FORCEINLINE ct::tmat4<T> inverse(const ct::tmat4<T> & mat) {
+	CT_FORCE_INLINE ct::tmat4<T> inverse(const ct::tmat4<T> & mat) {
 		const T * m = mat();
 		T wtmp[4][8];
 		T m0, m1, m2, m3, s;

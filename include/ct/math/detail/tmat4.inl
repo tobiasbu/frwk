@@ -3,7 +3,7 @@
 namespace ct {
 
 	template <typename T>
-	CT_FORCEINLINE CT_CONSTEXPR tmat4<T>::tmat4() {
+	CT_MATH_FUNC_INL tmat4<T>::tmat4() {
 		m[0] = 0;
 		m[1] = 0;
 		m[2] = 0;
@@ -16,7 +16,7 @@ namespace ct {
 	}
 
 	template <typename T>
-	CT_FORCEINLINE CT_CONSTEXPR tmat4<T>::tmat4(const tmat4<T> & other) {
+	CT_MATH_FUNC_INL tmat4<T>::tmat4(const tmat4<T> & other) {
 		m[0] = other.m[0];
 		m[1] = other.m[1];
 		m[2] = other.m[2];
@@ -39,12 +39,22 @@ namespace ct {
 	}
 
 	template <typename T>
-	CT_FORCEINLINE CT_CONSTEXPR tmat4<T>::tmat4(
-		T m00,T m10,T m20,T m30,
-		T m01,T m11,T m21,T m31,
-		T m02,T m12,T m22,T m32,
-	    T m03,T m13,T m23,T m33)
-	{
+	CT_MATH_FUNC_INL tmat4<T>::tmat4(T m00,
+	                                 T m10,
+	                                 T m20,
+	                                 T m30,
+	                                 T m01,
+	                                 T m11,
+	                                 T m21,
+	                                 T m31,
+	                                 T m02,
+	                                 T m12,
+	                                 T m22,
+	                                 T m32,
+	                                 T m03,
+	                                 T m13,
+	                                 T m23,
+	                                 T m33) {
 		m[0] = m00;
 		m[1] = m10;
 		m[2] = m20;
@@ -67,16 +77,38 @@ namespace ct {
 	}
 
 	template <typename T>
-	template <typename M00,typename M10,typename M20,typename M30,
-	    typename M01, typename M11, typename M21, typename M31,
-		typename M02, typename M12, typename M22, typename M32,
-	    typename M03, typename M13, typename M23, typename M33>
-	CT_FORCEINLINE CT_CONSTEXPR tmat4<T>::tmat4(
-		M00 m00, M10 m10, M20 m20, M30 m30,
-		M01 m01, M11 m11, M21 m21, M31 m31,
-		M02 m02, M12 m12, M22 m22, M32 m32,
-		M03 m03, M13 m13, M23 m23, M33 m33)
-	{
+	template <typename M00,
+	          typename M10,
+	          typename M20,
+	          typename M30,
+	          typename M01,
+	          typename M11,
+	          typename M21,
+	          typename M31,
+	          typename M02,
+	          typename M12,
+	          typename M22,
+	          typename M32,
+	          typename M03,
+	          typename M13,
+	          typename M23,
+	          typename M33>
+	CT_MATH_FUNC_INL tmat4<T>::tmat4(M00 m00,
+	                                 M10 m10,
+	                                 M20 m20,
+	                                 M30 m30,
+	                                 M01 m01,
+	                                 M11 m11,
+	                                 M21 m21,
+	                                 M31 m31,
+	                                 M02 m02,
+	                                 M12 m12,
+	                                 M22 m22,
+	                                 M32 m32,
+	                                 M03 m03,
+	                                 M13 m13,
+	                                 M23 m23,
+	                                 M33 m33) {
 		m[0] = static_cast<T>(m00);
 		m[1] = static_cast<T>(m10);
 		m[2] = static_cast<T>(m20);
@@ -99,12 +131,22 @@ namespace ct {
 	}
 
 	template <typename T>
-	CT_FORCEINLINE CT_CONSTEXPR void  tmat4<T>::set(
-		T m00, T m10, T m20, T m30,
-	    T m01, T m11, T m21, T m31,
-	    T m02, T m12, T m22, T m32,
-	    T m03, T m13, T m23, T m33)
-	{
+	CT_MATH_FUNC_INL void tmat4<T>::set(T m00,
+	                                    T m10,
+	                                    T m20,
+	                                    T m30,
+	                                    T m01,
+	                                    T m11,
+	                                    T m21,
+	                                    T m31,
+	                                    T m02,
+	                                    T m12,
+	                                    T m22,
+	                                    T m32,
+	                                    T m03,
+	                                    T m13,
+	                                    T m23,
+	                                    T m33) {
 		m[0] = m00;
 		m[1] = m10;
 		m[2] = m20;
@@ -127,12 +169,10 @@ namespace ct {
 	}
 
 	template <typename T>
-	CT_CONSTEXPR tmat4<T>::tmat4(
-		const column_type & col_0,
-		const column_type & col_1,
-		const column_type & col_2,
-		const column_type & col_3)
-	{
+	CT_MATH_FUNC tmat4<T>::tmat4(const column_type & col_0,
+	                             const column_type & col_1,
+	                             const column_type & col_2,
+	                             const column_type & col_3) {
 		column[0] = col_0;
 		column[1] = col_1;
 		column[2] = col_2;
@@ -140,40 +180,42 @@ namespace ct {
 	}
 
 	template <typename T>
-	CT_FORCEINLINE CT_CONSTEXPR typename tmat4<T>::column_type & tmat4<T>::col(const u32 & index) {
-		__CT_MATH_ASSERT(index >= 0 && index < 4, "ct::tmat4<T>: Can not access column at index %d", index);
+	CT_MATH_FUNC_INL typename tmat4<T>::column_type & tmat4<T>::col(const u32 & index) {
+		__CT_MATH_ASSERT(
+		    index >= 0 && index < 4, "ct::tmat4<T>: Can not access column at index %d", index);
 		return column[index];
 	}
 
 	template <typename T>
-	CT_FORCEINLINE CT_CONSTEXPR const typename tmat4<T>::column_type & tmat4<T>::col(const u32 & index) const {
-		__CT_MATH_ASSERT(index >= 0 && index < 4, "ct::tmat4<T>: Can not access column at index %d", index);
+	CT_MATH_FUNC_INL const typename tmat4<T>::column_type & tmat4<T>::col(const u32 & index) const {
+		__CT_MATH_ASSERT(
+		    index >= 0 && index < 4, "ct::tmat4<T>: Can not access column at index %d", index);
 		return column[index];
 	}
 
 	template <typename T>
-	CT_FORCEINLINE CT_CONSTEXPR T tmat4<T>::determinant() const {
+	CT_MATH_FUNC_INL T tmat4<T>::determinant() const {
 		return
-		// m00
-		m[0] * m[5] * m[10] * m[15] - m[0] * m[5] * m[14] * m[11] - //
-		m[0] * m[9] * m[6] * m[15] + m[0] * m[9] * m[14] * m[7] +   //
-		m[0] * m[13] * m[6] * m[11] - m[0] * m[13] * m[10] * m[7] - //
-		// m01
-		m[4] * m[1] * m[10] * m[15] + m[4] * m[1] * m[14] * m[11] + //
-		m[4] * m[9] * m[2] * m[15] - m[4] * m[9] * m[14] * m[3] -   //
-		m[4] * m[13] * m[2] * m[11] + m[4] * m[13] * m[10] * m[3] + //
-		// m02
-		m[8] * m[1] * m[6] * m[15] - m[8] * m[1] * m[14] * m[7] -   //
-		m[8] * m[5] * m[2] * m[15] + m[8] * m[5] * m[14] * m[3] +   //
-		m[8] * m[13] * m[2] * m[7] - m[8] * m[13] * m[6] * m[3] -
-		// m03
-		m[12] * m[1] * m[6] * m[11] + m[12] * m[1] * m[10] * m[7] + //
-		m[12] * m[5] * m[2] * m[11] - m[12] * m[5] * m[10] * m[3] - //
-		m[12] * m[9] * m[2] * m[7] + m[12] * m[9] * m[6] * m[3];
+		    // m00
+		    m[0] * m[5] * m[10] * m[15] - m[0] * m[5] * m[14] * m[11] - //
+		    m[0] * m[9] * m[6] * m[15] + m[0] * m[9] * m[14] * m[7] +   //
+		    m[0] * m[13] * m[6] * m[11] - m[0] * m[13] * m[10] * m[7] - //
+		    // m01
+		    m[4] * m[1] * m[10] * m[15] + m[4] * m[1] * m[14] * m[11] + //
+		    m[4] * m[9] * m[2] * m[15] - m[4] * m[9] * m[14] * m[3] -   //
+		    m[4] * m[13] * m[2] * m[11] + m[4] * m[13] * m[10] * m[3] + //
+		    // m02
+		    m[8] * m[1] * m[6] * m[15] - m[8] * m[1] * m[14] * m[7] - //
+		    m[8] * m[5] * m[2] * m[15] + m[8] * m[5] * m[14] * m[3] + //
+		    m[8] * m[13] * m[2] * m[7] - m[8] * m[13] * m[6] * m[3] -
+		    // m03
+		    m[12] * m[1] * m[6] * m[11] + m[12] * m[1] * m[10] * m[7] + //
+		    m[12] * m[5] * m[2] * m[11] - m[12] * m[5] * m[10] * m[3] - //
+		    m[12] * m[9] * m[2] * m[7] + m[12] * m[9] * m[6] * m[3];
 	}
 
 	template <typename T>
-	CT_CONSTEXPR tmat4<T> tmat4<T>::inverse() const {
+	CT_MATH_FUNC tmat4<T> tmat4<T>::inverse() const {
 		T det = determinant();
 		if (det == 0) {
 			return *this;
@@ -188,61 +230,67 @@ namespace ct {
 	// Array Subscriptor
 
 	template <typename T>
-	CT_FORCEINLINE CT_CONSTEXPR T & tmat4<T>::operator[](const u32 & index) {
-		__CT_MATH_ASSERT(index >= 0 && index < 16, "ct::tmat4<T>: Can not access element at index %d", index);
-		return m[index];
-	}
-
-	template <typename T>
-	CT_FORCEINLINE CT_CONSTEXPR const T & tmat4<T>::operator[](const u32 & index) const {
-		__CT_MATH_ASSERT(index >= 0 && index < 16, "ct::tmat4<T>: Can not access element at index %d", index);
-		return m[index];
-	}
-
-
-	template <typename T>
-	CT_FORCEINLINE CT_CONSTEXPR T * tmat4<T>::operator()() {
-		return &m[0];
-	}
-
-	template <typename T>
-	CT_FORCEINLINE CT_CONSTEXPR const T * tmat4<T>::operator()() const {
-		return &m[0];
-	}
-
-	template <typename T>
-	CT_FORCEINLINE CT_CONSTEXPR T & tmat4<T>::operator()(const u32 & index) {
+	CT_MATH_FUNC_INL T & tmat4<T>::operator[](const u32 & index) {
 		__CT_MATH_ASSERT(
 		    index >= 0 && index < 16, "ct::tmat4<T>: Can not access element at index %d", index);
 		return m[index];
 	}
 
 	template <typename T>
-	CT_FORCEINLINE CT_CONSTEXPR const T & tmat4<T>::operator()(const u32 & index) const {
+	CT_MATH_FUNC_INL const T & tmat4<T>::operator[](const u32 & index) const {
 		__CT_MATH_ASSERT(
 		    index >= 0 && index < 16, "ct::tmat4<T>: Can not access element at index %d", index);
 		return m[index];
 	}
 
 	template <typename T>
-	CT_FORCEINLINE CT_CONSTEXPR const T & tmat4<T>::operator()(const u32 & x, const u32 & y) const {
-		__CT_MATH_ASSERT(x >= 0 && x < 4 && y >= 0 && y < 4, "ct::tmat4<T> Can not access element at position [%d, %d]", x, y);
+	CT_MATH_FUNC_INL T * tmat4<T>::operator()() {
+		return &m[0];
+	}
+
+	template <typename T>
+	CT_MATH_FUNC_INL const T * tmat4<T>::operator()() const {
+		return &m[0];
+	}
+
+	template <typename T>
+	CT_MATH_FUNC_INL T & tmat4<T>::operator()(const u32 & index) {
+		__CT_MATH_ASSERT(
+		    index >= 0 && index < 16, "ct::tmat4<T>: Can not access element at index %d", index);
+		return m[index];
+	}
+
+	template <typename T>
+	CT_MATH_FUNC_INL const T & tmat4<T>::operator()(const u32 & index) const {
+		__CT_MATH_ASSERT(
+		    index >= 0 && index < 16, "ct::tmat4<T>: Can not access element at index %d", index);
+		return m[index];
+	}
+
+	template <typename T>
+	CT_MATH_FUNC_INL const T & tmat4<T>::operator()(const u32 & x, const u32 & y) const {
+		__CT_MATH_ASSERT(x >= 0 && x < 4 && y >= 0 && y < 4,
+		                 "ct::tmat4<T> Can not access element at position [%d, %d]",
+		                 x,
+		                 y);
 		return m[y + x * 4];
 	}
 
 	template <typename T>
-	CT_FORCEINLINE CT_CONSTEXPR T & tmat4<T>::operator()(const u32 & x, const u32 & y) {
-		__CT_MATH_ASSERT(x >= 0 && x < 4 && y >= 0 && y < 4, "ct::tmat4<T>: Can not access element at position [%d, %d]", x, y);
+	CT_MATH_FUNC_INL T & tmat4<T>::operator()(const u32 & x, const u32 & y) {
+		__CT_MATH_ASSERT(x >= 0 && x < 4 && y >= 0 && y < 4,
+		                 "ct::tmat4<T>: Can not access element at position [%d, %d]",
+		                 x,
+		                 y);
 		return m[y + x * 4];
 	}
 
 	// *
 
 	template <typename T>
-	CT_FORCEINLINE CT_CONSTEXPR tmat4<T> operator*(const tmat4<T> & mat, T scalar) {
-		return tmat4<T>(mat.col(0) * scalar, mat.col(1) * scalar, mat.col(2) * scalar, mat.col(3) * scalar);
+	CT_MATH_FUNC_INL tmat4<T> operator*(const tmat4<T> & mat, T scalar) {
+		return tmat4<T>(
+		    mat.col(0) * scalar, mat.col(1) * scalar, mat.col(2) * scalar, mat.col(3) * scalar);
 	}
-
-
 
 } // namespace ct

@@ -24,13 +24,22 @@
 
 #endif
 
-#if defined __clang__ && !defined(__ibmxl__) && !defined(__CODEGEARC__)
+#if defined __clang__
 	#include <ct/config/compiler/clang.hpp>
-#elif defined(__GNUC__) && !defined(__ibmxl__)
+	#define CT_COMPILER_CLANG
+#elif defined(__GNUC__)
 	#include <ct/config/compiler/gcc.hpp>
+	#define CT_COMPILER_GCC
 #elif defined(_MSC_VER)
 	#include <ct/config/compiler/msvc.hpp>
+	#define CT_COMPILER_MSVC
 #endif
+
+/////////////////////////////////////////////////
+/// @brief No Macro
+///
+/////////////////////////////////////////////////
+#define CT_NO_MACRO
 
 ////////////////////////////////////////////////////////////
 // Define a portable debug macro
@@ -92,18 +101,32 @@
 #endif
 
 ////////////////////////////////////////////////////////////
-// Define CT_FORCEINLINE macro
+// Define CT_FORCE_INLINE and CT_ALWAYS_INLINE macro
 // See: http://www.devx.com/tips/Tip/13553
 ////////////////////////////////////////////////////////////
 #ifdef CT_DEBUG
 	#define CT_DISABLE_FORCEINLINE
 #endif
 
-#ifndef CT_FORCEINLINE
-	#ifdef CT_DISABLE_FORCEINLINE
-		#define CT_FORCEINLINE inline
+// Always force inline no matter what
+#ifndef CT_ALWAYS_INLINE
+	#if defined __clang__
+		#define CT_ALWAYS_INLINE __attribute__((__always_inline__))
+	#elif defined(__GNUC__)
+		#define CT_ALWAYS_INLINE __attribute__((always_inline)) inline
+	#elif defined(_MSC_VER)
+		#define CT_ALWAYS_INLINE __forceinline
 	#else
-		#define CT_FORCEINLINE __CT_FORCEINLINE
+		#define CT_ALWAYS_INLINE inline
+	#endif
+#endif
+
+// Always force inline except for debugging
+#ifndef CT_FORCE_INLINE
+	#ifdef CT_DISABLE_FORCEINLINE
+		#define CT_FORCE_INLINE inline
+	#else
+		#define CT_FORCE_INLINE CT_ALWAYS_INLINE
 	#endif
 #endif
 
