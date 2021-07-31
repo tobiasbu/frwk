@@ -6,31 +6,31 @@
 ////////////////////////////////////////////////////////////
 
 #ifndef _CHRONOTRIX_FRWK_DEBUG_ASSERT_HPP_
-#define _CHRONOTRIX_FRWK_DEBUG_ASSERT_HPP_
+	#define _CHRONOTRIX_FRWK_DEBUG_ASSERT_HPP_
 
-#include <ct/core/assert/assert_handler.hpp>
-#include <ct/core/assert/assertion_exception.hpp>
-#include <ct/core/debug/breakpoint.hpp>
-#include <ct/core/utils/helper_macros.hpp>
+	#include <ct/core/assert/assert_handler.hpp>
+	#include <ct/core/assert/assertion_exception.hpp>
+	#include <ct/core/debug/breakpoint.hpp>
+	#include <ct/core/utils/helper_macros.hpp>
 
-#if defined(CT_DEBUG)
-	#ifndef CT_ASSERT_ENABLED
-		#define CT_ASSERT_ENABLED
+	#if defined(CT_DEBUG)
+		#ifndef CT_ASSERT_ENABLED
+			#define CT_ASSERT_ENABLED
+		#endif
 	#endif
-#endif
 
-#define CT_ASSERT_FILE __FILE__
-#define CT_ASSERT_LINE __LINE__
+	#define CT_ASSERT_FILE __FILE__
+	#define CT_ASSERT_LINE __LINE__
 
-#if defined(__GNUC__) || defined(__clang__)
-	#define CT_ASSERT_FUNCTION __PRETTY_FUNCTION__
-#elif defined(_MSC_VER)
-	#define CT_ASSERT_FUNCTION __FUNCSIG__
-#elif defined(__SUNPRO_CC)
-	#define CT_ASSERT_FUNCTION __func__
-#else
-	#define CT_ASSERT_FUNCTION __FUNCTION__
-#endif
+	#if defined(__GNUC__) || defined(__clang__)
+		#define CT_ASSERT_FUNCTION __PRETTY_FUNCTION__
+	#elif defined(_MSC_VER)
+		#define CT_ASSERT_FUNCTION __FUNCSIG__
+	#elif defined(__SUNPRO_CC)
+		#define CT_ASSERT_FUNCTION __func__
+	#else
+		#define CT_ASSERT_FUNCTION __FUNCTION__
+	#endif
 
 // clang-format off
 
@@ -73,7 +73,7 @@
 
 #define __CT_ASSERT_(debug, ...)			CT_JOIN(__CT_ASSERT_, CT_HAS_ONE_ARGUMENT(__VA_ARGS__))(debug, __VA_ARGS__)
 #define __CT_ASSERT_0(debug, ...)			CT_APPLY_VA_ARGS(__CT_ASSERT_2, debug, __VA_ARGS__)
-#define __CT_ASSERT_1(debug, expression)  	__CT_ASSERT_2(debug, expression, NULLPTR)
+#define __CT_ASSERT_1(debug, expression)  	__CT_ASSERT_2(debug, expression, CT_NULLPTR)
 
 #if defined(_MSC_FULL_VER) && (_MSC_FULL_VER >= 140050215)
 
@@ -109,13 +109,13 @@
 
 // clang-format on
 
-#undef __CT_ASSERT_2
+	#undef __CT_ASSERT_2
 
-#ifdef CT_ASSERT_ENABLED
-	#define __CT_ASSERT_2(debug, expression, ...) __CT_ASSERT_3(debug, expression, __VA_ARGS__)
-#else
-	#define __CT_ASSERT_2(debug, expression, ...) (void)(true ? (void)0 : ((void)(expression)))
-#endif
+	#ifdef CT_ASSERT_ENABLED
+		#define __CT_ASSERT_2(debug, expression, ...) __CT_ASSERT_3(debug, expression, __VA_ARGS__)
+	#else
+		#define __CT_ASSERT_2(debug, expression, ...) (void)(true ? (void)0 : ((void)(expression)))
+	#endif
 
 #endif
 

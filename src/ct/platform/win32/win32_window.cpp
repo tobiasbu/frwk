@@ -15,14 +15,14 @@ namespace ct {
 			int buffer_count = MultiByteToWideChar(CP_ACP, 0, input, -1, NULL, 0);
 
 			if (!buffer_count) {
-				return NULLPTR;
+				return CT_NULLPTR;
 			}
 
 			WCHAR * output = (WCHAR *)calloc(buffer_count, sizeof(WCHAR));
 
 			if (!MultiByteToWideChar(CP_UTF8, 0, input, -1, &output[0], buffer_count)) {
 				free(output);
-				return NULLPTR;
+				return CT_NULLPTR;
 			}
 
 			return output;
@@ -64,7 +64,7 @@ namespace ct {
 			WCHAR * title_wchar = char_to_wchar(props.title);
 			if (!title_wchar) {
 				// std::cerr << "Invalid title" << std::endl;
-				return NULLPTR;
+				return CT_NULLPTR;
 			}
 
 			u32 window_style = parse_style(props.style);
@@ -105,14 +105,13 @@ namespace ct {
 
 			if (!handle) {
 				// std::cerr << "Could no create window" << std::endl;
-				return NULLPTR;
+				return CT_NULLPTR;
 			}
 
 			auto win = new Win32Window(handle);
 			SetPropW(handle, L"CT", win);
 			return win;
 		}
-
 
 		WindowHandle Win32Window::get_handle() const {
 			return handle;
@@ -141,9 +140,9 @@ namespace ct {
 		}
 
 		vec2i Win32Window::get_position() const {
-			RECT rect = { NULL };
+			RECT rect = {NULL};
 			vec2i pos;
-			if(GetWindowRect(handle, &rect)) {
+			if (GetWindowRect(handle, &rect)) {
 				pos.x = rect.left;
 				pos.y = rect.top;
 			}
@@ -162,26 +161,25 @@ namespace ct {
 
 		cstr Win32Window::get_title() const {
 			i32 length = GetWindowTextLengthW(handle);
-			char * title = nullptr;
+			char * title = CT_NULLPTR;
 			if (length > 0) {
 				length += 1;
 				WCHAR * title_wchar = (WCHAR *)calloc(length, sizeof(WCHAR));
 				if (GetWindowTextW(handle, title_wchar, length)) {
 					title = (char *)malloc(length);
 					u64 converted;
-					#if defined(_MSC_VER)
+#if defined(_MSC_VER)
 					// NOLINTNEXTLINE
-						wcstombs_s(&converted, title, length, title_wchar, length);
-					#else
-						wcstombs(title, title_wchar, length);
-					#endif
+					wcstombs_s(&converted, title, length, title_wchar, length);
+#else
+					wcstombs(title, title_wchar, length);
+#endif
 				}
 				free(title_wchar);
 			}
 
 			return title; // NOLINT
 		}
-
 
 		bool Win32Window::is_visible() const {
 			return IsWindowVisible(handle);
@@ -190,30 +188,14 @@ namespace ct {
 		void Win32Window::set_content_size(const vec2u & size) {
 			RECT rect = {0, 0, static_cast<long>(size.x), static_cast<long>(size.y)};
 			AdjustWindowRect(&rect, GetWindowLong(handle, GWL_STYLE), false);
-			SetWindowPos(handle,
-			             NULL,
-			             0,
-			             0,
-			             rect.right - rect.left,
-			             rect.bottom - rect.top,
-			             SWP_NOMOVE | SWP_NOZORDER);
+			SetWindowPos(handle, NULL, 0, 0, rect.right - rect.left, rect.bottom - rect.top, SWP_NOMOVE | SWP_NOZORDER);
 		}
 
 		void Win32Window::set_frame(const recti & frame) {
-			RECT rect = {
-			    frame.x,
-				frame.y,
-				static_cast<long>(frame.width),
-				static_cast<long>(frame.height)
-			};
-			//AdjustWindowRect(&rect, GetWindowLong(handle, GWL_STYLE), false);
-			SetWindowPos(handle,
-			             NULL,
-			             rect.left,
-			             rect.top,
-			             rect.right - rect.left,
-			             rect.bottom - rect.top,
-			             SWP_NOZORDER);
+			RECT rect = {frame.x, frame.y, static_cast<long>(frame.width), static_cast<long>(frame.height)};
+			// AdjustWindowRect(&rect, GetWindowLong(handle, GWL_STYLE), false);
+			SetWindowPos(
+			    handle, NULL, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top, SWP_NOZORDER);
 		}
 
 		void Win32Window::set_position(const vec2i & position) {
@@ -221,13 +203,8 @@ namespace ct {
 		}
 
 		void Win32Window::set_size(const vec2u & size) {
-			SetWindowPos(handle,
-			             NULL,
-			             0,
-			             0,
-			             static_cast<long>(size.x),
-			             static_cast<long>(size.y),
-			             SWP_NOMOVE | SWP_NOZORDER);
+			SetWindowPos(
+			    handle, NULL, 0, 0, static_cast<long>(size.x), static_cast<long>(size.y), SWP_NOMOVE | SWP_NOZORDER);
 		}
 
 		void Win32Window::set_title(cstr title) {
@@ -255,7 +232,7 @@ namespace ct {
 			if (handle) {
 				RemovePropW(handle, L"CT");
 				DestroyWindow(handle);
-				handle = nullptr;
+				handle = CT_NULLPTR;
 			}
 		}
 	} // namespace internal

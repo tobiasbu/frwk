@@ -35,20 +35,22 @@
 ////////////////////////////////////////////////////////////
 // Define a portable debug macro
 ////////////////////////////////////////////////////////////
-#if defined(_DEBUG) || defined(DEBUG)
+#if defined(_DEBUG) || defined(DEBUG) || !defined(NDEBUG)
 	#define CT_DEBUG
 #endif
 
 ////////////////////////////////////////////////////////////
-// Define NULLPTR macro
+// Define CT_NULLPTR macro
 ////////////////////////////////////////////////////////////
-#ifdef CT_CXX11
+#ifdef CT_CXX11_HAS_NULLPTR
 	/// Null pointer
-	#define NULLPTR nullptr
+	#define CT_NULLPTR nullptr
 #else
 	/// Null pointer
-	#define NULLPTR 0
+	#define CT_NULLPTR 0
 #endif
+
+#define CT_NULL CT_NULLPTR
 
 ////////////////////////////////////////////////////////////
 // Define CT_CONSTEXPR macro

@@ -4,26 +4,23 @@
 #include <malloc.h>
 #include <stdlib.h>
 
-
-
-
 namespace ct {
 
 	namespace detail {
 
-		#ifdef __cplusplus
-			template <typename T, u64 SizeOfArray>
-			CT_CONSTEXPR u64 countof(const T (&array)[SizeOfArray]) {
-				return SizeOfArray;
-			}
-		#else
-			#define countof(arr) (sizeof(arr) / sizeof(arr[0]))
-		#endif
+#ifdef __cplusplus
+		template <typename T, u64 SizeOfArray>
+		CT_CONSTEXPR u64 countof(const T (&array)[SizeOfArray]) {
+			return SizeOfArray;
+		}
+#else
+	#define countof(arr) (sizeof(arr) / sizeof(arr[0]))
+#endif
 
 		void copy_exception_data(const exception_data * from, exception_data * to) {
 			if (!from->what) {
 				to->should_free = false;
-				to->what = nullptr;
+				to->what = CT_NULLPTR;
 				return;
 			}
 
@@ -31,34 +28,34 @@ namespace ct {
 			if (length > 0) {
 				length += 1;
 				char * what;
-				#if defined(_MSC_VER)
-					what = (char *)malloc(sizeof(char)*length);
-					// NOLINTNEXTLINE
-				    strncpy_s(what, length, from->what, length);
-				#else
-					what = new char[length + 1u];
-					strncpy(what, from->what, length);
-					what[length] = '\0';
-				#endif
+#if defined(_MSC_VER)
+				what = (char *)malloc(sizeof(char) * length);
+				// NOLINTNEXTLINE
+				strncpy_s(what, length, from->what, length);
+#else
+				what = new char[length + 1u];
+				strncpy(what, from->what, length);
+				what[length] = '\0';
+#endif
 				to->what = what;
 				to->should_free = true;
 			} else {
 				to->should_free = false;
-				to->what = nullptr;
+				to->what = CT_NULLPTR;
 			}
 		}
 
 		void destroy_exception_data(exception_data * data) {
 			if (data->should_free) {
 				free((void *)data->what);
-				data->what = nullptr;
+				data->what = CT_NULLPTR;
 				data->should_free = false;
 			}
 		}
-	}
+	} // namespace detail
 
 	Exception::Exception(const char * const message) NOEXCEPT : _data() {
-		detail::exception_data init = { message, true };
+		detail::exception_data init = {message, true};
 		detail::copy_exception_data(&init, &_data);
 	}
 
