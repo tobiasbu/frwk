@@ -4,8 +4,8 @@
 
 #include <ct/config.hpp>
 #include <ct/platform/window.hpp>
-#include <ct/render/opengl/wgl_context.hpp>
-#include <ct/render/win32/win32_internal.hpp>
+#include <ct/platform/opengl/wgl_context.hpp>
+#include <ct/platform/win32/win32_internal.hpp>
 
 namespace ct {
 
@@ -89,7 +89,10 @@ namespace ct {
 			}
 		} // namespace detail
 
-		WglContext::WglContext(HWND hwnd, HDC hdc, HGLRC hglrc) : hwnd(hwnd), hdc(hdc), hglrc(hglrc) {}
+		WglContext::WglContext(HWND hwnd, HDC hdc, HGLRC hglrc)
+		: hwnd(hwnd),
+		  hdc(hdc),
+		  hglrc(hglrc) {}
 
 		void WglContext::make_current() {
 			if (hwnd != NULL) {

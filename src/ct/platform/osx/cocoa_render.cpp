@@ -1,6 +1,6 @@
 
-#include <ct/render/context_impl.hpp>
-#include <ct/render/render.hpp>
+#include <ct/platform/context_impl.hpp>
+#include <ct/platform/render.hpp>
 
 namespace ct {
 

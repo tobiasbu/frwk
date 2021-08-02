@@ -2,7 +2,7 @@
 #include <windows.h>
 
 #include <ct/platform/detail/win32_detail.hpp>
-#include <ct/render/win32/win32_internal.hpp>
+#include <ct/platform/win32/win32_internal.hpp>
 
 namespace ct {
 

@@ -3,8 +3,8 @@
 #define _CHRONOTRIX_FRWK_GLCONTEXT_HPP_
 
 #include <ct/core/utils/noncopyable.hpp>
-#include <ct/render/context_config.hpp>
-#include <ct/render/render_types.hpp>
+#include <ct/platform/context_config.hpp>
+#include <ct/platform/render_types.hpp>
 
 namespace ct {
 

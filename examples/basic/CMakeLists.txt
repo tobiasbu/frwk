@@ -14,4 +14,4 @@ ct_add_executable(simple_window
 set(SRC "${SRCPATH}/hello_triangle/main.cpp")
 ct_add_executable(hello_triangle
 				   SOURCES ${SRC}
-				   DEPENDS ctfk_render glad)
+				   DEPENDS ctfk_platform glad)
