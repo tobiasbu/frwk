@@ -1,5 +1,5 @@
 
-#import <ct/render/opengl/ct_opengl_view.h>
+#import <ct/platform/opengl/ct_opengl_view.h>
 
 @implementation CTOpenGLView
 

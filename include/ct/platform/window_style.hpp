@@ -19,6 +19,7 @@ namespace ct {
 			///
 			///	- Win32: `WS_POPUP`
 			/// - MacOS: `NSWindowStyleMaskBorderless`
+			/// - Linux-x11:
 			////////////////////////////////////////////////////////////
 			Borderless = 0u,
 

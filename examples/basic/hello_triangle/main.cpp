@@ -1,8 +1,8 @@
 
 #include <ct/ct.hpp>
 #include <ct/platform/platform.hpp>
-#include <ct/render/render.hpp>
-#include <ct/render/render_window.hpp>
+#include <ct/platform/render.hpp>
+#include <ct/platform/render_window.hpp>
 #include <glad/glad.h>
 
 using namespace ct;
@@ -90,14 +90,26 @@ TriangleMesh create_triangle(GLuint shader_program) {
 	// position vertex buffer - geometry to use
 	// 3 xyz points (9 GLfloat total) and this will make our triangle
 	GLfloat vertices[] = {
-	    -0.5f, -0.5f, 0.0f, // left
-	    0.5f,  -0.5f, 0.0f, // right
-	    0.0f,  0.5f,  0.0f  // top
+	    -0.5f,
+	    -0.5f,
+	    0.0f, // left
+	    0.5f,
+	    -0.5f,
+	    0.0f, // right
+	    0.0f,
+	    0.5f,
+	    0.0f // top
 	};
 	// color vertex buffer
-	GLfloat colors[] = {1.0f, 0.0f, 0.0f,  // red
-	                    0.0f, 1.0f, 0.0f,  // green
-	                    0.0f, 0.0f, 1.0f}; // blue
+	GLfloat colors[] = {1.0f,
+	                    0.0f,
+	                    0.0f, // red
+	                    0.0f,
+	                    1.0f,
+	                    0.0f, // green
+	                    0.0f,
+	                    0.0f,
+	                    1.0f}; // blue
 
 	// vertex array object (VAO)
 	glGenVertexArrays(1, &vao);

@@ -13,7 +13,6 @@ namespace ct {
 #if defined(CT_OS_WINDOWS)
 
 	typedef HWND__ * WindowHandle;
-
 #elif defined(CT_OS_MACOS)
 
 	#ifdef __OBJC__
@@ -23,6 +22,8 @@ namespace ct {
 	typedef void * WindowHandle;
 	#endif
 
+#elif defined(CT_OS_LINUX)
+	typedef unsigned long WindowHandle;
 #else
 	typedef void * WindowHandle;
 #endif

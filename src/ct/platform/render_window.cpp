@@ -1,6 +1,6 @@
 
-#include <ct/render/render_context.hpp>
-#include <ct/render/render_window.hpp>
+#include <ct/platform/render_context.hpp>
+#include <ct/platform/render_window.hpp>
 
 namespace ct {
 

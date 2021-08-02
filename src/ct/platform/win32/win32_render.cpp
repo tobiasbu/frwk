@@ -1,7 +1,7 @@
 
-#include <ct/render/opengl/wgl_context.hpp>
-#include <ct/render/render.hpp>
-#include <ct/render/win32/win32_internal.hpp>
+#include <ct/platform/opengl/wgl_context.hpp>
+#include <ct/platform/render.hpp>
+#include <ct/platform/win32/win32_internal.hpp>
 
 namespace ct {
 

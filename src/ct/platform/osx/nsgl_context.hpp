@@ -2,7 +2,7 @@
 #ifndef _CHRONOTRIX_FRWK_RENDER_NSGLCONTEXT_HPP_
 #define _CHRONOTRIX_FRWK_RENDER_NSGLCONTEXT_HPP_
 
-#include <ct/render/context_impl.hpp>
+#include <ct/platform/context_impl.hpp>
 
 #ifdef __OBJC__
 @class NSOpenGLContext;

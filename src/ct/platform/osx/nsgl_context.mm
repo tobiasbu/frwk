@@ -2,12 +2,12 @@
 #include <dlfcn.h>
 #import <Cocoa/Cocoa.h>
 
-#import <ct/render/opengl/ct_opengl_view.h>
+#import <ct/platform/opengl/ct_opengl_view.h>
 
 #include <iostream>
 
 #include <ct/platform/window.hpp>
-#include <ct/render/opengl/nsgl_context.hpp>
+#include <ct/platform/opengl/nsgl_context.hpp>
 
 namespace ct {
 

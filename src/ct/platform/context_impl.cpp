@@ -1,17 +1,21 @@
 
 #include <ct/config/os.hpp>
-#include <ct/render/context_impl.hpp>
-#include <stdio.h>
+#include <ct/platform/context_impl.hpp>
 
 #if defined(CT_OS_WINDOWS)
 
-	#include <ct/render/opengl/wgl_context.hpp>
+	#include <ct/platform/win32/wgl_context.hpp>
 typedef ct::internal::WglContext ContextType;
 
 #elif defined(CT_OS_MACOS)
 
-	#include <ct/render/opengl/nsgl_context.hpp>
+	#include <ct/platform/osx/nsgl_context.hpp>
 typedef ct::internal::NsGlContext ContextType;
+
+#elif defined(CT_OS_LINUX)
+
+	#include <ct/platform/x11/glx_context.hpp>
+typedef ct::internal::GlxContext ContextType;
 
 #endif
 

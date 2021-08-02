@@ -48,7 +48,10 @@ namespace ct {
 	////////////////////////////////////////////////////////////
 	class Window : NonCopyable {
 		friend CT_PLATFORM_API WindowPtr create_window(const WindowProperties & properties);
-		friend CT_PLATFORM_API WindowPtr create_window(u32 width, u32 height, cstr title, u32 style);
+		friend CT_PLATFORM_API WindowPtr create_window(u32 width,
+		                                               u32 height,
+		                                               cstr title,
+		                                               u32 style);
 
 	private:
 		internal::WindowImpl * impl; ///< Window implementation
@@ -207,7 +210,7 @@ namespace ct {
 		////////////////////////////////////////////////////////////
 		/// @brief Set the window title
 		///
-		/// @param UTF8 encoded window title
+		/// @param title UTF8 encoded window title
 		///
 		////////////////////////////////////////////////////////////
 		CT_PLATFORM_API void set_title(cstr title);
@@ -219,11 +222,15 @@ namespace ct {
 		CT_PLATFORM_API void close();
 
 	protected:
-		static CT_PLATFORM_API internal::WindowImpl * create_window_impl(const WindowProperties & properties);
+		static CT_PLATFORM_API internal::WindowImpl *
+		create_window_impl(const WindowProperties & properties);
 	};
 
 	CT_PLATFORM_API WindowPtr create_window(const WindowProperties & properties);
-	CT_PLATFORM_API WindowPtr create_window(u32 width, u32 height, cstr title, u32 style = WindowStyle::Default);
+	CT_PLATFORM_API WindowPtr create_window(u32 width,
+	                                        u32 height,
+	                                        cstr title,
+	                                        u32 style = WindowStyle::Default);
 
 } // namespace ct
 

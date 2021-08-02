@@ -2,7 +2,7 @@
 #ifndef _CHRONOTRIX_FRWK_WGLCONTEXT_HPP_
 #define _CHRONOTRIX_FRWK_WGLCONTEXT_HPP_
 
-#include <ct/render/context_impl.hpp>
+#include <ct/platform/context_impl.hpp>
 
 struct HGLRC__;
 struct HDC__;
