@@ -3,6 +3,7 @@ Language: ObjC
 DisableFormat: true
 ---
 Language: Cpp
+DisableFormat: true
 BasedOnStyle: LLVM
 AccessModifierOffset: -4
 AlignAfterOpenBracket: Align
@@ -61,7 +62,8 @@ BreakConstructorInitializers: BeforeColon
 BreakInheritanceList: BeforeColon
 BreakStringLiterals: true
 ColumnLimit: 100
-CommentPragmas: '^\\.+'
+CommentPragmas: '^[^ ]'
+# '^\\.+'
 CompactNamespaces: false
 ConstructorInitializerAllOnOneLineOrOnePerLine: true
 ConstructorInitializerIndentWidth: 0
@@ -118,7 +120,7 @@ PenaltyReturnTypeOnItsOwnLine: 60
 PointerAlignment: Middle
 # RawStringFormats:
 ReflowComments: true
-SortIncludes: true
+SortIncludes: false
 SortUsingDeclarations: true
 SpaceAfterCStyleCast: false
 SpaceAfterLogicalNot: false
