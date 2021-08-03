@@ -14,6 +14,11 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
 	# 	 return()
 	#  endif()
 elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
+	set(SFML_OS_UNIX 1)
+	# if(NOT ANDROID)
+
+	# endif()
+
 	set(CT_OS_LINUX 1)
 elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
 	set(CT_OS_MACOSX 1)
