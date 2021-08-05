@@ -6,12 +6,10 @@
 
 using namespace ct;
 
-int main(int argc, char* argv[]) {
-
+int main(int argc, char * argv[]) {
 	Logger logger = Logger();
 
 	logger.log("chronotrix frwk", CT_FRWK_VERSION);
-
 
 	if (!Platform::init()) {
 		logger.log("Could not initialize Platform");
@@ -23,8 +21,8 @@ int main(int argc, char* argv[]) {
 	auto win = create_window(480, 360, "Chronotrix Simple Window");
 	win->set_visible(true);
 
-	while (win->is_visible()) {
-	 	Platform::poll_events();
+	while (win->is_open()) {
+		Platform::poll_events();
 	}
 
 	logger.log("Terminating");

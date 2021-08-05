@@ -25,7 +25,7 @@ namespace ct {
 
 			static ContextImpl * create(Window * window, const ContextConfig & config);
 
-			static get_proc_address_fn get_proc_address(cstr proc_name);
+			static PFN_get_proc_address get_proc_address(cstr proc_name);
 		};
 
 	} // namespace internal

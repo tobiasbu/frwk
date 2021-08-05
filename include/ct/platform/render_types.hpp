@@ -6,8 +6,9 @@
 
 namespace ct {
 
-	typedef void (*get_proc_address_fn)(void);
-	typedef get_proc_address_fn (*get_proc_address_fn_ptr)(cstr procname);
+	// typedef void (*get_proc_address_fn)(void);
+	// typedef get_proc_address_fn (*get_proc_address_fn_ptr)(cstr procname);
+	using PFN_get_proc_address = void * (*)(cstr proc_name);
 
 } // namespace ct
 
