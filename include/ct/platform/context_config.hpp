@@ -14,6 +14,8 @@ namespace ct {
 		bool double_buffer;
 		u8 major_version;
 		u8 minor_version;
+		bool forward;
+		bool profile;
 
 		explicit ContextConfig(u8 color_bits = 24,
 		                       u8 depth_bits = 16,

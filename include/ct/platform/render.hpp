@@ -14,7 +14,7 @@ namespace ct {
 
 		CT_PLATFORM_API bool terminate();
 
-		CT_PLATFORM_API extern const get_proc_address_fn_ptr get_proc_address;
+		CT_PLATFORM_API extern const PFN_get_proc_address get_proc_address;
 
 	} // namespace Render
 
