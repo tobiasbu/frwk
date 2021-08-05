@@ -1,6 +1,6 @@
 
 #ifndef _CHRONOTRIX_FRWK_CONFIG_TYPES_HPP_
-#define _CHRONOTRIX_FRWK_CONFIG_TYPES_HPP_
+	#define _CHRONOTRIX_FRWK_CONFIG_TYPES_HPP_
 
 namespace ct {
 
@@ -34,6 +34,7 @@ namespace ct {
 
 	typedef unsigned char byte; ///< Byte representation
 	typedef const char * cstr;  ///< C-string
+	typedef const u8 * ucstr;   ///< unsigned C-string
 
 	/// @}
 
