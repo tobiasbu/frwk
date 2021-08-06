@@ -96,21 +96,18 @@ namespace ct {
 		CT_PLATFORM_API WindowHandle get_handle() const;
 
 		////////////////////////////////////////////////////////////
-		/// @brief Get window's content size in pixels
-		///
-		/// Does not include title bar size or offset attributes.
-		/// It only considered the inner frame size of the window.
+		/// @brief Get window's inner frame in screen coordinates
 		///
 		/// @return Size of the window content
 		///
 		////////////////////////////////////////////////////////////
-		CT_PLATFORM_API vec2u get_content_size() const;
+		CT_PLATFORM_API recti get_content_frame() const;
 
 		////////////////////////////////////////////////////////////
 		/// @brief Get window's frame rectangle in screen coordinates
 		///
 		/// The dimensions of window frame includes title bar and
-		/// any other offset attribute (like shadow radius).
+		/// any other offset attribute (like borders, shadow radius...)
 		///
 		/// @return Window's frame
 		///
@@ -129,7 +126,10 @@ namespace ct {
 		CT_PLATFORM_API vec2i get_position() const;
 
 		////////////////////////////////////////////////////////////
-		/// @brief Get window's size in pixels
+		/// @brief Get window's content size in pixels
+		///
+		/// Does not include title bar size or offset attributes.
+		/// It only considered the inner frame size of the window.
 		///
 		/// @return Size of the window
 		///
@@ -153,17 +153,6 @@ namespace ct {
 		CT_PLATFORM_API bool is_visible() const;
 
 		CT_PLATFORM_API bool is_open() const;
-
-		////////////////////////////////////////////////////////////
-		/// @brief Set the window's content size
-		///
-		/// Does not include title bar size or offset attributes.
-		/// It only considered the inner frame size of the window.
-		///
-		/// @param size Content size
-		///
-		////////////////////////////////////////////////////////////
-		CT_PLATFORM_API void set_content_size(const vec2u & content_size);
 
 		////////////////////////////////////////////////////////////
 		/// @brief Set position and size of the window frame
@@ -191,7 +180,7 @@ namespace ct {
 		CT_PLATFORM_API void set_position(const i32 & x, const i32 & y);
 
 		////////////////////////////////////////////////////////////
-		/// @brief Set the window size
+		/// @brief Set the window content size
 		///
 		/// @param x Window width
 		/// @param y Window height
