@@ -45,8 +45,8 @@ namespace ct {
 		return impl ? impl->get_handle() : (WindowHandle)0;
 	}
 
-	vec2u Window::get_content_size() const {
-		return impl ? impl->get_content_size() : vec2u(0, 0);
+	recti Window::get_content_frame() const {
+		return impl ? impl->get_content_frame() : recti();
 	}
 
 	recti Window::get_frame() const {
@@ -76,9 +76,9 @@ namespace ct {
 		return CT_NULLPTR;
 	}
 
-	void Window::set_content_size(const vec2u & content_size) {
+	void Window::set_frame(const recti & frame) {
 		if (impl) {
-			impl->set_content_size(content_size);
+			impl->set_frame(frame);
 		}
 	}
 

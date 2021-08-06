@@ -26,14 +26,13 @@ namespace ct {
 			///
 			////////////////////////////////////////////////////////////
 			virtual bool is_visible() const = 0;
-			virtual vec2u get_content_size() const = 0;
 			virtual recti get_frame() const = 0;
+			virtual recti get_content_frame() const = 0;
 			virtual vec2i get_position() const = 0;
 			virtual vec2u get_size() const = 0;
 			virtual cstr get_title() const = 0;
 			virtual WindowHandle get_handle() const = 0;
 
-			virtual void set_content_size(const vec2u & content_size) = 0;
 			virtual void set_frame(const recti & frame) = 0;
 			virtual void set_position(const vec2i & position) = 0;
 			virtual void set_size(const vec2u & size) = 0;
