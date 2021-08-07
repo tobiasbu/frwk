@@ -10,7 +10,6 @@ ct_file_list(ROOT ${INCPATH} OUTPUT INC
 	export.hpp
 	platform.hpp
 	window.hpp
-	render.hpp
 	window_style.hpp
 	window_handle.hpp
 	window_properties.hpp
@@ -117,7 +116,6 @@ elseif(CT_OS_LINUX)
 		x11.cpp
 		x11_window.cpp
 		x11_platform.cpp
-		x11_render.cpp
 		glx_lib.cpp
 		glx_context.cpp
 	)

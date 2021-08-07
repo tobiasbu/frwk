@@ -6,6 +6,8 @@
 
 namespace ct {
 
+	using PFN_get_proc_address = void * (*)(cstr proc_name);
+
 	/// Platform module
 	namespace Platform {
 
@@ -33,6 +35,8 @@ namespace ct {
 		///
 		////////////////////////////////////////////////////////////
 		CT_PLATFORM_API void poll_events();
+
+		CT_PLATFORM_API extern const PFN_get_proc_address get_proc_address;
 
 	} // namespace Platform
 

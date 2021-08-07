@@ -25,10 +25,6 @@ namespace ct {
 
 		ContextImpl::~ContextImpl() {};
 
-		PFN_get_proc_address ContextImpl::get_proc_address(cstr proc_name) {
-			return ContextType::get_proc_address(proc_name);
-		}
-
 		ContextImpl * ContextImpl::create(Window * window, const ContextConfig & config) {
 			return ContextType::create(window, config);
 		}

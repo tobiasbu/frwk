@@ -6,10 +6,16 @@
 #include <ct/platform/platform.hpp>
 #include <ct/platform/x11/x11_window.hpp>
 #include <ct/platform/x11/x11.hpp>
+#include <ct/platform/x11/glx_lib.hpp>
 
 namespace ct {
 
 	namespace Platform {
+
+		namespace {
+			bool ewmh_checked = false;
+			bool ewmh_supported = false;
+		}
 
 		Atom get_atom(cstr atomName, bool only_if_exists = false) {
 			return XInternAtom(x11::display, atomName, only_if_exists ? True : False);
@@ -17,11 +23,11 @@ namespace ct {
 
 		/// Check if Extended Window Manager hints are supported
 		void check_ewmh_support() {
-			if (x11::ewmh_checked) {
+			if (ewmh_checked) {
 				return;
 			}
 
-			x11::ewmh_checked = true;
+			ewmh_checked = true;
 
 			// Check NET_SUPPORTED and NET_SUPPORTING_WM_CHECK exists
 			x11::Atoms & atoms = x11::atoms;
@@ -59,7 +65,7 @@ namespace ct {
 				return;
 			}
 
-			x11::ewmh_supported = true;
+			ewmh_supported = true;
 
 			// try to get window manager name for workarounds
 			atoms.NET_WM_STATE = get_atom("_NET_WM_NAME", true);
@@ -138,6 +144,10 @@ namespace ct {
 			// check whether an EWMH-conformant window manager is running
 			check_ewmh_support();
 
+			if (!glx::load()) {
+				return false;
+			}
+
 			return true;
 		}
 
@@ -150,6 +160,11 @@ namespace ct {
 				XCloseDisplay(x11::display);
 				x11::display = NULL;
 			}
+
+			glx::unload();
+
+			
+
 
 			return true;
 		}
@@ -166,6 +181,9 @@ namespace ct {
 
 			XFlush(x11::display);
 		}
+
+		const PFN_get_proc_address get_proc_address = glx::get_proc_address;
+
 
 	} // namespace Platform
 } // namespace ct
