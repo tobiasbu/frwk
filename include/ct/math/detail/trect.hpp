@@ -36,6 +36,14 @@ namespace ct {
 		CT_MATH_FUNC trect(T x, T y, T width, T height);
 		CT_MATH_FUNC trect(const point_type & position, const point_type & size);
 
+		// Conversion constructors
+
+		template <typename X, typename Y, typename W, typename H>
+		CT_MATH_FUNC trect(X x, Y y, W width, H height);
+
+		template <typename U>
+		CT_MATH_FUNC trect(const trect<U> & other);
+
 		// Functions
 
 		CT_MATH_FUNC point_type top_left() const;
