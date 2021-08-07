@@ -22,7 +22,7 @@ namespace ct {
 			std::cout << current;
 
 			if (sizeof...(next) > 0) {
-				std::cout << ", ";
+				std::cout << " ";
 			}
 
 			print(next...);
