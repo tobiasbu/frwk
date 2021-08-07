@@ -101,20 +101,53 @@ elseif(CT_OS_MACOSX)
 	)
 	ct_group(${PLATFORM_SRC} NAME "osx/src")
 
+elseif(CT_OS_LINUX)
+	set(INC_OS_PATH "${INCPATH}/x11")
+	set(SRC_OS_PATH "${SRCPATH}/x11")
+
+	ct_file_list(ROOT ${SRC_OS_PATH} OUTPUT PLATFORM_INC
+		x11.hpp
+		x11_window.hpp
+		glx_context.hpp
+		glx_lib.hpp
+	)
+
+	# platform src
+	ct_file_list(ROOT ${SRC_OS_PATH} OUTPUT PLATFORM_SRC
+		x11.cpp
+		x11_window.cpp
+		x11_platform.cpp
+		x11_render.cpp
+		glx_lib.cpp
+		glx_context.cpp
+	)
+
+	ct_group(${PLATFORM_INC} NAME "x11/include")
+	set(LINK_LIBS ${CMAKE_DL_LIBS})
+
 endif()
 
-# make library target
+
+# Make library target
 ct_add_library(ctfk_platform
 				SOURCES ${INC} ${SRC} ${PLATFORM_INC} ${PLATFORM_SRC}
 				DEPENDS ctfk_math ctfk_core ${LINK_LIBS}
 )
 
-
+# Add OpenGL
 find_package(OpenGL)
 target_link_libraries(ctfk_platform PRIVATE ${OPENGL_gl_LIBRARY})
-
 
 # [MACOSX] specifc config
 if (CT_OS_MACOSX AND (NOT BUILD_SHARED_LIBS))
     target_link_libraries(ctfk_platform PRIVATE -ObjC)
+endif()
+
+# [LINUX] specifc config
+if(CT_OS_LINUX)
+	ct_find_and_create_interface(X11
+								 INCLUDE "X11_INCLUDE_DIR"
+								 LINK "X11_X11_LIB")
+    target_link_libraries(ctfk_platform PRIVATE X11)
+	# target_link_libraries(ctfk_platform PRIVATE dl)
 endif()
