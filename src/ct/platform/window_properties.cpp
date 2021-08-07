@@ -9,4 +9,23 @@ namespace ct {
 	  height(height),
 	  title(title),
 	  style(style) {}
+
+	
+	bool WindowProperties::is_borderless() const {
+		return style == WindowStyle::Borderless;
+	}
+
+	bool WindowProperties::is_resizable() const {
+		return !!(style & WindowStyle::Resize);
+	}
+
+	bool WindowProperties::is_closable() const {
+		return !!(style & WindowStyle::Close);
+	}
+
+	bool WindowProperties::has_title() const {
+		return !!(style & WindowStyle::Title);
+	}
+
+	 
 } // namespace ct

@@ -34,6 +34,11 @@ namespace ct {
 		/// @see ct::WindowStyle
 		////////////////////////////////////////////////////////////
 		WindowProperties(u32 width, u32 height, cstr title, u32 style = WindowStyle::Default);
+
+		bool is_borderless() const;
+		bool is_resizable() const;
+		bool is_closable() const;
+		bool has_title() const;
 	};
 
 } // namespace ct
