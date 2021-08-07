@@ -1,7 +1,6 @@
 
 #include <ct/ct.hpp>
 #include <ct/platform/platform.hpp>
-#include <ct/platform/render.hpp>
 #include <ct/platform/render_window.hpp>
 #include <glad/glad.h>
 
@@ -157,11 +156,6 @@ int main(int argc, char const * argv[]) {
 		return 1;
 	}
 
-	if (!Render::init()) {
-		logger.log("Could not initialize Render module");
-		return 1;
-	}
-
 	logger.log("Opening window...");
 
 	i32 width = 480;
@@ -175,7 +169,7 @@ int main(int argc, char const * argv[]) {
 	win->make_current();
 
 	// init glad
-	if (!gladLoadGLLoader((GLADloadproc)Render::get_proc_address)) {
+	if (!gladLoadGLLoader((GLADloadproc)Platform::get_proc_address)) {
 		logger.log("Failed to initialize glad");
 		return 1;
 	};
@@ -207,10 +201,6 @@ int main(int argc, char const * argv[]) {
 		win->swap_buffers();
 	}
 
-	if (!Render::terminate()) {
-		logger.log("Could not initialize Render module");
-		return 1;
-	}
 
 	if (!Platform::terminate()) {
 		logger.log("Terminating with error.");

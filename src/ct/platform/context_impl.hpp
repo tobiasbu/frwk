@@ -4,7 +4,6 @@
 
 #include <ct/core/utils/noncopyable.hpp>
 #include <ct/platform/context_config.hpp>
-#include <ct/platform/render_types.hpp>
 
 namespace ct {
 
@@ -24,8 +23,6 @@ namespace ct {
 			virtual void swap_buffers() = 0;
 
 			static ContextImpl * create(Window * window, const ContextConfig & config);
-
-			static PFN_get_proc_address get_proc_address(cstr proc_name);
 		};
 
 	} // namespace internal
