@@ -37,6 +37,14 @@ namespace ct {
 		}; \
 	}
 
+#define CT_REGISTER_TYPENAME_AS(T, type_name) \
+	namespace ct { \
+		template <> \
+		struct type<T> { \
+			static CT_CONSTEXPR cstr name = #type_name; \
+		}; \
+	}
+
 namespace ct {
 
 	namespace detail {
@@ -127,8 +135,8 @@ namespace ct {
 	}
 } // namespace ct
 
-CT_REGISTER_TYPENAME(int)
-CT_REGISTER_TYPENAME(unsigned int)
-CT_REGISTER_TYPENAME(float)
+CT_REGISTER_TYPENAME(i32)
+CT_REGISTER_TYPENAME(u32)
+CT_REGISTER_TYPENAME(f32)
 
 #endif
