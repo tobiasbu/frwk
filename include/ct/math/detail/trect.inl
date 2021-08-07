@@ -19,6 +19,22 @@ namespace ct {
 	: position(_position),
 	  size(_size) {}
 
+	template <typename T>
+	template <typename X, typename Y, typename W, typename H>
+	CT_MATH_FUNC trect<T>::trect(X _x, Y _y, W _width, H _height)
+	: x(static_cast<T>(_x)),
+	  y(static_cast<T>(_y)),
+	  width(static_cast<T>(_width)),
+	  height(static_cast<T>(_height)) {}
+
+	template <typename T>
+	template <typename U>
+	CT_MATH_FUNC trect<T>::trect(const trect<U> & other)
+	: x(static_cast<T>(other.x)),
+	  y(static_cast<T>(other.y)),
+	  width(static_cast<T>(other.width)),
+	  height(static_cast<T>(other.height)) {}
+
 	// Functions
 
 	template <typename T>
