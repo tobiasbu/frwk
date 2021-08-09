@@ -1,7 +1,5 @@
 
-#include <ct/platform/window.hpp>
 #include <ct/platform/x11/x11.hpp>
-
 #include <ct/platform/x11/glx_context.hpp>
 
 namespace ct {
@@ -73,7 +71,7 @@ namespace ct {
 			glXSwapBuffers(x11::display, glx_window);
 		}
 
-		GlxContext * GlxContext::create(Window * window, const ContextConfig & config) {
+		GlxContext * GlxContext::create(WindowImpl * window, const ContextConfig & config) {
 			GLXFBConfig fbconfig = detail::create_fb_config(config);
 			if (!fbconfig) {
 				return CT_NULLPTR;

@@ -11,7 +11,6 @@
 #include <ct/platform/window_handle.hpp>
 #include <ct/platform/window_properties.hpp>
 #include <ct/platform/window_style.hpp>
-#include <memory>
 
 namespace ct {
 
@@ -19,44 +18,14 @@ namespace ct {
 		class WindowImpl;
 	}
 
-	class Window;
-	using WindowPtr = std::unique_ptr<Window>;
-
-	////////////////////////////////////////////////////////////
-	/// @brief Workaround to enable to make smart pointers
-	/// from private or protected ctor.
-	///
-	/// @tparam S Instance to enable make an pointer from.
-	///
-	/// @see https://stackoverflow.com/a/8147326
-	////////////////////////////////////////////////////////////
-	template <typename S>
-	struct enable_make : public S {
-		////////////////////////////////////////////////////////////
-		/// @brief Constructs a instance S by forwarding ctor arguments
-		///
-		/// @tparam T ctor arguments
-		/// @param t Arguments
-		////////////////////////////////////////////////////////////
-		template <typename... T>
-		enable_make(T &&... t) : S(FWD(t)...) {}
-	};
-
 	////////////////////////////////////////////////////////////
 	/// @brief Represents window instance
 	///
 	////////////////////////////////////////////////////////////
-	class Window : NonCopyable {
-		friend CT_PLATFORM_API WindowPtr create_window(const WindowProperties & properties);
-		friend CT_PLATFORM_API WindowPtr create_window(u32 width,
-		                                               u32 height,
-		                                               cstr title,
-		                                               u32 style);
-
-	private:
-		internal::WindowImpl * impl; ///< Window implementation
+	class CT_PLATFORM_API Window : NonCopyable {
 
 	protected:
+		internal::WindowImpl * impl; ///< Window implementation
 		////////////////////////////////////////////////////////////
 		/// @brief Constructs a window instance
 		///
@@ -67,11 +36,11 @@ namespace ct {
 
 	public:
 		////////////////////////////////////////////////////////////
-		/// @brief Non-constructible
-		/// To create an window please use create_window factory method.
+		/// @brief Constructor
+		/// To create an window use Window::create
 		///
 		////////////////////////////////////////////////////////////
-		Window() = delete;
+		Window();
 
 		////////////////////////////////////////////////////////////
 		/// @brief Move constructor
@@ -79,13 +48,13 @@ namespace ct {
 		/// @param other Window
 		///
 		////////////////////////////////////////////////////////////
-		CT_PLATFORM_API explicit Window(Window && other);
+		explicit Window(Window && other);
 
 		////////////////////////////////////////////////////////////
 		/// @brief Destroy the Window instance
 		///
 		////////////////////////////////////////////////////////////
-		CT_PLATFORM_API virtual ~Window();
+		virtual ~Window();
 
 		////////////////////////////////////////////////////////////
 		/// @brief Get the native window handle
@@ -93,7 +62,7 @@ namespace ct {
 		/// @return WindowHandle
 		///
 		////////////////////////////////////////////////////////////
-		CT_PLATFORM_API WindowHandle get_handle() const;
+		WindowHandle get_handle() const;
 
 		////////////////////////////////////////////////////////////
 		/// @brief Get window's inner frame in screen coordinates
@@ -101,7 +70,7 @@ namespace ct {
 		/// @return Size of the window content
 		///
 		////////////////////////////////////////////////////////////
-		CT_PLATFORM_API recti get_content_frame() const;
+		recti get_content_frame() const;
 
 		////////////////////////////////////////////////////////////
 		/// @brief Get window's frame rectangle in screen coordinates
@@ -112,7 +81,7 @@ namespace ct {
 		/// @return Window's frame
 		///
 		////////////////////////////////////////////////////////////
-		CT_PLATFORM_API recti get_frame() const;
+		recti get_frame() const;
 
 		////////////////////////////////////////////////////////////
 		/// @brief Get window's position in pixels
@@ -123,7 +92,7 @@ namespace ct {
 		/// @return Position of the window
 		///
 		////////////////////////////////////////////////////////////
-		CT_PLATFORM_API vec2i get_position() const;
+		vec2i get_position() const;
 
 		////////////////////////////////////////////////////////////
 		/// @brief Get window's content size in pixels
@@ -134,7 +103,7 @@ namespace ct {
 		/// @return Size of the window
 		///
 		////////////////////////////////////////////////////////////
-		CT_PLATFORM_API vec2u get_size() const;
+		vec2u get_size() const;
 
 		////////////////////////////////////////////////////////////
 		/// @brief Get window title
@@ -142,17 +111,17 @@ namespace ct {
 		/// @return Window title name
 		///
 		////////////////////////////////////////////////////////////
-		CT_PLATFORM_API cstr get_title() const;
+		cstr get_title() const;
 
 		////////////////////////////////////////////////////////////
-		/// @brief Check if window is visible the in screen
+		/// @brief Check whether or not the window is visible on screen
 		///
 		/// @return True is visible to the user otherwise false
 		///
 		////////////////////////////////////////////////////////////
-		CT_PLATFORM_API bool is_visible() const;
+		bool is_visible() const;
 
-		CT_PLATFORM_API bool is_open() const;
+		bool is_open() const;
 
 		////////////////////////////////////////////////////////////
 		/// @brief Set position and size of the window frame
@@ -160,7 +129,7 @@ namespace ct {
 		/// @param frame Window's frame
 		///
 		////////////////////////////////////////////////////////////
-		CT_PLATFORM_API void set_frame(const recti & frame);
+		void set_frame(const recti & frame);
 
 		////////////////////////////////////////////////////////////
 		/// @brief Set the window position
@@ -168,7 +137,7 @@ namespace ct {
 		/// @param position New position of the window
 		///
 		////////////////////////////////////////////////////////////
-		CT_PLATFORM_API void set_position(const vec2i & position);
+		void set_position(const vec2i & position);
 
 		////////////////////////////////////////////////////////////
 		/// @brief Set the window position
@@ -177,7 +146,7 @@ namespace ct {
 		/// @param y Vertical screen coordinate
 		//
 		////////////////////////////////////////////////////////////
-		CT_PLATFORM_API void set_position(const i32 & x, const i32 & y);
+		void set_position(const i32 & x, const i32 & y);
 
 		////////////////////////////////////////////////////////////
 		/// @brief Set the window content size
@@ -186,7 +155,7 @@ namespace ct {
 		/// @param y Window height
 		//
 		////////////////////////////////////////////////////////////
-		CT_PLATFORM_API void set_size(const vec2u & size);
+		void set_size(const vec2u & size);
 
 		////////////////////////////////////////////////////////////
 		/// @brief Set window visibility
@@ -194,7 +163,7 @@ namespace ct {
 		/// @param visible Visibility flag
 		///
 		////////////////////////////////////////////////////////////
-		CT_PLATFORM_API void set_visible(bool visible);
+		void set_visible(bool visible);
 
 		////////////////////////////////////////////////////////////
 		/// @brief Set the window title
@@ -202,25 +171,26 @@ namespace ct {
 		/// @param title UTF8 encoded window title
 		///
 		////////////////////////////////////////////////////////////
-		CT_PLATFORM_API void set_title(cstr title);
+		void set_title(cstr title);
 
 		////////////////////////////////////////////////////////////
-		/// @brief Closes the window and release internal pointers
+		/// @brief Closes the window immediately and release internal pointers
 		///
 		////////////////////////////////////////////////////////////
-		CT_PLATFORM_API void close();
+		void close();
+
+		// CT_PLATFORM_API void create();
+
+		void create(const WindowProperties & properties);
+		void create(u32 width,
+					u32 height,
+					cstr title,
+					u32 style = WindowStyle::Default);
 
 	protected:
-		static CT_PLATFORM_API internal::WindowImpl *
+		static internal::WindowImpl *
 		create_window_impl(const WindowProperties & properties);
 	};
-
-	CT_PLATFORM_API WindowPtr create_window(const WindowProperties & properties);
-	CT_PLATFORM_API WindowPtr create_window(u32 width,
-	                                        u32 height,
-	                                        cstr title,
-	                                        u32 style = WindowStyle::Default);
-
 } // namespace ct
 
 #endif

@@ -19,12 +19,12 @@ namespace ct {
 
 		class X11Window : public WindowImpl {
 		private:
-			Window handle;
+			::Window handle;
 			vec2u size;
 			bool resizable;
 
 		public:
-			X11Window(Window handle);
+			X11Window(::Window handle);
 			~X11Window();
 
 			WindowHandle get_handle() const override;

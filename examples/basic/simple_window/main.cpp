@@ -4,29 +4,28 @@
 #include <ct/platform/platform.hpp>
 #include <ct/platform/window.hpp>
 
-using namespace ct;
 
 int main(int argc, char * argv[]) {
-	Logger logger = Logger();
+	ct::Logger logger;
 
 	logger.log("chronotrix frwk", CT_FRWK_VERSION);
 
-	if (!Platform::init()) {
+	if (!ct::Platform::init()) {
 		logger.log("Could not initialize Platform");
 		return 1;
 	}
-
+	
 	logger.log("Opening window");
 
-	auto win = create_window(480, 360, "Chronotrix Simple Window");
-	win->set_visible(true);
+	ct::Window win;
+	win.create(480, 360, "Chronotrix Simple Window");  
 
-	while (win->is_open()) {
-		Platform::poll_events();
+	while (win.is_open()) {
+	 	ct::Platform::poll_events();
 	}
 
 	logger.log("Terminating");
-	if (!Platform::terminate()) {
+	if (!ct::Platform::terminate()) {
 		return 1;
 	}
 

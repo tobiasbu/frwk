@@ -17,12 +17,10 @@ namespace ct {
 		////////////////////////////////////////////////////////////
 		class ContextImpl : NonCopyable {
 		public:
-			virtual ~ContextImpl();
+			virtual ~ContextImpl() {}
 
 			virtual void make_current() = 0;
 			virtual void swap_buffers() = 0;
-
-			static ContextImpl * create(Window * window, const ContextConfig & config);
 		};
 
 	} // namespace internal

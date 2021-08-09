@@ -4,9 +4,8 @@
 #include <ct/platform/render_window.hpp>
 #include <glad/glad.h>
 
-using namespace ct;
 
-Logger logger = Logger();
+ct::Logger logger;
 
 typedef struct {
 	GLuint vao;
@@ -151,25 +150,25 @@ TriangleMesh create_triangle(GLuint shader_program) {
 }
 
 int main(int argc, char const * argv[]) {
-	if (!Platform::init()) {
+	if (!ct::Platform::init()) {
 		logger.log("Could not initialize Platform module");
 		return 1;
 	}
 
 	logger.log("Opening window...");
 
-	i32 width = 480;
-	i32 height = 360;
-
-	// create and render window
-	auto win = create_render_window(width, height, "hello triangle");
+	const int width = 480;
+	const int height = 360;
+	ct::RenderWindow win;
+	
+	win.create(width, height, "hello triangle");
 
 	// apply current opengl context
 	// IMPORTANT: this must be called before gladLoadGLLoader
-	win->make_current();
+	win.make_current();
 
 	// init glad
-	if (!gladLoadGLLoader((GLADloadproc)Platform::get_proc_address)) {
+	if (!gladLoadGLLoader((GLADloadproc)ct::Platform::get_proc_address)) {
 		logger.log("Failed to initialize glad");
 		return 1;
 	};
@@ -185,9 +184,9 @@ int main(int argc, char const * argv[]) {
 
 	glViewport(0, 0, width, height);
 
-	win->set_visible(true);
+	win.set_visible(true);
 
-	while (win->is_visible()) {
+	while (win.is_visible()) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClearColor(0.15f, 0.15f, 0.15f, 1.0f);
 
@@ -196,13 +195,13 @@ int main(int argc, char const * argv[]) {
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 		// glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
 
-		Platform::poll_events();
+		ct::Platform::poll_events();
 
-		win->swap_buffers();
+		win.swap_buffers();
 	}
 
 
-	if (!Platform::terminate()) {
+	if (!ct::Platform::terminate()) {
 		logger.log("Terminating with error.");
 		return 1;
 	}

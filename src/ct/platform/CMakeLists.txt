@@ -29,7 +29,6 @@ ct_file_list(ROOT ${SRCPATH} OUTPUT SRC
 	render_window.cpp
 	render_context.cpp
 	context_impl.hpp
-	context_impl.cpp
 )
 
 ct_group(${SRC} IS_IMPL)

@@ -7,9 +7,9 @@
 
 namespace ct {
 
-	class Window;
 	namespace internal {
 		class ContextImpl;
+		class WindowImpl;
 	}
 
 	class CT_PLATFORM_API RenderContext {
@@ -23,7 +23,7 @@ namespace ct {
 		void swap_buffers();
 
 		static RenderContext * create();
-		static RenderContext * create(Window * window, const ContextConfig & config);
+		static RenderContext * create(internal::WindowImpl * impl, const ContextConfig & config);
 	};
 
 } // namespace ct

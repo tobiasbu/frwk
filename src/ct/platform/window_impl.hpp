@@ -19,12 +19,6 @@ namespace ct {
 		public:
 			virtual ~WindowImpl() {};
 
-			////////////////////////////////////////////////////////////
-			/// @brief Tell whether or not the window is visible onscreen
-			///
-			/// @return True if the window is visible otherwise false
-			///
-			////////////////////////////////////////////////////////////
 			virtual bool is_visible() const = 0;
 			virtual recti get_frame() const = 0;
 			virtual recti get_content_frame() const = 0;

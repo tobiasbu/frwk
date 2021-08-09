@@ -27,6 +27,8 @@ typedef ct::internal::X11Window WindowImplType;
 
 namespace ct {
 
+	Window::Window() : impl(CT_NULLPTR) {}
+
 	Window::Window(internal::WindowImpl * _impl) {
 		CT_ASSERT(_impl != CT_NULLPTR, "ct::Window: impl is nullptr.");
 		this->impl = _impl;
@@ -124,15 +126,15 @@ namespace ct {
 		return window_impl;
 	}
 
-	WindowPtr create_window(u32 width, u32 height, cstr title, u32 style) {
+	void Window::create(u32 width, u32 height, cstr title, u32 style) {
 		WindowProperties props(width, height, title, style);
 
-		return create_window(props);
+		return create(props);
 	}
 
-	WindowPtr create_window(const WindowProperties & props) {
-		auto impl = Window::create_window_impl(props);
-		return std::make_unique<enable_make<Window>>(impl);
+	void Window::create(const WindowProperties & props) {
+		impl = Window::create_window_impl(props);
 	}
+
 
 } // namespace ct
