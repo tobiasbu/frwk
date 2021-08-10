@@ -17,16 +17,18 @@
 	}
 
 #if defined(_MSC_VER) && !defined(__clang__)
-__CT_REGISTER_CTTI_INDEXERS(41, 19)
+__CT_REGISTER_CTTI_INDEXERS(41, 19, false)
+#elif defined(__GNUC__)
+// 'static constexpr const char* ct::detail::typeinfo<T>::a() [with T =' ### ']'
+__CT_REGISTER_CTTI_INDEXERS(68, 1)
 #else
 __CT_REGISTER_CTTI_INDEXERS(0, 0)
 #endif
 
 namespace ct {
 	template <class T>
-	struct type {
-		static CT_CONSTEXPR cstr name = "T";
-	};
+	struct type;
+
 } // namespace ct
 
 #define CT_REGISTER_TYPENAME(T) \
@@ -120,7 +122,7 @@ namespace ct {
 
 		template <class T>
 		struct typeinfo {
-			static const char * a() NOEXCEPT {
+			CT_CONSTEXPR static const char * a() NOEXCEPT {
 				str_portion part(CT_CURRENT_FUNCTION);
 				return part.subview(ctti::ctti_begin).data();
 			}
@@ -131,6 +133,10 @@ namespace ct {
 	template <class T>
 	NODISCARD CT_CONSTEXPR inline cstr type_name() NOEXCEPT {
 		typedef typename remove_reference<T>::type no_ref;
+		if CT_CONSTEXPR (is_type_complete<type<no_ref>>) {
+			using registered = std::decay_t<decltype(*static_cast<type<no_ref>*>(CT_NULLPTR))>;
+			return registered::name;
+		}
 		return detail::typeinfo<no_ref>::a();
 	}
 } // namespace ct
@@ -138,5 +144,6 @@ namespace ct {
 CT_REGISTER_TYPENAME(i32)
 CT_REGISTER_TYPENAME(u32)
 CT_REGISTER_TYPENAME(f32)
+CT_REGISTER_TYPENAME(u64)
 
 #endif
