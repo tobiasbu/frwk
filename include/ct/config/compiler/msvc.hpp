@@ -4,7 +4,7 @@
 #endif
 
 #if _MSC_FULL_VER >= 190023026
-	#define CT_CXX11_HAS_NOEXCEPT
+	#define CT_CXX_HAS_NOEXCEPT
 #endif
 
 #if _MSC_FULL_VER >= 180020827

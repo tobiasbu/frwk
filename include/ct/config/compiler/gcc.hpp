@@ -9,7 +9,7 @@
 	#endif
 
 	#if (CT_GCC_VERSION >= 40600)
-		#define CT_CXX11_HAS_NOEXCEPT
+		#define CT_CXX_HAS_NOEXCEPT
 		#define CT_CXX11_HAS_NULLPTR
 	#endif
 

@@ -6,7 +6,7 @@
 #endif
 
 #if __has_feature(cxx_noexcept)
-	#define CT_CXX11_HAS_NOEXCEPT
+	#define CT_CXX_HAS_NOEXCEPT
 #endif
 
 /// Check if a function can have `= default`
