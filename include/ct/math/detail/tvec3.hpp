@@ -3,7 +3,7 @@
 #define _CHRONOTRIX_FRWK_MATH_TVEC3_HPP_
 
 #include <ct/math/detail/setup.hpp>
-#include <ct/core/types/type_info.hpp>
+#include <ct/core/type/type_info.hpp>
 
 namespace ct {
 

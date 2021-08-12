@@ -2,7 +2,6 @@
 
 #include <ct/config/os.hpp>
 #include <ct/core/assert/assert.hpp>
-#include <ct/core/types/type_traits.hpp>
 
 #include <ct/platform/window.hpp>
 

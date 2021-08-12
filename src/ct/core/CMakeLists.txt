@@ -20,8 +20,15 @@ ct_group(${INC})
 ct_file_list(ROOT ${INCPATH} OUTPUT SUB_INC
 	utils/noncopyable.hpp
 	utils/helper_macros.hpp
-	types/type_traits.hpp
-	types/type_info.hpp
+	type/traits.hpp
+	type/traits/integral_constant.hpp
+	type/traits/is_array.hpp
+	type/traits/is_function.hpp
+	type/traits/remove_reference.hpp
+	type/traits/operations.hpp
+	type/traits/modifications.hpp
+	type/traits/transformations.hpp
+	type/type_info.hpp
 	error/exception.hpp
 	assert/assert.hpp
 	assert/assert_handler.hpp

@@ -4,7 +4,6 @@
 
 #include <ct/config/types.hpp>
 #include <ct/core/utils/noncopyable.hpp>
-#include <ct/core/types/type_traits.hpp>
 #include <ct/math/rect.hpp>
 #include <ct/math/vec.hpp>
 #include <ct/platform/export.hpp>

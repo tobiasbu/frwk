@@ -4,7 +4,7 @@
 #define _CHRONOTRIX_FRWK_CORE_TYPE_INFO_HPP_
 
 #include <ct/config.hpp>
-#include <ct/core/types/type_traits.hpp>
+#include <ct/core/type/traits.hpp>
 
 #define __CT_REGISTER_CTTI_INDEXERS(begin, end) \
 	namespace ct { \
@@ -134,7 +134,7 @@ namespace ct {
 	NODISCARD CT_CONSTEXPR inline cstr type_name() NOEXCEPT {
 		typedef typename remove_reference<T>::type no_ref;
 		if CT_CONSTEXPR (is_type_complete<type<no_ref>>) {
-			using registered = std::decay_t<decltype(*static_cast<type<no_ref>*>(CT_NULLPTR))>;
+			using registered = decay_t<decltype(*static_cast<type<no_ref>*>(CT_NULLPTR))>;
 			return registered::name;
 		}
 		return detail::typeinfo<no_ref>::a();
